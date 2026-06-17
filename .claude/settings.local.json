@@ -45,7 +45,17 @@
       "Bash(gh auth *)",
       "Bash(vercel --version)",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m ' *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(git -c user.name=\"Michael Wu\" -c user.email=\"a0921665857@gmail.com\" commit --allow-empty -q -m \"chore: trigger Vercel deployment\")",
+      "Bash(git -c user.name=\"Michael Wu\" -c user.email=\"a0921665857@gmail.com\" commit --allow-empty -q -m \"chore: trigger first Vercel build \\(git connected\\)\")",
+      "Bash(curl -s -o /dev/null -w \"zh-TW: HTTP %{http_code}\\\\n\" https://ahamoment-green-talent-os.vercel.app/zh-TW)",
+      "Bash(curl -s https://ahamoment-green-talent-os.vercel.app/zh-TW)",
+      "Bash(curl -s -o /dev/null -w \"services: HTTP %{http_code}\\\\n\" https://ahamoment-green-talent-os.vercel.app/zh-TW/services)",
+      "Bash(curl -s -o /dev/null -w \"report-status: HTTP %{http_code}\\\\n\" \"https://ahamoment-green-talent-os.vercel.app/api/mri/report-status?token=00000000-0000-0000-0000-000000000000\")",
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: email the report on completion via Resend \\(gated on env\\) *)"
     ]
   }
 }

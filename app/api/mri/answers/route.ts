@@ -5,6 +5,7 @@ import { getServiceClient } from '@/lib/supabase';
 import { errorJson, json } from '@/lib/http';
 import { recordEvent } from '@/lib/events';
 import { applyUserEdits, generateReport, scoreAndClassify } from '@/lib/pipeline';
+import { sendReportEmail } from '@/lib/email';
 import { callPrompt } from '@/lib/anthropic';
 import { adminSummaryPrompt } from '@/lib/prompts';
 import { RUBRIC_VERSION } from '@/lib/scoring/rubrics';
@@ -103,6 +104,14 @@ export async function POST(req: NextRequest) {
       await recordEvent('report_generated', sessionId, {
         category: scored.classification.category,
         degraded: report.degraded,
+      });
+
+      // Deliver the report by email (best-effort; no-op until RESEND_* are set).
+      await sendReportEmail({
+        to: body.email,
+        name: body.name ?? null,
+        reportUrl: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${locale}/result/${body.session_token}`,
+        locale,
       });
 
       // Admin summary — convenience only; failure must not affect the user's report.
