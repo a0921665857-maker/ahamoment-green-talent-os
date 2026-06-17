@@ -32,14 +32,16 @@ export const paidOffers: PaidOffersContent = {
     },
     consult_60: {
       name: '60-Minute Diagnostic Consult',
-      price: 'US$89',
+      price: 'US$69',
+      originalPrice: 'US$89',
       delivery: 'One 60-minute call.',
       forWhom: 'People who want one-on-one time to settle their direction in one sitting.',
       blurb: 'Deeper than the free chat, lighter than the teardown: an hour to settle your positioning, target lane, and next move — with an actionable direction by the end.',
     },
     teardown_90: {
       name: '90-Minute Story Teardown',
-      price: 'US$129',
+      price: 'US$99',
+      originalPrice: 'US$129',
       delivery: 'One 90-minute working call, plus a written memo within 72 hours.',
       forWhom: 'Anyone who wants a candid human read on their positioning, fast.',
       blurb:
@@ -47,7 +49,8 @@ export const paidOffers: PaidOffersContent = {
     },
     cv_linkedin_review: {
       name: 'CV & LinkedIn Review',
-      price: 'US$129',
+      price: 'US$99',
+      originalPrice: 'US$129',
       delivery: 'Asynchronous written review, plus a 30-minute call.',
       forWhom: 'People whose story is settled but whose documents undersell it.',
       blurb:
@@ -55,7 +58,8 @@ export const paidOffers: PaidOffersContent = {
     },
     climate_positioning_sprint: {
       name: 'Climate Career Positioning Sprint',
-      price: 'US$390+',
+      price: 'US$320+',
+      originalPrice: 'US$390+',
       delivery: 'Three working sessions over three weeks.',
       forWhom: 'Professionals choosing between climate lanes, or translating technical work into commercial language.',
       blurb:
@@ -72,7 +76,8 @@ export const paidOffers: PaidOffersContent = {
     },
     mock_interview_pack: {
       name: 'AI + Human Mock Interview Pack',
-      price: 'US$159+',
+      price: 'US$129+',
+      originalPrice: 'US$159+',
       delivery: 'Structured AI practice reps, plus one to two live mock sessions with written feedback.',
       forWhom: 'Candidates at interview stage within the next few months.',
       blurb:
@@ -80,14 +85,16 @@ export const paidOffers: PaidOffersContent = {
     },
     offer_negotiation: {
       name: 'Green-Collar Offer & Salary Negotiation Coaching',
-      price: 'US$159',
+      price: 'US$129',
+      originalPrice: 'US$159',
       delivery: 'One 60-minute strategy call, plus a written negotiation prep memo.',
       forWhom: 'People with an offer in hand (or imminent) who want to negotiate it well.',
       blurb: "Using INSEAD's seven-element negotiation framework, we map this offer's leverage, your alternatives, and the other side's limits, and prep your opening, concession order, and key lines — for your real situation, not a generic script.",
     },
     climate_finance_transition: {
       name: 'Climate Finance / Impact Investing Transition Sprint',
-      price: 'US$490+',
+      price: 'US$390+',
+      originalPrice: 'US$490+',
       delivery: 'Three working sessions over three weeks, plus a target-role fit analysis.',
       forWhom: 'Professionals moving from ESG/sustainability advisory into climate finance, impact investing, or climate VC.',
       blurb: 'We translate your compliance and advisory experience into capital-markets language: using sustainable-finance and project-finance frameworks to close the gap to a pure-finance background and map a transition path built from your existing evidence.',

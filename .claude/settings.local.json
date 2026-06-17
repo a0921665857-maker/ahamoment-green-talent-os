@@ -62,7 +62,10 @@
       "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: real visual type badge + branded OG share image; honest email-gate copy *)",
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} · type=%{content_type} · size=%{size_download} bytes\\\\n\" \"https://ahamoment-green-talent-os.vercel.app/zh-TW/opengraph-image-1yhjss?7902943d2a1a00c4\")",
       "Bash(curl -s https://ahamoment-green-talent-os.vercel.app/en)",
-      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: link to full services page from the report'\\\\''s 3-slot CTA *)"
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: link to full services page from the report'\\\\''s 3-slot CTA *)",
+      "Bash(node scripts/verify.mjs)",
+      "Bash(rm -f scripts/verify.mjs)",
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: early-bird pricing on all paid services *)"
     ]
   }
 }
