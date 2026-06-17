@@ -7,6 +7,7 @@ export const paidOffers: PaidOffersContent = {
   entryLabel: '低風險入口',
   anchorLabel: '完整陪跑',
   earlyBird: '早鳥價',
+  allServicesCta: '查看所有服務與定價',
   creditPolicy: '拆解費用可於 30 天內全額折抵任何衝刺或完整方案。',
   confidentiality: '真人審閱完全保密。未經你書面同意，你的資料絕不會被用作公開案例或見證。',
   bookCta: '預約時段',

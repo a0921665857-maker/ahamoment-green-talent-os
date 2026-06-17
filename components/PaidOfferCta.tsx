@@ -90,6 +90,13 @@ export function PaidOfferCta(props: {
         })}
       </div>
 
+      <a
+        href={`/${props.locale}/services`}
+        className="mt-5 inline-block text-sm text-pine underline-offset-2 hover:underline"
+      >
+        {content.allServicesCta} →
+      </a>
+
       <p className="mt-6 text-sm text-ink-soft">{content.creditPolicy}</p>
       <p className="mt-1 text-sm text-ink-soft">{content.confidentiality}</p>
 

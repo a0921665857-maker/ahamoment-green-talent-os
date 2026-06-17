@@ -8,6 +8,7 @@ export const paidOffers: PaidOffersContent = {
   entryLabel: 'Low-risk entry point',
   anchorLabel: 'The full journey',
   earlyBird: 'Early-bird',
+  allServicesCta: 'See all services & pricing',
   creditPolicy:
     'Teardown fee credits 100% toward any sprint or package booked within 30 days.',
   confidentiality:

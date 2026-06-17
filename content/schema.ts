@@ -122,6 +122,7 @@ export interface PaidOffersContent {
   entryLabel: string;
   anchorLabel: string;
   earlyBird: string; // small tag shown next to a discounted price
+  allServicesCta: string; // link from the report's 3-slot CTA to the full services page
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;
