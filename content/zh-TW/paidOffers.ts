@@ -6,6 +6,7 @@ export const paidOffers: PaidOffersContent = {
   primaryLabel: '依你的結果推薦',
   entryLabel: '低風險入口',
   anchorLabel: '完整陪跑',
+  earlyBird: '早鳥價',
   creditPolicy: '拆解費用可於 30 天內全額折抵任何衝刺或完整方案。',
   confidentiality: '真人審閱完全保密。未經你書面同意，你的資料絕不會被用作公開案例或見證。',
   bookCta: '預約時段',
@@ -19,7 +20,8 @@ export const paidOffers: PaidOffersContent = {
     },
     deep_read: {
       name: '深度書面解讀 Deep Read',
-      price: 'NT$1,500',
+      price: 'NT$1,200',
+      originalPrice: 'NT$1,500',
       delivery: '非同步書面解讀，48 小時內交付。',
       forWhom: '想要一份更深、可反覆讀的書面判讀，但還不需要真人通話的人。',
       blurb: '把你的 MRI 往下挖一層：點名你最強的三個資產、最該補的一個缺口，附上具體下一步——全部書面，你可以收藏慢讀。',
@@ -54,7 +56,8 @@ export const paidOffers: PaidOffersContent = {
     },
     mba_story_sprint: {
       name: '單校 MBA 故事衝刺',
-      price: 'NT$18,000 起',
+      price: 'NT$12,000 起',
+      originalPrice: 'NT$18,000 起',
       delivery: '四週四次會議，聚焦一所目標學校。',
       forWhom: '目標明確、需要把完整敘事建起來的申請者。',
       blurb: '為一所學校建立定位、essay 方向與面試主幹，全部從你的真實素材出發。協作完成，絕不代寫。',
@@ -82,7 +85,8 @@ export const paidOffers: PaidOffersContent = {
     },
     full_package: {
       name: '綠色職涯／MBA 完整定位方案',
-      price: 'NT$48,000 起',
+      price: 'NT$30,000 起',
+      originalPrice: 'NT$48,000 起',
       delivery: '八週，端到端。',
       forWhom: '已下定決心、希望整段路有一個人全程負責的專業者。',
       blurb: '以上所有環節，按正確順序串起：定位、故事、文件、面試準備——做到完成，而不只是給建議。',

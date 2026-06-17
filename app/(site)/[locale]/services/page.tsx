@@ -4,7 +4,6 @@ import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { OFFER_IDS, type Locale } from '@/lib/constants';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import { PromoBanner } from '@/components/PromoBanner';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -22,7 +21,6 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
   return (
     <div className="min-h-screen">
-      <PromoBanner promo={c.promo} />
       <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
         <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
           {c.seo.siteName}
@@ -41,8 +39,18 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
               <div key={id} className="flex flex-col rounded-xl border border-line bg-paper p-5">
                 <div className="flex items-baseline justify-between gap-3">
                   <h2 className="text-lg font-semibold">{offer.name}</h2>
-                  <span className="shrink-0 text-sm text-pine">{offer.price}</span>
+                  <span className="shrink-0 text-sm text-pine">
+                    {offer.originalPrice && (
+                      <span className="mr-1.5 text-ink-soft line-through">{offer.originalPrice}</span>
+                    )}
+                    {offer.price}
+                  </span>
                 </div>
+                {offer.originalPrice && (
+                  <span className="mt-1 self-start rounded bg-sage-soft px-1.5 py-0.5 text-xs text-pine-deep">
+                    {o.earlyBird}
+                  </span>
+                )}
                 <p className="mt-3 text-sm">{offer.blurb}</p>
                 <p className="mt-3 text-xs text-ink-soft">{offer.forWhom}</p>
                 <p className="mt-1 text-xs text-ink-soft">{offer.delivery}</p>

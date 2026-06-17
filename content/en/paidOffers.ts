@@ -7,6 +7,7 @@ export const paidOffers: PaidOffersContent = {
   primaryLabel: 'Recommended for your result',
   entryLabel: 'Low-risk entry point',
   anchorLabel: 'The full journey',
+  earlyBird: 'Early-bird',
   creditPolicy:
     'Teardown fee credits 100% toward any sprint or package booked within 30 days.',
   confidentiality:
@@ -22,7 +23,8 @@ export const paidOffers: PaidOffersContent = {
     },
     deep_read: {
       name: 'Deep Read',
-      price: 'US$49',
+      price: 'US$39',
+      originalPrice: 'US$49',
       delivery: 'Asynchronous written read, delivered within 48 hours.',
       forWhom: 'People who want a deeper written read to revisit, without a call yet.',
       blurb: 'We take your MRI one layer deeper: your three strongest assets, the one gap that matters most, and concrete next steps — all in writing, yours to keep.',
@@ -60,7 +62,8 @@ export const paidOffers: PaidOffersContent = {
     },
     mba_story_sprint: {
       name: 'One-School MBA Story Sprint',
-      price: 'US$590+',
+      price: 'US$390+',
+      originalPrice: 'US$590+',
       delivery: 'Four sessions over four weeks, focused on one target school.',
       forWhom: 'Applicants with a clear target who need the full narrative built.',
       blurb:
@@ -90,7 +93,8 @@ export const paidOffers: PaidOffersContent = {
     },
     full_package: {
       name: 'Full Green Career / MBA Positioning Package',
-      price: 'US$1,560+',
+      price: 'US$980+',
+      originalPrice: 'US$1,560+',
       delivery: 'Eight weeks, end to end.',
       forWhom: 'Committed professionals who want the whole arc handled with one person accountable.',
       blurb:

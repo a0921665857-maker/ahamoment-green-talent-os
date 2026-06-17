@@ -8,7 +8,6 @@ import { getReportByToken, getSessionStatusByToken } from '@/lib/reportData';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
-import { PromoBanner } from '@/components/PromoBanner';
 import { ShareableTypeCard } from '@/components/ShareableTypeCard';
 import { ReportPending } from '@/components/ReportPending';
 
@@ -81,7 +80,6 @@ export default async function ResultPage({
 
   return (
     <div className="min-h-screen">
-      <PromoBanner promo={c.promo} />
       <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
         <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
           {c.seo.siteName}

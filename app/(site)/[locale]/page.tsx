@@ -4,7 +4,6 @@ import { getContent } from '@/content';
 import { REPORT_SECTION_KEYS, type Locale } from '@/lib/constants';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ReturnReportLink } from '@/components/ReturnReportLink';
-import { PromoBanner } from '@/components/PromoBanner';
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -15,7 +14,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
   return (
     <div className="min-h-screen">
-      <PromoBanner promo={c.promo} />
       <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
         <span className="text-sm font-semibold tracking-tight">{c.seo.siteName}</span>
         <div className="flex items-center gap-4">

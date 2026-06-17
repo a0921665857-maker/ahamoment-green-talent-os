@@ -59,7 +59,17 @@ export function PaidOfferCta(props: {
             >
               <p className="text-xs uppercase tracking-eyebrow text-pine">{roleLabel[s.role]}</p>
               <h3 className="mt-2 text-lg font-semibold">{o.name}</h3>
-              <p className="mt-1 text-sm text-ink-soft">{o.price}</p>
+              <p className="mt-1 text-sm">
+                {o.originalPrice && (
+                  <span className="text-ink-soft line-through">{o.originalPrice}</span>
+                )}{' '}
+                <span className="font-medium text-ink">{o.price}</span>
+                {o.originalPrice && (
+                  <span className="ml-2 rounded bg-sage-soft px-1.5 py-0.5 text-xs text-pine-deep">
+                    {content.earlyBird}
+                  </span>
+                )}
+              </p>
               <p className="mt-3 text-sm">{o.blurb}</p>
               <p className="mt-3 text-xs text-ink-soft">{o.delivery}</p>
               <a

@@ -109,7 +109,8 @@ export interface ReportTemplatesContent {
 
 export interface OfferCopy {
   name: string;
-  price: string; // display string, placeholder prices
+  price: string; // current (possibly early-bird) display price
+  originalPrice?: string; // strike-through pre-discount price when on early-bird
   delivery: string;
   forWhom: string;
   blurb: string;
@@ -120,6 +121,7 @@ export interface PaidOffersContent {
   primaryLabel: string;
   entryLabel: string;
   anchorLabel: string;
+  earlyBird: string; // small tag shown next to a discounted price
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;
