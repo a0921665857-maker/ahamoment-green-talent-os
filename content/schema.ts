@@ -202,6 +202,7 @@ export interface ShareContent {
   shareButton: string;
   copied: string;
   softCta: string;
+  screenshotHint: string;
   types: Record<ResultCategory, CareerTypeCard>;
 }
 

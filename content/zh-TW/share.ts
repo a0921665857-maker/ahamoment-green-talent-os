@@ -2,9 +2,10 @@ import type { ShareContent } from '../schema';
 
 export const share: ShareContent = {
   heading: '你的綠色職涯類型',
-  shareButton: '分享我的類型',
-  copied: '已複製分享文字',
-  softCta: '來測你自己的綠色職涯類型',
+  shareButton: '複製分享文字',
+  copied: '已複製！可貼到 Threads',
+  softCta: '來測你自己的',
+  screenshotHint: '截圖這張卡片分享，或用上方按鈕複製文字。',
   types: {
     ready_for_mba_story_sprint: {
       label: 'MBA-Ready 氣候敘事者',

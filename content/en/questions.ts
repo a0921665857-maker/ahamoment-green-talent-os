@@ -6,9 +6,9 @@ export const questions: QuestionsContent = {
     body: 'Three to five quick questions — only the ones we actually could not read. They sharpen the report considerably.',
   },
   emailGate: {
-    // Binding copy — founder override, 2026-06-12. Do not reword without approval.
-    title: 'Where should we send your report?',
-    body: 'We will generate your personalized report and send you a copy. You can also view it immediately after entering your email.',
+    // Report-delivery framing; adjusted to honest copy 2026-06-15 with founder approval (email sending not yet enabled).
+    title: 'Your report is ready — enter your email',
+    body: "Enter your email and we'll generate your personal report right away. It appears on screen immediately and is saved to this link so you can return anytime.",
     emailLabel: 'Email',
     emailPlaceholder: 'you@example.com',
     nameLabel: 'Name (optional)',

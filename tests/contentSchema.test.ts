@@ -40,15 +40,15 @@ describe('question bank parity (deterministic selection depends on this)', () =>
   });
 });
 
-describe('binding email-gate copy (founder override O1, 2026-06-12)', () => {
+describe('email-gate copy reads as report delivery (O1; honest revision 2026-06-15)', () => {
   it('English copy is verbatim', () => {
     expect(en.questions.emailGate.body).toBe(
-      'We will generate your personalized report and send you a copy. You can also view it immediately after entering your email.',
+      "Enter your email and we'll generate your personal report right away. It appears on screen immediately and is saved to this link so you can return anytime.",
     );
   });
   it('Traditional Chinese copy is verbatim', () => {
     expect(zh.questions.emailGate.body).toBe(
-      '我們會產出你的個人化報告，並寄一份給你保存。輸入 email 後，你也可以立即查看結果。',
+      '輸入 email，我們會立即為你產出個人化報告。報告會即時顯示，並用這個連結為你保存，隨時可回來查看。',
     );
   });
 });

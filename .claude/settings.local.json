@@ -57,7 +57,9 @@
       "Bash(curl -s -o /dev/null -w \"report-status: HTTP %{http_code}\\\\n\" \"https://ahamoment-green-talent-os.vercel.app/api/mri/report-status?token=00000000-0000-0000-0000-000000000000\")",
       "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: email the report on completion via Resend \\(gated on env\\) *)",
       "Bash(node scripts/prod-e2e.mjs)",
-      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'chore: raise answers maxDuration to 300s \\(Pro headroom for deep report\\) *)"
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'chore: raise answers maxDuration to 300s \\(Pro headroom for deep report\\) *)",
+      "Bash(node scripts/walk.mjs)",
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: real visual type badge + branded OG share image; honest email-gate copy *)"
     ]
   }
 }

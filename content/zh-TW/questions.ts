@@ -6,9 +6,9 @@ export const questions: QuestionsContent = {
     body: '三到五個快問快答——只問真的讀不出來的部分。這會讓報告精準很多。',
   },
   emailGate: {
-    // 具約束力的文案——創辦人 2026-06-12 指定。未經同意請勿改寫。
-    title: '報告要寄到哪裡？',
-    body: '我們會產出你的個人化報告，並寄一份給你保存。輸入 email 後，你也可以立即查看結果。',
+    // 報告交付框架；2026-06-15 經創辦人同意改為誠實版（寄信功能尚未啟用）。
+    title: '報告就緒——留個 email 馬上看',
+    body: '輸入 email，我們會立即為你產出個人化報告。報告會即時顯示，並用這個連結為你保存，隨時可回來查看。',
     emailLabel: 'Email',
     emailPlaceholder: 'you@example.com',
     nameLabel: '稱呼（選填）',

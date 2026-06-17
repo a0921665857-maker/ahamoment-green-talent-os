@@ -2,9 +2,10 @@ import type { ShareContent } from '../schema';
 
 export const share: ShareContent = {
   heading: 'Your green career type',
-  shareButton: 'Share my type',
-  copied: 'Share text copied',
-  softCta: 'Find your own green career type',
+  shareButton: 'Copy share text',
+  copied: 'Copied! Paste it anywhere',
+  softCta: 'Find your own',
+  screenshotHint: 'Screenshot this card to share, or copy the text above.',
   types: {
     ready_for_mba_story_sprint: {
       label: 'MBA-Ready Climate Storyteller',
