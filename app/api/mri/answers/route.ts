@@ -13,7 +13,7 @@ import { CLASSIFIER_VERSION } from '@/lib/scoring/scoreWeights';
 import type { Answer } from '@/lib/types';
 
 export const runtime = 'nodejs';
-export const maxDuration = 180;
+export const maxDuration = 300; // Pro plan ceiling — headroom for the deep v2 report pipeline
 
 const BodySchema = z.object({
   session_token: z.string().uuid(),
