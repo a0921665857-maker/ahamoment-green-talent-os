@@ -167,7 +167,7 @@ export const LOW_OVERALL_CONFIDENCE = 0.5;
 export const LOW_GROUP_CONFIDENCE = 0.5;
 
 export const RATE_LIMIT = {
-  submissionsPerHourPerIp: 5,
+  submissionsPerHourPerIp: 10, // raised from 5: failed/retry attempts were locking out real users
   maxRegenerations: 2,
   adminLoginsPerHourPerIp: 10,
 } as const;

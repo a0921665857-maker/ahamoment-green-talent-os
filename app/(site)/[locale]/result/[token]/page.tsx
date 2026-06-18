@@ -53,6 +53,7 @@ export default async function ResultPage({
               token={token}
               title={c.flow.progress.report.title}
               stages={c.flow.progress.report.stages}
+              note={c.flow.progress.report.note}
               failedMessage={c.errors.generic}
               homeHref={`/${L}/mri`}
               homeLabel={c.landing.hero.cta}

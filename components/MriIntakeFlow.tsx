@@ -206,7 +206,13 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
   if (phase === 'extracting')
     return <ProgressStages title={flow.progress.extraction.title} stages={flow.progress.extraction.stages} />;
   if (phase === 'generating')
-    return <ProgressStages title={flow.progress.report.title} stages={flow.progress.report.stages} />;
+    return (
+      <ProgressStages
+        title={flow.progress.report.title}
+        stages={flow.progress.report.stages}
+        note={flow.progress.report.note}
+      />
+    );
 
   return (
     <div>

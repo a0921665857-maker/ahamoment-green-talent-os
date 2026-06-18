@@ -61,7 +61,7 @@ export const landing: LandingContent = {
       'The MRI is free and complete on its own. For people who want a human in the loop, there is a small set of paid services — from a 90-minute story teardown to a full positioning package. The report will recommend at most one path; the rest stay out of your way.',
     allServicesCta: 'See all services & pricing',
     honestUrgency:
-      'An honest nudge: MBA application rounds and transition windows have real deadlines. The earlier your positioning is clear, the more options you keep — not manufactured urgency, just the calendar.',
+      'An honest nudge: whether you are switching roles, landing your next green-collar job, or applying to an MBA, the opportunity windows have real deadlines. The earlier your positioning is clear, the more options you keep — not manufactured urgency, just the calendar.',
   },
   finalCta: {
     title: 'Five minutes to an honest read.',

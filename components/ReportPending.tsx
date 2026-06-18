@@ -8,6 +8,7 @@ export function ReportPending(props: {
   token: string;
   title: string;
   stages: string[];
+  note?: string;
   failedMessage: string;
   homeHref: string;
   homeLabel: string;
@@ -52,5 +53,5 @@ export function ReportPending(props: {
       </div>
     );
   }
-  return <ProgressStages title={props.title} stages={props.stages} />;
+  return <ProgressStages title={props.title} stages={props.stages} note={props.note} />;
 }

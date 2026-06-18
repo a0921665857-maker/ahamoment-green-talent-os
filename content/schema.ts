@@ -42,7 +42,7 @@ export interface FlowContent {
   charCount: string; // "{count} characters"
   progress: {
     extraction: { title: string; stages: string[] };
-    report: { title: string; stages: string[] };
+    report: { title: string; stages: string[]; note: string };
   };
   confirmation: {
     title: string;

@@ -51,6 +51,7 @@ export const flow: FlowContent = {
         '判定你的結果類型…',
         '撰寫十二個段落…',
       ],
+      note: '這通常需要 1–2 分鐘——我們在認真寫，不是隨便填。完成後會自動顯示，請別關閉這個頁面。',
     },
   },
   confirmation: {

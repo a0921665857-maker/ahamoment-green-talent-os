@@ -51,6 +51,7 @@ export const flow: FlowContent = {
         'Determining your result category…',
         'Writing your twelve sections…',
       ],
+      note: 'This usually takes 1–2 minutes — we are writing it properly, not filling a template. It will appear automatically; please keep this page open.',
     },
   },
   confirmation: {
