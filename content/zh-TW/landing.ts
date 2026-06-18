@@ -72,5 +72,6 @@ export const landing: LandingContent = {
     privacyLink: '隱私與資料',
     deleteLine: '想刪除資料？寄一封信，7 天內完成刪除。',
     rightsLine: 'AhaMoment · Green Talent OS',
+    blogLink: '商業洞察文章',
   },
 };

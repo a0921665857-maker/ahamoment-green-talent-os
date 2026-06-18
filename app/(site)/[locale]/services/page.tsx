@@ -31,6 +31,9 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       <main className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <h1 className="text-3xl font-semibold">{o.title}</h1>
         <p className="mt-3 max-w-2xl text-ink-soft">{o.intro}</p>
+        <p className="mt-4 max-w-2xl rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">
+          {o.bookingNote}
+        </p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {OFFER_IDS.map((id) => {

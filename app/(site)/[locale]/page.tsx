@@ -115,10 +115,32 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* offers teaser */}
+      {/* offers — flagship services shown directly on the homepage */}
       <section className="mx-auto max-w-3xl px-6 py-14">
         <h2 className="text-xl font-semibold">{c.landing.offersTeaser.title}</h2>
         <p className="mt-2 max-w-2xl text-ink-soft">{c.landing.offersTeaser.intro}</p>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {(['intro_call_free', 'deep_read', 'teardown_90', 'full_package'] as const).map((id) => {
+            const offer = c.paidOffers.offers[id];
+            return (
+              <div key={id} className="flex flex-col rounded-xl border border-line bg-paper p-5">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="font-semibold">{offer.name}</h3>
+                  <span className="shrink-0 text-sm text-pine">
+                    {offer.originalPrice && (
+                      <span className="mr-1 text-ink-soft line-through">{offer.originalPrice}</span>
+                    )}
+                    {offer.price}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-ink-soft">{offer.blurb}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <p className="mt-6 max-w-2xl text-sm text-ink-soft">{c.paidOffers.bookingNote}</p>
         <a href={`/${L}/services`} className="mt-4 inline-block text-sm text-pine hover:underline">
           {c.landing.offersTeaser.allServicesCta} →
         </a>
@@ -140,6 +162,16 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <div className="mx-auto flex max-w-3xl flex-col gap-2 px-6 py-8 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
           <span>{c.landing.footer.rightsLine}</span>
           <div className="flex items-center gap-4">
+            {process.env.NEXT_PUBLIC_BLOG_URL && (
+              <a
+                href={process.env.NEXT_PUBLIC_BLOG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-pine"
+              >
+                {c.landing.footer.blogLink}
+              </a>
+            )}
             <a href={`/${L}/privacy`} className="hover:text-pine">
               {c.landing.footer.privacyLink}
             </a>

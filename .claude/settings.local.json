@@ -65,7 +65,11 @@
       "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: link to full services page from the report'\\\\''s 3-slot CTA *)",
       "Bash(node scripts/verify.mjs)",
       "Bash(rm -f scripts/verify.mjs)",
-      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: early-bird pricing on all paid services *)"
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: early-bird pricing on all paid services *)",
+      "Bash(curl -s https://ahamoment-green-talent-os.vercel.app/zh-TW/sample)",
+      "Read(//tmp/**)",
+      "WebFetch(domain:ahamoment.ghost.io)",
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'feat: show flagship services on homepage; free-chat-first note on offers; optional footer blog link *)"
     ]
   }
 }

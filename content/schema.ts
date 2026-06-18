@@ -30,7 +30,7 @@ export interface LandingContent {
   founder: { title: string; facts: string[] };
   offersTeaser: { title: string; intro: string; allServicesCta: string; honestUrgency: string };
   finalCta: { title: string; body: string; cta: string };
-  footer: { privacyLink: string; deleteLine: string; rightsLine: string };
+  footer: { privacyLink: string; deleteLine: string; rightsLine: string; blogLink: string };
 }
 
 export interface FlowContent {
@@ -123,6 +123,7 @@ export interface PaidOffersContent {
   anchorLabel: string;
   earlyBird: string; // small tag shown next to a discounted price
   allServicesCta: string; // link from the report's 3-slot CTA to the full services page
+  bookingNote: string; // "every booking starts with a free 30-min chat" framing
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;

@@ -72,5 +72,6 @@ export const landing: LandingContent = {
     privacyLink: 'Privacy & data',
     deleteLine: 'Want your data gone? One email — deleted within 7 days.',
     rightsLine: 'AhaMoment · Green Talent OS',
+    blogLink: 'Business insights blog',
   },
 };

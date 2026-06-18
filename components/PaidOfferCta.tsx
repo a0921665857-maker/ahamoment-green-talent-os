@@ -43,6 +43,9 @@ export function PaidOfferCta(props: {
     <section className="mt-16 border-t border-line pt-10">
       <h2 className="text-xl font-semibold">{content.title}</h2>
       <p className="mt-2 max-w-2xl text-ink-soft">{content.intro}</p>
+      <p className="mt-4 max-w-2xl rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">
+        {content.bookingNote}
+      </p>
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {props.slots.map((s) => {

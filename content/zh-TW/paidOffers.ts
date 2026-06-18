@@ -8,6 +8,7 @@ export const paidOffers: PaidOffersContent = {
   anchorLabel: '完整陪跑',
   earlyBird: '早鳥價',
   allServicesCta: '查看所有服務與定價',
+  bookingNote: '不管你選哪個方案，都從一次免費 30 分鐘聊聊開始——先確認你的需求與期待對得上，再決定要不要進行。不適合，我會直接說。',
   creditPolicy: '拆解費用可於 30 天內全額折抵任何衝刺或完整方案。',
   confidentiality: '真人審閱完全保密。未經你書面同意，你的資料絕不會被用作公開案例或見證。',
   bookCta: '預約時段',

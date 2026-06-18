@@ -9,6 +9,7 @@ export const paidOffers: PaidOffersContent = {
   anchorLabel: 'The full journey',
   earlyBird: 'Early-bird',
   allServicesCta: 'See all services & pricing',
+  bookingNote: 'Whichever service you pick, we start with a free 30-minute chat — to check your needs and expectations line up before you commit. If it is not a fit, I will tell you straight.',
   creditPolicy:
     'Teardown fee credits 100% toward any sprint or package booked within 30 days.',
   confidentiality:
