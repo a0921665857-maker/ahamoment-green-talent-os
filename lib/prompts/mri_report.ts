@@ -117,6 +117,9 @@ Binding rules:
       input.limitedData
         ? 'LIMITED-DATA MODE: the material was thin. Open current_positioning with a calm "based on the material provided" framing, and do not assert confidence you do not have — especially for interview_readiness and cv_readiness.'
         : '',
+      input.profile.intent.mba_intent === 'current'
+        ? 'POST-MBA MODE: this person already holds or is currently doing an MBA — they are a JOB-SEEKER, not an applicant. Frame everything as positioning for the post-MBA job search: target roles, recruiters, and employers. NEVER mention MBA admissions, admissions readers, essays, application rounds, or "why MBA". Treat mba_readiness as readiness for the post-MBA role/move, and suggested_paid_next_step as help landing the right green role — not an application.'
+        : '',
       'Bands already computed (for your awareness only — never print numbers or the word "band"; null means not enough signal):',
       JSON.stringify(input.bands),
       '',

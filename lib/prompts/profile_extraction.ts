@@ -18,6 +18,7 @@ Hard rules:
 3. evidence_assets are near-verbatim excerpts of at most 25 words each, every one tagged with a theme. Aim for 5–10. Never quote filler or disfluencies.
 4. Map green-economy experience to the provided taxonomy SLUGS only. Terms you cannot map go into green_economy.free_text — never drop them.
 5. Give an honest 0–1 confidence per group and overall. Confidence reflects how strongly the MATERIAL supports each field, not how plausible it sounds.
+5b. intent.mba_intent — distinguish APPLYING from ALREADY HAVING one. If the person is currently enrolled in an MBA, is an MBA candidate/student, or already holds an MBA degree, set mba_intent to 'current' (they are a job-seeker, NOT an applicant). Only use 'active' for someone actively applying TO an MBA they do not yet have. 'considering'/'later' = thinking about applying; 'no' = no MBA interest and none held.
 6. missing_fields may only contain these question-bank IDs: ${QUESTION_IDS.join(', ')}.
 
 Input-type guidance:

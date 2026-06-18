@@ -73,6 +73,7 @@ export function PaidOfferCta(props: {
                   </span>
                 )}
               </p>
+              {o.priceNote && <p className="mt-2 text-xs text-pine">{o.priceNote}</p>}
               <p className="mt-3 text-sm">{o.blurb}</p>
               <p className="mt-3 text-xs text-ink-soft">{o.delivery}</p>
               <a
@@ -100,7 +101,8 @@ export function PaidOfferCta(props: {
         {content.allServicesCta} →
       </a>
 
-      <p className="mt-6 text-sm text-ink-soft">{content.creditPolicy}</p>
+      <p className="mt-6 text-sm font-medium text-pine">{content.guarantee}</p>
+      <p className="mt-2 text-sm text-ink-soft">{content.creditPolicy}</p>
       <p className="mt-1 text-sm text-ink-soft">{content.confidentiality}</p>
 
       <p className="mt-6 border-t border-line pt-6 text-sm text-ink-soft">

@@ -109,7 +109,8 @@ export const QUESTION_IDS = [
 ] as const;
 export type QuestionId = (typeof QUESTION_IDS)[number];
 
-export const MBA_INTENTS = ['active', 'considering', 'later', 'no', 'unknown'] as const;
+// 'current' = already enrolled in or already holds an MBA (a job-seeker, NOT an applicant).
+export const MBA_INTENTS = ['active', 'considering', 'later', 'no', 'current', 'unknown'] as const;
 export type MbaIntent = (typeof MBA_INTENTS)[number];
 
 export const TIMELINES = ['<6m', '6-12m', '12m+', 'unknown'] as const;

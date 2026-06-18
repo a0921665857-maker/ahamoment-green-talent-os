@@ -111,6 +111,7 @@ export interface OfferCopy {
   name: string;
   price: string; // current (possibly early-bird) display price
   originalPrice?: string; // strike-through pre-discount price when on early-bird
+  priceNote?: string; // e.g. hybrid "base + success bonus" note under the price
   delivery: string;
   forWhom: string;
   blurb: string;
@@ -124,6 +125,7 @@ export interface PaidOffersContent {
   earlyBird: string; // small tag shown next to a discounted price
   allServicesCta: string; // link from the report's 3-slot CTA to the full services page
   bookingNote: string; // "every booking starts with a free 30-min chat" framing
+  guarantee: string; // satisfaction/risk-reversal guarantee shown near the offers
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;

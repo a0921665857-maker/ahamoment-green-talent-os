@@ -54,6 +54,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                     {o.earlyBird}
                   </span>
                 )}
+                {offer.priceNote && <p className="mt-2 text-xs text-pine">{offer.priceNote}</p>}
                 <p className="mt-3 text-sm">{offer.blurb}</p>
                 <p className="mt-3 text-xs text-ink-soft">{offer.forWhom}</p>
                 <p className="mt-1 text-xs text-ink-soft">{offer.delivery}</p>
@@ -70,7 +71,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           })}
         </div>
 
-        <p className="mt-8 text-sm text-ink-soft">{o.creditPolicy}</p>
+        <p className="mt-8 text-sm font-medium text-pine">{o.guarantee}</p>
+        <p className="mt-2 text-sm text-ink-soft">{o.creditPolicy}</p>
         <p className="mt-1 text-sm text-ink-soft">{o.confidentiality}</p>
 
         <div className="mt-12 border-t border-line pt-10 text-center">

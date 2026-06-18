@@ -193,6 +193,18 @@ describe('offer mapping + secondary overlays', () => {
   });
 });
 
+describe('current-MBA holders are job-seekers, not applicants', () => {
+  it('never routes a current MBA holder to an MBA-application/MBA-later category', () => {
+    const input = mkInput({}, { base: 4, mba_intent: 'current' });
+    const cat = pickCategory(input);
+    expect([
+      'ready_for_mba_story_sprint',
+      'career_positioning_before_mba',
+      'climate_career_first_mba_later',
+    ]).not.toContain(cat);
+  });
+});
+
 describe('lead grading', () => {
   it('A: <6m + mid+ seniority + eligible category', () => {
     const c = classify(goldenSeeds[0].input); // seed 1: <6m, senior, R1

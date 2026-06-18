@@ -134,6 +134,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                     {offer.price}
                   </span>
                 </div>
+                {offer.priceNote && <p className="mt-2 text-xs text-pine">{offer.priceNote}</p>}
                 <p className="mt-2 text-sm text-ink-soft">{offer.blurb}</p>
               </div>
             );

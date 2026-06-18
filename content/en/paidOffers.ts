@@ -10,6 +10,7 @@ export const paidOffers: PaidOffersContent = {
   earlyBird: 'Early-bird',
   allServicesCta: 'See all services & pricing',
   bookingNote: 'Whichever service you pick, we start with a free 30-minute chat — to check your needs and expectations line up before you commit. If it is not a fit, I will tell you straight.',
+  guarantee: 'Satisfaction guarantee: if your first session is not useful to you, full refund. The risk sits with me, not you.',
   creditPolicy:
     'Teardown fee credits 100% toward any sprint or package booked within 30 days.',
   confidentiality:
@@ -70,6 +71,7 @@ export const paidOffers: PaidOffersContent = {
       name: 'One-School MBA Story Sprint',
       price: 'US$390+',
       originalPrice: 'US$590+',
+      priceNote: 'Optional hybrid: a lower base fee + a success bonus only if you are admitted or win a scholarship — shared risk.',
       delivery: 'Four sessions over four weeks, focused on one target school.',
       forWhom: 'Applicants with a clear target who need the full narrative built.',
       blurb:
@@ -104,6 +106,7 @@ export const paidOffers: PaidOffersContent = {
       name: 'Full Green Career / MBA Positioning Package',
       price: 'US$980+',
       originalPrice: 'US$1,560+',
+      priceNote: 'Optional hybrid: a lower base fee + a success bonus when you hit the goal (admission / scholarship / offer).',
       delivery: 'Eight weeks, end to end.',
       forWhom: 'Committed professionals who want the whole arc handled with one person accountable.',
       blurb:

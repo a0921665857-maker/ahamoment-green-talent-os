@@ -146,7 +146,9 @@ export function pickCategory(input: ClassifierInput): ResultCategory {
   // R7
   if (w.avg_score >= T.r7_avgScore && w.story_index < T.r7_storyIndexBelow)
     return 'strong_profile_weak_story';
-  // R8 fallback
+  // R8 fallback. Someone who already holds / is doing an MBA is a job-seeker, not an
+  // applicant — route them to job-positioning, never an "MBA later/before" category.
+  if (mba === 'current') return 'strong_profile_weak_story';
   return mba === 'active' || mba === 'considering'
     ? 'career_positioning_before_mba'
     : 'climate_career_first_mba_later';
