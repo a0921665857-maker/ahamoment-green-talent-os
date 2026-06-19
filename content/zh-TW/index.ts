@@ -1,5 +1,4 @@
 import type { LocaleContent } from '../schema';
-import { promo } from './promo';
 import { sample } from './sample';
 import { share } from './share';
 import { landing } from './landing';
@@ -15,6 +14,6 @@ import { emails } from './emails';
 import { privacyPage } from './privacy';
 
 export const zhTW: LocaleContent = {
-  promo, sample, share, landing, flow, questions, results, reportTemplates,
+  sample, share, landing, flow, questions, results, reportTemplates,
   paidOffers, consent, seo, errors, emails, privacyPage,
 };

@@ -121,7 +121,7 @@ Binding rules:
         ? 'POST-MBA MODE: this person already holds or is currently doing an MBA — they are a JOB-SEEKER, not an applicant. Frame everything as positioning for the post-MBA job search: target roles, recruiters, and employers. NEVER mention MBA admissions, admissions readers, essays, application rounds, or "why MBA". Treat mba_readiness as readiness for the post-MBA role/move, and suggested_paid_next_step as help landing the right green role — not an application.'
         : '',
       input.profile.intent.mba_intent === 'no'
-        ? 'NO-MBA MODE: this person has expressed no interest in an MBA. NEVER suggest, assume, or imply they should or will pursue an MBA. Frame everything as climate/career positioning and the job market. Treat the mba_readiness section as readiness for their next career move instead, and do not reference business school.'
+        ? 'NO-MBA MODE: this person has expressed no interest in an MBA. NEVER suggest, assume, or imply they should or will pursue an MBA — no admissions, no "before/after your MBA", no business school. Treat the mba_readiness section as readiness for their next CAREER move (a role or transition), framed purely in career terms.'
         : '',
       input.profile.green_economy.depth === 'aspiring'
         ? 'ASPIRING-TO-GREEN MODE: this person is breaking INTO the green economy from an adjacent or different field and may have little direct climate experience yet. In green_career_fit, frame the realistic BRIDGE from their current field into green (which transferable strengths carry over, which entry lane is most credible), not "your existing green experience". Be honest about the gap without discouraging — name the one move that builds green credibility fastest.'

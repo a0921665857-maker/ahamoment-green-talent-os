@@ -2,7 +2,7 @@
  * Server-side orchestration shared by the API routes. Keeps the route handlers
  * thin and the error/degraded patterns (ARCHITECTURE.md) in one place.
  */
-import { LOW_OVERALL_CONFIDENCE, type Locale } from '@/lib/constants';
+import { DIMENSIONS, LOW_OVERALL_CONFIDENCE, type Locale } from '@/lib/constants';
 import { getContent } from '@/content';
 import type {
   Answer,
@@ -110,7 +110,6 @@ export async function generateReport(
 /* --------------------------------- fallbacks --------------------------------- */
 
 function degradedScores(): DimensionScores {
-  const { DIMENSIONS } = require('@/lib/constants') as typeof import('@/lib/constants');
   const out = {} as DimensionScores;
   for (const d of DIMENSIONS) out[d] = { score: 2, confidence: 0.2, evidence: 'unavailable (degraded)' };
   return out;

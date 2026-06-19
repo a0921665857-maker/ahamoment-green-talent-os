@@ -8,7 +8,6 @@ import { sampleReports } from '@/content/sampleReport';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
-import { PromoBanner } from '@/components/PromoBanner';
 import { ShareableTypeCard } from '@/components/ShareableTypeCard';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -33,7 +32,6 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
 
   return (
     <div className="min-h-screen">
-      <PromoBanner promo={c.promo} />
       <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
         <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
           {c.seo.siteName}

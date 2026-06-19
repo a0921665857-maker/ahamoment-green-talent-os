@@ -73,7 +73,8 @@
       "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'fix: detect current/completed-MBA holders as job-seekers \\(not applicants\\), reframe report; add satisfaction guarantee + optional success-bonus hybrid pricing *)",
       "Bash(node scripts/pdftest.mjs)",
       "Bash(rm -f scripts/pdftest.mjs)",
-      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'fix\\(brutal review\\): no-MBA & aspiring-to-green report framing; report-wait reassurance; raise rate limit; broaden urgency copy *)"
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'fix\\(brutal review\\): no-MBA & aspiring-to-green report framing; report-wait reassurance; raise rate limit; broaden urgency copy *)",
+      "Bash(git -c 'user.name=Michael Wu' -c user.email=a0921665857@gmail.com commit -q -m 'fix\\(brutal review\\): remove promo banner from sample + delete dead promo code; dedupe report framing; pipeline import cleanup *)"
     ]
   }
 }

@@ -181,13 +181,6 @@ export interface PrivacyPageContent {
   contactLine: string; // {{email}} placeholder
 }
 
-/** Honest, deadline-bound promotion. Auto-hidden past NEXT_PUBLIC_PROMO_DEADLINE. */
-export interface PromoContent {
-  eyebrow: string; // short label, e.g. "Beta founding cohort"
-  headline: string; // the offer + the real date
-  note: string; // honest fine print — no fake scarcity
-}
-
 /** Copy for the public sample-report page and the links that point to it. */
 export interface SampleContent {
   pageEyebrow: string;
@@ -214,7 +207,6 @@ export interface ShareContent {
 
 /** Everything a locale must provide. */
 export interface LocaleContent {
-  promo: PromoContent;
   sample: SampleContent;
   share: ShareContent;
   landing: LandingContent;
