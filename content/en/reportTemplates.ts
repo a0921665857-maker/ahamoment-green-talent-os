@@ -10,6 +10,7 @@ export const reportTemplates: ReportTemplatesContent = {
   bandLabels: { emerging: 'Emerging', developing: 'Developing', strong: 'Strong' },
   notEnoughSignal: 'Not enough signal yet',
   categoryLabel: 'Your result',
+  nextMoveReadinessTitle: 'Readiness for your next move',
   sections: {
     current_positioning: {
       title: 'Current positioning',

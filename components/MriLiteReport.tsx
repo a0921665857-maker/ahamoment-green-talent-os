@@ -1,4 +1,4 @@
-import { REPORT_SECTION_KEYS, type Band, type Locale, type ReportSectionKey } from '@/lib/constants';
+import { REPORT_SECTION_KEYS, type Band, type Locale, type MbaIntent, type ReportSectionKey } from '@/lib/constants';
 import type { Bands, ReportSections } from '@/lib/types';
 import type { ReportTemplatesContent } from '@/content/schema';
 
@@ -26,8 +26,12 @@ export function MriLiteReport(props: {
   limitedData: boolean;
   templates: ReportTemplatesContent;
   dateLabel: string;
+  mbaIntent?: MbaIntent;
 }) {
   const t = props.templates;
+  const nonApplicant = props.mbaIntent === 'no' || props.mbaIntent === 'current';
+  const titleFor = (key: ReportSectionKey) =>
+    key === 'mba_readiness' && nonApplicant ? t.nextMoveReadinessTitle : t.sections[key].title;
 
   return (
     <article className="mx-auto max-w-2xl">
@@ -58,7 +62,7 @@ export function MriLiteReport(props: {
                   <span className="text-sm tabular-nums text-pine">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h2 className="text-lg font-semibold">{t.sections[key].title}</h2>
+                  <h2 className="text-lg font-semibold">{titleFor(key)}</h2>
                 </div>
                 {bandKey &&
                   (band ? (

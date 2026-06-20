@@ -62,6 +62,8 @@ export const flow: FlowContent = {
     sectorsLabel: '綠色經濟領域',
     domainsLabel: '專業範疇',
     intentLabel: '你看起來想往哪裡走',
+    careerEditPlaceholder: '經歷有讀錯或漏掉的嗎？補一句最關鍵的成就或數字（選填）',
+    sectorsEditPlaceholder: '綠領領域抓錯了嗎？用一句話修正你真正的賽道（選填）',
     editHint: '點任一欄位即可編輯。',
     notDetected: '未偵測到——歡迎自行補上',
     confirmCta: '沒問題，繼續',

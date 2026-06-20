@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
@@ -72,6 +72,11 @@ export default async function ResultPage({
     );
   }
 
+  // The report is generated in one locale; if the URL locale differs (e.g. someone
+  // flipped the language switcher), redirect to the report's own locale so the body
+  // and UI never end up in mixed languages.
+  if (report.locale !== L) redirect(`/${report.locale}/result/${token}`);
+
   const slots = ctaOffers({
     category: report.category,
     primary_offer: report.primaryOffer,
@@ -101,6 +106,7 @@ export default async function ResultPage({
           limitedData={report.limitedData}
           templates={c.reportTemplates}
           dateLabel={formatDate(report.createdAt, L)}
+          mbaIntent={report.mbaIntent}
         />
         <PaidOfferCta
           locale={L}

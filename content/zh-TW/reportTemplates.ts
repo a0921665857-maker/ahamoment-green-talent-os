@@ -10,6 +10,7 @@ export const reportTemplates: ReportTemplatesContent = {
   bandLabels: { emerging: '萌芽', developing: '發展中', strong: '紮實' },
   notEnoughSignal: '訊號還不足',
   categoryLabel: '你的結果類型',
+  nextMoveReadinessTitle: '下一步準備度',
   sections: {
     current_positioning: {
       title: '目前定位',

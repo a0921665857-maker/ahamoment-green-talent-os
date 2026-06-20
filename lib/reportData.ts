@@ -1,5 +1,5 @@
 import { getServiceClient } from '@/lib/supabase';
-import type { Locale, ResultCategory, OfferId } from '@/lib/constants';
+import type { Locale, MbaIntent, ResultCategory, OfferId } from '@/lib/constants';
 import type { Bands, ReportSections } from '@/lib/types';
 
 export interface ReportView {
@@ -12,6 +12,7 @@ export interface ReportView {
   category: ResultCategory;
   primaryOffer: OfferId;
   secondaryOffer: OfferId | null;
+  mbaIntent: MbaIntent;
   createdAt: string;
 }
 
@@ -55,6 +56,15 @@ export async function getReportByToken(token: string): Promise<ReportView | null
     .single();
   if (!report || !scores) return null;
 
+  const { data: profileRow } = await db
+    .from('extracted_profiles')
+    .select('payload')
+    .eq('session_id', session.id)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+  const mbaIntent = (profileRow?.payload?.intent?.mba_intent as MbaIntent) ?? 'unknown';
+
   return {
     locale: session.locale as Locale,
     name: session.name,
@@ -65,6 +75,7 @@ export async function getReportByToken(token: string): Promise<ReportView | null
     category: scores.result_category as ResultCategory,
     primaryOffer: scores.primary_offer as OfferId,
     secondaryOffer: (scores.secondary_offer as OfferId | null) ?? null,
+    mbaIntent,
     createdAt: report.created_at,
   };
 }

@@ -476,18 +476,25 @@ function ConfirmStep(p: {
           </div>
         </Field>
 
-        {achievements.length > 0 && (
-          <Field label={c.careerLabel}>
+        <Field label={c.careerLabel}>
+          {achievements.length > 0 && (
             <ul className="list-disc space-y-1 pl-5 text-sm text-ink-soft">
               {achievements.map((a, i) => (
                 <li key={i}>{a}</li>
               ))}
             </ul>
-          </Field>
-        )}
+          )}
+          <textarea
+            rows={2}
+            className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+            value={p.edits.career_summary ?? ''}
+            placeholder={c.careerEditPlaceholder}
+            onChange={(e) => set({ career_summary: e.target.value })}
+          />
+        </Field>
 
-        {(sectors.length > 0 || domains.length > 0) && (
-          <Field label={c.sectorsLabel}>
+        <Field label={c.sectorsLabel}>
+          {(sectors.length > 0 || domains.length > 0) && (
             <div className="flex flex-wrap gap-2">
               {sectors.map((s) => (
                 <Chip key={s}>{labelFor('sectors', s, p.locale)}</Chip>
@@ -496,8 +503,15 @@ function ConfirmStep(p: {
                 <Chip key={d}>{labelFor('domains', d, p.locale)}</Chip>
               ))}
             </div>
-          </Field>
-        )}
+          )}
+          <textarea
+            rows={2}
+            className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+            value={p.edits.sectors_note ?? ''}
+            placeholder={c.sectorsEditPlaceholder}
+            onChange={(e) => set({ sectors_note: e.target.value })}
+          />
+        </Field>
 
         <Field label={c.intentLabel}>
           <textarea

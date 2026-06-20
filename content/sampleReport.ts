@@ -1,5 +1,5 @@
 import type { Bands, ReportSections } from '@/lib/types';
-import type { Locale, OfferId, ResultCategory } from '@/lib/constants';
+import type { Locale, MbaIntent, OfferId, ResultCategory } from '@/lib/constants';
 
 /**
  * A public, representative MRI sample shown as proof before the email gate.
@@ -13,6 +13,7 @@ export interface SampleReport {
   primaryOffer: OfferId;
   secondaryOffer: OfferId | null;
   limitedData: boolean;
+  mbaIntent: MbaIntent;
   bands: Bands;
   sections: ReportSections['sections'];
 }
@@ -36,6 +37,7 @@ export const sampleReports: Record<Locale, SampleReport> = {
     primaryOffer: 'climate_positioning_sprint',
     secondaryOffer: 'teardown_90',
     limitedData: false,
+    mbaIntent: 'considering',
     bands,
     sections: {
       current_positioning: {
@@ -94,6 +96,7 @@ export const sampleReports: Record<Locale, SampleReport> = {
     primaryOffer: 'climate_positioning_sprint',
     secondaryOffer: 'teardown_90',
     limitedData: false,
+    mbaIntent: 'considering',
     bands,
     sections: {
       current_positioning: {

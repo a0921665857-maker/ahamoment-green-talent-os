@@ -18,8 +18,8 @@ export async function sendReportEmail(opts: {
   if (!apiKey || !from) return;
 
   const t = getContent(opts.locale).emails.d0;
-  const body = t.body
-    .replaceAll('{{name}}', opts.name ?? '')
+  const name = opts.name?.trim();
+  const body = (name ? t.body.replaceAll('{{name}}', name) : t.body.replace(/\{\{name\}\}\s*/g, ''))
     .replaceAll('{{report_url}}', opts.reportUrl)
     .replaceAll('{{personal_line}}', '')
     .replace(/\n{3,}/g, '\n\n')

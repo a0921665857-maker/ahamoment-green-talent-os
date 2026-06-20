@@ -59,6 +59,7 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
           limitedData={s.limitedData}
           templates={c.reportTemplates}
           dateLabel={c.sample.pageEyebrow}
+          mbaIntent={s.mbaIntent}
         />
         <PaidOfferCta
           locale={L}

@@ -62,6 +62,8 @@ export const flow: FlowContent = {
     sectorsLabel: 'Green-economy sectors',
     domainsLabel: 'Domain expertise',
     intentLabel: 'What you seem to be aiming for',
+    careerEditPlaceholder: 'Did we misread or miss anything? Add the one achievement or number that matters most (optional)',
+    sectorsEditPlaceholder: 'Wrong green lane? Correct your real sector in one line (optional)',
     editHint: 'Tap any field to edit it.',
     notDetected: 'Not detected — feel free to add it',
     confirmCta: 'Looks right — continue',

@@ -52,6 +52,8 @@ export interface FlowContent {
     sectorsLabel: string;
     domainsLabel: string;
     intentLabel: string;
+    careerEditPlaceholder: string; // optional correction for career/achievements
+    sectorsEditPlaceholder: string; // optional correction for green sectors/domains
     editHint: string;
     notDetected: string;
     confirmCta: string;
@@ -103,6 +105,7 @@ export interface ReportTemplatesContent {
   bandLabels: Record<Band, string>;
   notEnoughSignal: string;
   categoryLabel: string;
+  nextMoveReadinessTitle: string; // alt title for mba_readiness when the reader isn't an MBA applicant
   sections: Record<ReportSectionKey, { title: string; fallback: string }>;
   footer: { deleteLine: string; confidentiality: string; returnNote: string };
 }
