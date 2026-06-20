@@ -17,7 +17,7 @@ export const share: ShareContent = {
     },
     climate_career_first_mba_later: {
       label: '氣候職涯建造者',
-      shareLine: '我的綠色職涯類型是「氣候職涯建造者」——先把氣候賽道走深，MBA 之後再說。',
+      shareLine: '我的綠色職涯類型是「氣候職涯建造者」——把氣候賽道走深，走出自己的路。',
     },
     career_positioning_before_mba: {
       label: '定位中的轉型者',

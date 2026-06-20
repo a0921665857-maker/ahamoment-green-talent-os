@@ -29,7 +29,8 @@ export function MriLiteReport(props: {
   mbaIntent?: MbaIntent;
 }) {
   const t = props.templates;
-  const nonApplicant = props.mbaIntent === 'no' || props.mbaIntent === 'current';
+  const nonApplicant =
+    props.mbaIntent === 'no' || props.mbaIntent === 'current' || props.mbaIntent === 'unknown';
   const titleFor = (key: ReportSectionKey) =>
     key === 'mba_readiness' && nonApplicant ? t.nextMoveReadinessTitle : t.sections[key].title;
 

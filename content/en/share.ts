@@ -17,7 +17,7 @@ export const share: ShareContent = {
     },
     climate_career_first_mba_later: {
       label: 'Climate Career Builder',
-      shareLine: 'My green career type is “Climate Career Builder” — go deep on the climate lane first, MBA later.',
+      shareLine: 'My green career type is “Climate Career Builder” — going deep on the climate lane and building real depth.',
     },
     career_positioning_before_mba: {
       label: 'Transition in Progress',
