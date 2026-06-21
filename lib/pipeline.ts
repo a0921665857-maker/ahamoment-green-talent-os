@@ -57,6 +57,9 @@ export async function scoreAndClassify(
     scores = await callPrompt(dimensionScoringPrompt, { profile, answers });
   } catch (e) {
     if (!(e instanceof PromptValidationError)) throw e;
+    // Surface the degradation to server logs — the user gets a degraded report and
+    // we must not let that pass silently in the paid funnel.
+    console.error('[MRI degraded] dimension_scoring failed validation:', e.issues);
     degraded = true;
     scores = degradedScores();
   }
@@ -103,6 +106,7 @@ export async function generateReport(
     return { sections: result.sections, degraded: scored.degraded };
   } catch (e) {
     if (!(e instanceof PromptValidationError)) throw e;
+    console.error('[MRI degraded] mri_report failed validation:', e.issues);
     return { sections: fallbackSections(locale), degraded: true };
   }
 }

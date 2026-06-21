@@ -1,0 +1,229 @@
+
+################################################################################
+# Persona 9: Engineer -> climate tech  [en]
+EXTRACT: role=Mechanical Engineer, Powertrain R&D | seniority=mid | yrs=10
+  mba_intent=no | timeline=6-12m | green_depth=adjacent | overall_conf=0.75
+  sectors=["climate-tech","energy-transition"] functions=["engineering-technical","product"] domains=[]
+CLASSIFY: category=high_potential_low_commercial_clarity | primary=climate_positioning_sprint | secondary=teardown_90 | grade=B | limitedData=false | degraded=false
+  indices: story=3.53 mba=2.72 climate=3.1 avg=3.05
+
+  [current_positioning]
+  You are a senior mechanical engineer with a decade of powertrain R&D experience who wants to move into climate-tech hardware — and on paper, that move looks logical but not yet inevitable. In six seconds, a recruiter at a battery or heat-pump company reads you as a strong automotive specialist: technically rigorous, team-proven, and adjacent to the space they care about. The gap is that 'adjacent' is doing a lot of work. You see yourself as someone whose thermal systems and EV powertrain background directly maps onto the hardware challenges in climate tech. The reader sees someone who has not yet crossed the line. The specific signal creating that perception is the absence of any outcome framed in the language of the sector you are entering — no mention of energy density, system efficiency gains, decarbonisation impact, or even approximate scale of what your thermal work delivered. Your current framing is accurate to your past; it is not yet calibrated to your future. In a 6–12 month timeline, that calibration gap is the single thing most likely to slow you down.
+
+  [core_story_gap]
+  The single biggest gap is this: there is not one number in your story. Not one. No efficiency gain, no cost reduction, no system performance metric, no programme scale, no budget owned. This is the honest criticism the report has to make, because it is the mechanism behind almost every other friction in your profile. A recruiter at a climate-tech hardware company — whether a Series B battery startup or an industrial decarbonisation firm — is trying to answer one question: what does this engineer actually move? They are not doubting your technical competence; your background signals that clearly enough. What they cannot determine is whether your work had measurable consequence. The absence of quantified outcomes does not read as modesty. It reads as either an inability to connect your work to results, or a career spent in a role where outcomes were not your responsibility to own. Neither reading serves you. The mechanism is compounding: without numbers, your thermal expertise stays abstract, your team leadership stays decorative, and your simulation work stays a skill rather than a lever. The gap is not that you lack impact — it is that nothing in your current material proves you had any.
+
+  [green_career_fit]
+  Your strongest uncontested lane is thermal engineering within climate-tech hardware — specifically battery thermal management systems, heat pump development, and hydrogen fuel cell balance-of-plant engineering. This is not a generic 'transferable skills' argument. The specific combination of deep thermal systems work, advanced simulation capability, and EV powertrain product experience maps directly onto the hardest open problems in each of those domains: cell-level thermal runaway prevention and pack-level thermal management in batteries; refrigerant cycle modelling and system efficiency in heat pumps; and stack thermal regulation in hydrogen fuel cells. Where you compete on your own terms — rather than against the crowd of sustainability generalists or ex-consulting profiles — is precisely in this hardware-deep, simulation-fluent, thermally specialised space. Most candidates entering climate tech from adjacent industries bring one of those three things. You appear to bring all three from a single decade of focused work. Industrial decarbonisation is a secondary but credible lane, particularly in process heat applications where OEM-grade thermal modelling rigour is rare. The fit is real; the task is making it legible.
+
+  [mba_readiness]
+  The single biggest readiness driver for the move you are weighing is your technical credibility — it is genuine and it is relevant. Climate-tech hardware roles at the senior individual contributor or technical lead level are hungry for exactly the depth you have built. The blocker is the commercial layer: you are entering a job market where hiring managers will want to understand not just what you engineered, but what it was worth. Without at least one or two outcomes framed in business terms, you risk being evaluated purely as a technical hire rather than as someone ready to own a function or a product line. That ceiling matters at the 6–12 month timeline you have set.
+
+  [recommended_next_move]
+  Take your three strongest projects from the past five years and write one paragraph on each — not for anyone else to read yet, just for yourself. For each project, force yourself to answer: what was the system before my work, what was it after, and what did that difference mean in terms of cost, performance, time, or risk? You do not need precise figures; approximate orders of magnitude are enough to start. This exercise will surface the commercial language that is currently missing from every public-facing version of your story, and it will reveal which of your projects has the strongest narrative spine for the move you are planning. Two weeks is enough time to do this rigorously for three projects.
+
+  [suggested_paid_next_step]
+  The Climate Career Positioning Sprint is the direct continuation of what this diagnostic has surfaced. Your expertise is not in question — the gap is that your technical record is not yet translated into the commercial language that climate-tech employers use to evaluate and price candidates. The Sprint does exactly that translation work: it takes your strongest projects, including the thermal systems and EV powertrain work identified here, and rebuilds the narrative around outcomes a hiring manager can act on. That is not a cosmetic exercise. For a profile at your level, moving from function-descriptor language to commercial-outcome language is the difference between being read as a strong technical hire and being read as someone ready to lead a function.
+
+################################################################################
+# Persona 10: Policy/NGO -> private green job  [en]
+EXTRACT: role=? | seniority=senior | yrs=8
+  mba_intent=no | timeline=12m+ | green_depth=core | overall_conf=0.75
+  sectors=["climate-policy","climate-tech"] functions=["policy-regulatory","strategy"] domains=[]
+CLASSIFY: category=high_potential_low_commercial_clarity | primary=climate_positioning_sprint | secondary=teardown_90 | grade=C | limitedData=false | degraded=false
+  indices: story=3.13 mba=2.38 climate=3.88 avg=2.92
+
+  [current_positioning]
+  You are an eight-year climate policy professional with deep institutional knowledge across both advocacy and regulation — and that is precisely how you are being read, which is the problem. A recruiter scanning your profile in six seconds sees a public-sector specialist: NGO advocacy, government energy regulation, coalition building. The word that forms in their mind is 'expert,' not 'operator.' The gap between how you see yourself — as someone ready to move into corporate strategy and government affairs — and how you are currently read is real and consequential. The specific signal creating this perception is the absence of any private-sector framing in your story. Your eight years span two distinctly public-facing institutions, and nothing in the visible record translates that experience into the language of business risk, market positioning, or commercial decision-making. This matters acutely right now because the corporate climate-policy and climate-tech roles you are targeting are being filled by people who can speak both languages. Hiring managers in those seats are not doubting your policy expertise; they are asking whether you can operate inside a P&L-driven environment. Your current positioning does not answer that question.
+
+  [core_story_gap]
+  The single biggest gap is the complete absence of commercial impact language anywhere in your record. There are no quantified outcomes, no budget or resource figures, no reference to regulatory risk avoided, market conditions shaped, or policy outcomes that had measurable economic consequences. This is not a cosmetic problem. The mechanism works like this: a hiring manager at a corporation or climate-tech company is trying to answer one question — can this person operate in an environment where decisions are measured in money, risk, and competitive position? Your current record gives them no evidence either way. It does not say you cannot; it simply says nothing. In a competitive candidate pool, silence on commercial impact reads as absence of commercial experience, even when that is not true. The policy and advocacy framing you are using is precise and credible within its own register, but it is the wrong register for the roles you are targeting. Corporate government-affairs teams and climate-tech policy functions are not looking for the best policy analyst in the room; they are looking for someone who understands how policy creates or destroys business value. Until your story answers that question, even a strong profile will stall at the screening stage.
+
+  [green_career_fit]
+  Your specific combination of NGO advocacy and government energy regulation creates a natural fit in two lanes, and in one of them you face almost no direct competition. The first lane is corporate government affairs at energy transition companies — utilities moving toward renewables, large industrials managing decarbonization commitments, or infrastructure developers navigating permitting and regulatory approval. Your four years inside a government agency gives you something most corporate affairs candidates lack: you know how regulators think, what they prioritize, and where the institutional pressure points are. That is not learnable from the outside. The second lane, and the one where your combination is most uncontested, is climate-tech companies at the policy-market interface — firms that need someone who can translate between regulatory reality and commercial strategy. These companies are often led by technologists or investors who understand the product but not the policy environment. Your eight years of sustained climate-policy focus, spanning both the advocacy and regulatory sides, positions you as the person who can make that translation credible. Neither lane requires you to compete against MBAs or pure finance backgrounds. They require exactly the institutional knowledge and stakeholder fluency you have built — provided you can frame it in terms those employers recognize.
+
+  [mba_readiness]
+  The single biggest readiness driver for the private-sector move you are targeting is your ability to demonstrate that you understand how policy decisions connect to business outcomes. Right now, the record shows deep policy expertise but no visible evidence of commercial reasoning. That gap matters because the roles you are targeting — corporate government affairs, climate-tech policy — will assess you partly on whether you can operate inside a business logic, not just a regulatory one. Building even a thin layer of commercial framing into your existing experience, before you pursue those roles actively, will materially change how hiring conversations go.
+
+  [recommended_next_move]
+  Take your three strongest projects from the past four years — one from the NGO, one or two from the government role — and for each one, write a single sentence that states the outcome in commercial terms: a regulatory risk that was reduced, a policy outcome that affected market conditions, a coalition position that shifted a legislative or agency decision with economic stakes. You do not need precise figures; approximations and directional language ('affecting an estimated X gigawatts of planned capacity,' 'reducing permitting timeline by several months') are far more credible than silence. This exercise will surface the commercial translation layer your story currently lacks and give you the raw material for every subsequent step — interviews, outreach, and positioning conversations.
+
+  [suggested_paid_next_step]
+  The Climate Career Positioning Sprint is built for exactly this diagnosis. Your expertise is not in question — eight years across advocacy and regulation is a genuinely strong foundation for the roles you are targeting. What is missing is the translation layer: the ability to restate that record in the commercial language that corporate government-affairs and climate-tech employers use to evaluate candidates. The Sprint does that translation work directly, taking your actual projects and outcomes and rebuilding the narrative in money, risk, and scale terms. That is the specific gap this diagnostic has identified, and it is the work the Sprint is designed to do.
+
+################################################################################
+# Persona 11: Junior (0-2 yrs) entry green  [en]
+EXTRACT: role=Sustainability Coordinator | seniority=junior | yrs=1.5
+  mba_intent=later | timeline=12m+ | green_depth=adjacent | overall_conf=0.75
+  sectors=["corporate-sustainability"] functions=["operations"] domains=["leed","esg-reporting"]
+CLASSIFY: category=profile_building_needed | primary=teardown_90 | secondary=- | grade=C | limitedData=false | degraded=false
+  indices: story=2.35 mba=1.27 climate=2.3 avg=1.88
+
+  [current_positioning]
+  You are a junior sustainability coordinator with eighteen months of experience in real-estate ESG operations, working toward an analyst or consultant role. A recruiter scanning your profile in six seconds sees a recent Environmental Science graduate who supports established processes — LEED, GRESB, energy data tracking — but has not yet owned any of them. The gap between how you see yourself and how you are read is meaningful: you experience this work as growing expertise in a specialist field, and that is fair. But the external signal is one of assistance and support, not authorship or accountability. The specific phrase that creates this perception is your own: 'I track... I support... I help with.' Each verb positions you as a contributor to someone else's deliverable rather than the person responsible for the outcome. In a market where ESG analyst roles attract candidates who can point to a metric they moved or a submission they owned, that verb pattern is the first thing a reader notices — and it quietly lowers the seniority inference before they reach anything else on the page.
+
+  [core_story_gap]
+  The single biggest gap is the complete absence of any quantified result or owned outcome. There is no number anywhere in your material — no energy reduction percentage, no GRESB score movement, no number of buildings certified, no square footage covered, no data accuracy improvement. This is not a formatting problem. It is an evidence problem, and it matters for a specific reason: the roles you are targeting — ESG analyst, sustainability consultant — are evaluated on the ability to measure, interpret, and communicate environmental performance. When a recruiter or admissions reader sees a candidate from a sustainability function with zero quantified outcomes, the inference is not that the results do not exist; it is that the candidate has not yet developed the habit of connecting their work to measurable impact. That inference, fair or not, is what makes a reader hesitate before moving your application forward. At 1.5 years, the absence is understandable. But it becomes the defining constraint on your story the moment you apply for roles that require demonstrated analytical capability, because there is currently nothing in your material that distinguishes your contribution from that of any other coordinator who sat in the same seat.
+
+  [green_career_fit]
+  Your strongest lane is the intersection of real-asset ESG operations and institutional reporting — specifically, roles that sit between property-level data and investor-facing disclosure. This is a narrower and more defensible space than the broad 'ESG analyst' category you have named as your target, and it is one where your combination of real-estate sector context, GRESB familiarity, and Environmental Science grounding is genuinely competitive. The real-estate ESG market in Canada is being reshaped by incoming mandatory climate disclosure requirements, and the demand for people who understand both the asset-level data (energy, emissions, water) and the reporting frameworks (GRESB, TCFD, GRI) is growing faster than the supply of candidates who have touched both sides. You have touched both sides — at a junior level, but you have touched them. A second plausible lane is sustainability data and analytics within ESG-focused property management or real-estate investment management firms, where your energy data tracking experience maps directly onto the core function. These roles tend to require less seniority than consulting entry points and offer faster accumulation of the quantified outcomes your story currently lacks. Both lanes let you compete on sector specificity rather than against generalist ESG candidates with broader but shallower credentials.
+
+  [mba_readiness]
+  Your MBA intent is flagged as 'later,' which is the right instinct given where the profile currently sits. The core readiness constraint is not academic — an Environmental Science degree is a credible foundation — it is the absence of any impact narrative that an admissions reader can evaluate. MBA programmes, particularly those with strong sustainability or real-assets tracks, look for evidence that a candidate has moved something: a metric, a decision, a team. At 1.5 years with no quantified outcomes on record, the application would be asking the committee to take potential on faith. Building one or two concrete proof points over the next two to three years is not just good career advice — it is the prerequisite for a competitive application.
+
+  [recommended_next_move]
+  Pick one data stream you already own — the most likely candidate is the building energy data you track — and, over the next two weeks, write a single internal summary that connects that data to a business-relevant observation: a building that is performing above or below benchmark, a trend across a quarter, an anomaly worth flagging. The goal is not to produce a polished report. It is to practice the habit of translating raw data into a finding, and to create a concrete artifact you were responsible for. That artifact — however modest — is the beginning of an impact narrative, and it is the thing your story most urgently needs.
+
+  [suggested_paid_next_step]
+  The honest read on this profile is that positioning help is premature — there is not yet enough evidence on the page to position effectively, and paying to polish a thin story produces a polished thin story. The free diagnostic above is genuinely most of what you need right now. If you do want a second pair of eyes, the most useful thing at this stage is a single teardown session focused on which proof points to build first and how to document them as you go — not a CV rewrite or a LinkedIn overhaul. That session makes sense once you have one or two concrete outcomes in progress, so the conversation is grounded in real material rather than potential.
+
+################################################################################
+# Persona 12: Senior (10+ yrs) -> climate leadership  [en]
+EXTRACT: role=VP, Strategy & Business Development | seniority=exec | yrs=16
+  mba_intent=considering | timeline=6-12m | green_depth=core | overall_conf=0.88
+  sectors=["renewable-energy","energy-transition"] functions=["strategy","sales-bd"] domains=["renewable-ppa"]
+CLASSIFY: category=career_positioning_before_mba | primary=climate_positioning_sprint | secondary=teardown_90 | grade=B | limitedData=false | degraded=false
+  indices: story=4.47 mba=3.82 climate=4.2 avg=4.13
+  ERROR: Connection error.
+
+################################################################################
+# Persona 13: Finance pro, NO green background -> impact investing  [en]
+EXTRACT: role=? | seniority=mid | yrs=7
+  mba_intent=no | timeline=6-12m | green_depth=aspiring | overall_conf=0.75
+  sectors=[] functions=[] domains=[]
+CLASSIFY: category=climate_career_first_mba_later | primary=climate_positioning_sprint | secondary=- | grade=B | limitedData=false | degraded=false
+  indices: story=2.6 mba=2.15 climate=1.6 avg=2.13
+
+  [current_positioning]
+  You are a seven-year finance professional with a credible M&A and leveraged-buyout track record who wants to move into impact investing or climate-focused PE — and right now, the market is reading you as a finance person who wants a career change, not as a climate investor in formation. In six seconds, a recruiter at a climate fund sees the private equity and investment banking pedigree and immediately asks the one question that stops the process: why now, and why this? That question is not hostile — it is the only question that matters at this stage of the transition. The specific signal creating that perception is your own candid self-assessment: 'I have NO sustainability, climate, or impact experience whatsoever.' That sentence, or the professional reality it describes, is legible to every hiring manager you will meet. The gap between how you see yourself — as a finance professional making a deliberate, informed pivot — and how you are read — as someone without a demonstrated stake in the mission — is the central problem. It matters now because impact and climate funds are fielding a wave of finance-to-impact applicants, and the ones who move forward are the ones who have already closed some of that gap before they apply.
+
+  [core_story_gap]
+  The single biggest gap is the absence of any demonstrated engagement with climate or impact — not as a credential, but as evidence of genuine orientation. This is the gap behind the feedback you keep receiving. When a climate fund hiring manager hears 'not mission-aligned enough,' they are not asking for a sustainability certification or a volunteer project. They are asking: has this person done anything — read, written, invested personally, joined a network, taken on a project — that shows they have been pulled toward this space, rather than pushed out of traditional finance? Right now, your story has a clean before (PE and M&A) and a stated after (climate-focused PE), but nothing in the middle that shows the pull. The mechanism is straightforward: impact and climate funds are mission-driven organisations, and they are acutely sensitive to candidates who might leave once a better-paying traditional finance role appears. The absence of any bridge signal — however small — activates that concern immediately. This is not about the depth of your climate knowledge. It is about whether there is any visible evidence that you have chosen this direction, rather than arrived at it by elimination. That is the gap that is stopping the process, and it is the one that needs to close first.
+
+  [green_career_fit]
+  Your most credible entry lane into the green economy is climate-focused private equity or growth equity targeting industrial decarbonisation — specifically, funds investing in hard-to-abate sectors, industrial efficiency, energy transition infrastructure, or advanced manufacturing. This is not a compromise lane; it is the lane where your specific combination of skills is genuinely scarce. The broader impact investing market is crowded with finance-to-impact candidates, but most of them come from tech, consumer, or generalist backgrounds. Very few have spent years modelling capital-intensive industrial businesses. Funds deploying capital into steel, cement, chemicals, industrial heat, or heavy transport decarbonisation need investors who understand asset-heavy balance sheets and operational complexity — not just ESG frameworks. Your M&A background adds deal execution credibility that pure climate analysts often lack. The bridge from where you are to where you want to be is shorter than it feels, but it requires one visible move that signals genuine engagement with the climate thesis — not a credential, but a demonstration that you have formed a point of view on where capital is needed and why. The most credible first move is developing and articulating a specific investment thesis in one industrial decarbonisation sub-sector, grounded in your existing analytical experience.
+
+  [mba_readiness]
+  The single biggest readiness driver for your next career move is not credentials — it is proof of direction. You have the analytical foundation and the deal experience that climate-focused PE roles require. What is not yet in place is a demonstrated point of view on the climate transition that is specific enough to be credible in a room of people who have been working in this space for years. Until that exists, your readiness for the move you are targeting is limited not by your finance skills but by your ability to show that you have already begun the transition in some tangible way. That is the lever that unlocks the next step.
+
+  [recommended_next_move]
+  In the next two weeks, write a short, specific investment thesis — roughly 400 to 600 words — on one industrial decarbonisation sub-sector where your LBO experience gives you genuine analytical standing. Pick one area you have looked at from the inside: a specific industry, a cost structure you understand, a capital deployment challenge you have modelled. The thesis does not need to be published or perfect. Its purpose is to force you to form and articulate a point of view, which is the one thing currently missing from your story. This single act begins to close the mission-alignment gap by converting your existing knowledge into visible conviction — and it gives you something concrete to reference in every conversation you have in this space going forward.
+
+  [suggested_paid_next_step]
+  The diagnosis here is clear: your green economy fit is real, your finance foundation is strong, and the gap is not experience — it is lane clarity and a visible first move. The Climate Career Positioning Sprint is the natural continuation of this report. Across three working sessions, it maps your specific lane within climate-focused PE or impact investing, identifies the precise gap between where you are and what that lane requires, and defines your next two concrete moves. Given the feedback you are already receiving, the priority is not more preparation — it is sharper positioning, and that is exactly what the Sprint is designed to deliver.
+
+################################################################################
+# Persona 14: Greenwashing seeker — mostly marketing/ops, few ESG keywords  [en]
+EXTRACT: role=Senior Brand Manager | seniority=senior | yrs=6
+  mba_intent=no | timeline=6-12m | green_depth=aspiring | overall_conf=0.68
+  sectors=["corporate-sustainability","esg-advisory"] functions=["marketing-comms"] domains=["esg-reporting"]
+CLASSIFY: category=climate_career_first_mba_later | primary=climate_positioning_sprint | secondary=- | grade=B | limitedData=false | degraded=false
+  indices: story=2.65 mba=2.08 climate=1.8 avg=2.15
+
+  [current_positioning]
+  You are a senior brand marketer who has touched sustainability — not yet a sustainability professional who happens to have strong marketing skills. That distinction is the entire gap between how you see yourself and how a green-economy recruiter reads your profile in six seconds. When you write 'I now call myself a sustainability marketer and want a green/ESG role,' you are signalling an aspiration, not a track record — and recruiters are trained to hear that difference. The specific signal that creates this perception is the cluster of work you describe: a campaign for a sustainable product line, authoring the company sustainability page, writing CSR communications. Each of those is real work, but each sits on the marketing side of the fence — it is about communicating sustainability decisions, not making them. The mechanism that makes this matter right now is timing: the ESG hiring market has tightened, and roles that once went to communicators with green enthusiasm now go to people who can demonstrate they have operated inside a sustainability framework, not just narrated one. You are closer than you think, but the current framing does not close that distance.
+
+  [core_story_gap]
+  The single biggest gap is the complete absence of any outcome, metric, or decision you influenced — and this is not a formatting problem, it is a substance problem. You have acknowledged it yourself: 'my actual hands-on ESG/climate work is thin.' But the deeper issue is not just thinness; it is that nothing in your current story demonstrates that your work changed anything. A recruiter hiring for a corporate sustainability or ESG advisory role needs to see evidence of impact — a product claim that held up, a communications strategy that shifted stakeholder perception, a process you improved. Without a single number, result, or decision-point attached to any of your work, the story reads as support and execution rather than ownership and influence. The mechanism is straightforward: in a market where ESG roles attract candidates with technical credentials, policy backgrounds, and quantified project outcomes, a profile with no measurable results has no anchor. It cannot be compared to anything, which means it gets passed over not because it is weak but because it is unreadable. This is the gap that makes every other strength harder to land.
+
+  [green_career_fit]
+  Your most credible entry lane into the green economy is corporate sustainability communications and ESG stakeholder engagement — specifically inside consumer-facing companies or the sustainability advisory firms that serve them. This is not a consolation lane; it is the lane where your specific combination of commercial brand experience and sustainability content authorship is genuinely differentiated. The consumer sector has a well-documented problem: sustainability teams that understand the substance but cannot translate it into credible external communication, and marketing teams that can communicate but do not understand the substance. You sit at that boundary, which is where the real demand is. A second credible lane is ESG advisory, particularly at firms that support consumer brands on reporting, disclosure, or stakeholder communications — roles that are explicitly looking for people who understand how brands work from the inside. The honest bridge-building note: to move from aspiring to hired in either lane, you need one piece of work that demonstrates you engaged with the ESG substance, not just the messaging. That is the single move that builds green credibility fastest — one project, secondment, or advisory contribution where you touched the framework, not just the words.
+
+  [mba_readiness]
+  The primary readiness driver for your next career move is not credentials — it is the ability to articulate what you have already done in terms of impact and ownership. Right now, your story reads as a capable executor who supported sustainability work, rather than someone who drove a sustainability outcome. Before any role transition lands, that framing needs to shift. The one thing that would most accelerate your readiness is a single, well-evidenced example of a decision or result you owned — even a partial one. Without it, your six years of experience reads as tenure rather than progression.
+
+  [recommended_next_move]
+  The move that matters most right now is identifying one piece of work — already done or immediately available — where you can attach a result to your name. This does not require a new job or a formal ESG project. It could mean going back to the sustainable product line campaign and reconstructing what it achieved: reach, sales lift, claim substantiation process, stakeholder response. The goal in the next two weeks is to have one specific, outcome-anchored story you can tell in a single paragraph. That story becomes the foundation everything else is built on — your positioning, your outreach, your interview answer. Without it, the lane you are targeting remains aspirational rather than credible.
+
+  [suggested_paid_next_step]
+  What this diagnostic has surfaced is not a credentials gap — it is a positioning and lane-clarity gap. You have real assets; they are just pointed in the wrong direction and framed in a way that undersells your proximity to the green economy. The Climate Career Positioning Sprint is the natural continuation of this diagnosis: three working sessions focused on mapping which specific lane in the green economy is most credible for your profile right now, identifying the one or two gaps that are actually blocking entry, and defining the next concrete moves. It does not hand you a plan — it gives you the clarity to build one that is specific to where you actually are, not where a generic framework assumes you should be.
+
+################################################################################
+# Persona 15: Bilingual: Chinese CV -> native zh-TW report  [zh-TW]
+EXTRACT: role=永續發展部 資深專員 | seniority=senior | yrs=8
+  mba_intent=no | timeline=12m+ | green_depth=core | overall_conf=0.75
+  sectors=["corporate-sustainability","climate-tech"] functions=["strategy","operations","consulting"] domains=["ghg-scope123","tcfd","sbti","carbon-accounting","esg-reporting"]
+CLASSIFY: category=high_potential_low_commercial_clarity | primary=climate_positioning_sprint | secondary=teardown_90 | grade=C | limitedData=false | degraded=false
+  indices: story=2.97 mba=2.35 climate=3.58 avg=2.73
+
+  [current_positioning]
+  你目前的定位，是一位在電子製造業深耕 8 年、掌握完整氣候揭露技術框架的資深執行者——但這個定位是用法遵語言寫成的，不是策略語言。
+
+招募者或獵頭在六秒內看到的畫面是：ISO 14064、CDP、TCFD、SBTi，這一串縮寫傳遞的訊號是「這個人很會填表、很會盤查」，而不是「這個人能驅動減碳決策」。這不是你的錯，這是框架本身的問題——這些工具的名稱在外部讀者眼中，天然地與合規部門綁定，而非與策略室綁定。
+
+你對自己的理解，是一個已經準備好轉向氣候策略與減碳專案管理的人。你的自我認知是正確的：你有流程改善顧問的底子，又有五年以上的電子製造業永續實務，這個組合本身就不尋常。但你的材料目前沒有把這個組合的意義說清楚——讀者看到的是兩段經歷的並列，而不是一條刻意走出來的策略軌跡。
+
+具體來說，「協助導入 SBTi 減碳目標」這句話是你材料裡最接近策略影響力的一筆，但「協助」這個動詞把你的角色縮小了。讀者不知道你在這個導入過程中做了什麼決定、影響了哪些人、推動了什麼改變。這一個字的選擇，就足以讓你從「策略參與者」退回「執行支援者」的位置。
+
+這個落差現在特別重要，因為台灣的企業永續策略職缺正在快速從「建置期」進入「深化期」——雇主開始要找能夠把盤查結果轉化為減碳路徑、並且能跟業務單位對話的人，而不只是能產出報告的人。你的實力已經在那個門檻上，但你的定位還停在門外。
+
+  [core_story_gap]
+  你的材料裡，沒有任何一筆數字說明你的工作對公司產生了什麼實質影響。
+
+這不是小問題。這是你的故事目前最大的結構性缺口。
+
+你的材料列出了你做了什麼——盤查、CDP、TCFD、SBTi——但完全沒有說明這些工作的結果是什麼。減碳了多少噸？盤查涵蓋了多少個據點或供應商？SBTi 目標設定後，公司的減碳路徑改變了什麼？CDP 評級有沒有提升？這些問題的答案，是招募者判斷你是「做過這件事的人」還是「推動過這件事的人」的關鍵依據。
+
+這個缺口的機制是這樣的：當一份材料只有活動描述而沒有結果數據，讀者會自動把這個人歸類為執行者，而不是決策者。這不是讀者的偏見，這是人類在資訊不足時的認知捷徑。你沒有給讀者任何理由去假設你有更大的影響力，所以他們不會假設。
+
+這個問題在你想轉向的方向上特別致命。氣候策略職位和氣候顧問角色，都需要候選人能夠說清楚「我的介入讓什麼事情改變了」。如果你連自己公司內部的成果都說不清楚，雇主很難相信你能在更複雜的策略環境中驅動改變。
+
+你可能覺得自己沒有「漂亮的數字」，或者覺得這些數字不屬於你個人。但這個顧慮本身，正是讓你的故事停在技術層次的原因。即使是粗略的規模描述——例如盤查涵蓋的範疇、SBTi 目標的減碳幅度——都比空白更有力量。
+
+  [green_career_fit]
+  你在綠色經濟裡最強的賽道，不是泛泛的「ESG 顧問」，而是一個更具體的交叉點：**製造業供應鏈脫碳策略**。
+
+這個判斷的依據是你的三層能力疊加。第一層是技術深度：你有 ISO 14064、Scope 1/2/3 盤查、SBTi 路徑設計的實作經驗，這是這個賽道的入場門票。第二層是產業知識：你在電子製造業工作了 8 年，你理解這個產業的碳排結構——製程用電、供應商管理、客戶要求的真實複雜度——這是外部顧問需要花很長時間才能建立的知識。第三層是顧問方法論：你的流程改善背景給了你結構化分析的工具，這讓你能夠把技術問題轉化為組織可以執行的方案。
+
+這三層疊在一起，定義了你能夠不靠人脈競爭的空間：你比純顧問更懂製造業的實際限制，你比純技術人員更懂如何推動組織改變，你比剛入行的 ESG 人員多了五年以上的實戰積累。
+
+你的材料也顯示你的目標是「企業永續策略團隊或氣候顧問」——這兩個方向都在你的能力範圍內，但它們對你的要求略有不同。企業端需要你展示你能夠在組織內部推動跨部門的減碳決策；顧問端需要你展示你能夠把這套知識轉化為對不同客戶的可交付成果。你目前的材料對這兩個方向都沒有針對性地說話，但你的底層能力支撐兩條路。
+
+在台灣市場，電子製造業的供應鏈碳管理正在從「自願揭露」轉向「客戶強制要求」，這個轉變讓你的產業深度在未來 2 至 3 年內的市場價值只會上升，不會下降。
+
+  [mba_readiness]
+  你目前正在考慮從「報告與盤查」轉向「氣候策略與減碳專案管理」，這個轉換的最大準備度問題，不是技術能力，而是你能不能用商業語言說清楚你過去做過的事。
+
+你有 8 年的實務積累和跨背景的能力組合，這些是轉換的真實基礎。但你的材料目前沒有回答雇主在評估策略職位時最核心的問題：「這個人做過的事，對業務或風險有什麼具體影響？」如果你在面試或書面材料中無法回答這個問題，你的轉換就會停在「有意願」的層次，而不是「有準備」的層次。
+
+這個準備度的缺口，是可以在短期內填補的——但它需要你主動把過去的技術工作重新用影響力語言詮釋一次，而不是等待機會自然出現。
+
+  [recommended_next_move]
+  接下來兩週，做一件事：把你材料裡最重要的三個專案——SBTi 導入、ISO 14064 盤查、CDP/TCFD 報告——每一個都試著用一個數字重新描述一次。
+
+這個數字不需要精確，也不需要是你個人獨立創造的。它可以是盤查涵蓋的供應商數量、SBTi 目標設定的減碳幅度（相對基準年的百分比）、CDP 評級的變化、或者 TCFD 報告揭露的財務風險金額範圍。重點不是找到「完美的數字」，而是強迫自己把活動語言翻譯成規模語言。
+
+這個練習的目的不是修改 CV，而是讓你自己先搞清楚：你做的這些事，到底有多大？影響了什麼？當你能夠用規模語言描述自己的工作，你在面試中的回答、你的書面材料、以及你對自己的定位，都會同時改變。這是你從「技術執行者」轉向「策略貢獻者」定位的第一個具體動作。
+
+  [suggested_paid_next_step]
+  這份診斷指出的核心問題是：你的技術實力是真實的，但你的影響力是用法遵語言包裝的，不是商業語言。這讓讀者看得出你很強，卻看不出你值多少——也不知道該把你放在哪個位置。
+
+「氣候職涯定位衝刺」正是針對這個問題設計的。它做的核心工作，是把你已經有的技術成果——SBTi 導入、ISO 14064 盤查、CDP/TCFD 揭露——重新用雇主能夠標價的商業敘事語言說一遍。這不是把你的經歷美化，而是把它翻譯成決策者看得懂的格式。
+
+如果你的下一步是進入企業永續策略團隊或氣候顧問，你需要的不只是更多技術知識，而是一套能夠讓你的技術知識被正確估價的敘事結構。這個翻譯工程，正是這個服務要幫你完成的事。
+
+################################################################################
+# Persona 16: Messy resume (bad PDF, unclear timeline/titles)  [en]
+EXTRACT: role=? | seniority=? | yrs=?
+  mba_intent=unknown | timeline=unknown | green_depth=aspiring | overall_conf=0.15
+  sectors=[] functions=[] domains=[]
+CLASSIFY: category=profile_building_needed | primary=teardown_90 | secondary=- | grade=C | limitedData=true | degraded=false
+  indices: story=1 mba=1 climate=1 avg=1
+
+  [current_positioning]
+  Based on the material provided, you are someone with a business background who has touched energy work and sustainability projects — and that is, at present, almost all a reader can say with confidence. In the six seconds a recruiter spends on a profile or CV, they are pattern-matching for one of three things: a clear role title, a quantified result, or a named sector. Your material currently offers none of the three. The specific signal that creates this perception is the combination of 'worked with energy and reports' at Company A and 'helped teams with sustainability projects' at Company B — both phrases describe proximity to work rather than ownership of it. That distinction matters enormously right now, because the green economy is attracting a wave of career-changers, and hiring managers have become skilled at separating people who were in the room from people who drove the outcome. The gap between how you likely see yourself — as someone who has been building relevant experience — and how you are read — as someone whose story has not yet been told — is real, and it is closable. But it requires evidence, not repositioning.
+
+  [core_story_gap]
+  The single biggest gap is the complete absence of a quantified or owned outcome anywhere in the material. This is not a presentation problem — it is an evidence problem, and the distinction matters. A recruiter reading this profile cannot answer the question they always ask first: what did this person actually change, move, or produce? 'Worked with' and 'helped teams' are phrases that describe presence, not impact. The mechanism by which this creates hesitation is straightforward: in a hiring process, every candidate claims relevant experience. What separates shortlisted candidates is proof — a number, a named deliverable, a decision that changed because of their work. Without a single concrete outcome, there is no proof, and without proof, the profile cannot be differentiated from dozens of others who also 'worked in sustainability.' This is not a verdict on what you have done; it is a diagnosis of what has not been captured. The gap is real, it is the primary obstacle to any positioning work being effective, and it needs to be addressed at the level of building and documenting evidence — not at the level of language.
+
+  [green_career_fit]
+  The most credible entry lane into the green economy, given your background, is at the intersection of business operations and sustainability implementation — specifically roles that sit inside organisations (rather than in pure advisory or policy) and require someone who can translate between commercial logic and sustainability requirements. Think sustainability coordinator, ESG analyst, or energy project support roles within corporates or utilities. Your business degree gives you a frame that pure environmental science graduates often lack, and your exposure to energy work at Company A, however early-stage, means you have at least touched the vocabulary and workflow of a sector that is central to the transition. The bridge from where you are to where you want to be is not long in concept, but it requires one visible, owned piece of work to make it credible. The uncontested space for you is not competing against seasoned sustainability professionals on depth of technical knowledge — it is the role of the commercially literate generalist who can make sustainability work legible to a finance or operations team. That is a real gap in many organisations. The single move that builds green credibility fastest is completing and documenting one project with a measurable output, however small.
+
+  [mba_readiness]
+  The primary readiness consideration for your next career move is not credentials — it is evidence. The move you are weighing (into a green economy role) will be decided by whether you can demonstrate owned impact, not by your degree or your stated interest. The single biggest blocker right now is that the material contains no proof point a hiring manager can hold onto. Until there is at least one concrete, attributable outcome in your story, additional credentials or positioning work will have limited traction. The readiness driver that would change this most quickly is one documented project with a clear result.
+
+  [recommended_next_move]
+  In the next two weeks, identify one piece of work — current, recent, or in progress — where you had a specific responsibility and there was a concrete output. It does not need to be large. It could be a report that informed a decision, a process you mapped, a dataset you cleaned and interpreted, or a recommendation a team acted on. Write down, in two or three sentences, what the task was, what you specifically did, and what happened as a result. That is your first proof point. It will not complete your story, but it will give you something real to build from — and it will immediately change the quality of every conversation you have about your experience.
+
+  [suggested_paid_next_step]
+  The honest read here is that the free diagnostic above is genuinely most of what you need today. The material does not yet contain enough evidence to make positioning work — CV rewriting, LinkedIn optimisation, or interview coaching — effective. Paying for that before the proof points exist would be premature, and it would not serve you well. If you want a second pair of eyes on which proof points are worth building first — which of your existing experiences is most worth excavating, and in what order to develop the story — a single teardown session can set that plan. But the building comes before the polishing, and right now the most valuable thing you can do costs nothing except time and attention.

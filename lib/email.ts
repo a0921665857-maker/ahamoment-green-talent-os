@@ -19,7 +19,13 @@ export async function sendReportEmail(opts: {
 
   const t = getContent(opts.locale).emails.d0;
   const name = opts.name?.trim();
-  const body = (name ? t.body.replaceAll('{{name}}', name) : t.body.replace(/\{\{name\}\}\s*/g, ''))
+  // Graceful no-name greeting per locale: en "Hi there," (not "Hi ,"); zh "你好，".
+  const filled = name
+    ? t.body.replaceAll('{{name}}', name)
+    : opts.locale === 'zh-TW'
+      ? t.body.replace(/\{\{name\}\}\s*/g, '')
+      : t.body.replaceAll('{{name}}', 'there');
+  const body = filled
     .replaceAll('{{report_url}}', opts.reportUrl)
     .replaceAll('{{personal_line}}', '')
     .replace(/\n{3,}/g, '\n\n')

@@ -103,16 +103,27 @@ Binding rules:
     const directives = REPORT_SECTION_KEYS.map(
       (k) => `- ${k} [${SECTION_DEPTH[k]} · ${len[SECTION_DEPTH[k]]}]: ${SECTION_DIRECTIVES[k]}`,
     ).join('\n');
+    // Applicants (pursuing / open to an MBA) get the full category framing. For
+    // NON-applicants (no / unknown / current-or-grad MBA) the category copy can be
+    // MBA-laden (e.g. climate_career_first_mba_later), so inject ONLY the safe
+    // offer line — the MBA framing is removed at the source, not left to the model.
+    const mba = input.profile.intent.mba_intent;
+    const applicant = mba === 'active' || mba === 'considering' || mba === 'later';
+    const categoryFraming = applicant
+      ? [
+          'Category framing to inform tone and the suggested_paid_next_step section:',
+          `- explanation: ${input.categoryCopy.explanation}`,
+          `- main risk: ${input.categoryCopy.mainRisk}`,
+          `- recommended next move: ${input.categoryCopy.nextMove}`,
+          `- paid offer line: ${input.categoryCopy.offerLine}`,
+        ].join('\n')
+      : `Paid next step framing (use ONLY for the suggested_paid_next_step section; this person is NOT an MBA applicant — ignore any MBA/admissions angle in the offer): ${input.categoryCopy.offerLine}`;
     return [
       `Locale: ${input.locale}. Style note: ${LOCALE_STYLE_NOTES[input.locale]}`,
       'Each section has a depth tier and a length target in brackets. Deep sections are where the reader feels read; tight sections stay sharp.',
       '',
       `Result category: ${input.category}.`,
-      `Category framing to inform tone and the suggested_paid_next_step section:`,
-      `- explanation: ${input.categoryCopy.explanation}`,
-      `- main risk: ${input.categoryCopy.mainRisk}`,
-      `- recommended next move: ${input.categoryCopy.nextMove}`,
-      `- paid offer line: ${input.categoryCopy.offerLine}`,
+      categoryFraming,
       '',
       input.limitedData
         ? 'LIMITED-DATA MODE: the material was thin. Open current_positioning with a calm "based on the material provided" framing, and do not assert confidence you do not have — especially for interview_readiness and cv_readiness.'
