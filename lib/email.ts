@@ -37,3 +37,49 @@ export async function sendReportEmail(opts: {
     /* email is best-effort — on-screen delivery already happened */
   }
 }
+
+/**
+ * Notifies the founder of every new completed lead (email, name, category, grade,
+ * a link to the report, and a positioning excerpt). Gated on RESEND_API_KEY +
+ * FOUNDER_EMAIL. Because it sends to your OWN inbox, Resend's test sender works
+ * with no domain verification — you only need a free API key. No-op if unset.
+ */
+export async function sendFounderNotification(opts: {
+  leadEmail: string;
+  leadName: string | null;
+  locale: Locale;
+  category: string;
+  leadGrade: string | null;
+  reportUrl: string;
+  excerpt?: string;
+}): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.FOUNDER_EMAIL;
+  if (!apiKey || !to) return;
+  const from = process.env.RESEND_FROM || 'AhaMoment MRI <onboarding@resend.dev>';
+
+  const body = [
+    'New Green Career MRI lead 🌱',
+    '',
+    `Email:   ${opts.leadEmail}`,
+    `Name:    ${opts.leadName ?? '(none)'}`,
+    `Locale:  ${opts.locale}`,
+    `Type:    ${opts.category}`,
+    `Grade:   ${opts.leadGrade ?? '—'}`,
+    `Report:  ${opts.reportUrl}`,
+    opts.excerpt ? `\nPositioning excerpt:\n${opts.excerpt}` : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+  try {
+    await new Resend(apiKey).emails.send({
+      from,
+      to,
+      subject: `New MRI lead: ${opts.leadName ?? opts.leadEmail} · ${opts.category}`,
+      text: body,
+    });
+  } catch {
+    /* notification is best-effort */
+  }
+}

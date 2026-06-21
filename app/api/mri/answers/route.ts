@@ -5,7 +5,7 @@ import { getServiceClient } from '@/lib/supabase';
 import { errorJson, json } from '@/lib/http';
 import { recordEvent } from '@/lib/events';
 import { applyUserEdits, generateReport, scoreAndClassify } from '@/lib/pipeline';
-import { sendReportEmail } from '@/lib/email';
+import { sendReportEmail, sendFounderNotification } from '@/lib/email';
 import { callPrompt } from '@/lib/anthropic';
 import { adminSummaryPrompt } from '@/lib/prompts';
 import { RUBRIC_VERSION } from '@/lib/scoring/rubrics';
@@ -106,12 +106,20 @@ export async function POST(req: NextRequest) {
         degraded: report.degraded,
       });
 
-      // Deliver the report by email (best-effort; no-op until RESEND_* are set).
-      await sendReportEmail({
-        to: body.email,
-        name: body.name ?? null,
-        reportUrl: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${locale}/result/${body.session_token}`,
+      const reportUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${locale}/result/${body.session_token}`;
+
+      // Deliver the report by email to the user (best-effort; no-op until RESEND_* are set).
+      await sendReportEmail({ to: body.email, name: body.name ?? null, reportUrl, locale });
+
+      // Notify the founder of the new lead (best-effort; no-op until RESEND_API_KEY + FOUNDER_EMAIL set).
+      await sendFounderNotification({
+        leadEmail: body.email,
+        leadName: body.name ?? null,
         locale,
+        category: scored.classification.category,
+        leadGrade: scored.classification.lead_grade,
+        reportUrl,
+        excerpt: report.sections.current_positioning?.body?.slice(0, 600),
       });
 
       // Admin summary — convenience only; failure must not affect the user's report.
