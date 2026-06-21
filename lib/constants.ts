@@ -29,7 +29,7 @@ export type FollowupStatus = (typeof FOLLOWUP_STATUSES)[number];
 export const RESULT_CATEGORIES = [
   'ready_for_mba_story_sprint',
   'strong_profile_weak_story',
-  'climate_career_first_mba_later',
+  'climate_career_builder',
   'career_positioning_before_mba',
   'profile_building_needed',
   'high_potential_low_commercial_clarity',

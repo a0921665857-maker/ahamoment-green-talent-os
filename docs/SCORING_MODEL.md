@@ -43,14 +43,14 @@ R1 mba_intent ∈ {active}  AND mba_index ≥ 3.8 AND story_index ≥ 3.3
 R2 mba_intent ∈ {active,considering} AND mba_index ≥ 3.3 AND story_index < 3.0
                                                         → career_positioning_before_mba
 R3 mba_intent ∈ {considering,later} AND climate_index ≥ 3.3 AND mba_index < 3.3
-                                                        → climate_career_first_mba_later
+                                                        → climate_career_builder
 R4 cv_readiness ≥ 4 AND story_index < 3.0               → cv_strong_narrative_weak
 R5 interview_readiness ≥ 4 AND story_index < 3.0        → interview_ready_positioning_weak
 R6 avg(top5 scores) ≥ 3.5 AND commercial_credibility ≤ 2.5
                                                         → high_potential_low_commercial_clarity
 R7 avg(score) ≥ 3.3 AND story_index < 3.0               → strong_profile_weak_story
 R8 fallback: mba_intent ∈ {active,considering} → career_positioning_before_mba
-             else                              → climate_career_first_mba_later
+             else                              → climate_career_builder
 ```
 Then apply offer mapping + secondary overlays from PAID_OFFER_STRATEGY.md, and compute lead_grade. `classifier_version` stored with every result.
 

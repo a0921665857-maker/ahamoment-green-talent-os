@@ -64,7 +64,7 @@ describe('classifier rules R0–R8 (first match wins)', () => {
     expect(pickCategory(input)).toBe('career_positioning_before_mba');
   });
 
-  it('R3: later + climate_index ≥ 3.3 + mba_index < 3.3 → climate_career_first_mba_later', () => {
+  it('R3: later + climate_index ≥ 3.3 + mba_index < 3.3 → climate_career_builder', () => {
     const input = mkInput(
       {
         green_economy_fit: { score: 4 },
@@ -77,7 +77,7 @@ describe('classifier rules R0–R8 (first match wins)', () => {
       },
       { mba_intent: 'later' },
     );
-    expect(pickCategory(input)).toBe('climate_career_first_mba_later');
+    expect(pickCategory(input)).toBe('climate_career_builder');
   });
 
   it('R4: cv_readiness ≥ 4 + story_index < 3.0 → cv_strong_narrative_weak', () => {
@@ -142,9 +142,9 @@ describe('classifier rules R0–R8 (first match wins)', () => {
     );
   });
 
-  it('R8 fallback: no MBA intent → climate_career_first_mba_later', () => {
+  it('R8 fallback: no MBA intent → climate_career_builder', () => {
     expect(pickCategory(mkInput({}, { base: 3, mba_intent: 'no' }))).toBe(
-      'climate_career_first_mba_later',
+      'climate_career_builder',
     );
   });
 });
@@ -200,7 +200,7 @@ describe('current-MBA holders are job-seekers, not applicants', () => {
     expect([
       'ready_for_mba_story_sprint',
       'career_positioning_before_mba',
-      'climate_career_first_mba_later',
+      'climate_career_builder',
     ]).not.toContain(cat);
   });
 });

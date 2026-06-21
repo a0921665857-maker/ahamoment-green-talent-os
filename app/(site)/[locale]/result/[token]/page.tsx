@@ -5,6 +5,7 @@ import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
 import { ctaOffers } from '@/lib/scoring/resultClassifier';
 import { getReportByToken, getSessionStatusByToken } from '@/lib/reportData';
+import { localeRedirectPath } from '@/lib/reportView';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
@@ -75,7 +76,8 @@ export default async function ResultPage({
   // The report is generated in one locale; if the URL locale differs (e.g. someone
   // flipped the language switcher), redirect to the report's own locale so the body
   // and UI never end up in mixed languages.
-  if (report.locale !== L) redirect(`/${report.locale}/result/${token}`);
+  const localeRedirect = localeRedirectPath(report.locale, L, token);
+  if (localeRedirect) redirect(localeRedirect);
 
   const slots = ctaOffers({
     category: report.category,

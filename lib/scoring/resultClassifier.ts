@@ -133,7 +133,7 @@ export function pickCategory(input: ClassifierInput): ResultCategory {
     w.climate_index >= T.r3_climateIndex &&
     w.mba_index < T.r3_mbaIndexBelow
   )
-    return 'climate_career_first_mba_later';
+    return 'climate_career_builder';
   // R4
   if (s.cv_readiness.score >= T.r4_cvReadiness && w.story_index < T.r4_storyIndexBelow)
     return 'cv_strong_narrative_weak';
@@ -151,7 +151,7 @@ export function pickCategory(input: ClassifierInput): ResultCategory {
   if (mba === 'current') return 'strong_profile_weak_story';
   return mba === 'active' || mba === 'considering'
     ? 'career_positioning_before_mba'
-    : 'climate_career_first_mba_later';
+    : 'climate_career_builder';
 }
 
 /** Category → primary/secondary offers (PAID_OFFER_STRATEGY.md mapping table). */
@@ -172,7 +172,7 @@ export function offersFor(
       if (scores.cv_readiness.score <= overlayThresholds.cvReviewIfCvReadinessAtMost)
         secondary = 'cv_linkedin_review';
       break;
-    case 'climate_career_first_mba_later':
+    case 'climate_career_builder':
       primary = 'climate_positioning_sprint';
       break;
     case 'career_positioning_before_mba':

@@ -20,7 +20,7 @@ Report CTA shows exactly three: the category's **primary offer**, `teardown_90` 
 |---|---|---|
 | `ready_for_mba_story_sprint` | `mba_story_sprint` | — |
 | `strong_profile_weak_story` | `teardown_90` | `cv_linkedin_review` if cv_readiness ≤ 2 |
-| `climate_career_first_mba_later` | `climate_positioning_sprint` | — |
+| `climate_career_builder` | `climate_positioning_sprint` | — |
 | `career_positioning_before_mba` | `climate_positioning_sprint` | `teardown_90` |
 | `profile_building_needed` | `teardown_90` (framed as optional; honest "build first" guidance is the headline) | — |
 | `high_potential_low_commercial_clarity` | `climate_positioning_sprint` | `teardown_90` |

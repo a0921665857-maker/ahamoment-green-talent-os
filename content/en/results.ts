@@ -29,7 +29,7 @@ export const results: ResultsContent = {
       'The 90-Minute Story Teardown does exactly that: one focused session plus a written memo naming your through-line and the three changes that surface it.',
     cta: 'Book a teardown',
   },
-  climate_career_first_mba_later: {
+  climate_career_builder: {
     name: 'Climate career first, MBA later',
     explanation:
       'Your fit with the green economy is stronger than your case for an MBA right now. The most valuable thing you can do in the next year is deepen your climate positioning — which, incidentally, is also what would transform a future application.',

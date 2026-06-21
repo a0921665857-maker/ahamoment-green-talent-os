@@ -1,4 +1,5 @@
 import { getServiceClient } from '@/lib/supabase';
+import { RESULT_CATEGORIES } from '@/lib/constants';
 import type { Locale, MbaIntent, ResultCategory, OfferId } from '@/lib/constants';
 import type { Bands, ReportSections } from '@/lib/types';
 
@@ -65,6 +66,13 @@ export async function getReportByToken(token: string): Promise<ReportView | null
     .single();
   const mbaIntent = (profileRow?.payload?.intent?.mba_intent as MbaIntent) ?? 'unknown';
 
+  // Defensive: clamp to a known category so a legacy/renamed/unknown value can never
+  // crash the result page (offers + share card index by category).
+  const rawCategory = scores.result_category as string;
+  const category = (RESULT_CATEGORIES as readonly string[]).includes(rawCategory)
+    ? (rawCategory as ResultCategory)
+    : 'profile_building_needed';
+
   return {
     locale: session.locale as Locale,
     name: session.name,
@@ -72,7 +80,7 @@ export async function getReportByToken(token: string): Promise<ReportView | null
     bands: report.bands,
     limitedData: report.limited_data,
     degraded: report.degraded,
-    category: scores.result_category as ResultCategory,
+    category,
     primaryOffer: scores.primary_offer as OfferId,
     secondaryOffer: (scores.secondary_offer as OfferId | null) ?? null,
     mbaIntent,

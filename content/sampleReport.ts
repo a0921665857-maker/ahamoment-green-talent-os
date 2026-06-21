@@ -33,7 +33,7 @@ const bands: Bands = {
 export const sampleReports: Record<Locale, SampleReport> = {
   'zh-TW': {
     name: null,
-    category: 'climate_career_first_mba_later',
+    category: 'climate_career_builder',
     primaryOffer: 'climate_positioning_sprint',
     secondaryOffer: 'teardown_90',
     limitedData: false,
@@ -92,7 +92,7 @@ export const sampleReports: Record<Locale, SampleReport> = {
   },
   en: {
     name: null,
-    category: 'climate_career_first_mba_later',
+    category: 'climate_career_builder',
     primaryOffer: 'climate_positioning_sprint',
     secondaryOffer: 'teardown_90',
     limitedData: false,

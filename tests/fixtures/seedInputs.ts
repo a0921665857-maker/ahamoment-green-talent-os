@@ -58,7 +58,7 @@ Targeting a top European MBA (INSEAD) to move from carbon markets execution into
     name: 'EN LinkedIn — climate-tech CS, no MBA intent',
     locale: 'en',
     inputType: 'linkedin_paste',
-    expectCategory: 'climate_career_first_mba_later',
+    expectCategory: 'climate_career_builder',
     text: `About
 Customer Success Manager at a climate-tech SaaS company (carbon accounting platform). I help mid-market enterprises onboard, measure their Scope 1–3 footprint, and actually act on the data. 5 years in customer-facing roles, the last 2 in climate tech.
 
@@ -78,7 +78,7 @@ Not looking at an MBA — more interested in going deeper on the climate side an
     name: 'EN AI-chat paste — direction-confused analyst',
     locale: 'en',
     inputType: 'notes_paste',
-    expectCategory: ['climate_career_first_mba_later', 'high_potential_low_commercial_clarity'],
+    expectCategory: ['climate_career_builder', 'high_potential_low_commercial_clarity'],
     text: `Me: I'm a sustainability analyst, 5 years in, and I feel stuck. I do a lot of ESG data work — GRI reporting, some TCFD, carbon footprinting for a manufacturing group. Technically I'm solid. I led the data workstream for our group's first integrated report and cut the data collection time by about 40%.
 
 Assistant: That's strong. What's the actual problem?

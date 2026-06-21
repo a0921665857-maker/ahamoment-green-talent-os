@@ -105,7 +105,7 @@ Binding rules:
     ).join('\n');
     // Applicants (pursuing / open to an MBA) get the full category framing. For
     // NON-applicants (no / unknown / current-or-grad MBA) the category copy can be
-    // MBA-laden (e.g. climate_career_first_mba_later), so inject ONLY the safe
+    // MBA-laden (e.g. climate_career_builder), so inject ONLY the safe
     // offer line — the MBA framing is removed at the source, not left to the model.
     const mba = input.profile.intent.mba_intent;
     const applicant = mba === 'active' || mba === 'considering' || mba === 'later';

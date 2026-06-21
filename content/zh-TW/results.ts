@@ -26,7 +26,7 @@ export const results: ResultsContent = {
       '「90 分鐘故事拆解」做的就是這件事：一次聚焦對談，加上一份書面備忘錄，點名你的主軸，以及讓它浮現的三個修改。',
     cta: '預約故事拆解',
   },
-  climate_career_first_mba_later: {
+  climate_career_builder: {
     name: '先深耕綠色職涯，MBA 之後再說',
     explanation:
       '以現況而言，你和綠色經濟的適配度，比你此刻申請 MBA 的理由更強。接下來一年最有價值的事，是把你的氣候領域定位做深——而這恰好也是讓未來申請脫胎換骨的東西。',

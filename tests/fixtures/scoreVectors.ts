@@ -150,7 +150,7 @@ export const goldenSeeds: GoldenSeed[] = [
       },
       { base: 3, mba_intent: 'later', timeline: '12m+' },
     ),
-    expect: 'climate_career_first_mba_later',
+    expect: 'climate_career_builder',
   },
   {
     id: 4,
@@ -169,7 +169,7 @@ export const goldenSeeds: GoldenSeed[] = [
       },
       { base: 3, mba_intent: 'considering', timeline: 'unknown' },
     ),
-    expect: ['climate_career_first_mba_later', 'high_potential_low_commercial_clarity'],
+    expect: ['climate_career_builder', 'high_potential_low_commercial_clarity'],
   },
   {
     id: 5,

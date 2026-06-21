@@ -1,6 +1,7 @@
 import { REPORT_SECTION_KEYS, type Band, type Locale, type MbaIntent, type ReportSectionKey } from '@/lib/constants';
 import type { Bands, ReportSections } from '@/lib/types';
 import type { ReportTemplatesContent } from '@/content/schema';
+import { isNonApplicantIntent } from '@/lib/reportView';
 
 /** Which sections carry a band chip, and which band drives each (FREE_REPORT_STRATEGY.md). */
 const SECTION_BAND: Partial<Record<ReportSectionKey, keyof Bands>> = {
@@ -29,8 +30,7 @@ export function MriLiteReport(props: {
   mbaIntent?: MbaIntent;
 }) {
   const t = props.templates;
-  const nonApplicant =
-    props.mbaIntent === 'no' || props.mbaIntent === 'current' || props.mbaIntent === 'unknown';
+  const nonApplicant = isNonApplicantIntent(props.mbaIntent);
   const titleFor = (key: ReportSectionKey) =>
     key === 'mba_readiness' && nonApplicant ? t.nextMoveReadinessTitle : t.sections[key].title;
 

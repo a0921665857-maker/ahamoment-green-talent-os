@@ -15,7 +15,7 @@ export const share: ShareContent = {
       label: '實力派・故事待擦亮',
       shareLine: '我的綠色職涯類型是「實力派・故事待擦亮」——底子很硬，只差把故事說清楚。',
     },
-    climate_career_first_mba_later: {
+    climate_career_builder: {
       label: '氣候職涯建造者',
       shareLine: '我的綠色職涯類型是「氣候職涯建造者」——把氣候賽道走深，走出自己的路。',
     },

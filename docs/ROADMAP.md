@@ -18,8 +18,8 @@ Job board, open marketplace, community/cohorts, recruiter self-serve — each on
 ## Phase 4 seed profiles (test matrix, committed now)
 1. EN CV, strong carbon-markets profile (MBA-ready) → expect `ready_for_mba_story_sprint`
 2. zh-TW CV, Big-4 ESG consultant, vague goals → `career_positioning_before_mba`
-3. LinkedIn paste, climate-tech CS, no MBA intent → `climate_career_first_mba_later`
-4. AI-chat-history paste, direction-confused sustainability analyst → `climate_career_first_mba_later` or `high_potential_low_commercial_clarity`
+3. LinkedIn paste, climate-tech CS, no MBA intent → `climate_career_builder`
+4. AI-chat-history paste, direction-confused sustainability analyst → `climate_career_builder` or `high_potential_low_commercial_clarity`
 5. Weak/incomplete 200-word note → `profile_building_needed` (+ limited-data mode renders)
 6. Strong profile, rambling narrative → `strong_profile_weak_story`
 7. Polished CV, no through-line → `cv_strong_narrative_weak`

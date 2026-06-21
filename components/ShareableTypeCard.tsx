@@ -7,7 +7,7 @@ import type { ShareContent } from '@/content/schema';
 const ACCENT: Record<ResultCategory, string> = {
   ready_for_mba_story_sprint: '#1e4d3b',
   strong_profile_weak_story: '#3d6b54',
-  climate_career_first_mba_later: '#5d8a73',
+  climate_career_builder: '#5d8a73',
   career_positioning_before_mba: '#7fa98f',
   profile_building_needed: '#9bb8a5',
   high_potential_low_commercial_clarity: '#2f5a45',

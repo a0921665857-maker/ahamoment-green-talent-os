@@ -15,7 +15,7 @@ export const share: ShareContent = {
       label: 'Strong Operator, Untold Story',
       shareLine: 'My green career type is “Strong Operator, Untold Story” — solid foundations, story still to tell.',
     },
-    climate_career_first_mba_later: {
+    climate_career_builder: {
       label: 'Climate Career Builder',
       shareLine: 'My green career type is “Climate Career Builder” — going deep on the climate lane and building real depth.',
     },
