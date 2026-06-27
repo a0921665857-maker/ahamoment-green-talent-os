@@ -4,6 +4,7 @@ import { getContent } from '@/content';
 import { REPORT_SECTION_KEYS, type Locale } from '@/lib/constants';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ReturnReportLink } from '@/components/ReturnReportLink';
+import { LatestContent } from '@/components/LatestContent';
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -158,6 +159,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </a>
         </div>
       </section>
+
+      <LatestContent locale={L} />
 
       <footer className="border-t border-line">
         <div className="mx-auto flex max-w-3xl flex-col gap-2 px-6 py-8 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
