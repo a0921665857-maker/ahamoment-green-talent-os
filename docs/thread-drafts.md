@@ -138,3 +138,129 @@ offer 給誰,你知道的。
 *(收藏,開始行動前對一次。)*
 
 **↳ 第一則留言**:想知道你現在的定位差在哪、下一步先補什麼?免費 MRI 測評 👉 連結
+
+---
+---
+
+# English versions (for LinkedIn / X)
+
+> Same rule: link in the **first comment**, not the post. Swap `utm_source=threads` → `utm_source=linkedin` when posting on LinkedIn.
+
+## 1. Contrarian ｜ ~9am or 5–6pm
+
+Thinking of breaking into climate?
+
+Don't rush to collect sustainability certificates first.
+
+It may be the most wasted year of your career.
+
+I've watched hundreds of people switch in. The truth is counterintuitive:
+
+No one got the offer because they "had one more certificate."
+
+Employers don't want a certificate. They want to know you can take the expertise you already have and point it at the climate problem in front of them.
+
+A certificate proves you took a course.
+An employer wants proof you can solve the problem.
+
+And while you spend a year studying, the person who simply repackaged their old expertise as the "climate version" already got hired.
+
+You don't need another piece of paper.
+You need someone to tell you how to play the cards already in your hand.
+
+*(Repost if you agree — someone out there is about to waste money on this.)*
+
+**↳ First comment**: Not sure which climate role your background maps to? Free 30-sec assessment 👉 link
+
+## 2. Listicle ｜ ~9pm
+
+I've read hundreds of resumes from people trying to move into climate.
+
+The saddest ones aren't "not strong enough." They're misread.
+
+The 5 most common ways you're being misread:
+
+1. You write "ESG consultant" — they read "the person who makes reports." What you actually know is carbon governance and business risk.
+
+2. You write duties, not results. "Led a sustainability project" ≠ "cut the company's carbon cost by X%." The market only remembers numbers.
+
+3. You're too modest. You call leading "participating," strategy "execution."
+
+4. You use your old industry's language. Climate has its own way of saying the same thing — say it wrong and you sound like an outsider.
+
+5. You have no one-line positioning. If they can't tell who you are in 3 seconds, they skip you.
+
+You're not short on experience.
+No one's translated your resume into a version the market actually reads.
+
+*(Save this. Re-read it before you apply.)*
+
+**↳ First comment**: Want to see which "type" the market currently reads you as? Free MRI 👉 link
+
+## 3. Story ｜ ~9–10pm
+
+A few years ago I was in Big 4, 2am, editing an ESG report no one would ever finish.
+
+That night I decided to move into real climate work.
+
+My first reaction wasn't excitement. It was panic: "I don't have an environmental background — who'd hire me?"
+
+I nearly signed up for a pile of certificates. I even considered another degree.
+
+Then an interviewer's question snapped me out of it:
+"You audited financials in Big 4, right? So can you tell whether a company's carbon numbers are real?"
+
+I froze.
+The "background I didn't have" was exactly what the industry was missing.
+
+I wasn't a person with no experience.
+I was the person bringing an auditor's brain into climate.
+
+If you're stuck on "my background is wrong" — you might just not have seen yet that your background is your ticket in.
+
+*(Send this to that friend who keeps saying they want to switch but feels unqualified.)*
+
+**↳ First comment**: Unsure what green role your background maps to? Free assessment 👉 link
+
+## 4. Contrarian ｜ ~5–6pm
+
+Hard truth:
+
+In green careers you don't lose to people who are better than you.
+
+You lose to people who are easier to understand.
+
+Two candidates, similar experience.
+One resume makes it clear in 3 seconds what problem they solve.
+The other is impressive — but you have to read it three times to get it.
+
+You know who gets the offer.
+
+Recruiters don't have time to assemble your value for you. If they can't read it, it isn't there — no matter how good you actually are.
+
+So the first gate of a career switch was never ability.
+It's positioning: can the right person understand you in one line.
+
+*(Repost if you agree.)*
+
+**↳ First comment**: Which kind of candidate does the market currently read you as? Free 30-sec MRI 👉 link
+
+## 5. Listicle ｜ ~9pm
+
+Want to move into climate / sustainability but don't know where to start?
+
+Don't spray applications. Do these 4 first — become the person they understand instantly:
+
+1. Pick one niche. Not "I want to do sustainability." Say "carbon accounting" / "climate strategy" / "green product sales." Specific = insider.
+
+2. Rename your old expertise. Same skill, climate language. "Sales" → "enterprise sales for green solutions."
+
+3. Have a point of view before you apply. Write 2–3 posts on a climate issue. Interviewers Google you first.
+
+4. Talk to one insider for 20 minutes. 80% of good roles aren't found by searching — someone brings you in.
+
+Do these 4 and you're ahead of 90% of switchers.
+
+*(Save it. Re-read before you start.)*
+
+**↳ First comment**: Want to see exactly where your positioning falls short and what to fix first? Free MRI 👉 link
