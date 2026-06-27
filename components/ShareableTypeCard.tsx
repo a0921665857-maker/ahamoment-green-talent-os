@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
-import type { ResultCategory } from '@/lib/constants';
+import { useEffect, useState } from 'react';
+import type { Locale, ResultCategory } from '@/lib/constants';
 import type { ShareContent } from '@/content/schema';
+import { phCapture } from '@/components/PostHogProvider';
 
 /** Per-type accent (on-brand greens) so each badge has a distinct visual identity. */
 const ACCENT: Record<ResultCategory, string> = {
@@ -15,8 +16,17 @@ const ACCENT: Record<ResultCategory, string> = {
   cv_strong_narrative_weak: '#6b9a80',
 };
 
+/** Ready-to-post copy (Threads/LinkedIn) — turns the result into a shareable post, not just a link. */
+const POST_TEMPLATE: Record<Locale, (label: string, line: string, url: string) => string> = {
+  'zh-TW': (label, line, url) =>
+    `我用「綠領職涯 MRI」測了自己的定位,結果是:${label}\n\n${line}\n\n如果你也在往氣候 / 永續 / 綠領轉,值得花 5 分鐘看看你現在被市場讀成哪一種人 👇\n${url}`,
+  en: (label, line, url) =>
+    `I ran my positioning through the Green Career MRI. Result: ${label}\n\n${line}\n\nIf you're moving into climate / sustainability, it's worth 5 minutes to see how the market actually reads you 👇\n${url}`,
+};
+
 /** Face-giving, screenshot-worthy career-type badge with a soft "test yourself" CTA. */
 export function ShareableTypeCard(props: {
+  locale: Locale;
   category: ResultCategory;
   content: ShareContent;
   shareUrl: string;
@@ -24,9 +34,15 @@ export function ShareableTypeCard(props: {
   const [copied, setCopied] = useState(false);
   const type = props.content.types[props.category];
   const accent = ACCENT[props.category];
-  const text = `${type.shareLine} ${props.shareUrl}`.trim();
+  const text = POST_TEMPLATE[props.locale](type.label, type.shareLine, props.shareUrl).trim();
+
+  // Reaching this card means the report fully rendered — completes the funnel in PostHog.
+  useEffect(() => {
+    phCapture('report_viewed', { category: props.category });
+  }, [props.category]);
 
   async function onShare() {
+    phCapture('cta_clicked', { cta: 'share_result' });
     try {
       if (typeof navigator !== 'undefined' && navigator.share) {
         await navigator.share({ text });

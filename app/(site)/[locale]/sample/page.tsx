@@ -70,6 +70,7 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
           sessionToken="sample"
         />
         <ShareableTypeCard
+          locale={L}
           category={s.category}
           content={c.share}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}`}

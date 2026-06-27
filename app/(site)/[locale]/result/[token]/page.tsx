@@ -119,6 +119,7 @@ export default async function ResultPage({
           sessionToken={token}
         />
         <ShareableTypeCard
+          locale={L}
           category={report.category}
           content={c.share}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}`}
