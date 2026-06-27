@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { LOCALES, type Locale } from '@/lib/constants';
 import { localeRegistry, isLocale } from '@/content/locales';
 import { getContent } from '@/content';
+import { PostHogProvider } from '@/components/PostHogProvider';
 import '@/app/globals.css';
 
 export function generateStaticParams() {
@@ -35,7 +36,9 @@ export default async function SiteLayout({
   const meta = localeRegistry.find((l) => l.code === (locale as Locale))!;
   return (
     <html lang={meta.htmlLang}>
-      <body className="min-h-screen bg-paper text-ink antialiased">{children}</body>
+      <body className="min-h-screen bg-paper text-ink antialiased">
+        <PostHogProvider>{children}</PostHogProvider>
+      </body>
     </html>
   );
 }

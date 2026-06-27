@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { phCapture } from '@/components/PostHogProvider';
 import type { Locale } from '@/lib/constants';
 import { INPUT_LIMITS, type InputType, type QuestionId } from '@/lib/constants';
 import { labelFor } from '@/lib/taxonomy';
@@ -39,6 +40,7 @@ export interface IntakeFlowProps {
 }
 
 function track(name: string, session_token: string | null, props: Record<string, string | number | boolean> = {}) {
+  phCapture(name, props); // mirror first-party client events into PostHog (separate sink)
   try {
     void fetch('/api/mri/event', {
       method: 'POST',
@@ -77,6 +79,10 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
   const inputReady =
     consentProcessing && (inputType === 'cv_pdf' ? Boolean(file) : textOk);
 
+  useEffect(() => {
+    phCapture('mri_started', { locale });
+  }, [locale]);
+
   /* ------------------------------- submit ------------------------------- */
   async function handleSubmit() {
     setError(null);
@@ -87,6 +93,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
     }
     setBusy(true);
     setPhase('extracting');
+    phCapture('material_submitted', { input_type: inputType, locale });
     try {
       let res: Response;
       if (inputType === 'cv_pdf' && file) {
@@ -155,6 +162,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
       const data = (await res.json()) as { questions: QView[] };
       setQs(data.questions);
       setPhase('questions');
+      phCapture('profile_confirmed', { locale });
     } catch {
       setError(errors.generic);
     } finally {
@@ -193,6 +201,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
         setPhase('questions');
         return;
       }
+      phCapture('questions_submitted', { locale });
       router.push(`/${locale}/result/${token}`);
     } catch {
       setError(errors.generic);
