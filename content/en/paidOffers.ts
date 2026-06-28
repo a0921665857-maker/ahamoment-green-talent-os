@@ -3,7 +3,7 @@ import type { PaidOffersContent } from '../schema';
 export const paidOffers: PaidOffersContent = {
   title: 'If you want to go deeper',
   intro:
-    'Based on your MRI, the highest-leverage next step is shown first. No bundles, no upsells in the call — the diagnosis above is the pitch.',
+    'Your report tells you how the market reads you now. But the one thing it does NOT answer — which single gap to close next, given your situation — is usually what decides whether your move works.',
   primaryLabel: 'Recommended for your result',
   entryLabel: 'Low-risk entry point',
   anchorLabel: 'The full journey',
@@ -16,13 +16,16 @@ export const paidOffers: PaidOffersContent = {
   confidentiality:
     'Human review is private. Your materials are never used as public examples or testimonials without your explicit written permission.',
   bookCta: 'Book a time',
+  freeHeroCta: 'Book my free 30 minutes',
+  paidDivider: 'Already know you want more? Here are paid options matched to your result.',
+  founderLine: 'I’m Michael — ex-Deloitte/KPMG ESG, INSEAD MBA, now on the front line of carbon markets. The move you’re about to make, I’ve made myself.',
   offers: {
     intro_call_free: {
-      name: 'Free 30-Minute Chat',
+      name: 'Free 30 min: the one question your report left open',
       price: 'Free',
       delivery: 'One 30-minute call, no written deliverable.',
       forWhom: 'Anyone still deciding whether this is the right direction.',
-      blurb: 'No pitch, no scoring — 30 minutes on your situation to see whether this read is useful to you and worth taking further.',
+      blurb: 'I’ll read your MRI result and tell you, live: given where you are, the single most important gap to close next — and why. You leave with one clear next step. If it’s not a fit, I’ll say so.',
     },
     deep_read: {
       name: 'Deep Read',

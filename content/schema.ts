@@ -132,6 +132,9 @@ export interface PaidOffersContent {
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;
+  freeHeroCta: string; // strong, outcome-led label for the free-call hero button
+  paidDivider: string; // soft divider before the (demoted) paid options
+  founderLine: string; // one-line credibility shown right at the free-call CTA
   offers: Record<OfferId, OfferCopy>;
 }
 

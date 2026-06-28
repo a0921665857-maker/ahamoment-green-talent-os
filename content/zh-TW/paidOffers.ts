@@ -2,7 +2,7 @@ import type { PaidOffersContent } from '../schema';
 
 export const paidOffers: PaidOffersContent = {
   title: '如果你想走得更深',
-  intro: '依據你的 MRI 結果，槓桿最高的下一步放在最前面。沒有方案組合、通話中也不會推銷——上面那份診斷，就是全部的說明。',
+  intro: '你的報告告訴你「現在被讀成什麼」。但有一題它沒替你回答——以你的條件，下一步到底該先補哪一塊。那一題，往往決定你轉得成不成。',
   primaryLabel: '依你的結果推薦',
   entryLabel: '低風險入口',
   anchorLabel: '完整陪跑',
@@ -13,13 +13,16 @@ export const paidOffers: PaidOffersContent = {
   creditPolicy: '拆解費用可於 30 天內全額折抵任何衝刺或完整方案。',
   confidentiality: '真人審閱完全保密。未經你書面同意，你的資料絕不會被用作公開案例或見證。',
   bookCta: '預約時段',
+  freeHeroCta: '預約我的免費 30 分鐘',
+  paidDivider: '已經知道想往下走？以下是依你結果推薦的付費選項。',
+  founderLine: '我是 Michael——前 Deloitte／KPMG ESG 顧問、INSEAD MBA，現在在碳市場第一線。你正要走的這條路，我自己走過。',
   offers: {
     intro_call_free: {
-      name: '免費 30 分鐘聊聊',
+      name: '免費 30 分鐘：解開報告沒回答的那一題',
       price: '免費',
       delivery: '一次 30 分鐘線上對談，沒有書面交付。',
       forWhom: '還在觀望、想先確認方向對不對的人。',
-      blurb: '不推銷、不評分——就你的處境聊 30 分鐘，看看這份判讀對你有沒有用、值不值得往下走。',
+      blurb: '我會看你的 MRI 結果，當場告訴你：以你現在的條件，最該補的下一塊是什麼、為什麼。你會帶著一個清楚的下一步離開。不適合，我會直接說。',
     },
     deep_read: {
       name: '深度書面解讀 Deep Read',
