@@ -4,7 +4,7 @@
 > 連結都已帶 UTM,PostHog 會自動歸因 threads 來的人。
 > 一天發 1 篇就好,先發反共識/清單型(互動高)。發完一小時內回每一則留言衝互動。
 >
-> 連結:`https://ahamoment-green-talent-os.vercel.app/zh-TW?utm_source=threads&utm_medium=social&utm_content=link_in_bio`
+> 連結(直接落在測評頁):`https://ahamoment-green-talent-os.vercel.app/zh-TW/mri?utm_source=threads&utm_medium=social&utm_content=link_in_bio`
 
 ---
 

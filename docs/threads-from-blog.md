@@ -1,7 +1,7 @@
 # Blog → Thread 轉換(每篇 3 版本,結尾拉回 MRI)
 
 > 來源:你的 Ghost blog。用法:挑一個版本 → 貼 Threads → **連結放第一則留言**。
-> 連結:`https://ahamoment-green-talent-os.vercel.app/zh-TW?utm_source=threads&utm_medium=social&utm_content=negotiation`
+> 連結(直接落在測評頁,符合「免費測評」CTA、漏斗最乾淨):`https://ahamoment-green-talent-os.vercel.app/zh-TW/mri?utm_source=threads&utm_medium=social&utm_content=blog`
 
 ---
 
