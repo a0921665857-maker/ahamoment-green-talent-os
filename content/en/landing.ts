@@ -49,7 +49,7 @@ export const landing: LandingContent = {
   founder: {
     title: 'Who reads the paid work',
     facts: [
-      '7 years in Big 4 ESG consulting (Deloitte, KPMG) — SBTi, carbon accounting, CBAM, TCFD',
+      '7 years as a Big 4 (Deloitte, KPMG) ESG consultant — my job was judging whether a company’s sustainability actually holds up. I read your career positioning the same way.',
       'INSEAD MBA, climate-finance focus',
       'Now in carbon markets, covering APAC from Singapore',
       'Works in English and Traditional Chinese',

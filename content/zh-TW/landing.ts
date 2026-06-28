@@ -49,7 +49,7 @@ export const landing: LandingContent = {
   founder: {
     title: '付費服務由誰親自看',
     facts: [
-      '四大會計師事務所 ESG 顧問 7 年（Deloitte、KPMG）——SBTi、碳盤查、CBAM、TCFD',
+      '四大（Deloitte、KPMG）ESG 顧問 7 年——我的工作,就是判斷一家公司的永續「可不可信、有沒有講清楚」。現在,我用同一雙眼睛看你的職涯定位。',
       'INSEAD MBA，主修方向為氣候金融',
       '現於碳市場產業，以新加坡為據點負責亞太區',
       '以繁體中文與英文雙語工作',

@@ -12,23 +12,35 @@ interface Post {
   link: string;
 }
 
-/** Fetch the latest posts from a Ghost (RSS 2.0) feed. Dependency-free; best-effort. */
+// Editorially curated posts (by title keyword) — most engaging + career-relevant.
+// Falls back to latest posts if a pick isn't found in the feed.
+const CURATED = ['INSEAD MBA', '談判籌碼', '幫債主打工'];
+
+/** Fetch curated posts from a Ghost (RSS 2.0) feed. Dependency-free; best-effort. */
 async function fetchPosts(blogUrl: string): Promise<Post[]> {
   try {
     const rss = blogUrl.replace(/\/?$/, '/') + 'rss/';
     const res = await fetch(rss, { next: { revalidate: 3600 } });
     if (!res.ok) return [];
     const xml = await res.text();
-    const items = xml.split('<item>').slice(1, 4);
-    const posts: Post[] = [];
-    for (const item of items) {
+    const all: Post[] = [];
+    for (const item of xml.split('<item>').slice(1)) {
       const title = item
         .match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1]
         ?.trim();
       const link = item.match(/<link>([\s\S]*?)<\/link>/)?.[1]?.trim();
-      if (title && link) posts.push({ title, link });
+      if (title && link) all.push({ title, link });
     }
-    return posts;
+    const picked: Post[] = [];
+    for (const kw of CURATED) {
+      const hit = all.find((p) => p.title.includes(kw) && !picked.includes(p));
+      if (hit) picked.push(hit);
+    }
+    for (const p of all) {
+      if (picked.length >= 3) break;
+      if (!picked.includes(p)) picked.push(p);
+    }
+    return picked.slice(0, 3);
   } catch {
     return [];
   }
