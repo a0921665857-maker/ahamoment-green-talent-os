@@ -133,8 +133,13 @@ export interface PaidOffersContent {
   confidentiality: string;
   bookCta: string;
   freeHeroCta: string; // strong, outcome-led label for the free-call hero button
+  freeReassure: string; // micro-reassurance under the free-call button (free · no pitch)
+  freeAgenda: string; // "what happens in the 30 min" no-pitch block (newline-separated)
   paidDivider: string; // soft divider before the (demoted) paid options
-  founderLine: string; // one-line credibility shown right at the free-call CTA
+  founderLine: string; // founder credibility shown right at the free-call CTA
+  replyPrompt: string; // low-friction alternative: "just reply with one question"
+  replyCta: string; // the clickable reply link label
+  replyEmail: string; // founder email for the one-line reply mailto
   offers: Record<OfferId, OfferCopy>;
 }
 

@@ -128,12 +128,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               <div key={id} className="flex flex-col rounded-xl border border-line bg-paper p-5">
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className="font-semibold">{offer.name}</h3>
-                  <span className="shrink-0 text-sm text-pine">
-                    {offer.originalPrice && (
-                      <span className="mr-1 text-ink-soft line-through">{offer.originalPrice}</span>
-                    )}
-                    {offer.price}
-                  </span>
+                  <span className="shrink-0 text-sm font-medium text-pine">{offer.price}</span>
                 </div>
                 {offer.priceNote && <p className="mt-2 text-xs text-pine">{offer.priceNote}</p>}
                 <p className="mt-2 text-sm text-ink-soft">{offer.blurb}</p>

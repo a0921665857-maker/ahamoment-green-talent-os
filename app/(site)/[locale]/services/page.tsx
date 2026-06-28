@@ -42,18 +42,8 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
               <div key={id} className="flex flex-col rounded-xl border border-line bg-paper p-5">
                 <div className="flex items-baseline justify-between gap-3">
                   <h2 className="text-lg font-semibold">{offer.name}</h2>
-                  <span className="shrink-0 text-sm text-pine">
-                    {offer.originalPrice && (
-                      <span className="mr-1.5 text-ink-soft line-through">{offer.originalPrice}</span>
-                    )}
-                    {offer.price}
-                  </span>
+                  <span className="shrink-0 text-sm font-medium text-pine">{offer.price}</span>
                 </div>
-                {offer.originalPrice && (
-                  <span className="mt-1 self-start rounded bg-sage-soft px-1.5 py-0.5 text-xs text-pine-deep">
-                    {o.earlyBird}
-                  </span>
-                )}
                 {offer.priceNote && <p className="mt-2 text-xs text-pine">{offer.priceNote}</p>}
                 <p className="mt-3 text-sm">{offer.blurb}</p>
                 <p className="mt-3 text-xs text-ink-soft">{offer.forWhom}</p>

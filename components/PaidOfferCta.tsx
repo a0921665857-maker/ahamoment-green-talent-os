@@ -22,17 +22,19 @@ export function PaidOfferCta(props: {
     anchor: content.anchorLabel,
   };
   const free = content.offers.intro_call_free;
+  const isZh = props.locale === 'zh-TW';
+  const replySubject = isZh ? '我的 MRI 想問一個問題' : 'One question about my MRI';
+  const replyBody = isZh
+    ? 'Michael 你好，我的類型是 ______，我想問的一個問題是：'
+    : 'Hi Michael — my type is ______, and my one question is:';
+  const mailto = `mailto:${content.replyEmail}?subject=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
 
-  function book(offer: OfferId) {
+  function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
     try {
       void fetch('/api/mri/event', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          name: 'booking_clicked',
-          session_token: props.sessionToken,
-          props: { offer, category: props.category },
-        }),
+        body: JSON.stringify({ name, session_token: props.sessionToken, props: { ...extra, category: props.category } }),
         keepalive: true,
       });
     } catch {
@@ -49,17 +51,31 @@ export function PaidOfferCta(props: {
       <div className="mt-6 rounded-xl border-2 border-pine bg-sage-soft/30 p-6">
         <h3 className="text-lg font-semibold">{free.name}</h3>
         <p className="mt-2 max-w-2xl text-sm text-ink">{free.blurb}</p>
-        <p className="mt-3 max-w-2xl text-xs text-ink-soft">{content.founderLine}</p>
+        <p className="mt-4 max-w-2xl whitespace-pre-line text-sm text-ink-soft">{content.freeAgenda}</p>
+        <p className="mt-4 max-w-2xl text-xs text-ink-soft">{content.founderLine}</p>
         <a
           href={props.calendlyUrl || '#'}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => book('intro_call_free')}
-          className="mt-4 inline-block rounded-lg bg-pine px-6 py-3 text-sm text-paper"
+          onClick={() => track('booking_clicked', { offer: 'intro_call_free' })}
+          className="mt-5 inline-block rounded-lg bg-pine px-6 py-3 text-sm text-paper"
         >
-          {content.freeHeroCta} · {free.price}
+          {content.freeHeroCta}
         </a>
+        <p className="mt-2 text-xs text-ink-soft">{content.freeReassure}</p>
       </div>
+
+      {/* Even lower friction: reply with one question, no scheduling. */}
+      <p className="mt-4 max-w-2xl text-sm text-ink-soft">
+        {content.replyPrompt}{' '}
+        <a
+          href={mailto}
+          onClick={() => track('cta_clicked', { cta: 'reply_email' })}
+          className="font-medium text-pine underline-offset-2 hover:underline"
+        >
+          {content.replyCta} →
+        </a>
+      </p>
 
       {/* Paid options — demoted, opt-in for those already sold. */}
       <p className="mt-10 max-w-2xl text-sm text-ink-soft">{content.paidDivider}</p>
@@ -86,7 +102,7 @@ export function PaidOfferCta(props: {
                 href={props.calendlyUrl || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => book(s.offer)}
+                onClick={() => track('booking_clicked', { offer: s.offer })}
                 className={
                   isPrimary
                     ? 'mt-4 inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper'

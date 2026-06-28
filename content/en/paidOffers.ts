@@ -3,7 +3,7 @@ import type { PaidOffersContent } from '../schema';
 export const paidOffers: PaidOffersContent = {
   title: 'If you want to go deeper',
   intro:
-    'Your report tells you how the market reads you now. But the one thing it does NOT answer — which single gap to close next, given your situation — is usually what decides whether your move works.',
+    'This report can tell you how the market reads you now. What it can’t do is sit across from you and say: “If I were you, I’d fix this part first — and here’s why.” Those 30 minutes, I give you for free.',
   primaryLabel: 'Recommended for your result',
   entryLabel: 'Low-risk entry point',
   anchorLabel: 'The full journey',
@@ -15,17 +15,24 @@ export const paidOffers: PaidOffersContent = {
     'Teardown fee credits 100% toward any sprint or package booked within 30 days.',
   confidentiality:
     'Human review is private. Your materials are never used as public examples or testimonials without your explicit written permission.',
-  bookCta: 'Book a time',
-  freeHeroCta: 'Book my free 30 minutes',
-  paidDivider: 'Already know you want more? Here are paid options matched to your result.',
-  founderLine: 'I’m Michael — ex-Deloitte/KPMG ESG, INSEAD MBA, now on the front line of carbon markets. The move you’re about to make, I’ve made myself.',
+  bookCta: 'Set this up for me',
+  freeHeroCta: 'Get my free 30-min read',
+  freeReassure: 'Free · no pitch · if it’s not a fit I’ll say so',
+  freeAgenda:
+    'What happens in the 30 minutes:\n· First 10 min: you talk, I listen.\n· Next 15 min: I tell you straight — given your situation, the one gap to close next, and why.\n· Last 5 min: if a paid service fits, I’ll say so; if not, I’ll say that too.\nNo slides, no hard sell — people who tell the truth don’t need to pressure you.',
+  paidDivider: 'Want to go deeper, faster? Options matched to your result — but you can always start with the free chat above.',
+  founderLine:
+    'I’m Michael. I went from Big 4 ESG consultant to INSEAD to the front line of carbon markets — and the hardest part was realising my title didn’t translate in an interviewer’s eyes; I had to learn to say who I am from scratch. The road you’re about to walk, I’ve walked it, and I remember every place it gets stuck. This call is me, personally — not an assistant, not a form.',
+  replyPrompt: 'Not ready to book a slot? Just reply with one question — I read and answer every one myself, not a bot.',
+  replyCta: 'Reply with one question',
+  replyEmail: 'a0921665857@gmail.com',
   offers: {
     intro_call_free: {
-      name: 'Free 30 min: the one question your report left open',
+      name: 'Free 30 min: I’ll read your own report back to you',
       price: 'Free',
       delivery: 'One 30-minute call, no written deliverable.',
       forWhom: 'Anyone still deciding whether this is the right direction.',
-      blurb: 'I’ll read your MRI result and tell you, live: given where you are, the single most important gap to close next — and why. You leave with one clear next step. If it’s not a fit, I’ll say so.',
+      blurb: 'This call does one thing: looks at your MRI result and tells you, given where you are, the one gap to close first — and why. No slides, nothing to sell you — you leave with one clear next step. And if you don’t actually need a paid service, I’ll tell you that too.',
     },
     deep_read: {
       name: 'Deep Read',
