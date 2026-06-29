@@ -105,14 +105,34 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       <section className="border-t border-line bg-mist/30">
         <div className="mx-auto max-w-3xl px-6 py-14">
           <h2 className="text-xl font-semibold">{c.landing.founder.title}</h2>
-          <ul className="mt-4 space-y-2">
-            {c.landing.founder.facts.map((f, i) => (
-              <li key={i} className="flex items-baseline gap-3 text-ink-soft">
-                <span className="text-pine">—</span>
-                <span>{f}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-start">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/founder.jpg"
+              alt={c.seo.siteName}
+              className="h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-line"
+            />
+            <div>
+              <ul className="space-y-2">
+                {c.landing.founder.facts.map((f, i) => (
+                  <li key={i} className="flex items-baseline gap-3 text-ink-soft">
+                    <span className="text-pine">—</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="https://www.linkedin.com/in/chao-hsien-wu/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block text-sm font-medium text-pine underline-offset-2 hover:underline"
+              >
+                {L === 'zh-TW'
+                  ? '這不是匿名服務——在 LinkedIn 上找我本人 ↗'
+                  : 'Not an anonymous service — find me on LinkedIn ↗'}
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
