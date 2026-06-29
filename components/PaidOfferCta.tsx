@@ -1,6 +1,7 @@
 'use client';
 import type { Locale, OfferId, ResultCategory } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
+import { FounderAvatar } from '@/components/FounderAvatar';
 
 interface Slot {
   offer: OfferId;
@@ -53,12 +54,7 @@ export function PaidOfferCta(props: {
         <p className="mt-2 max-w-2xl text-sm text-ink">{free.blurb}</p>
         <p className="mt-4 max-w-2xl whitespace-pre-line text-sm text-ink-soft">{content.freeAgenda}</p>
         <div className="mt-4 flex items-start gap-3">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/founder.jpg"
-            alt="Michael"
-            className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-line"
-          />
+          <FounderAvatar className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-line" />
           <p className="max-w-2xl text-xs text-ink-soft">
             {content.founderLine}{' '}
             <a

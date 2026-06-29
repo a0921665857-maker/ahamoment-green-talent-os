@@ -5,6 +5,7 @@ import { REPORT_SECTION_KEYS, type Locale } from '@/lib/constants';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ReturnReportLink } from '@/components/ReturnReportLink';
 import { LatestContent } from '@/components/LatestContent';
+import { FounderAvatar } from '@/components/FounderAvatar';
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -106,12 +107,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <div className="mx-auto max-w-3xl px-6 py-14">
           <h2 className="text-xl font-semibold">{c.landing.founder.title}</h2>
           <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-start">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/founder.jpg"
-              alt={c.seo.siteName}
-              className="h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-line"
-            />
+            <FounderAvatar className="h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-line" />
             <div>
               <ul className="space-y-2">
                 {c.landing.founder.facts.map((f, i) => (
