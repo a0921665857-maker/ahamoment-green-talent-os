@@ -35,6 +35,7 @@ export async function proxy(req: NextRequest) {
 
   if (
     pathname.startsWith('/api') ||
+    pathname.startsWith('/og') ||
     pathname.startsWith('/_next') ||
     pathname.includes('.')
   ) {

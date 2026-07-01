@@ -5,7 +5,7 @@ export const share: ShareContent = {
   shareButton: '複製我的類型，貼到 Threads',
   copied: '已複製！可貼到 Threads',
   softCta: '來測你自己的',
-  screenshotHint: '截圖這張卡片分享，或用上方按鈕複製文字。',
+  screenshotHint: '點「分享我的圖卡」存成圖片發文，或截圖這張卡片。',
   types: {
     ready_for_mba_story_sprint: {
       label: '蓄勢待發的氣候敘事者',

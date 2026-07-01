@@ -5,7 +5,7 @@ export const share: ShareContent = {
   shareButton: 'Copy my type to share',
   copied: 'Copied! Paste it anywhere',
   softCta: 'Find your own',
-  screenshotHint: 'Screenshot this card to share, or copy the text above.',
+  screenshotHint: 'Tap "Share my card" to save it as an image, or screenshot this card.',
   types: {
     ready_for_mba_story_sprint: {
       label: 'Primed Climate Storyteller',
