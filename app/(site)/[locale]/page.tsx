@@ -49,6 +49,9 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             {c.landing.hero.secondaryCta}
           </a>
         </div>
+        <a href={`/${L}/types`} className="mt-4 inline-block text-sm text-pine underline-offset-2 hover:underline">
+          {L === 'zh-TW' ? '或先看看 8 種綠領人才類型 →' : 'Or browse the 8 green-career types →'}
+        </a>
         <p className="mt-4 text-sm text-ink-soft">{c.landing.hero.timePromise}</p>
         <p className="mt-6 max-w-2xl text-sm text-ink-soft">{c.landing.hero.privacyLine}</p>
       </header>
