@@ -30,5 +30,7 @@ export const BAND_COLORS = { emerging: '#b9cdc0', developing: '#5d8a73', strong:
  * so cards/posts show only the quotable half after the em-dash.
  */
 export function cardLineOf(shareLine: string): string {
-  return (shareLine.split(/——|—/)[1] ?? shareLine).trim();
+  const line = (shareLine.split(/——|—/)[1] ?? shareLine).trim();
+  // Capitalise the first letter — a no-op for CJK, fixes the lowercase EN half.
+  return line.charAt(0).toUpperCase() + line.slice(1);
 }
