@@ -7,6 +7,9 @@ export function ReturnReportLink({ locale, label }: { locale: Locale; label: str
   const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
     try {
+      // localStorage is client-only; reading it in an effect (not during render) is the
+      // SSR-safe pattern — server + first client paint render null, then we fill in.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setToken(localStorage.getItem('gtos_report_token'));
     } catch {
       /* ignore */

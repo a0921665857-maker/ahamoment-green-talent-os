@@ -9,6 +9,9 @@ export function LanguageSwitcher({ current }: { current: Locale }) {
 
   function switchTo(next: Locale) {
     if (next === current) return;
+    // Browser API write inside an event handler (not a render-time module mutation) —
+    // the new react-hooks/immutability rule misfires on document.cookie assignment.
+    // eslint-disable-next-line react-hooks/immutability
     document.cookie = `gtos_locale=${next};path=/;max-age=${60 * 60 * 24 * 365}`;
     const rest = pathname.replace(new RegExp(`^/(${LOCALES.join('|')})`), '');
     router.push(`/${next}${rest || ''}`);
