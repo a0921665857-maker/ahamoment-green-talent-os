@@ -122,7 +122,7 @@ export default async function ResultPage({
           locale={L}
           category={report.category}
           content={c.share}
-          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}`}
+          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}/types/${report.category}`}
         />
       </main>
     </div>

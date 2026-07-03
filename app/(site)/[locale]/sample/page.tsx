@@ -73,7 +73,7 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
           locale={L}
           category={s.category}
           content={c.share}
-          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}`}
+          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}/types/${s.category}`}
         />
 
         <div className="mt-12 border-t border-line pt-10 text-center">
