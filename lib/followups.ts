@@ -172,6 +172,9 @@ async function sendOne(stage: FollowupStage, lead: CandidateRow): Promise<void> 
     to: lead.email,
     subject: template.subject,
     text: body,
+    // The from-address has no mailbox — route replies to Michael's real inbox
+    // (the templates explicitly invite replies).
+    replyTo: process.env.FOUNDER_EMAIL || undefined,
   });
 
   // Marker written only after a successful send — a failed send retries next run.

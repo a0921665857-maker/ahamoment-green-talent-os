@@ -32,7 +32,15 @@ export async function sendReportEmail(opts: {
     .trim();
 
   try {
-    await new Resend(apiKey).emails.send({ from, to: opts.to, subject: t.subject, text: body });
+    // from has no real mailbox — route replies to the founder's inbox (the
+    // template invites the reader to reply).
+    await new Resend(apiKey).emails.send({
+      from,
+      to: opts.to,
+      subject: t.subject,
+      text: body,
+      replyTo: process.env.FOUNDER_EMAIL || undefined,
+    });
   } catch {
     /* email is best-effort — on-screen delivery already happened */
   }
