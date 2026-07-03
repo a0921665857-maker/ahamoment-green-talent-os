@@ -5,6 +5,7 @@ import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
 import { ctaOffers } from '@/lib/scoring/resultClassifier';
 import { sampleReports } from '@/content/sampleReport';
+import { InlineCtaCard } from '@/components/InlineCtaCard';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
@@ -60,6 +61,9 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
           templates={c.reportTemplates}
           dateLabel={c.sample.pageEyebrow}
           mbaIntent={s.mbaIntent}
+          inlineCta={
+            <InlineCtaCard locale={L} content={c.paidOffers} calendlyUrl={calendlyUrl} sessionToken={null} />
+          }
         />
         <PaidOfferCta
           locale={L}

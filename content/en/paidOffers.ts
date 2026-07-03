@@ -26,6 +26,11 @@ export const paidOffers: PaidOffersContent = {
   replyPrompt: 'Not ready to book a slot? Just reply with one question — I read and answer every one myself, not a bot.',
   replyCta: 'Reply with one question',
   replyEmail: 'a0921665857@gmail.com',
+  inlineCta: {
+    line: 'If anything so far made you want to push back — or ask “so what do I actually do” — ask me directly. I answer personally, not a bot.',
+    bookCta: 'Free 30 min — I’ll walk you through it',
+    replyCta: 'Reply with one question',
+  },
   offers: {
     intro_call_free: {
       name: 'Free 30 min: I’ll read your own report back to you',

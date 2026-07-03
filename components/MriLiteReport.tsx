@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { REPORT_SECTION_KEYS, type Band, type Locale, type MbaIntent, type ReportSectionKey } from '@/lib/constants';
 import type { Bands, ReportSections } from '@/lib/types';
 import type { ReportTemplatesContent } from '@/content/schema';
@@ -28,6 +29,8 @@ export function MriLiteReport(props: {
   templates: ReportTemplatesContent;
   dateLabel: string;
   mbaIntent?: MbaIntent;
+  /** Optional CTA card injected after the second section (placement experiment). */
+  inlineCta?: ReactNode;
 }) {
   const t = props.templates;
   const nonApplicant = isNonApplicantIntent(props.mbaIntent);
@@ -79,6 +82,7 @@ export function MriLiteReport(props: {
                   ))}
               </div>
               <p className="mt-3 leading-relaxed text-ink">{section.body}</p>
+              {i === 1 && props.inlineCta}
             </section>
           );
         })}

@@ -7,6 +7,7 @@ import { ctaOffers } from '@/lib/scoring/resultClassifier';
 import { getReportByToken, getSessionStatusByToken } from '@/lib/reportData';
 import { localeRedirectPath } from '@/lib/reportView';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { InlineCtaCard } from '@/components/InlineCtaCard';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
 import { ShareableTypeCard } from '@/components/ShareableTypeCard';
@@ -109,6 +110,9 @@ export default async function ResultPage({
           templates={c.reportTemplates}
           dateLabel={formatDate(report.createdAt, L)}
           mbaIntent={report.mbaIntent}
+          inlineCta={
+            <InlineCtaCard locale={L} content={c.paidOffers} calendlyUrl={calendlyUrl} sessionToken={token} />
+          }
         />
         <PaidOfferCta
           locale={L}

@@ -140,6 +140,9 @@ export interface PaidOffersContent {
   replyPrompt: string; // low-friction alternative: "just reply with one question"
   replyCta: string; // the clickable reply link label
   replyEmail: string; // founder email for the one-line reply mailto
+  // Compact CTA card shown INSIDE the report (after the second section) — 30 days of
+  // data showed zero booking clicks on the bottom-of-page CTA, so placement is on trial.
+  inlineCta: { line: string; bookCta: string; replyCta: string };
   offers: Record<OfferId, OfferCopy>;
 }
 
