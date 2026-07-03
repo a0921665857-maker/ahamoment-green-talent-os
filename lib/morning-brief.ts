@@ -67,13 +67,14 @@ export function mergeSources(rows: SourceRow[]): SourceRow[] {
 
 function posthogApiHost(): string {
   // Ingestion host (eu.i.posthog.com) and private API host (eu.posthog.com) differ.
-  const ingest = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.i.posthog.com';
+  // trim(): dashboard-pasted env values sometimes carry a trailing space/newline.
+  const ingest = (process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.i.posthog.com').trim();
   return ingest.replace('.i.posthog.com', '.posthog.com');
 }
 
 async function hogql(query: string): Promise<unknown[][]> {
-  const key = process.env.POSTHOG_PERSONAL_API_KEY;
-  const project = process.env.POSTHOG_PROJECT_ID;
+  const key = process.env.POSTHOG_PERSONAL_API_KEY?.trim();
+  const project = process.env.POSTHOG_PROJECT_ID?.trim();
   if (!key || !project) throw new Error('POSTHOG_PERSONAL_API_KEY / POSTHOG_PROJECT_ID unset');
 
   const res = await fetch(`${posthogApiHost()}/api/projects/${project}/query`, {
