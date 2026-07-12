@@ -6,6 +6,8 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ReturnReportLink } from '@/components/ReturnReportLink';
 import { LatestContent } from '@/components/LatestContent';
 import { FounderAvatar } from '@/components/FounderAvatar';
+import { NewsletterSignup } from '@/components/NewsletterSignup';
+import { newsletterCopy } from '@/content/newsletter';
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -78,6 +80,22 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           <span className="mt-3 inline-block text-sm font-medium text-pine">
             {L === 'zh-TW' ? '打開報告 →' : 'Open the report →'}
           </span>
+        </a>
+        <a
+          href={`/${L}/jobs`}
+          className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-line px-6 py-4 transition hover:border-pine"
+        >
+          <span className="text-sm">
+            <span className="font-semibold">
+              {L === 'zh-TW' ? '綠領職缺雷達' : 'Green-Collar Jobs Radar'}
+            </span>
+            <span className="ml-2 text-ink-soft">
+              {L === 'zh-TW'
+                ? '亞太綠領職缺該去哪找,一頁整理好,每週更新'
+                : 'Where to find APAC green-collar jobs — curated, updated weekly'}
+            </span>
+          </span>
+          <span className="shrink-0 text-sm font-medium text-pine">→</span>
         </a>
       </section>
 
@@ -197,6 +215,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             {c.landing.finalCta.cta}
           </a>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 py-14">
+        <NewsletterSignup locale={L} copy={newsletterCopy[L]} source="landing" />
       </section>
 
       <LatestContent locale={L} />

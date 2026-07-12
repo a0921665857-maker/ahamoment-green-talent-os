@@ -141,3 +141,18 @@ alter table rate_limits enable row level security;
 insert into storage.buckets (id, name, public)
 values ('source-materials', 'source-materials', false)
 on conflict (id) do nothing;
+
+-- 《綠領情報》週刊訂閱者(see supabase/migrations/20260712_newsletter_subscribers.sql)
+create table if not exists newsletter_subscribers (
+  id uuid primary key default gen_random_uuid(),
+  email text unique not null,
+  locale text not null check (locale in ('en','zh-TW')),
+  status text not null default 'active' check (status in ('active','unsubscribed')),
+  source text,
+  confirmed_at timestamptz,
+  created_at timestamptz not null default now(),
+  unsubscribed_at timestamptz
+);
+create index if not exists idx_newsletter_email on newsletter_subscribers(email);
+create index if not exists idx_newsletter_status on newsletter_subscribers(status);
+alter table newsletter_subscribers enable row level security;

@@ -4,7 +4,9 @@ import { LOCALES, type Locale } from '@/lib/constants';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { salaryReports } from '@/content/salaryReport';
+import { newsletterCopy } from '@/content/newsletter';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { NewsletterSignup } from '@/components/NewsletterSignup';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -195,6 +197,11 @@ export default async function SalaryReportPage({
           </a>
           <p className="mt-4 text-sm text-paper/70">{r.ctaSub}</p>
         </section>
+
+        {/* newsletter — capture the reader as a repeat visitor */}
+        <div className="mt-8">
+          <NewsletterSignup locale={L} copy={newsletterCopy[L]} source="salary_report" />
+        </div>
 
         {/* sources */}
         <details className="mt-12 border-t border-line pt-6">
