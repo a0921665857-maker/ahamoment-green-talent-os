@@ -56,6 +56,31 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <p className="mt-6 max-w-2xl text-sm text-ink-soft">{c.landing.hero.privacyLine}</p>
       </header>
 
+      {/* salary report lead magnet — prominent, free-to-read entry high on the page */}
+      <section className="mx-auto max-w-3xl px-6 pb-4">
+        <a
+          href={`/${L}/salary-report`}
+          className="block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
+        >
+          <p className="text-xs uppercase tracking-eyebrow text-pine">
+            {L === 'zh-TW' ? '免費閱讀 · 新報告' : 'Free read · New report'}
+          </p>
+          <h2 className="mt-2 text-xl font-semibold leading-snug">
+            {L === 'zh-TW'
+              ? '《2026 亞太綠領薪資報告》:同一份工作,新加坡薪水是台灣的 2–3 倍?'
+              : '2026 APAC Green-Collar Salary Report: is Singapore pay really 2–3× Taiwan’s?'}
+          </h2>
+          <p className="mt-2 text-sm text-ink-soft">
+            {L === 'zh-TW'
+              ? '星台薪資帶、綠領溢價 5.3% vs 面試機會 544% 的真相,以及四種拉高議價力的技能組合。'
+              : 'Cross-strait bands, the +5.3% pay vs +544% interviews paradox, and four skill combos that lift your leverage.'}
+          </p>
+          <span className="mt-3 inline-block text-sm font-medium text-pine">
+            {L === 'zh-TW' ? '打開報告 →' : 'Open the report →'}
+          </span>
+        </a>
+      </section>
+
       {/* differentiator — Blue Ocean category boundary, high on the page */}
       <section className="border-y border-line bg-mist/30">
         <div className="mx-auto max-w-3xl px-6 py-12">
