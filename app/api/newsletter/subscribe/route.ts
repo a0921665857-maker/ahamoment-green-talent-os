@@ -34,12 +34,14 @@ export async function POST(req: NextRequest) {
     const { error } = await db
       .from('newsletter_subscribers')
       .upsert(
-        { email, locale: body.locale, source: body.source ?? null, status: 'active' },
+        { email, locale: body.locale, source: body.source ?? null, status: 'active', unsubscribed_at: null },
         { onConflict: 'email' },
       );
     if (error) {
       // Most likely the `newsletter_subscribers` table has not been migrated yet.
-      return errorJson('subscribe_failed', 503, error.message);
+      // Log server-side; never leak the raw DB error to this public client.
+      console.error('[newsletter] subscribe failed:', error.message);
+      return errorJson('subscribe_failed', 503);
     }
   } catch {
     return errorJson('subscribe_failed', 503);

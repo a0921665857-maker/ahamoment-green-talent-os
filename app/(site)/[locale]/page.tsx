@@ -69,12 +69,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </p>
           <h2 className="mt-2 text-xl font-semibold leading-snug">
             {L === 'zh-TW'
-              ? '《2026 亞太綠領薪資報告》:同一份工作,新加坡薪水是台灣的 2–3 倍?'
+              ? '《2026 亞太綠領薪資報告》：同一份工作，新加坡薪水是台灣的 2 到 3 倍？'
               : '2026 APAC Green-Collar Salary Report: is Singapore pay really 2–3× Taiwan’s?'}
           </h2>
           <p className="mt-2 text-sm text-ink-soft">
             {L === 'zh-TW'
-              ? '星台薪資帶、綠領溢價 5.3% vs 面試機會 544% 的真相,以及四種拉高議價力的技能組合。'
+              ? '星台薪資帶、綠領溢價 5.3% vs 面試機會 544% 的真相，以及四種拉高議價力的技能組合。'
               : 'Cross-strait bands, the +5.3% pay vs +544% interviews paradox, and four skill combos that lift your leverage.'}
           </p>
           <span className="mt-3 inline-block text-sm font-medium text-pine">
@@ -91,7 +91,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             </span>
             <span className="ml-2 text-ink-soft">
               {L === 'zh-TW'
-                ? '亞太綠領職缺該去哪找,一頁整理好,每週更新'
+                ? '亞太綠領職缺該去哪找，一頁整理好，每週更新'
                 : 'Where to find APAC green-collar jobs — curated, updated weekly'}
             </span>
           </span>
