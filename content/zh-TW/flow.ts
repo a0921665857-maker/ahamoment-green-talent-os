@@ -4,7 +4,9 @@ export const flow: FlowContent = {
   stepIndicator: { input: '你的資料', confirm: '確認理解', questions: '幾個問題' },
   intro: {
     title: '從你已經有的東西開始',
-    body: '選最省力的一種就好。MRI 直接從你的真實資料出發——內容越有料，判讀越精準。',
+    body: '選最省力的一種就好。MRI 直接讀你的真實資料，你給的內容越有料，判讀就越精準。',
+    reassure: '約 3 分鐘 · 免費 · 免註冊。原始內容 90 天後自動刪除，絕不拿去訓練 AI。',
+    sampleCta: '還沒把握？先看一份完整範例 →',
   },
   inputTabs: {
     cv_pdf: {
@@ -34,6 +36,7 @@ export const flow: FlowContent = {
     remove: '移除',
   },
   submit: '開始 MRI',
+  submitHint: '貼上一些內容、並勾選下方的資料處理同意，就能開始。',
   charCount: '{count} 字元',
   progress: {
     extraction: {
@@ -51,7 +54,7 @@ export const flow: FlowContent = {
         '判定你的結果類型…',
         '撰寫十二個段落…',
       ],
-      note: '這通常需要 1–2 分鐘——我們在認真寫，不是隨便填。完成後會自動顯示，請別關閉這個頁面。',
+      note: '這通常需要 1 到 2 分鐘，我們在認真寫，不是隨便填。完成後會自動顯示，請先別關閉這個頁面。',
     },
   },
   confirmation: {

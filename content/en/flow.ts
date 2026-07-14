@@ -5,6 +5,8 @@ export const flow: FlowContent = {
   intro: {
     title: 'Start with what you already have',
     body: 'Pick whichever is easiest. The MRI works from your real materials — the more substance, the sharper the read.',
+    reassure: 'About 3 minutes · Free · No signup. Your raw input is deleted after 90 days and never used to train AI.',
+    sampleCta: 'Not sure yet? See a full sample first →',
   },
   inputTabs: {
     cv_pdf: {
@@ -34,6 +36,7 @@ export const flow: FlowContent = {
     remove: 'Remove',
   },
   submit: 'Run the MRI',
+  submitHint: 'Paste a little content and tick the processing consent below to start.',
   charCount: '{count} characters',
   progress: {
     extraction: {

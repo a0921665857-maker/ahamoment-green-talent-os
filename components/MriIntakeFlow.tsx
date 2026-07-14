@@ -237,6 +237,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
           errors={errors}
           locale={locale}
           privacyHref={props.privacyHref}
+          sampleHref={props.sampleHref}
           inputType={inputType}
           setInputType={(t) => {
             setInputType(t);
@@ -324,6 +325,7 @@ function InputStep(p: {
   errors: ErrorsContent;
   locale: Locale;
   privacyHref: string;
+  sampleHref: string;
   inputType: InputType;
   setInputType: (t: InputType) => void;
   text: string;
@@ -343,6 +345,15 @@ function InputStep(p: {
     <div className="mt-8">
       <h1 className="text-2xl font-semibold">{p.flow.intro.title}</h1>
       <p className="mt-2 text-ink-soft">{p.flow.intro.body}</p>
+      <p className="mt-3 text-sm text-ink-soft">{p.flow.intro.reassure}</p>
+      <a
+        href={p.sampleHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-2 inline-block text-sm font-medium text-pine underline-offset-2 hover:underline"
+      >
+        {p.flow.intro.sampleCta}
+      </a>
 
       <div className="mt-6 flex flex-wrap gap-2">
         {TAB_ORDER.map((t) => (
@@ -441,6 +452,7 @@ function InputStep(p: {
       >
         {p.flow.submit}
       </button>
+      {!p.inputReady && <p className="mt-2 text-xs text-ink-soft">{p.flow.submitHint}</p>}
     </div>
   );
 }

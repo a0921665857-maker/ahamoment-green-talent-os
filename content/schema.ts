@@ -35,10 +35,11 @@ export interface LandingContent {
 
 export interface FlowContent {
   stepIndicator: { input: string; confirm: string; questions: string };
-  intro: { title: string; body: string };
+  intro: { title: string; body: string; reassure: string; sampleCta: string };
   inputTabs: Record<InputType, { tab: string; hint: string; placeholder?: string }>;
   pdf: { dropLabel: string; chooseFile: string; selected: string; remove: string };
   submit: string;
+  submitHint: string; // shown under a disabled submit so people know why
   charCount: string; // "{count} characters"
   progress: {
     extraction: { title: string; stages: string[] };
