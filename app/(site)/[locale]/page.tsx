@@ -16,6 +16,43 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   const L = locale as Locale;
   const t = c.reportTemplates;
 
+  // Free tools = the "map" layer of the product map: everyone gets the map for
+  // free; only customisation is paid.
+  const tools = [
+    {
+      href: `/${L}/jobs`,
+      title: L === 'zh-TW' ? '綠領職缺雷達' : 'Green-Collar Jobs Radar',
+      desc:
+        L === 'zh-TW'
+          ? '四區真職缺、薪資帶，還有我們的點評，每週更新。'
+          : 'Real openings across four markets, salary bands and our take, refreshed weekly.',
+    },
+    {
+      href: `/${L}/jd`,
+      title: L === 'zh-TW' ? 'JD 翻譯器' : 'JD Translator',
+      desc:
+        L === 'zh-TW'
+          ? '貼一則職缺，看它真正要什麼硬技能、薪水大概落在哪。'
+          : 'Paste a job ad and see the hard skills it really wants, plus the likely band.',
+    },
+    {
+      href: `/${L}/mba-roi`,
+      title: L === 'zh-TW' ? 'MBA ROI 計算器' : 'MBA ROI Calculator',
+      desc:
+        L === 'zh-TW'
+          ? '把學費、機會成本、獎學金算開，看幾年才回得了本。'
+          : 'Tuition, opportunity cost and scholarship laid out: when does it actually pay back.',
+    },
+    {
+      href: `/${L}/cost-of-living`,
+      title: L === 'zh-TW' ? '異地生活成本' : 'Cost of Living',
+      desc:
+        L === 'zh-TW'
+          ? '薪水多兩三倍，扣掉房租水電之後，實際還剩多少。'
+          : 'Pay looks 2–3× higher. What actually survives rent and bills?',
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
@@ -58,16 +95,17 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <p className="mt-6 max-w-2xl text-sm text-ink-soft">{c.landing.hero.privacyLine}</p>
       </header>
 
-      {/* salary report lead magnet — prominent, free-to-read entry high on the page */}
+      {/* free tools — everyone gets the map for free; only customisation is paid */}
       <section className="mx-auto max-w-3xl px-6 pb-4">
+        <p className="text-xs uppercase tracking-eyebrow text-pine">
+          {L === 'zh-TW' ? '免費工具 · 給你一張地圖' : 'Free tools · your map'}
+        </p>
+
         <a
           href={`/${L}/salary-report`}
-          className="block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
+          className="mt-3 block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
         >
-          <p className="text-xs uppercase tracking-eyebrow text-pine">
-            {L === 'zh-TW' ? '免費閱讀 · 新報告' : 'Free read · New report'}
-          </p>
-          <h2 className="mt-2 text-xl font-semibold leading-snug">
+          <h2 className="text-xl font-semibold leading-snug">
             {L === 'zh-TW'
               ? '《2026 亞太綠領薪資報告》：同一份工作，新加坡薪水是台灣的 2 到 3 倍？'
               : '2026 APAC Green-Collar Salary Report: is Singapore pay really 2–3× Taiwan’s?'}
@@ -81,22 +119,20 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             {L === 'zh-TW' ? '打開報告 →' : 'Open the report →'}
           </span>
         </a>
-        <a
-          href={`/${L}/jobs`}
-          className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-line px-6 py-4 transition hover:border-pine"
-        >
-          <span className="text-sm">
-            <span className="font-semibold">
-              {L === 'zh-TW' ? '綠領職缺雷達' : 'Green-Collar Jobs Radar'}
-            </span>
-            <span className="ml-2 text-ink-soft">
-              {L === 'zh-TW'
-                ? '亞太綠領職缺該去哪找，一頁整理好，每週更新'
-                : 'Where to find APAC green-collar jobs — curated, updated weekly'}
-            </span>
-          </span>
-          <span className="shrink-0 text-sm font-medium text-pine">→</span>
-        </a>
+
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          {tools.map((tool) => (
+            <a
+              key={tool.href}
+              href={tool.href}
+              className="rounded-2xl border border-line px-5 py-4 transition hover:border-pine"
+            >
+              <p className="font-semibold">{tool.title}</p>
+              <p className="mt-1 text-sm text-ink-soft">{tool.desc}</p>
+              <span className="mt-2 inline-block text-sm font-medium text-pine">→</span>
+            </a>
+          ))}
+        </div>
       </section>
 
       {/* differentiator — Blue Ocean category boundary, high on the page */}

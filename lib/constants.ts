@@ -151,6 +151,8 @@ export const EVENT_NAMES = [
   'cta_clicked',
   'booking_clicked',
   'newsletter_subscribed',
+  'jd_translated',
+  'mba_roi_calculated',
 ] as const;
 export type EventName = (typeof EVENT_NAMES)[number];
 
