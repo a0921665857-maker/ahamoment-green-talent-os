@@ -30,7 +30,11 @@ function ensureInitialized() {
  * PostHog-only funnel capture. Use the canonical names from lib/constants EVENT_NAMES.
  * This is a separate sink from the first-party events table (lib/events.ts) — do NOT
  * route first-party-recorded server events through here too, to avoid double counting.
- * Never pass PII in props (structural data only: input_type, locale, category).
+ * DELIBERATE EXCEPTION: booking_clicked / cta_clicked fired from PaidOfferCta and
+ * InlineCtaCard are dual-sinked (client phCapture + /api/mri/event). PostHog funnels
+ * were blind to the last mile without it — a booking_clicked=0 misread (2026-07)
+ * drove a wrong product verdict. When analysing, count those two events from ONE
+ * sink only. Never pass PII in props (structural data only: input_type, locale, category).
  */
 export function phCapture(
   event: string,

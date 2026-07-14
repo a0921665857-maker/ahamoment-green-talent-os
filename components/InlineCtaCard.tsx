@@ -1,6 +1,7 @@
 'use client';
 import type { Locale } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
+import { phCapture } from '@/components/PostHogProvider';
 
 /**
  * Compact CTA rendered inside the report body (after the second section).
@@ -24,6 +25,9 @@ export function InlineCtaCard(props: {
   const mailto = `mailto:${props.content.replyEmail}?subject=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
 
   function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
+    // Dual-sinked on purpose — see PostHogProvider note. PostHog funnels must
+    // see the last mile; the first-party events table stays canonical.
+    phCapture(name, { ...extra, placement: 'inline' });
     try {
       void fetch('/api/mri/event', {
         method: 'POST',

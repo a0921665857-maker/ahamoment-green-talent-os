@@ -2,6 +2,7 @@
 import type { Locale, OfferId, ResultCategory } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
 import { FounderAvatar } from '@/components/FounderAvatar';
+import { phCapture } from '@/components/PostHogProvider';
 
 interface Slot {
   offer: OfferId;
@@ -31,6 +32,10 @@ export function PaidOfferCta(props: {
   const mailto = `mailto:${content.replyEmail}?subject=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
 
   function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
+    // Deliberately dual-sinked (see PostHogProvider note): the first-party events
+    // table is canonical, but PostHog funnels were blind to the last mile — a
+    // booking_clicked=0 misread of this exact gap drove a wrong product verdict.
+    phCapture(name, { ...extra, category: props.category });
     try {
       void fetch('/api/mri/event', {
         method: 'POST',
