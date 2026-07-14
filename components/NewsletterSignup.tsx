@@ -7,10 +7,14 @@ import { phCapture } from '@/components/PostHogProvider';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
+// Temporarily hidden. The self-hosted Supabase capture never came up cleanly
+// (PostgREST schema cache), and there is no send / unsubscribe yet — so the box
+// would promise a newsletter we can't deliver. Re-enable once subscribe points
+// at the Ghost newsletter (native capture + send + unsubscribe).
+const NEWSLETTER_ENABLED = false;
+
 /**
  * Newsletter (《綠領情報》週刊) email capture. Posts to /api/newsletter/subscribe.
- * The subscribe route needs the `newsletter_subscribers` table — until that
- * migration is run it returns 503 and this box shows a friendly error.
  */
 export function NewsletterSignup({
   locale,
@@ -55,6 +59,8 @@ export function NewsletterSignup({
       setMessage(copy.errorGeneric);
     }
   }
+
+  if (!NEWSLETTER_ENABLED) return null;
 
   return (
     <div className="rounded-2xl border border-line bg-mist/40 px-6 py-6">
