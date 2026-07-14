@@ -23,7 +23,8 @@ export interface JobMarket {
 
 export interface SalarySource {
   label: string;
-  url: string;
+  labelEn?: string; // shown on /en; falls back to label (fine for proper names like Glassdoor)
+  url: string; // internal links are locale-less ('/salary-report'); the renderer prefixes the locale
 }
 
 export interface WeeklyPick {
@@ -104,7 +105,7 @@ export const greenJobs: GreenJobsData = {
       metaEn: 'Singapore · senior · updated 7/11',
       salaryZh: 'S$150k–210k/年（推估；公部門薪級不公開，以民間永續金融總監帶回推）',
       salaryEn: 'Est. S$150k–210k/yr (public-sector bands undisclosed; reverse-benchmarked from private sustainable-finance director bands)',
-      salarySources: [{ label: '薪資報告（本站）', url: '/zh-TW/salary-report' }],
+      salarySources: [{ label: '薪資報告（本站）', labelEn: 'Salary report (this site)', url: '/salary-report' }],
       takeZh: [
         '先讀懂這個位子背後的局。新加坡不是在做碳合規，是在把自己做成亞洲的碳定價與碳交易樞紐：碳稅一路調到 2030 年、跟國際碳權市場（《巴黎協定》第 6 條）接軌、底下還養著一整個碳服務業聚落。這時候把「碳策略司」獨立出來、還開到資深司長級，等於國家層級在補「設計規則的人」。所以這職缺乍看是公務員，其實是站在整條碳市場價值鏈最上游、決定別人要照什麼規則玩的位子。',
         '適合的人很特定：已經在碳市場、碳權或永續金融實戰過，受夠了只能執行別人訂的規則、想往制定端走。你在民間看過規則哪裡會被鑽、哪裡跟現實脫節，那正是政策桌上最缺、也最難從學界補進來的視角。面試主軸別堆證照，講一個你實際操作時撞到的規則破口、你會怎麼修。但代價要先認清：公部門薪級不透明、決策鏈長。你交出的是政策，換到的是對規則的影響力，代價就是看不到民間帳面上最高的那個數字。',
@@ -169,7 +170,7 @@ export const greenJobs: GreenJobsData = {
       metaEn: 'Singapore · director · updated 7/11',
       salaryZh: 'S$130k–175k/年（推估；參照資深 ESG 顧問帶）',
       salaryEn: 'Est. S$130k–175k/yr (benchmarked to senior ESG-consulting bands)',
-      salarySources: [{ label: '薪資報告（本站）', url: '/zh-TW/salary-report' }],
+      salarySources: [{ label: '薪資報告（本站）', labelEn: 'Salary report (this site)', url: '/salary-report' }],
       takeZh: [
         'Brunswick 是頂級的策略溝通顧問（危機、併購溝通、利害關係人管理那一掛），它開「永續業務董事」的意思是：大企業的永續問題，已經從「要不要做」變成「怎麼對投資人、監管、媒體、員工把它講清楚，而且經得起挑戰」。這個位子做的不是碳盤查，也不是報告書，是企業級的定位與敘事工程。說穿了，就是綠領 MRI 幫個人做的那件事，放大到一整家公司。',
         '適合的是稀有的雙棲款：一手有永續的實質底（懂 CSRD、懂淨零、聽得懂 CSO 在焦慮什麼），一手有溝通、公關、敘事的敏感度（能把它翻成 CEO 和董事會聽得進去的故事）。這種缺市場上很少，因為多數人只長一邊。門檻也在這：你得同時跟 CSO 談實質、跟 CEO 談故事，純技術背景會被嫌不會講，純公關背景會被嫌不懂。如果你剛好兩邊都沾，這正是把你的「雜」變成溢價的位子。',

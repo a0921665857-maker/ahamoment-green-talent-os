@@ -17,6 +17,23 @@ export interface RateLimitResult {
   remaining: number;
 }
 
+/**
+ * Site-wide daily cap for a route (cost kill switch for public LLM endpoints).
+ * Counts today's ALLOWED requests via the rate_limits rows checkRateLimit
+ * inserts — no extra table. Cap ≤ 0 disables it.
+ */
+export async function isRouteDailyCapReached(route: string, cap: number): Promise<boolean> {
+  if (!Number.isFinite(cap) || cap <= 0) return false;
+  const start = new Date();
+  start.setUTCHours(0, 0, 0, 0);
+  const { count } = await getServiceClient()
+    .from('rate_limits')
+    .select('*', { count: 'exact', head: true })
+    .eq('route', route)
+    .gte('created_at', start.toISOString());
+  return (count ?? 0) >= cap;
+}
+
 export async function checkRateLimit(
   ip: string,
   route: string,

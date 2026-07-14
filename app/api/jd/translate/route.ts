@@ -1,9 +1,9 @@
 import { NextRequest } from 'next/server';
 import { z } from 'zod';
-import { RATE_LIMIT, type Locale } from '@/lib/constants';
+import { DAILY_JD_CAP, RATE_LIMIT, type Locale } from '@/lib/constants';
 import { isLocale } from '@/content/locales';
 import { JD_LIMITS, jdTranslatorCopy } from '@/content/jdTranslator';
-import { checkRateLimit } from '@/lib/rateLimit';
+import { checkRateLimit, isRouteDailyCapReached } from '@/lib/rateLimit';
 import { clientIp, errorJson, json } from '@/lib/http';
 import { callPrompt, PromptValidationError } from '@/lib/anthropic';
 import { jdTranslatePrompt } from '@/lib/prompts/jdTranslate';
@@ -25,6 +25,11 @@ const BodySchema = z.object({
  * The only row this route writes is the rate-limit counter (a salted IP hash).
  */
 export async function POST(req: NextRequest) {
+  // Cost kill switch: a public LLM endpoint must have a site-wide daily cap in
+  // addition to the per-IP limit (per-IP alone can be rotated around).
+  if (await isRouteDailyCapReached('jd_translate', DAILY_JD_CAP)) {
+    return errorJson('daily_cap', 429);
+  }
   const ip = clientIp(req);
   const rl = await checkRateLimit(ip, 'jd_translate', RATE_LIMIT.submissionsPerHourPerIp);
   if (!rl.allowed) return errorJson('rate_limited', 429);

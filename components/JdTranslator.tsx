@@ -61,7 +61,7 @@ export function JdTranslator({ locale, copy, mriHref }: JdTranslatorProps) {
       const data = (await res.json()) as { analysis: JdAnalysis };
       setAnalysis(data.analysis);
       setPhase('result');
-      phCapture('jd_translate_succeeded', { locale });
+      phCapture('jd_translated', { locale });
     } catch {
       setError(copy.errors.generic);
       setPhase('input');

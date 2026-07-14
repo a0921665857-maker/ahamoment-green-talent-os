@@ -178,6 +178,9 @@ export const RATE_LIMIT = {
 /** Site-wide daily MRI kill switch. Env-overridable; ≤0 disables the cap. */
 export const DAILY_MRI_CAP = Number(process.env.MRI_DAILY_CAP ?? 50);
 
+/** Site-wide daily cap for the public JD-translator LLM endpoint (cost guard). */
+export const DAILY_JD_CAP = Number(process.env.JD_DAILY_CAP ?? 150);
+
 export const MODELS = {
   quality: 'claude-sonnet-4-6',
   cheap: 'claude-haiku-4-5',

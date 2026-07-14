@@ -43,17 +43,22 @@ function PickCard({ p, L, t }: { p: WeeklyPick; L: Locale; t: GreenJobsCopy }) {
         {p.salarySources.length > 0 && (
           <p className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs">
             <span className="text-ink-soft">{L === 'zh-TW' ? '來源' : 'Sources'}</span>
-            {p.salarySources.map((s) => (
-              <a
-                key={s.url}
-                href={s.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-pine underline-offset-2 hover:underline"
-              >
-                {s.label} ↗
-              </a>
-            ))}
+            {p.salarySources.map((s) => {
+              const external = s.url.startsWith('http');
+              const href = external ? s.url : `/${L}${s.url}`;
+              const label = L === 'en' && s.labelEn ? s.labelEn : s.label;
+              return (
+                <a
+                  key={s.url}
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  className="text-pine underline-offset-2 hover:underline"
+                >
+                  {label} {external ? '↗' : '→'}
+                </a>
+              );
+            })}
           </p>
         )}
       </div>
