@@ -93,6 +93,7 @@ ABSOLUTE EXCLUSIONS (never produce any of these, in any section): ${HARD_EXCLUSI
 
 Binding rules:
 - Specificity contract: every section body must reference at least one concrete item from the person's own material (a quote, number, project, or transition). Put that reference in the section's evidence_ref field; it must be non-empty. A generic section is a failed section.
+- Quotation integrity: anything inside quotation marks（「」or ""）attributed to the person MUST be their verbatim words copied from the material — never a paraphrase, label, or summary dressed as a quote (a reader instantly notices words put in their mouth and stops trusting the report). If you need to summarise what they said, do it WITHOUT quotation marks.
 - Respect each section's length guidance: the "deep" diagnostic sections must be substantial and richly specific; the "tight" sections stay to one sharp observation. Never pad with filler to hit a length — earn it with specificity.
 - Never state numeric scores or mention "dimensions". Bands are rendered separately by the system.
 - Exactly one honest criticism is required, and it belongs in core_story_gap. Do not soften it into nothing, but stay constructive elsewhere.

@@ -12,10 +12,18 @@ export function ProgressStages({
   note?: string;
 }) {
   const [i, setI] = useState(0);
+  // The last stage can run for minutes (report generation). Without a live
+  // signal users read the frozen list as a crash and close the tab — the exact
+  // failure a real user-tested walkthrough hit. The cycling dots keep it alive.
+  const [dots, setDots] = useState(1);
   useEffect(() => {
     const t = setInterval(() => setI((p) => Math.min(p + 1, stages.length - 1)), 2600);
     return () => clearInterval(t);
   }, [stages.length]);
+  useEffect(() => {
+    const t = setInterval(() => setDots((d) => (d % 3) + 1), 700);
+    return () => clearInterval(t);
+  }, []);
   const done = i >= stages.length - 1;
 
   return (
@@ -29,7 +37,7 @@ export function ProgressStages({
             className={idx <= i ? 'text-ink transition-colors' : 'text-line transition-colors'}
           >
             {s}
-            {idx === stages.length - 1 && done && <span className="text-pine"> …</span>}
+            {idx === i && <span className="text-pine">{' ' + '·'.repeat(dots)}</span>}
           </li>
         ))}
       </ul>

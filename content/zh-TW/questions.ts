@@ -3,11 +3,11 @@ import type { QuestionsContent } from '../schema';
 export const questions: QuestionsContent = {
   intro: {
     title: '有幾件事，你的資料還沒告訴我們',
-    body: '三到五個快問快答——只問真的讀不出來的部分。這會讓報告精準很多。',
+    body: '三到五個快問快答，只問真的讀不出來的部分。這會讓報告精準很多。',
   },
   emailGate: {
     // 報告交付框架；2026-06-15 經創辦人同意改為誠實版（寄信功能尚未啟用）。
-    title: '報告就緒——留個 email 馬上看',
+    title: '報告就緒，留個 email 馬上看',
     body: '輸入 email，我們會立即為你產出個人化報告。報告會即時顯示，並用這個連結為你保存，隨時可回來查看。',
     emailLabel: 'Email',
     emailPlaceholder: 'you@example.com',
@@ -50,8 +50,8 @@ export const questions: QuestionsContent = {
       label: '你曾經直接對某個商業數字負責嗎？',
       type: 'select',
       options: [
-        { value: 'revenue', label: '有——營收或業績目標' },
-        { value: 'budget', label: '有——預算或損益項目' },
+        { value: 'revenue', label: '有：營收或業績目標' },
+        { value: 'budget', label: '有：預算或損益項目' },
         { value: 'no', label: '沒有直接負責過' },
         { value: 'unsure', label: '不好說' },
       ],
@@ -69,7 +69,7 @@ export const questions: QuestionsContent = {
     q_recent_achievement: {
       label: '過去兩年，哪一項成果你敢在面試裡為它辯護？',
       type: 'text',
-      placeholder: '一件具體的事——你做了什麼，以及因此改變了什麼。',
+      placeholder: '一件具體的事：你做了什麼，以及因此改變了什麼。',
     },
   },
 };

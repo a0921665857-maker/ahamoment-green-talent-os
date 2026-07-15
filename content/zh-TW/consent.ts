@@ -10,7 +10,7 @@ export const consent: ConsentContent = {
   aggregate: {
     label: '選填：同意將我的資料以匿名方式納入整體市場洞察（絕不可識別個人，亦不會使用您的文件）。',
   },
-  redactHint: '上傳前可自行刪去姓名或聯絡方式——不影響分析品質。',
+  redactHint: '上傳前可自行刪去姓名或聯絡方式，不影響分析品質。',
   noAccessNote: '我們不會、也無法存取您的 LinkedIn、ChatGPT 或 Claude 帳號。所有資料皆由您自行提供。',
   retentionSummary: '原始上傳內容 90 天後自動刪除；您可隨時要求刪除全部資料。',
   privacyLinkLabel: '隱私與資料',

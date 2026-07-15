@@ -57,6 +57,11 @@ export async function LatestContent({ locale }: { locale: Locale }) {
   const podcastUrl = process.env.NEXT_PUBLIC_PODCAST_URL;
   const t = COPY[locale];
 
+  // The blog and podcast are Chinese-language. Listing Chinese titles under an
+  // English "Latest writing" header reads as broken to /en visitors — hide the
+  // whole section there until English content exists.
+  if (locale !== 'zh-TW') return null;
+
   const posts = blogUrl ? await fetchPosts(blogUrl) : [];
   const embed = podcastUrl ? spotifyEmbed(podcastUrl) : null;
 

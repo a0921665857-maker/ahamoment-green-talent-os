@@ -20,6 +20,7 @@ Hard rules:
 5. Give an honest 0–1 confidence per group and overall. Confidence reflects how strongly the MATERIAL supports each field, not how plausible it sounds.
 5b. intent.mba_intent — distinguish APPLYING from ALREADY HAVING one. If the person is currently enrolled in an MBA, is an MBA candidate/student, or already holds an MBA degree, set mba_intent to 'current' (they are a job-seeker, NOT an applicant). Only use 'active' for someone actively applying TO an MBA they do not yet have. 'considering'/'later' = thinking about applying; 'no' = no MBA interest and none held.
 5c. identity.seniority reflects actual scope and title, NOT years alone. Use 'exec' only for genuine C-level / VP / Head-of / Partner scope; 'lead' for a team/function lead; 'senior'/'mid' for senior individual contributors or line managers even with many years. Do not infer 'exec' from tenure.
+5d. In narrative self-descriptions (notes/voice), identity.current_role and intent are usually stated in PROSE, not as labels: the current role typically appears in the opening sentences ("我在四大做了三年碳盤查" → current_role: 永續顧問/碳盤查, org type: Big 4) and the direction near the end ("想跳新加坡"、"在考慮 MBA" → target_market / mba_intent). Leaving these null when the text plainly states them is an extraction failure — a user seeing "未偵測到" for the very thing their first sentence said loses trust immediately.
 6. missing_fields may only contain these question-bank IDs: ${QUESTION_IDS.join(', ')}.
 
 Input-type guidance:

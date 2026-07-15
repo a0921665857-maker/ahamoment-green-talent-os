@@ -114,6 +114,27 @@ export default async function ResultPage({
             <InlineCtaCard locale={L} content={c.paidOffers} calendlyUrl={calendlyUrl} sessionToken={token} />
           }
         />
+        {/* Close the loop the report opens: the diagnosis names a lane; these two
+            pages put real market numbers on it. A user-tested walkthrough called
+            the missing salary context "the cheque the report writes but doesn't cash". */}
+        <aside className="mt-10 rounded-xl border border-line bg-mist/30 px-5 py-4">
+          <p className="text-sm font-medium">
+            {L === 'zh-TW' ? '賽道有了，接下來是價格。' : 'You have the lane. Now put a price on it.'}
+          </p>
+          <p className="mt-1 text-sm text-ink-soft">
+            {L === 'zh-TW'
+              ? '用真實的市場數據，看你的組合在台灣與新加坡各值多少，以及跨過去之後實際剩多少。'
+              : 'See what your combination pays in Taiwan versus Singapore, and what actually survives the move.'}
+          </p>
+          <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+            <a href={`/${L}/salary-report`} className="font-medium text-pine underline-offset-2 hover:underline">
+              {L === 'zh-TW' ? '亞太綠領薪資報告 →' : 'APAC salary report →'}
+            </a>
+            <a href={`/${L}/cost-of-living`} className="font-medium text-pine underline-offset-2 hover:underline">
+              {L === 'zh-TW' ? '異地生活成本 →' : 'Cost of living →'}
+            </a>
+          </p>
+        </aside>
         <PaidOfferCta
           locale={L}
           category={report.category}

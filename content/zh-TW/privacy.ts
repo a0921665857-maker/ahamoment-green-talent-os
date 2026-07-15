@@ -6,7 +6,7 @@ export const privacyPage: PrivacyPageContent = {
   sections: [
     {
       heading: '我們收集什麼',
-      body: '你選擇分享的資料（CV、貼上的文字、逐字稿）、你輸入的回答、你的 email 與選填的稱呼，以及匿名的流程事件（記錄走到哪一步——絕不包含你的資料內容）。語音音檔一律不儲存；我們只接受逐字稿。',
+      body: '你選擇分享的資料（CV、貼上的文字、逐字稿）、你輸入的回答、你的 email 與選填的稱呼，以及匿名的流程事件（記錄走到哪一步，絕不包含你的資料內容）。語音音檔一律不儲存；我們只接受逐字稿。',
     },
     {
       heading: '資料如何被使用',
@@ -18,7 +18,7 @@ export const privacyPage: PrivacyPageContent = {
     },
     {
       heading: '我們絕不會做的事',
-      body: '絕不用你的資料訓練 AI 模型。絕不出售或分享。未經你書面同意，絕不把你的資料當作公開案例或見證。我們不會、也無法存取你的 LinkedIn、ChatGPT 或 Claude 帳號——貼什麼，由你決定。',
+      body: '絕不用你的資料訓練 AI 模型。絕不出售或分享。未經你書面同意，絕不把你的資料當作公開案例或見證。我們不會、也無法存取你的 LinkedIn、ChatGPT 或 Claude 帳號。貼什麼，由你決定。',
     },
     {
       heading: '你的選擇與權利',

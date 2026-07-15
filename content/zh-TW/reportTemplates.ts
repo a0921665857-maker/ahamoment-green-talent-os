@@ -26,7 +26,7 @@ export const reportTemplates: ReportTemplatesContent = {
     },
     core_story_gap: {
       title: '故事的核心缺口',
-      fallback: '從這份資料還無法可靠定位你故事的主要缺口——而這件事本身，就值得探究。',
+      fallback: '從這份資料還無法可靠定位你故事的主要缺口，而這件事本身，就值得探究。',
     },
     green_career_fit: {
       title: '綠色職涯適配度',
@@ -64,6 +64,6 @@ export const reportTemplates: ReportTemplatesContent = {
   footer: {
     deleteLine: '想刪除這份資料？寄一封信，7 天內完成。',
     confidentiality: '真人審閱完全保密。未經你書面同意，你的資料絕不會被用作公開案例或見證。',
-    returnNote: '這個連結屬於你——收藏起來，隨時回來看你的報告。',
+    returnNote: '這個連結屬於你，收藏起來，隨時回來看你的報告。',
   },
 };
