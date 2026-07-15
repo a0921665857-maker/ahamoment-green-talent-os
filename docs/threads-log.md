@@ -1,7 +1,8 @@
 # Threads 成效日誌
 
-回填方式:`/thread log <貼文一句話摘要> views=X reposts=Y clicks=Z`(48 小時數據)。
-clicks = PostHog 裡 `utm_source=threads` 的訪客數(引擎會自己去查,你不用手動找)。
+回填方式:`/thread log <貼文一句話摘要> views=X reposts=Y`(48 小時數據)。
+clicks = PostHog 裡 `utm_source=threads` 的訪客數(引擎自己查,你不用手動找)。
+另外 thread-pusher 每週日執行時會自動:查 PostHog 補 clicks、寫「週結」、更新「有效樣式」、幫模板庫記分。
 
 | 日期 | 主題/鉤子 | 框架 | 時段 | views | reposts | 留言 | MRI 導流 | 學到什麼 |
 |---|---|---|---|---|---|---|---|---|
@@ -22,3 +23,17 @@ clicks = PostHog 裡 `utm_source=threads` 的訪客數(引擎會自己去查,你
 **已被數據推翻的假設:**(尚無)
 
 **你的帳號實測最有效的:**(尚無——第一篇發文後開始累積)
+
+---
+
+## 週結(thread-pusher 每週日自動 append)
+
+格式:
+```
+### YYYY-MM-DD 週結
+本週發文 N 篇|utm_source=threads 訪客 X|mri_started Y
+導流最強:【一句話】(模板 Txx)|最弱:【一句話】(模板 Txx)
+本週學到:一到兩句
+```
+
+(尚無條目,機器首個週日後開始累積)
