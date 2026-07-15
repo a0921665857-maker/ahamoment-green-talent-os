@@ -15,6 +15,10 @@ export interface ReportView {
   secondaryOffer: OfferId | null;
   mbaIntent: MbaIntent;
   createdAt: string;
+  /** For the personalised salary band (deterministic lookup; block hides when absent). */
+  sectors: string[];
+  yearsExperience: number | null;
+  profileConfidence: number;
 }
 
 /** Lightweight session lookup so the result page can distinguish "still generating" from "not found". */
@@ -59,12 +63,20 @@ export async function getReportByToken(token: string): Promise<ReportView | null
 
   const { data: profileRow } = await db
     .from('extracted_profiles')
-    .select('payload')
+    .select('payload, overall_confidence')
     .eq('session_id', session.id)
     .order('created_at', { ascending: false })
     .limit(1)
     .single();
   const mbaIntent = (profileRow?.payload?.intent?.mba_intent as MbaIntent) ?? 'unknown';
+  const rawSectors = profileRow?.payload?.green_economy?.sectors;
+  const sectors: string[] = Array.isArray(rawSectors)
+    ? rawSectors.filter((s: unknown): s is string => typeof s === 'string')
+    : [];
+  const rawYears = profileRow?.payload?.identity?.years_experience;
+  const yearsExperience = typeof rawYears === 'number' && Number.isFinite(rawYears) ? rawYears : null;
+  const profileConfidence =
+    typeof profileRow?.overall_confidence === 'number' ? profileRow.overall_confidence : 0;
 
   // Defensive: clamp to a known category so a legacy/renamed/unknown value can never
   // crash the result page (offers + share card index by category).
@@ -85,5 +97,8 @@ export async function getReportByToken(token: string): Promise<ReportView | null
     secondaryOffer: (scores.secondary_offer as OfferId | null) ?? null,
     mbaIntent,
     createdAt: report.created_at,
+    sectors,
+    yearsExperience,
+    profileConfidence,
   };
 }

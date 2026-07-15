@@ -5,6 +5,7 @@ import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
 import { ctaOffers } from '@/lib/scoring/resultClassifier';
 import { getReportByToken, getSessionStatusByToken } from '@/lib/reportData';
+import { getPersonalBand } from '@/lib/salaryBands';
 import { localeRedirectPath } from '@/lib/reportView';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { InlineCtaCard } from '@/components/InlineCtaCard';
@@ -114,27 +115,74 @@ export default async function ResultPage({
             <InlineCtaCard locale={L} content={c.paidOffers} calendlyUrl={calendlyUrl} sessionToken={token} />
           }
         />
-        {/* Close the loop the report opens: the diagnosis names a lane; these two
-            pages put real market numbers on it. A user-tested walkthrough called
-            the missing salary context "the cheque the report writes but doesn't cash". */}
-        <aside className="mt-10 rounded-xl border border-line bg-mist/30 px-5 py-4">
-          <p className="text-sm font-medium">
-            {L === 'zh-TW' ? '賽道有了，接下來是價格。' : 'You have the lane. Now put a price on it.'}
-          </p>
-          <p className="mt-1 text-sm text-ink-soft">
-            {L === 'zh-TW'
-              ? '用真實的市場數據，看你的組合在台灣與新加坡各值多少，以及跨過去之後實際剩多少。'
-              : 'See what your combination pays in Taiwan versus Singapore, and what actually survives the move.'}
-          </p>
-          <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
-            <a href={`/${L}/salary-report`} className="font-medium text-pine underline-offset-2 hover:underline">
-              {L === 'zh-TW' ? '亞太綠領薪資報告 →' : 'APAC salary report →'}
-            </a>
-            <a href={`/${L}/cost-of-living`} className="font-medium text-pine underline-offset-2 hover:underline">
-              {L === 'zh-TW' ? '異地生活成本 →' : 'Cost of living →'}
-            </a>
-          </p>
-        </aside>
+        {/* Close the loop the report opens: the diagnosis names a lane; these blocks
+            put real market numbers on it. Personalised band is a deterministic lookup
+            against the human-curated salary-report dataset (lib/salaryBands.ts) — when
+            the person's sectors/years don't map cleanly it hides and the generic
+            pointer renders instead. Never guessed, never LLM-generated. */}
+        {(() => {
+          const band =
+            report.profileConfidence >= 0.4
+              ? getPersonalBand(report.sectors, report.yearsExperience, L)
+              : null;
+          const salaryHref = `/${L}/salary-report?utm_source=mri_report&utm_medium=pricing_block&utm_content=${band ? 'personal_band' : 'generic'}`;
+          const colHref = `/${L}/cost-of-living?utm_source=mri_report&utm_medium=pricing_block&utm_content=${band ? 'personal_band' : 'generic'}`;
+          const links = (
+            <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+              <a href={salaryHref} className="font-medium text-pine underline-offset-2 hover:underline">
+                {L === 'zh-TW' ? '完整薪資帶與來源 →' : 'Full bands and sources →'}
+              </a>
+              <a href={colHref} className="font-medium text-pine underline-offset-2 hover:underline">
+                {L === 'zh-TW' ? '生活成本怎麼算 →' : 'How living costs change it →'}
+              </a>
+            </p>
+          );
+          if (!band) {
+            return (
+              <aside className="mt-10 rounded-xl border border-line bg-mist/30 px-5 py-4">
+                <p className="text-sm font-medium">
+                  {L === 'zh-TW' ? '賽道有了，接下來是價格。' : 'You have the lane. Now put a price on it.'}
+                </p>
+                <p className="mt-1 text-sm text-ink-soft">
+                  {L === 'zh-TW'
+                    ? '用真實的市場數據，看你的組合在台灣與新加坡各值多少，以及跨過去之後實際剩多少。'
+                    : 'See what your combination pays in Taiwan versus Singapore, and what actually survives the move.'}
+                </p>
+                {links}
+              </aside>
+            );
+          }
+          return (
+            <aside className="mt-10 rounded-xl border border-pine/40 bg-mist/40 px-5 py-5">
+              <p className="text-xs font-semibold uppercase tracking-eyebrow text-pine">
+                {L === 'zh-TW' ? '你的薪資帶（估算）' : 'Your salary band (estimate)'}
+              </p>
+              <p className="mt-2 text-[15px] leading-relaxed">
+                {L === 'zh-TW' ? (
+                  <>
+                    以你的組合（{band.functionLabel} × {band.expLabel}），新加坡帶約{' '}
+                    <span className="font-semibold tabular-nums">{band.sgBand}</span>
+                    ／年。{band.twAnchor}。名目差距約 {band.nominal}
+                    {band.disposable ? `，扣掉生活成本後實際約 ${band.disposable}` : ''}。
+                  </>
+                ) : (
+                  <>
+                    For your combination ({band.functionLabel} × {band.expLabel}), the Singapore band is
+                    roughly <span className="font-semibold tabular-nums">{band.sgBand}</span>
+                    /yr. {band.twAnchor}. Nominal gap about {band.nominal}
+                    {band.disposable ? `, roughly ${band.disposable} after living costs` : ''}.
+                  </>
+                )}
+              </p>
+              <p className="mt-2 text-xs text-ink-soft">
+                {L === 'zh-TW'
+                  ? '這是市場的帶寬，不是你的定價；你的位置由證據決定。推估區間、資料截至 2026 年 7 月，以來源原始頁為準。'
+                  : 'This is the market band, not your price; your position is set by your evidence. Estimated ranges, data as of July 2026 — the source pages govern.'}
+              </p>
+              {links}
+            </aside>
+          );
+        })()}
         <PaidOfferCta
           locale={L}
           category={report.category}
