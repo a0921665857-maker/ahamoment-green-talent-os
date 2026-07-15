@@ -206,7 +206,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                 className="mt-4 inline-block text-sm font-medium text-pine underline-offset-2 hover:underline"
               >
                 {L === 'zh-TW'
-                  ? '這不是匿名服務——在 LinkedIn 上找我本人 ↗'
+                  ? '這不是匿名服務，在 LinkedIn 上找得到我本人 ↗'
                   : 'Not an anonymous service — find me on LinkedIn ↗'}
               </a>
             </div>
