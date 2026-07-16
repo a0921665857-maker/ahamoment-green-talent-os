@@ -1,8 +1,7 @@
 # Threads 成效日誌
 
-回填方式:`/thread log <貼文一句話摘要> views=X reposts=Y`(48 小時數據)。
-clicks = PostHog 裡 `utm_source=threads` 的訪客數(引擎自己查,你不用手動找)。
-另外 thread-pusher 每週日執行時會自動:查 PostHog 補 clicks、寫「週結」、更新「有效樣式」、幫模板庫記分。
+回填全自動(2026-07-16 起):views/reposts 走 Threads Insights API、clicks 走 PostHog(utm_source=threads),thread-pusher 每週日自動逐篇回填、寫「週結」、更新「有效樣式」、幫模板庫記分。
+想提前看數據就打 `/thread log`,不用帶任何參數。
 
 | 日期 | 主題/鉤子 | 框架 | 時段 | views | reposts | 留言 | MRI 導流 | 學到什麼 |
 |---|---|---|---|---|---|---|---|---|
