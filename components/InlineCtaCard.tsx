@@ -1,5 +1,6 @@
 'use client';
 import type { Locale } from '@/lib/constants';
+import { LINE_OA_URL } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
 import { phCapture } from '@/components/PostHogProvider';
 
@@ -63,6 +64,15 @@ export function InlineCtaCard(props: {
           className="text-sm font-medium text-pine underline-offset-2 hover:underline"
         >
           {t.bookCta} →
+        </a>
+        <a
+          href={LINE_OA_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => phCapture('line_add_clicked', { context: 'report_mid' })}
+          className="text-sm font-medium text-pine underline-offset-2 hover:underline"
+        >
+          {t.lineCta} →
         </a>
       </div>
     </aside>

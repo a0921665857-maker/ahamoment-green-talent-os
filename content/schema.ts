@@ -57,6 +57,10 @@ export interface FlowContent {
     generatingHint: string;
     resultTitle: string;
     resultBody: string;
+    landingTitle: string;
+    landingBody: string;
+    endTitle: string;
+    endBody: string;
   };
   confirmation: {
     title: string;
@@ -156,7 +160,7 @@ export interface PaidOffersContent {
   replyEmail: string; // founder email for the one-line reply mailto
   // Compact CTA card shown INSIDE the report (after the second section) — 30 days of
   // data showed zero booking clicks on the bottom-of-page CTA, so placement is on trial.
-  inlineCta: { line: string; bookCta: string; replyCta: string };
+  inlineCta: { line: string; bookCta: string; replyCta: string; lineCta: string };
   offers: Record<OfferId, OfferCopy>;
 }
 

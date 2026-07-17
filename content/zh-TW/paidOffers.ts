@@ -27,6 +27,7 @@ export const paidOffers: PaidOffersContent = {
     line: '讀到這裡，如果有哪一段讓你想反駁、或想追問「所以我該怎麼做」，直接問我，我親手回，不是機器人。',
     bookCta: '免費 30 分鐘，我唸給你聽',
     replyCta: '回信問一個問題',
+    lineCta: '先加 LINE 保存報告',
   },
   offers: {
     intro_call_free: {

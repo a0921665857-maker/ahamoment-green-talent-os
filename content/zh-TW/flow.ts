@@ -67,6 +67,10 @@ export const flow: FlowContent = {
     generatingHint: '怕被打斷？先把報告連結傳到你的 LINE，好了直接點開。',
     resultTitle: '把這份報告存進你的 LINE',
     resultBody: '連結永久有效。傳給自己存起來；想聊報告裡的下一步，加 Michael 的 LINE，他本人回。',
+    landingTitle: '還不確定要不要做測評？',
+    landingBody: '先加 Michael 的 LINE，想問什麼直接問，他本人回，不是機器人。',
+    endTitle: '還不想約時段也沒關係',
+    endBody: '先加 Michael 的 LINE，把報告放著沉澱幾天，之後想聊隨時在。',
   },
   confirmation: {
     title: '我們是這樣讀你的',

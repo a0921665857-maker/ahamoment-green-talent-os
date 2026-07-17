@@ -211,6 +211,13 @@ export default async function ResultPage({
           content={c.share}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}/types/${report.category}`}
         />
+        {/* Soft close: readers who won't book yet keep a zero-pressure line open. */}
+        <LineActions
+          title={c.flow.line.endTitle}
+          body={c.flow.line.endBody}
+          addLabel={c.flow.line.addCta}
+          context="report_end"
+        />
       </main>
     </div>
   );

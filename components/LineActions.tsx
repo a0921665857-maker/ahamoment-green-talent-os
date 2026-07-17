@@ -13,20 +13,21 @@ import { LINE_OA_URL } from '@/lib/constants';
 export function LineActions(props: {
   title: string;
   body?: string;
-  saveLabel: string;
+  /** Omit to hide the share-to-self button (add-only contexts). */
+  saveLabel?: string;
   /** Omit to hide the add-OA button (e.g. save-only contexts). */
   addLabel?: string;
   /** Human text for the LINE share; the resolved link is appended on click. */
-  shareText: string;
+  shareText?: string;
   /** Path with utm params, resolved against window.location.origin on click. */
-  sharePath: string;
-  /** Event property: material_step | generating | report */
+  sharePath?: string;
+  /** Event property: material_step | generating | report | report_end | landing */
   context: string;
 }) {
   function openShare() {
     phCapture('line_self_share_clicked', { context: props.context });
-    const url = `${window.location.origin}${props.sharePath}`;
-    const text = encodeURIComponent(`${props.shareText}\n${url}`);
+    const url = `${window.location.origin}${props.sharePath ?? ''}`;
+    const text = encodeURIComponent(`${props.shareText ?? ''}\n${url}`);
     window.open(`https://line.me/R/share?text=${text}`, '_blank', 'noopener');
   }
 
@@ -35,13 +36,15 @@ export function LineActions(props: {
       <p className="text-sm font-medium">{props.title}</p>
       {props.body && <p className="mt-1 text-sm text-ink-soft">{props.body}</p>}
       <div className="mt-3 flex flex-wrap gap-3">
-        <button
-          type="button"
-          onClick={openShare}
-          className="rounded-lg border border-pine px-4 py-2 text-sm text-pine"
-        >
-          {props.saveLabel}
-        </button>
+        {props.saveLabel && props.sharePath && (
+          <button
+            type="button"
+            onClick={openShare}
+            className="rounded-lg border border-pine px-4 py-2 text-sm text-pine"
+          >
+            {props.saveLabel}
+          </button>
+        )}
         {props.addLabel && (
           <a
             href={LINE_OA_URL}

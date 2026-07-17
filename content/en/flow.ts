@@ -67,6 +67,10 @@ export const flow: FlowContent = {
     generatingHint: 'Worried about interruptions? Send the report link to your LINE first, then open it when it is ready.',
     resultTitle: 'Save this report to your LINE',
     resultBody: 'The link never expires. Send it to yourself, or add Michael on LINE to talk through your next step. He replies in person.',
+    landingTitle: 'Not sure about the assessment yet?',
+    landingBody: 'Add Michael on LINE and ask anything directly. He replies in person, not a bot.',
+    endTitle: 'Not ready to book a slot? That is fine.',
+    endBody: 'Add Michael on LINE, let the report sit for a few days, and reach out whenever you are ready.',
   },
   confirmation: {
     title: 'Here is how we read you',

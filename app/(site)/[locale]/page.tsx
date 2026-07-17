@@ -6,6 +6,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ReturnReportLink } from '@/components/ReturnReportLink';
 import { LatestContent } from '@/components/LatestContent';
 import { FounderAvatar } from '@/components/FounderAvatar';
+import { LineActions } from '@/components/LineActions';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 import { newsletterCopy } from '@/content/newsletter';
 
@@ -250,6 +251,16 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           <a href={`/${L}/mri`} className="mt-6 inline-block rounded-lg bg-pine px-6 py-3 text-paper">
             {c.landing.finalCta.cta}
           </a>
+          {/* Secondary rail for the not-yet-convinced: a zero-pressure LINE line.
+              Kept light so it never competes with the primary MRI CTA. */}
+          <div className="mx-auto mt-8 max-w-md text-left">
+            <LineActions
+              title={c.flow.line.landingTitle}
+              body={c.flow.line.landingBody}
+              addLabel={c.flow.line.addCta}
+              context="landing"
+            />
+          </div>
         </div>
       </section>
 
