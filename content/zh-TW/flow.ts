@@ -72,6 +72,52 @@ export const flow: FlowContent = {
     endTitle: '還不想約時段也沒關係',
     endBody: '先加 Michael 的 LINE，把報告放著沉澱幾天，之後想聊隨時在。',
   },
+  quick: {
+    entryCta: '或者先來 60 秒速讀版：四題全用點的，不用貼任何東西 →',
+    title: '60 秒速讀版',
+    intro: '四題，全部用手指點。先看你大概是哪一型，完整判讀之後再做也不遲。',
+    q1: {
+      label: '你現在的位置是',
+      options: [
+        { value: 'sus_work', label: '永續圈工作中' },
+        { value: 'non_sus', label: '非永續產業，想轉進來' },
+        { value: 'student', label: '學生或剛畢業' },
+        { value: 'mba', label: '正在念或認真考慮 MBA' },
+      ],
+    },
+    q2: {
+      label: '工作年資',
+      options: [
+        { value: 'y0', label: '1 年內' },
+        { value: 'y1', label: '1 到 3 年' },
+        { value: 'y3', label: '3 到 6 年' },
+        { value: 'y6', label: '6 年以上' },
+      ],
+    },
+    q3: {
+      label: '現在最卡的一題',
+      options: [
+        { value: 'value', label: '不知道自己值多少' },
+        { value: 'no_reply', label: '履歷丟出去沒回音' },
+        { value: 'interview', label: '面試進得去，拿不到 offer' },
+        { value: 'abroad', label: '想去海外，不知道怎麼接' },
+        { value: 'mba_q', label: '該不該念 MBA' },
+      ],
+    },
+    q4: {
+      label: '目標市場',
+      options: [
+        { value: 'tw', label: '台灣' },
+        { value: 'sg', label: '新加坡或海外' },
+        { value: 'explore', label: '還在探索' },
+      ],
+    },
+    showResult: '看我的速讀結果',
+    resultEyebrow: '速讀版結果',
+    resultNote: '這是四題粗判的速讀版。完整版會讀你的真實經歷，給 12 段個人化判讀：你的優勢、缺口、值多少、下一步怎麼走。',
+    fullCta: '做完整版（約 3 分鐘）',
+    typeDetailCta: '看這一型的完整說明',
+  },
   confirmation: {
     title: '我們是這樣讀你的',
     intro: '在任何評估開始前，先確認這裡。哪裡不對就直接修改，後續會使用你修正後的版本，而不是原始猜測。',

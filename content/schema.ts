@@ -62,6 +62,22 @@ export interface FlowContent {
     endTitle: string;
     endBody: string;
   };
+  /** 60-second all-tap quick read — mobile audit's answer to the material-step
+   * drop: value before any typing. Maps deterministically to the 8 categories. */
+  quick: {
+    entryCta: string;
+    title: string;
+    intro: string;
+    q1: { label: string; options: { value: string; label: string }[] };
+    q2: { label: string; options: { value: string; label: string }[] };
+    q3: { label: string; options: { value: string; label: string }[] };
+    q4: { label: string; options: { value: string; label: string }[] };
+    showResult: string;
+    resultEyebrow: string;
+    resultNote: string;
+    fullCta: string;
+    typeDetailCta: string;
+  };
   confirmation: {
     title: string;
     intro: string;

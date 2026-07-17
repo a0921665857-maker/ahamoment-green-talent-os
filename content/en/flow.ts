@@ -72,6 +72,52 @@ export const flow: FlowContent = {
     endTitle: 'Not ready to book a slot? That is fine.',
     endBody: 'Add Michael on LINE, let the report sit for a few days, and reach out whenever you are ready.',
   },
+  quick: {
+    entryCta: 'Or try the 60-second quick read: four tap-only questions, nothing to paste →',
+    title: '60-second quick read',
+    intro: 'Four questions, all taps. See roughly which type you are first; the full read can wait.',
+    q1: {
+      label: 'Where are you now?',
+      options: [
+        { value: 'sus_work', label: 'Working in sustainability' },
+        { value: 'non_sus', label: 'Outside sustainability, want in' },
+        { value: 'student', label: 'Student or fresh graduate' },
+        { value: 'mba', label: 'In or seriously considering an MBA' },
+      ],
+    },
+    q2: {
+      label: 'Years of experience',
+      options: [
+        { value: 'y0', label: 'Under 1 year' },
+        { value: 'y1', label: '1 to 3 years' },
+        { value: 'y3', label: '3 to 6 years' },
+        { value: 'y6', label: '6+ years' },
+      ],
+    },
+    q3: {
+      label: 'What blocks you most right now?',
+      options: [
+        { value: 'value', label: 'No idea what I am worth' },
+        { value: 'no_reply', label: 'CV goes out, nothing comes back' },
+        { value: 'interview', label: 'I get interviews, not offers' },
+        { value: 'abroad', label: 'Want to go abroad, unsure how' },
+        { value: 'mba_q', label: 'Should I do an MBA?' },
+      ],
+    },
+    q4: {
+      label: 'Target market',
+      options: [
+        { value: 'tw', label: 'Taiwan' },
+        { value: 'sg', label: 'Singapore or overseas' },
+        { value: 'explore', label: 'Still exploring' },
+      ],
+    },
+    showResult: 'Show my quick read',
+    resultEyebrow: 'Quick-read result',
+    resultNote: 'This is a rough four-question read. The full version reads your real background and returns a 12-section personal diagnosis: strengths, gaps, market value, and next moves.',
+    fullCta: 'Do the full version (about 3 minutes)',
+    typeDetailCta: 'Read more about this type',
+  },
   confirmation: {
     title: 'Here is how we read you',
     intro: 'Check this before anything gets judged. Edit anything that is off — your corrections are used, not the raw guess.',

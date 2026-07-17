@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { phCapture } from '@/components/PostHogProvider';
-import type { Locale } from '@/lib/constants';
+import type { Locale, ResultCategory } from '@/lib/constants';
 import { INPUT_LIMITS, type InputType, type QuestionId } from '@/lib/constants';
 import { labelFor } from '@/lib/taxonomy';
 import type {
@@ -11,12 +11,31 @@ import type {
   ErrorsContent,
   FlowContent,
   QuestionsContent,
+  ShareContent,
 } from '@/content/schema';
 import type { ExtractedProfile, UserEdits } from '@/lib/types';
 import { ProgressStages } from './ProgressStages';
 import { LineActions } from './LineActions';
 
-type Phase = 'input' | 'extracting' | 'confirm' | 'questions' | 'generating';
+type Phase = 'input' | 'extracting' | 'confirm' | 'questions' | 'generating' | 'quick' | 'quick_result';
+
+/** Deterministic four-answer → category read. Rough by design — the quick read
+ * trades precision for zero typing; the full pipeline stays the honest one. */
+function mapQuick(a: Record<string, string>): ResultCategory {
+  const senior = a.q2 === 'y3' || a.q2 === 'y6';
+  if (a.q3 === 'mba_q' || a.q1 === 'mba')
+    return senior ? 'ready_for_mba_story_sprint' : 'career_positioning_before_mba';
+  if (a.q1 === 'student' || a.q2 === 'y0') return 'profile_building_needed';
+  if (a.q1 === 'non_sus')
+    return senior ? 'high_potential_low_commercial_clarity' : 'profile_building_needed';
+  if (a.q3 === 'interview') return 'interview_ready_positioning_weak';
+  if (a.q3 === 'no_reply')
+    return a.q2 === 'y6' ? 'cv_strong_narrative_weak' : 'strong_profile_weak_story';
+  if (a.q3 === 'abroad') return 'climate_career_builder';
+  if (a.q3 === 'value')
+    return senior ? 'high_potential_low_commercial_clarity' : 'strong_profile_weak_story';
+  return 'strong_profile_weak_story';
+}
 
 /** Tab display order — lowest-friction paste first; CV-PDF (biggest drop-off) last. */
 const TAB_ORDER: InputType[] = ['notes_paste', 'linkedin_paste', 'cv_pdf', 'voice_transcript'];
@@ -35,6 +54,7 @@ export interface IntakeFlowProps {
   consent: ConsentContent;
   questions: QuestionsContent;
   errors: ErrorsContent;
+  share: ShareContent;
   privacyHref: string;
   sampleHref: string;
   sampleLabel: string;
@@ -74,6 +94,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [quickAnswers, setQuickAnswers] = useState<Record<string, string>>({});
 
   const minChars = locale === 'zh-TW' ? INPUT_LIMITS.minCharsZh : INPUT_LIMITS.minCharsEn;
   const textOk = text.trim().length >= minChars;
@@ -237,6 +258,27 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
       </div>
     );
 
+  if (phase === 'quick' || phase === 'quick_result')
+    return (
+      <QuickRead
+        locale={locale}
+        flow={flow}
+        share={props.share}
+        answers={quickAnswers}
+        setAnswers={setQuickAnswers}
+        showResult={phase === 'quick_result'}
+        onShowResult={() => {
+          const category = mapQuick(quickAnswers);
+          phCapture('quick_completed', { locale, category, market: quickAnswers.q4 ?? '' });
+          setPhase('quick_result');
+        }}
+        onFull={() => {
+          phCapture('quick_to_full_clicked', { locale });
+          setPhase('input');
+        }}
+      />
+    );
+
   return (
     <div>
       <StepIndicator flow={flow} phase={phase} />
@@ -268,6 +310,10 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
           inputReady={inputReady}
           busy={busy}
           onSubmit={handleSubmit}
+          onQuick={() => {
+            phCapture('quick_started', { locale });
+            setPhase('quick');
+          }}
         />
       )}
 
@@ -353,6 +399,7 @@ function InputStep(p: {
   inputReady: boolean;
   busy: boolean;
   onSubmit: () => void;
+  onQuick: () => void;
 }) {
   const tab = p.flow.inputTabs[p.inputType];
   return (
@@ -426,6 +473,15 @@ function InputStep(p: {
           </p>
         </div>
       )}
+
+      {/* zero-typing side door — value before any paste for the commute audience */}
+      <button
+        type="button"
+        onClick={p.onQuick}
+        className="mt-5 block text-left text-sm font-medium text-pine underline-offset-2 hover:underline"
+      >
+        {p.flow.quick.entryCta}
+      </button>
 
       {/* no-CV escape hatch — the 78% material-step drop is mostly "wrong moment",
           not "no intent"; give the commuter a way to come back or hand over via LINE */}
@@ -683,6 +739,100 @@ function QuestionsStep(p: {
         className="mt-6 rounded-lg bg-pine px-6 py-3 text-paper disabled:opacity-40"
       >
         {p.questions.submit}
+      </button>
+    </div>
+  );
+}
+
+function QuickRead(p: {
+  locale: Locale;
+  flow: FlowContent;
+  share: ShareContent;
+  answers: Record<string, string>;
+  setAnswers: (a: Record<string, string>) => void;
+  showResult: boolean;
+  onShowResult: () => void;
+  onFull: () => void;
+}) {
+  const q = p.flow.quick;
+  const qs = [
+    { id: 'q1', ...q.q1 },
+    { id: 'q2', ...q.q2 },
+    { id: 'q3', ...q.q3 },
+    { id: 'q4', ...q.q4 },
+  ];
+  const allAnswered = qs.every((x) => p.answers[x.id]);
+
+  if (p.showResult) {
+    const category = mapQuick(p.answers);
+    const type = p.share.types[category];
+    return (
+      <div className="mt-8">
+        <p className="text-xs uppercase tracking-eyebrow text-pine">{q.resultEyebrow}</p>
+        <h1 className="mt-2 text-3xl font-semibold">{type.label}</h1>
+        <p className="mt-3 text-ink-soft">{type.shareLine}</p>
+        <p className="mt-5 rounded-lg border border-line bg-mist/30 px-5 py-4 text-sm text-ink-soft">
+          {q.resultNote}
+        </p>
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          <button
+            type="button"
+            onClick={p.onFull}
+            className="rounded-lg bg-pine px-6 py-3 text-paper"
+          >
+            {q.fullCta}
+          </button>
+          <a
+            href={`/${p.locale}/types/${category}?utm_source=quick_read`}
+            className="text-sm font-medium text-pine underline-offset-2 hover:underline"
+          >
+            {q.typeDetailCta} →
+          </a>
+        </div>
+        <LineActions
+          title={p.flow.line.endTitle}
+          body={p.flow.line.endBody}
+          addLabel={p.flow.line.addCta}
+          context="quick_result"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-8">
+      <h1 className="text-2xl font-semibold">{q.title}</h1>
+      <p className="mt-2 text-ink-soft">{q.intro}</p>
+      <div className="mt-6 space-y-6">
+        {qs.map((x) => (
+          <div key={x.id}>
+            <label className="block text-sm font-medium">{x.label}</label>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {x.options.map((o) => (
+                <button
+                  key={o.value}
+                  type="button"
+                  onClick={() => p.setAnswers({ ...p.answers, [x.id]: o.value })}
+                  className={
+                    p.answers[x.id] === o.value
+                      ? 'rounded-full bg-pine px-4 py-1.5 text-sm text-paper'
+                      : 'rounded-full border border-line px-4 py-1.5 text-sm text-ink-soft hover:border-pine'
+                  }
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <button
+        type="button"
+        disabled={!allAnswered}
+        onClick={p.onShowResult}
+        className="mt-8 rounded-lg bg-pine px-6 py-3 text-paper disabled:opacity-40"
+      >
+        {q.showResult}
       </button>
     </div>
   );

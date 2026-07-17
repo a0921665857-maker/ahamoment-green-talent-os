@@ -34,6 +34,7 @@ export default async function MriPage({ params }: { params: Promise<{ locale: st
           consent={c.consent}
           questions={c.questions}
           errors={c.errors}
+          share={c.share}
           privacyHref={`/${L}/privacy`}
           sampleHref={`/${L}/sample`}
           sampleLabel={c.sample.emailGateLinkLabel}
