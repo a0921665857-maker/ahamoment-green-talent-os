@@ -66,7 +66,7 @@ export function MriLiteReport(props: {
                   <span className="text-sm tabular-nums text-pine">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h2 className="text-lg font-semibold">{titleFor(key)}</h2>
+                  <h2 className="text-xl font-semibold sm:text-2xl">{titleFor(key)}</h2>
                 </div>
                 {bandKey &&
                   (band ? (

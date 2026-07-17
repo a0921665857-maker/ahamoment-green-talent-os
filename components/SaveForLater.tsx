@@ -49,6 +49,8 @@ export function SaveForLater(p: { locale: Locale; copy: FlowContent['saveLater']
       <div className="mt-3 flex flex-wrap gap-2">
         <input
           type="email"
+          inputMode="email"
+          autoComplete="email"
           value={email}
           placeholder={p.copy.placeholder}
           onChange={(e) => {

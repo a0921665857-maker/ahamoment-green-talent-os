@@ -14,6 +14,8 @@ import { PaidOfferCta } from '@/components/PaidOfferCta';
 import { ShareableTypeCard } from '@/components/ShareableTypeCard';
 import { ReportPending } from '@/components/ReportPending';
 import { LineActions } from '@/components/LineActions';
+import { MobileStickyCta } from '@/components/MobileStickyCta';
+import { calendlyWithContext } from '@/lib/bookingUrl';
 
 export const dynamic = 'force-dynamic';
 
@@ -97,7 +99,7 @@ export default async function ResultPage({
         </a>
         <LanguageSwitcher current={L} />
       </nav>
-      <main className="mx-auto max-w-2xl px-6 pb-24 pt-6">
+      <main className="mx-auto max-w-2xl px-6 pb-28 pt-6 sm:pb-24">
         {report.degraded && (
           <p className="mb-6 rounded border border-line bg-mist px-4 py-3 text-sm text-ink-soft">
             {c.errors.reportDegraded}
@@ -228,6 +230,14 @@ export default async function ResultPage({
           context="report_end"
         />
       </main>
+      {/* Mobile-only floating CTA — the report is ~15 screens; give the acting-now
+          reader something to tap without scrolling to the bottom. Desktop untouched. */}
+      <MobileStickyCta
+        bookUrl={calendlyWithContext(calendlyUrl, { token, category: report.category })}
+        callLabel={c.paidOffers.stickyCall}
+        lineLabel={c.paidOffers.stickyLine}
+        sessionToken={token}
+      />
     </div>
   );
 }

@@ -449,8 +449,8 @@ function InputStep(p: {
             onClick={() => p.setInputType(t)}
             className={
               t === p.inputType
-                ? 'rounded-full bg-pine px-4 py-1.5 text-sm text-paper'
-                : 'rounded-full border border-line px-4 py-1.5 text-sm text-ink-soft hover:border-pine'
+                ? 'inline-flex min-h-[44px] items-center rounded-full bg-pine px-4 py-2.5 text-sm text-paper'
+                : 'inline-flex min-h-[44px] items-center rounded-full border border-line px-4 py-2.5 text-sm text-ink-soft hover:border-pine'
             }
           >
             {p.flow.inputTabs[t].tab}
@@ -537,7 +537,7 @@ function InputStep(p: {
             type="checkbox"
             checked={p.consentProcessing}
             onChange={(e) => p.setConsentProcessing(e.target.checked)}
-            className="mt-1"
+            className="mt-0.5 h-5 w-5 shrink-0 accent-pine"
           />
           <span>{p.consent.processing.label}</span>
         </label>
@@ -547,7 +547,7 @@ function InputStep(p: {
             type="checkbox"
             checked={p.consentAggregate}
             onChange={(e) => p.setConsentAggregate(e.target.checked)}
-            className="mt-1"
+            className="mt-0.5 h-5 w-5 shrink-0 accent-pine"
           />
           <span>{p.consent.aggregate.label}</span>
         </label>
@@ -702,8 +702,8 @@ function QuestionsStep(p: {
                     onClick={() => setA(q.id, o.value)}
                     className={
                       p.answers[q.id] === o.value
-                        ? 'rounded-full bg-pine px-4 py-1.5 text-sm text-paper'
-                        : 'rounded-full border border-line px-4 py-1.5 text-sm text-ink-soft hover:border-pine'
+                        ? 'inline-flex min-h-[44px] items-center rounded-full bg-pine px-4 py-2.5 text-sm text-paper'
+                        : 'inline-flex min-h-[44px] items-center rounded-full border border-line px-4 py-2.5 text-sm text-ink-soft hover:border-pine'
                     }
                   >
                     {o.label}
@@ -742,6 +742,8 @@ function QuestionsStep(p: {
             <label className="block text-sm">{p.questions.emailGate.emailLabel}</label>
             <input
               type="email"
+              inputMode="email"
+              autoComplete="email"
               value={p.email}
               placeholder={p.questions.emailGate.emailPlaceholder}
               onChange={(e) => p.setEmail(e.target.value)}
@@ -849,11 +851,12 @@ function QuickRead(p: {
                 <button
                   key={o.value}
                   type="button"
+                  aria-pressed={p.answers[x.id] === o.value}
                   onClick={() => p.setAnswers({ ...p.answers, [x.id]: o.value })}
                   className={
                     p.answers[x.id] === o.value
-                      ? 'rounded-full bg-pine px-4 py-1.5 text-sm text-paper'
-                      : 'rounded-full border border-line px-4 py-1.5 text-sm text-ink-soft hover:border-pine'
+                      ? 'inline-flex min-h-[44px] items-center rounded-full bg-pine px-4 py-2.5 text-sm text-paper'
+                      : 'inline-flex min-h-[44px] items-center rounded-full border border-line px-4 py-2.5 text-sm text-ink-soft hover:border-pine'
                   }
                 >
                   {o.label}

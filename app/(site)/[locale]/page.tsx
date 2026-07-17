@@ -78,13 +78,16 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           <span className="h-9 w-10 rounded-sm bg-band-strong" />
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-          <a href={`/${L}/mri`} className="rounded-lg bg-pine px-6 py-3 text-paper">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <a
+            href={`/${L}/mri`}
+            className="w-full rounded-lg bg-pine px-6 py-3 text-center text-paper sm:w-auto"
+          >
             {c.landing.hero.cta}
           </a>
           <a
             href={`/${L}/sample`}
-            className="rounded-lg border border-pine px-6 py-3 text-pine"
+            className="w-full rounded-lg border border-pine px-6 py-3 text-center text-pine sm:w-auto"
           >
             {c.landing.hero.secondaryCta}
           </a>

@@ -175,6 +175,8 @@ export interface PaidOffersContent {
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;
+  stickyCall: string; // short label for the mobile sticky bar
+  stickyLine: string; // short LINE label for the mobile sticky bar
   recommendedLabel: string; // badge on the entry "first step" offers, cuts choice overload
   freeHeroCta: string; // strong, outcome-led label for the free-call hero button
   freeReassure: string; // micro-reassurance under the free-call button (free · no pitch)
