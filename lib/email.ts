@@ -12,6 +12,9 @@ export async function sendReportEmail(opts: {
   name: string | null;
   reportUrl: string;
   locale: Locale;
+  /** Result type label (e.g. 被低估的實力派) — turns the cold notification into
+   * "he actually read my material" by naming what they were read as. */
+  typeLabel?: string;
 }): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM;
@@ -19,15 +22,21 @@ export async function sendReportEmail(opts: {
 
   const t = getContent(opts.locale).emails.d0;
   const name = opts.name?.trim();
+  const isZh = opts.locale === 'zh-TW';
+  const personalLine = opts.typeLabel
+    ? isZh
+      ? `你這次被讀成「${opts.typeLabel}」。報告裡我把為什麼、還有你現在最該補的那一塊，都寫清楚了。`
+      : `The read on you came out as "${opts.typeLabel}". Inside I lay out why, and the one thing worth shoring up next.`
+    : '';
   // Graceful no-name greeting per locale: en "Hi there," (not "Hi ,"); zh "你好，".
   const filled = name
     ? t.body.replaceAll('{{name}}', name)
-    : opts.locale === 'zh-TW'
+    : isZh
       ? t.body.replace(/\{\{name\}\}\s*/g, '')
       : t.body.replaceAll('{{name}}', 'there');
   const body = filled
     .replaceAll('{{report_url}}', opts.reportUrl)
-    .replaceAll('{{personal_line}}', '')
+    .replaceAll('{{personal_line}}', personalLine)
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 

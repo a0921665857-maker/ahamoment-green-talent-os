@@ -1,6 +1,7 @@
 import { NextRequest, after } from 'next/server';
 import { z } from 'zod';
 import { QUESTION_IDS, type Locale } from '@/lib/constants';
+import { getContent } from '@/content';
 import { getServiceClient } from '@/lib/supabase';
 import { errorJson, json } from '@/lib/http';
 import { recordEvent } from '@/lib/events';
@@ -119,7 +120,9 @@ export async function POST(req: NextRequest) {
       const reportUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${locale}/result/${body.session_token}`;
 
       // Deliver the report by email to the user (best-effort; no-op until RESEND_* are set).
-      await sendReportEmail({ to: body.email, name: body.name ?? null, reportUrl, locale });
+      // Pass the type label so the email names how they were read, not a generic notice.
+      const typeLabel = getContent(locale).share.types[scored.classification.category]?.label;
+      await sendReportEmail({ to: body.email, name: body.name ?? null, reportUrl, locale, typeLabel });
 
       // Notify the founder of the new lead (best-effort; no-op until RESEND_API_KEY + FOUNDER_EMAIL set).
       await sendFounderNotification({

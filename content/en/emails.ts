@@ -7,29 +7,30 @@ import type { EmailsContent } from '../schema';
  */
 export const emails: EmailsContent = {
   d0: {
-    subject: 'Your Green Career MRI report',
+    subject: 'Your Green Career MRI report is ready',
     body: `Hi {{name}},
 
-Your report is ready: {{report_url}}
+Your report is written. {{personal_line}}
 
-{{personal_line}}
+Read it here: {{report_url}}
 
-The link is yours to keep — the report stays available, and your raw uploads auto-delete after 90 days. If anything in the read feels off, reply and tell me; honest disagreement makes the diagnosis better.
+The link is yours and it stays; your raw uploads auto-delete after 90 days.
 
-Michael
-AhaMoment`,
+I read these one at a time myself, not from a template. If any part feels off, just reply and tell me. Honest disagreement is what makes the diagnosis better.
+
+Michael`,
   },
   d2: {
-    subject: 'One more thing your material shows',
+    subject: 'One more thing I want to add',
     body: `Hi {{name}},
 
-One observation that did not make it into the report:
+I looked at your report again, and there is one observation I did not put in:
 
 {{personal_line}}
 
-If you want to work through what that means in practice, the teardown session is built for exactly that — and the fee credits fully toward anything bigger within 30 days.
+If you want to think this through for your own situation, just reply and say so; I answer in person. If you would rather go deeper, I do a one-to-one written read too, but that is later. First see whether this lands.
 
-{{report_url}}
+Report is here: {{report_url}}
 
 Michael`,
   },
@@ -37,11 +38,11 @@ Michael`,
     subject: 'Closing the loop on your MRI',
     body: `Hi {{name}},
 
-Last note from me — no sequence after this.
+Last note from me, no sequence after this.
 
 {{category_note}}
 
-If the timing is right, you know where the report is: {{report_url}}. If it is not, the diagnosis stays true; come back to it when it is.
+If the timing is right, the report is here: {{report_url}}. If it is not yet, the diagnosis does not expire; come back when it does. And if something is on your mind, this reply reaches me.
 
 Michael`,
   },
