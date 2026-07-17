@@ -13,6 +13,7 @@ export const paidOffers: PaidOffersContent = {
   creditPolicy: '拆解費用可於 30 天內全額折抵任何衝刺或完整方案。',
   confidentiality: '真人審閱完全保密。未經你書面同意，你的資料絕不會被用作公開案例或見證。',
   bookCta: '為我安排這個',
+  recommendedLabel: '多數人從這裡開始',
   freeHeroCta: '領取我的免費 30 分鐘解讀',
   freeReassure: '免費・不推銷・不適合我會直接說',
   freeAgenda:

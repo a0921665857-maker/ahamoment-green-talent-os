@@ -48,6 +48,17 @@ export function phCapture(
   }
 }
 
+/** The current PostHog anonymous distinct_id, so server-side events (fired after
+ * the response is sent) can join the same person's funnel. Empty when unconfigured. */
+export function phDistinctId(): string {
+  if (!initialized) return '';
+  try {
+    return posthog.get_distinct_id() ?? '';
+  } catch {
+    return '';
+  }
+}
+
 function PostHogPageView() {
   const pathname = usePathname();
   const searchParams = useSearchParams();

@@ -47,6 +47,60 @@ export async function sendReportEmail(opts: {
 }
 
 /**
+ * Save-for-later: emails the MRI link to someone who left before pasting material.
+ * Best-effort and gated on RESEND_API_KEY / RESEND_FROM. No-op if unset.
+ */
+export async function sendSaveForLaterEmail(opts: {
+  to: string;
+  mriUrl: string;
+  locale: Locale;
+}): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM;
+  if (!apiKey || !from) return;
+
+  const isZh = opts.locale === 'zh-TW';
+  const subject = isZh ? '你的綠領職涯 MRI 連結' : 'Your Green Career MRI link';
+  const body = isZh
+    ? [
+        '嗨，',
+        '',
+        '這是你剛剛在通勤時點開的綠領職涯 MRI。等你有空、手邊有履歷或想法時，從這個連結接著做就好：',
+        opts.mriUrl,
+        '',
+        '大概三分鐘，做完我親手幫你看你現在被市場讀成哪一種人。',
+        '有問題直接回這封信，我本人回。',
+        '',
+        'Michael',
+        'AhaMoment',
+      ].join('\n')
+    : [
+        'Hi,',
+        '',
+        'Here is the Green Career MRI you opened earlier. Pick it up whenever you have your CV or thoughts to hand:',
+        opts.mriUrl,
+        '',
+        'About three minutes. When it is done I read how the market currently reads you, personally.',
+        'Reply to this email with any question — it reaches me.',
+        '',
+        'Michael',
+        'AhaMoment',
+      ].join('\n');
+
+  try {
+    await new Resend(apiKey).emails.send({
+      from,
+      to: opts.to,
+      subject,
+      text: body,
+      replyTo: process.env.FOUNDER_EMAIL || undefined,
+    });
+  } catch {
+    /* best-effort */
+  }
+}
+
+/**
  * Notifies the founder of every new completed lead (email, name, category, grade,
  * a link to the report, and a positioning excerpt). Gated on RESEND_API_KEY +
  * FOUNDER_EMAIL. Because it sends to your OWN inbox, Resend's test sender works

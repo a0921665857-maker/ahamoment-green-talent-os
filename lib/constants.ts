@@ -153,6 +153,12 @@ export const EVENT_NAMES = [
   'newsletter_subscribed',
   'jd_translated',
   'mba_roi_calculated',
+  'save_for_later_submitted',
+  'quick_started',
+  'quick_completed',
+  'quick_to_full_clicked',
+  'line_add_clicked',
+  'line_self_share_clicked',
 ] as const;
 export type EventName = (typeof EVENT_NAMES)[number];
 

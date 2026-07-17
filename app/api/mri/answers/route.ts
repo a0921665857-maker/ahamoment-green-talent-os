@@ -6,6 +6,7 @@ import { errorJson, json } from '@/lib/http';
 import { recordEvent } from '@/lib/events';
 import { applyUserEdits, generateReport, scoreAndClassify } from '@/lib/pipeline';
 import { sendReportEmail, sendFounderNotification } from '@/lib/email';
+import { phCaptureServer } from '@/lib/posthogServer';
 import { callPrompt } from '@/lib/anthropic';
 import { adminSummaryPrompt } from '@/lib/prompts';
 import { RUBRIC_VERSION } from '@/lib/scoring/rubrics';
@@ -22,6 +23,9 @@ const BodySchema = z.object({
   answers: z
     .array(z.object({ question_id: z.enum(QUESTION_IDS), answer: z.string().min(1).max(2000) }))
     .default([]),
+  // Client PostHog distinct_id — lets the server-side report_generated event
+  // join the same person's funnel. Optional; falls back to the session token.
+  distinct_id: z.string().max(200).optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -102,6 +106,12 @@ export async function POST(req: NextRequest) {
       });
       await db.from('mri_sessions').update({ status: 'report_generated' }).eq('id', sessionId);
       await recordEvent('report_generated', sessionId, {
+        category: scored.classification.category,
+        degraded: report.degraded,
+      });
+      // Mirror into PostHog so the funnel sees reports that were produced even when
+      // the user closed the page. distinct_id from the client keeps the funnel joined.
+      await phCaptureServer('report_generated', body.distinct_id || body.session_token, {
         category: scored.classification.category,
         degraded: report.degraded,
       });

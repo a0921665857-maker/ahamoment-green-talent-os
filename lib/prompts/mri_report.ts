@@ -66,7 +66,7 @@ const SECTION_DIRECTIVES: Record<(typeof REPORT_SECTION_KEYS)[number], string> =
   commercial_clarity:
     'A sharp read on how commercial their impact currently sounds, tied to one concrete signal. Do NOT give salary benchmarks.',
   international_positioning:
-    'How the profile travels (e.g., APAC → global), tied to a concrete marker in their material. Do NOT give a relocation plan.',
+    'Which specific market or region their profile reads strongest in, and the ONE concrete marker in their material that makes it travel there (or the one that pins it local). Name the market and the marker explicitly — not "internationally" but which market and why. One sharp observation. Do NOT give a relocation plan.',
   interview_readiness:
     'The one question type they would most struggle with, and why. Do NOT provide sample answers.',
   cv_readiness:

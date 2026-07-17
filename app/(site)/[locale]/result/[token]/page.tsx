@@ -210,6 +210,7 @@ export default async function ResultPage({
           category={report.category}
           content={c.share}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${L}/types/${report.category}`}
+          viewKey={token}
         />
         {/* Soft close: readers who won't book yet keep a zero-pressure line open. */}
         <LineActions

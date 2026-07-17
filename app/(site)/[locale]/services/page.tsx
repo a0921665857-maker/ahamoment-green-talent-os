@@ -38,8 +38,23 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {OFFER_IDS.map((id) => {
             const offer = o.offers[id];
+            // Entry "first yes" offers carry a recommended badge to counter choice
+            // overload across the full menu (0-conversion audit finding).
+            const recommended = id === 'intro_call_free' || id === 'deep_read';
             return (
-              <div key={id} className="flex flex-col rounded-xl border border-line bg-paper p-5">
+              <div
+                key={id}
+                className={
+                  recommended
+                    ? 'flex flex-col rounded-xl border-2 border-pine bg-paper p-5'
+                    : 'flex flex-col rounded-xl border border-line bg-paper p-5'
+                }
+              >
+                {recommended && (
+                  <span className="mb-2 self-start rounded-full bg-sage-soft px-3 py-0.5 text-xs font-medium text-pine-deep">
+                    {o.recommendedLabel}
+                  </span>
+                )}
                 <div className="flex items-baseline justify-between gap-3">
                   <h2 className="text-lg font-semibold">{offer.name}</h2>
                   <span className="shrink-0 text-sm font-medium text-pine">{offer.price}</span>

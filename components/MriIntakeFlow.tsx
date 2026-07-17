@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { phCapture } from '@/components/PostHogProvider';
+import { phCapture, phDistinctId } from '@/components/PostHogProvider';
 import type { Locale, ResultCategory } from '@/lib/constants';
 import { INPUT_LIMITS, type InputType, type QuestionId } from '@/lib/constants';
+
+/** Draft autosave key — survives an interrupted commute (mobile audit). */
+const DRAFT_KEY = 'gtos_material_draft';
 import { labelFor } from '@/lib/taxonomy';
 import type {
   ConsentContent,
@@ -16,6 +19,8 @@ import type {
 import type { ExtractedProfile, UserEdits } from '@/lib/types';
 import { ProgressStages } from './ProgressStages';
 import { LineActions } from './LineActions';
+import { SaveForLater } from './SaveForLater';
+import { ShareableTypeCard } from './ShareableTypeCard';
 
 type Phase = 'input' | 'extracting' | 'confirm' | 'questions' | 'generating' | 'quick' | 'quick_result';
 
@@ -105,6 +110,25 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
     phCapture('mri_started', { locale });
   }, [locale]);
 
+  // Restore an interrupted draft once on mount (mobile audit: reload used to wipe it).
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (saved) setText((cur) => (cur ? cur : saved));
+    } catch {
+      /* storage unavailable — no-op */
+    }
+  }, []);
+
+  // Autosave the material draft as the user types.
+  useEffect(() => {
+    try {
+      if (text.trim()) localStorage.setItem(DRAFT_KEY, text);
+    } catch {
+      /* no-op */
+    }
+  }, [text]);
+
   /* ------------------------------- submit ------------------------------- */
   async function handleSubmit() {
     setError(null);
@@ -150,6 +174,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
       setProfile(data.profile);
       try {
         localStorage.setItem('gtos_report_token', data.session_token);
+        localStorage.removeItem(DRAFT_KEY); // submitted — draft no longer needed
       } catch {
         /* ignore */
       }
@@ -215,7 +240,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
       const res = await fetch('/api/mri/answers', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, distinct_id: phDistinctId() || undefined }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -494,6 +519,9 @@ function InputStep(p: {
         sharePath={`/${p.locale}/mri?utm_source=line_self&utm_medium=save`}
         context="material_step"
       />
+
+      {/* email capture out — the reachable-lead version of the escape hatch */}
+      <SaveForLater locale={p.locale} copy={p.flow.saveLater} />
 
       {/* consent — inline, required before submit */}
       <div className="mt-6 rounded-lg border border-line bg-mist/30 px-5 py-4">
@@ -789,11 +817,20 @@ function QuickRead(p: {
             {q.typeDetailCta} →
           </a>
         </div>
+        {/* email unlock — capture the quick-read taker as a reachable lead */}
+        <SaveForLater locale={p.locale} copy={p.flow.saveLater} />
         <LineActions
           title={p.flow.line.endTitle}
           body={p.flow.line.endBody}
           addLabel={p.flow.line.addCta}
           context="quick_result"
+        />
+        {/* viral loop — the quick result is itself shareable back to Threads */}
+        <ShareableTypeCard
+          locale={p.locale}
+          category={category}
+          content={p.share}
+          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${p.locale}/types/${category}`}
         />
       </div>
     );

@@ -54,7 +54,7 @@ export const flow: FlowContent = {
         'Determining your result category…',
         'Writing your twelve sections…',
       ],
-      note: 'This usually takes three to five minutes — we are writing twelve sections properly, not filling a template. The report is generated in the cloud, so closing this page will not interrupt it; if you keep it open, it appears automatically.',
+      note: 'This usually takes three to five minutes — we are writing twelve sections properly, not filling a template. You can close this page: the report is generated in the cloud and lands in the email you just gave, with a link that never expires.',
     },
   },
   line: {
@@ -71,6 +71,14 @@ export const flow: FlowContent = {
     landingBody: 'Add Michael on LINE and ask anything directly. He replies in person, not a bot.',
     endTitle: 'Not ready to book a slot? That is fine.',
     endBody: 'Add Michael on LINE, let the report sit for a few days, and reach out whenever you are ready.',
+  },
+  saveLater: {
+    title: 'Not a good moment? I will email you the link',
+    body: 'Leave an email and I will send the assessment link so you can finish later on a computer. No spam.',
+    placeholder: 'your email',
+    cta: 'Email me the link',
+    done: 'Sent. Open the link from your inbox to continue. You can close this page.',
+    invalid: 'That email looks off — mind checking it?',
   },
   quick: {
     entryCta: 'Or try the 60-second quick read: four tap-only questions, nothing to paste →',

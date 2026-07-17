@@ -16,6 +16,7 @@ export const paidOffers: PaidOffersContent = {
   confidentiality:
     'Human review is private. Your materials are never used as public examples or testimonials without your explicit written permission.',
   bookCta: 'Set this up for me',
+  recommendedLabel: 'Where most people start',
   freeHeroCta: 'Get my free 30-min read',
   freeReassure: 'Free · no pitch · if it’s not a fit I’ll say so',
   freeAgenda:

@@ -18,6 +18,9 @@ export function ShareableTypeCard(props: {
   category: ResultCategory;
   content: ShareContent;
   shareUrl: string;
+  /** Report token — dedupes report_viewed so returning visits do not re-fire it
+   * (CPO audit: this metric was polluted by repeat views and shared links). */
+  viewKey?: string;
 }) {
   const [copied, setCopied] = useState(false);
   const type = props.content.types[props.category];
@@ -30,10 +33,19 @@ export function ShareableTypeCard(props: {
   const bandLabels = isZh ? '潛力 · 成形 · 到位' : 'Emerging · Developing · Strong';
   const imageCta = isZh ? '分享我的圖卡' : 'Share my card';
 
-  // Reaching this card means the report fully rendered — completes the funnel in PostHog.
+  // Reaching this card means the report fully rendered — completes the funnel in
+  // PostHog. Fire once per report per browser so returning visits and shared-link
+  // opens do not inflate the metric.
   useEffect(() => {
+    const guard = props.viewKey ? `report_viewed_${props.viewKey}` : null;
+    try {
+      if (guard && localStorage.getItem(guard)) return;
+      if (guard) localStorage.setItem(guard, '1');
+    } catch {
+      /* storage unavailable — fall through and fire once for this mount */
+    }
     phCapture('report_viewed', { category: props.category });
-  }, [props.category]);
+  }, [props.category, props.viewKey]);
 
   // Native share sheet with the actual image file (mobile); otherwise open the PNG to save.
   async function onShareImage() {

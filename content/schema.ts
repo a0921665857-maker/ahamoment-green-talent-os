@@ -62,6 +62,15 @@ export interface FlowContent {
     endTitle: string;
     endBody: string;
   };
+  /** Save-for-later email out on the material step — capture before the paste. */
+  saveLater: {
+    title: string;
+    body: string;
+    placeholder: string;
+    cta: string;
+    done: string;
+    invalid: string;
+  };
   /** 60-second all-tap quick read — mobile audit's answer to the material-step
    * drop: value before any typing. Maps deterministically to the 8 categories. */
   quick: {
@@ -166,6 +175,7 @@ export interface PaidOffersContent {
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;
+  recommendedLabel: string; // badge on the entry "first step" offers, cuts choice overload
   freeHeroCta: string; // strong, outcome-led label for the free-call hero button
   freeReassure: string; // micro-reassurance under the free-call button (free · no pitch)
   freeAgenda: string; // "what happens in the 30 min" no-pitch block (newline-separated)
