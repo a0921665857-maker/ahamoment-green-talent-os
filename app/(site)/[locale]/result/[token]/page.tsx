@@ -126,7 +126,14 @@ export default async function ResultPage({
           dateLabel={formatDate(report.createdAt, L)}
           mbaIntent={report.mbaIntent}
           inlineCta={
-            <InlineCtaCard locale={L} content={c.paidOffers} calendlyUrl={calendlyUrl} sessionToken={token} />
+            <InlineCtaCard
+              locale={L}
+              content={c.paidOffers}
+              calendlyUrl={calendlyUrl}
+              sessionToken={token}
+              category={report.category}
+              categoryLabel={c.share.types[report.category].label}
+            />
           }
         />
         {/* Close the loop the report opens: the diagnosis names a lane; these blocks
@@ -200,6 +207,7 @@ export default async function ResultPage({
         <PaidOfferCta
           locale={L}
           category={report.category}
+          categoryLabel={c.share.types[report.category].label}
           slots={slots}
           content={c.paidOffers}
           calendlyUrl={calendlyUrl}

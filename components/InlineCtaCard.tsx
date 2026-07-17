@@ -3,6 +3,7 @@ import type { Locale } from '@/lib/constants';
 import { LINE_OA_URL } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
 import { phCapture } from '@/components/PostHogProvider';
+import { calendlyWithContext } from '@/lib/bookingUrl';
 
 /**
  * Compact CTA rendered inside the report body (after the second section).
@@ -16,14 +17,20 @@ export function InlineCtaCard(props: {
   calendlyUrl: string;
   /** null on the public sample page — events are still recorded, just unattributed. */
   sessionToken: string | null;
+  /** Result type label + category — carried into the booking/reply so the handoff
+   * to a real conversation is no longer anonymous. Optional on the sample page. */
+  categoryLabel?: string;
+  category?: string;
 }) {
   const t = props.content.inlineCta;
   const isZh = props.locale === 'zh-TW';
+  const label = props.categoryLabel;
   const replySubject = isZh ? '我的 MRI 想問一個問題' : 'One question about my MRI';
   const replyBody = isZh
-    ? 'Michael 你好，我的類型是 ______，我想問的一個問題是：'
-    : 'Hi Michael — my type is ______, and my one question is:';
+    ? `Michael 你好，我的類型是「${label ?? '______'}」，我想問的一個問題是：`
+    : `Hi Michael — my type is "${label ?? '______'}", and my one question is:`;
   const mailto = `mailto:${props.content.replyEmail}?subject=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
+  const bookUrl = calendlyWithContext(props.calendlyUrl, { token: props.sessionToken, category: props.category });
 
   function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
     // Dual-sinked on purpose — see PostHogProvider note. PostHog funnels must
@@ -57,7 +64,7 @@ export function InlineCtaCard(props: {
           {t.replyCta} →
         </a>
         <a
-          href={props.calendlyUrl || '#'}
+          href={bookUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => track('booking_clicked', { offer: 'intro_call_free' })}

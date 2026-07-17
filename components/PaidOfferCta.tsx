@@ -3,6 +3,7 @@ import type { Locale, OfferId, ResultCategory } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
 import { FounderAvatar } from '@/components/FounderAvatar';
 import { phCapture } from '@/components/PostHogProvider';
+import { calendlyWithContext } from '@/lib/bookingUrl';
 
 interface Slot {
   offer: OfferId;
@@ -12,6 +13,7 @@ interface Slot {
 export function PaidOfferCta(props: {
   locale: Locale;
   category: ResultCategory;
+  categoryLabel: string;
   slots: Slot[];
   content: PaidOffersContent;
   calendlyUrl: string;
@@ -26,10 +28,13 @@ export function PaidOfferCta(props: {
   const free = content.offers.intro_call_free;
   const isZh = props.locale === 'zh-TW';
   const replySubject = isZh ? '我的 MRI 想問一個問題' : 'One question about my MRI';
+  // Prefill the type so the reader is not asked to fill a blank (unknown-unknown
+  // scan: the "______" was a dead handoff — most people never filled it).
   const replyBody = isZh
-    ? 'Michael 你好，我的類型是 ______，我想問的一個問題是：'
-    : 'Hi Michael — my type is ______, and my one question is:';
+    ? `Michael 你好，我的類型是「${props.categoryLabel}」，我想問的一個問題是：`
+    : `Hi Michael — my type is "${props.categoryLabel}", and my one question is:`;
   const mailto = `mailto:${content.replyEmail}?subject=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
+  const bookUrl = calendlyWithContext(props.calendlyUrl, { token: props.sessionToken, category: props.category });
 
   function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
     // Deliberately dual-sinked (see PostHogProvider note): the first-party events
@@ -73,7 +78,7 @@ export function PaidOfferCta(props: {
           </p>
         </div>
         <a
-          href={props.calendlyUrl || '#'}
+          href={bookUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => track('booking_clicked', { offer: 'intro_call_free' })}
@@ -118,7 +123,11 @@ export function PaidOfferCta(props: {
               <p className="mt-3 text-sm">{o.blurb}</p>
               <p className="mt-3 text-xs text-ink-soft">{o.delivery}</p>
               <a
-                href={props.calendlyUrl || '#'}
+                href={calendlyWithContext(props.calendlyUrl, {
+                  token: props.sessionToken,
+                  category: props.category,
+                  offer: s.offer,
+                })}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track('booking_clicked', { offer: s.offer })}

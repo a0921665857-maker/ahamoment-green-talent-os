@@ -68,6 +68,7 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
         <PaidOfferCta
           locale={L}
           category={s.category}
+          categoryLabel={c.share.types[s.category].label}
           slots={slots}
           content={c.paidOffers}
           calendlyUrl={calendlyUrl}
