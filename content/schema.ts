@@ -45,6 +45,19 @@ export interface FlowContent {
     extraction: { title: string; stages: string[] };
     report: { title: string; stages: string[]; note: string };
   };
+  /** LINE capture rails — "share to my own LINE" is the native bookmark for the
+   * Threads in-app-browser audience (mobile audit 2026-07-17). */
+  line: {
+    noCvTitle: string;
+    noCvBody: string;
+    saveCta: string;
+    addCta: string;
+    shareTextMri: string; // human text; the link is appended at click time
+    shareTextReport: string;
+    generatingHint: string;
+    resultTitle: string;
+    resultBody: string;
+  };
   confirmation: {
     title: string;
     intro: string;

@@ -13,6 +13,7 @@ import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
 import { ShareableTypeCard } from '@/components/ShareableTypeCard';
 import { ReportPending } from '@/components/ReportPending';
+import { LineActions } from '@/components/LineActions';
 
 export const dynamic = 'force-dynamic';
 
@@ -102,6 +103,19 @@ export default async function ResultPage({
             {c.errors.reportDegraded}
           </p>
         )}
+        {/* Save-for-later rail before the 13-screen report: the Threads in-app
+            browser has no tabs or history — LINE is the reader's way back. */}
+        <div className="mb-8">
+          <LineActions
+            title={c.flow.line.resultTitle}
+            body={c.flow.line.resultBody}
+            saveLabel={c.flow.line.saveCta}
+            addLabel={c.flow.line.addCta}
+            shareText={c.flow.line.shareTextReport}
+            sharePath={`/${L}/result/${token}?utm_source=line_self&utm_medium=save`}
+            context="report"
+          />
+        </div>
         <MriLiteReport
           locale={L}
           name={report.name}

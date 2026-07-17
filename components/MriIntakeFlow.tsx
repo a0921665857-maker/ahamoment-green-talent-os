@@ -14,6 +14,7 @@ import type {
 } from '@/content/schema';
 import type { ExtractedProfile, UserEdits } from '@/lib/types';
 import { ProgressStages } from './ProgressStages';
+import { LineActions } from './LineActions';
 
 type Phase = 'input' | 'extracting' | 'confirm' | 'questions' | 'generating';
 
@@ -216,11 +217,24 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
     return <ProgressStages title={flow.progress.extraction.title} stages={flow.progress.extraction.stages} />;
   if (phase === 'generating')
     return (
-      <ProgressStages
-        title={flow.progress.report.title}
-        stages={flow.progress.report.stages}
-        note={flow.progress.report.note}
-      />
+      <div>
+        <ProgressStages
+          title={flow.progress.report.title}
+          stages={flow.progress.report.stages}
+          note={flow.progress.report.note}
+        />
+        {/* Safe exit for the commute audience: the result URL is already known
+            here and generation finishes server-side even if the page dies. */}
+        {token && (
+          <LineActions
+            title={flow.line.generatingHint}
+            saveLabel={flow.line.saveCta}
+            shareText={flow.line.shareTextReport}
+            sharePath={`/${locale}/result/${token}?utm_source=line_self&utm_medium=save`}
+            context="generating"
+          />
+        )}
+      </div>
     );
 
   return (
@@ -412,6 +426,18 @@ function InputStep(p: {
           </p>
         </div>
       )}
+
+      {/* no-CV escape hatch — the 78% material-step drop is mostly "wrong moment",
+          not "no intent"; give the commuter a way to come back or hand over via LINE */}
+      <LineActions
+        title={p.flow.line.noCvTitle}
+        body={p.flow.line.noCvBody}
+        saveLabel={p.flow.line.saveCta}
+        addLabel={p.flow.line.addCta}
+        shareText={p.flow.line.shareTextMri}
+        sharePath={`/${p.locale}/mri?utm_source=line_self&utm_medium=save`}
+        context="material_step"
+      />
 
       {/* consent — inline, required before submit */}
       <div className="mt-6 rounded-lg border border-line bg-mist/30 px-5 py-4">

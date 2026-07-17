@@ -157,6 +157,11 @@ export const EVENT_NAMES = [
 export type EventName = (typeof EVENT_NAMES)[number];
 
 /** Input limits (PROFILE_EXTRACTION_MODEL.md). */
+/** LINE Official Account add-friend link (Michael｜綠領職涯 @051mtbjb).
+ * Primary low-friction capture rail for the Threads in-app-browser audience —
+ * Google OAuth is blocked inside Meta webviews, LINE deep links are not. */
+export const LINE_OA_URL = 'https://lin.ee/ta6CxVi';
+
 export const INPUT_LIMITS = {
   minCharsEn: 150,
   minCharsZh: 80,
