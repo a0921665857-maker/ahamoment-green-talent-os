@@ -81,9 +81,9 @@ export const flow: FlowContent = {
     invalid: '這個 email 看起來怪怪的，再檢查一下。',
   },
   quick: {
-    entryCta: '或者先來 60 秒速讀版：四題全用點的，不用貼任何東西 →',
+    entryCta: '或者先來 60 秒速讀版：五題全用點的，不用貼任何東西 →',
     title: '60 秒速讀版',
-    intro: '四題，全部用手指點。先看你大概是哪一型，完整判讀之後再做也不遲。',
+    intro: '五題，全部用手指點。直接拿你的速讀卡：類型、市場怎麼誤讀你、你這段年資的真實行情。',
     q1: {
       label: '你現在的位置是',
       options: [
@@ -99,7 +99,8 @@ export const flow: FlowContent = {
         { value: 'y0', label: '1 年內' },
         { value: 'y1', label: '1 到 3 年' },
         { value: 'y3', label: '3 到 6 年' },
-        { value: 'y6', label: '6 年以上' },
+        { value: 'y6', label: '6 到 8 年' },
+        { value: 'y8', label: '8 年以上' },
       ],
     },
     q3: {
@@ -120,11 +121,74 @@ export const flow: FlowContent = {
         { value: 'explore', label: '還在探索' },
       ],
     },
-    showResult: '看我的速讀結果',
-    resultEyebrow: '速讀版結果',
-    resultNote: '這是四題粗判的速讀版。完整版會讀你的真實經歷，給 12 段個人化判讀：你的優勢、缺口、值多少、下一步怎麼走。',
+    q5: {
+      label: '你的賽道最接近',
+      options: [
+        { value: 'finance', label: '永續金融或投資' },
+        { value: 'carbon', label: '碳市場' },
+        { value: 'consulting', label: 'ESG 顧問' },
+        { value: 'corporate', label: '企業永續或供應鏈' },
+        { value: 'other', label: '其他，還沒定' },
+      ],
+    },
+    showResult: '拿我的速讀卡',
+    resultEyebrow: '綠領職涯速讀卡',
+    resultNote: '這是零打字的粗判。完整版會讀你的真實經歷，給 12 段個人化判讀：你的優勢、缺口、按真實年資與賽道校準的身價、下一步怎麼走。',
     fullCta: '做完整版（約 3 分鐘）',
     typeDetailCta: '看這一型的完整說明',
+    card: {
+      misreadLabel: '市場最常把你誤讀成',
+      verdictLabel: '給你的一句實話',
+      stuckLabel: '關於你最卡的那題',
+      salaryLabel: '你這段年資的真實行情',
+      salaryLabelSg: '新加坡',
+      salaryLabelMultiple: '名目差',
+      salaryDisposableSuffix: '；扣除生活成本後約 ',
+      salarySource: '數據：2026 亞太綠領薪資報告（1 SGD ≈ 25 TWD）',
+      brandFooter: 'AhaMoment 綠領職涯 MRI・60 秒速讀',
+    },
+    misread: {
+      ready_for_mba_story_sprint:
+        '「條件很好，但故事普通的申請者」。原料都齊了，敘事還沒收束，委員會讀到的只是平均值。',
+      strong_profile_weak_story:
+        '「不錯，但說不出為什麼非你不可的人」。你的主軸埋在履歷裡，讀者不會替你拼出來。',
+      climate_career_builder:
+        '「還沒想清楚要什麼的探索者」。你缺的其實不是方向，是把一條賽道走深的可見行動。',
+      career_positioning_before_mba:
+        '「想用 MBA 解決定位問題的人」。方向沒定就申請，同一份檔案會賣低一個學校層級。',
+      profile_building_needed:
+        '「有潛力，但查無實據的候選人」。不是你不行，是證明點還沒被記錄在任何讀得到的地方。',
+      high_potential_low_commercial_clarity:
+        '「房間裡的技術專家」。大家看得出你強，看不出你值多少，因為你的影響力是用專案語言寫的。',
+      interview_ready_positioning_weak:
+        '「臨場很好，但目標模糊的候選人」。出色的表現正被花在失焦的職缺上。',
+      cv_strong_narrative_weak:
+        '「履歷漂亮的安全牌」。每一段都好，加起來卻沒有論點，換到的是有禮貌的拒絕。',
+    },
+    verdict: {
+      ready_for_mba_story_sprint:
+        '再磨半年條列式經歷，機會成本是一整屆。你缺的是收束故事的決定，不是新成就。',
+      strong_profile_weak_story: '你會一直進名單、一直被刷掉，而且永遠聽不到真正的原因。',
+      climate_career_builder: '現在去念 MBA，等於付全額學費，換一半的回報。',
+      career_positioning_before_mba: '用寫 essay 的過程找方向，是全世界最昂貴的思考場所。',
+      profile_building_needed:
+        '這個階段花錢買定位服務會浪費。先去扛一個記得下來的數字，兩季後再回來。',
+      high_potential_low_commercial_clarity: '商業語言流利的同事，正在拿走你想要的位子。',
+      interview_ready_positioning_weak:
+        '對著錯的職缺發揮出色面試力，拿到的是你不想要的 offer。',
+      cv_strong_narrative_weak: '繼續打磨版面，只會讓缺席的論點更顯眼，不是更隱形。',
+    },
+    stuck: {
+      value:
+        '這通常不是資訊問題，是你還沒把經歷翻成市場聽得懂的語言。行情表其實一直是公開的。',
+      no_reply:
+        '沒回音多半不是你不夠好，是六秒掃描裡讀不到你的主軸。被刷掉的是敘事，不是你。',
+      interview:
+        '進得了面試代表文件夠了。拿不到 offer，代表「為什麼是你」還沒有一個讓人複述得出來的答案。',
+      abroad:
+        '去海外不是投更多履歷，是先讓那個市場讀懂你的價值。倍數一直在那裡，門檻是翻譯。',
+      mba_q: '該不該念，取決於你念之前的定位，不是學校排名。MBA 放大軌跡，不創造軌跡。',
+    },
   },
   confirmation: {
     title: '我們是這樣讀你的',

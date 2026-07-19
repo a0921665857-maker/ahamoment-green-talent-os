@@ -81,9 +81,9 @@ export const flow: FlowContent = {
     invalid: 'That email looks off — mind checking it?',
   },
   quick: {
-    entryCta: 'Or try the 60-second quick read: four tap-only questions, nothing to paste →',
+    entryCta: 'Or try the 60-second quick read: five tap-only questions, nothing to paste →',
     title: '60-second quick read',
-    intro: 'Four questions, all taps. See roughly which type you are first; the full read can wait.',
+    intro: 'Five questions, all taps. Walk away with your quick-read card: your type, how the market misreads you, and the real salary band for your experience.',
     q1: {
       label: 'Where are you now?',
       options: [
@@ -99,7 +99,8 @@ export const flow: FlowContent = {
         { value: 'y0', label: 'Under 1 year' },
         { value: 'y1', label: '1 to 3 years' },
         { value: 'y3', label: '3 to 6 years' },
-        { value: 'y6', label: '6+ years' },
+        { value: 'y6', label: '6 to 8 years' },
+        { value: 'y8', label: '8+ years' },
       ],
     },
     q3: {
@@ -120,11 +121,81 @@ export const flow: FlowContent = {
         { value: 'explore', label: 'Still exploring' },
       ],
     },
-    showResult: 'Show my quick read',
-    resultEyebrow: 'Quick-read result',
-    resultNote: 'This is a rough four-question read. The full version reads your real background and returns a 12-section personal diagnosis: strengths, gaps, market value, and next moves.',
+    q5: {
+      label: 'Closest to your track',
+      options: [
+        { value: 'finance', label: 'Sustainable finance or investing' },
+        { value: 'carbon', label: 'Carbon markets' },
+        { value: 'consulting', label: 'ESG consulting' },
+        { value: 'corporate', label: 'Corporate sustainability or supply chain' },
+        { value: 'other', label: 'Other / not decided yet' },
+      ],
+    },
+    showResult: 'Get my quick-read card',
+    resultEyebrow: 'Green career quick-read card',
+    resultNote:
+      'This is a zero-typing rough read. The full version reads your real background and returns a 12-section personal diagnosis: strengths, gaps, a salary band calibrated to your actual years and track, and next moves.',
     fullCta: 'Do the full version (about 3 minutes)',
     typeDetailCta: 'Read more about this type',
+    card: {
+      misreadLabel: 'The market most often misreads you as',
+      verdictLabel: 'One honest sentence for you',
+      stuckLabel: 'About the thing blocking you',
+      salaryLabel: 'The real market rate at your experience level',
+      salaryLabelSg: 'Singapore',
+      salaryLabelMultiple: 'Nominal gap',
+      salaryDisposableSuffix: '; roughly ', // followed by the disposable multiple
+      salarySource: 'Data: 2026 APAC green-collar salary report (1 SGD ≈ 25 TWD)',
+      brandFooter: 'AhaMoment Green Career MRI · 60-second quick read',
+    },
+    misread: {
+      ready_for_mba_story_sprint:
+        '"A strong applicant with an average story." The raw material is all there, but the narrative has not been pulled together, so the committee reads you as average.',
+      strong_profile_weak_story:
+        '"Good, but can\'t say why it has to be you." Your through-line is buried in your CV, and readers will not assemble it for you.',
+      climate_career_builder:
+        '"An explorer who has not decided what they want." What you lack is not direction; it is one visible move that deepens a single track.',
+      career_positioning_before_mba:
+        '"Someone using an MBA to dodge a positioning problem." Applying before your direction is set sells the same file one school tier short.',
+      profile_building_needed:
+        '"Potential, but no verifiable evidence." It is not that you fall short; your proof points are not yet recorded anywhere a reader can find.',
+      high_potential_low_commercial_clarity:
+        '"The technical expert in the room." People see you are strong but not what you are worth, because your impact is written in project language.',
+      interview_ready_positioning_weak:
+        '"Great in the room, fuzzy on the target." Excellent live performance is being spent on an unfocused goal.',
+      cv_strong_narrative_weak:
+        '"The polished safe choice." Every section is fine; together they make no argument, and that earns polite rejections.',
+    },
+    verdict: {
+      ready_for_mba_story_sprint:
+        'Another six months polishing bullet points costs you a full intake. What you lack is the decision to compress the story, not new achievements.',
+      strong_profile_weak_story:
+        'You will keep making shortlists and keep getting cut, and never hear the real reason.',
+      climate_career_builder:
+        'Doing an MBA now means paying full tuition for half the return.',
+      career_positioning_before_mba:
+        'Using essay-writing to find your direction is the most expensive thinking venue in the world.',
+      profile_building_needed:
+        'Paying for positioning services at this stage would be wasted. Go own one number worth recording, then come back in two quarters.',
+      high_potential_low_commercial_clarity:
+        'Colleagues fluent in commercial language are taking the seats you want.',
+      interview_ready_positioning_weak:
+        'Brilliant interviewing aimed at the wrong roles wins offers you do not want.',
+      cv_strong_narrative_weak:
+        'More polish only makes the missing argument more visible, not less.',
+    },
+    stuck: {
+      value:
+        'This is usually not an information problem. You have not yet translated your experience into language the market prices. The rate card was public all along.',
+      no_reply:
+        'Silence is rarely about not being good enough. In a six-second scan, no through-line is visible. What gets cut is the narrative, not you.',
+      interview:
+        'Getting interviews means your documents are fine. Not landing offers means "why you" still has no answer an interviewer could repeat.',
+      abroad:
+        'Going abroad is not about sending more CVs; it is about making one market understand your value first. The multiple has always been there. The barrier is translation.',
+      mba_q:
+        'Whether to do an MBA depends on your positioning before you enroll, not on school rankings. An MBA amplifies a trajectory; it does not create one.',
+    },
   },
   confirmation: {
     title: 'Here is how we read you',

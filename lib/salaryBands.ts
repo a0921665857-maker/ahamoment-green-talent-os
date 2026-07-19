@@ -161,5 +161,70 @@ export function getPersonalBand(
   };
 }
 
+/* ------------------------- quick-read (zero-typing) ------------------------ */
+
+/** Quick-read q5 option value → band function. 'other' is honestly unmapped. */
+const QUICK_SECTOR_TO_FUNCTION: Record<string, BandFunction> = {
+  finance: 'finance',
+  carbon: 'carbon',
+  consulting: 'consulting',
+  corporate: 'corporate',
+};
+
+/** Quick-read q2 option value → representative years. y6 (6–8) deliberately maps
+ * to mid, not senior — with a coarse tap input we round DOWN, never up. */
+const QUICK_YEARS: Record<string, number> = { y0: 0, y1: 2, y3: 5, y6: 7, y8: 9 };
+
+export interface QuickBand {
+  /** Full personal band when the tapped sector maps to a report row; null for 'other'. */
+  band: PersonalBand | null;
+  /** Experience-column facts — always present, sector-independent, from the report. */
+  expLabel: string;
+  twAnchor: string;
+  nominal: string;
+  disposable: string | null;
+}
+
+/**
+ * Deterministic salary facts for the quick read. Same honesty rules as
+ * getPersonalBand: unmapped sector → no SG band row, only the exp-column
+ * anchor + multiple (which the salary report states function-independently).
+ */
+export function getQuickBand(
+  sectorOpt: string,
+  yearsOpt: string,
+  locale: Locale,
+): QuickBand | null {
+  const years = QUICK_YEARS[yearsOpt];
+  if (years == null) return null;
+  const zh = locale === 'zh-TW';
+  const col = pickExpCol(years);
+  const exp = EXP_COLS[col];
+  const fn = QUICK_SECTOR_TO_FUNCTION[sectorOpt];
+
+  let band: PersonalBand | null = null;
+  if (fn) {
+    const row = FUNCTION_ROWS[fn];
+    let sgBand = row.bands[col];
+    if (!zh && fn === 'carbon') sgBand = CARBON_BAND_EN[col];
+    if (!zh && fn === 'consulting') sgBand = CONSULTING_BAND_EN[col];
+    band = {
+      functionLabel: zh ? row.labelZh : row.labelEn,
+      expLabel: zh ? exp.labelZh : exp.labelEn,
+      sgBand,
+      twAnchor: zh ? exp.twAnchorZh : exp.twAnchorEn,
+      nominal: exp.nominal,
+      disposable: exp.disposable,
+    };
+  }
+  return {
+    band,
+    expLabel: zh ? exp.labelZh : exp.labelEn,
+    twAnchor: zh ? exp.twAnchorZh : exp.twAnchorEn,
+    nominal: exp.nominal,
+    disposable: exp.disposable,
+  };
+}
+
 /** Exported for the drift-guard test only. */
-export const _internal = { SECTOR_TO_FUNCTION, FUNCTION_ROWS, EXP_COLS };
+export const _internal = { SECTOR_TO_FUNCTION, FUNCTION_ROWS, EXP_COLS, QUICK_YEARS };

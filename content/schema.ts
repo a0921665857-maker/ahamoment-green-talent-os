@@ -72,7 +72,10 @@ export interface FlowContent {
     invalid: string;
   };
   /** 60-second all-tap quick read — mobile audit's answer to the material-step
-   * drop: value before any typing. Maps deterministically to the 8 categories. */
+   * drop: value before any typing. Maps deterministically to the 8 categories.
+   * 2026-07 sweetness rebuild: the result is a screenshot-worthy mini report
+   * (misread + verdict + real salary band from the drift-guarded dataset),
+   * not just a type label. q5 (sector) exists solely to unlock the band. */
   quick: {
     entryCta: string;
     title: string;
@@ -81,11 +84,31 @@ export interface FlowContent {
     q2: { label: string; options: { value: string; label: string }[] };
     q3: { label: string; options: { value: string; label: string }[] };
     q4: { label: string; options: { value: string; label: string }[] };
+    q5: { label: string; options: { value: string; label: string }[] };
     showResult: string;
     resultEyebrow: string;
     resultNote: string;
     fullCta: string;
     typeDetailCta: string;
+    /** Mini-report card copy. Claims must stay consistent with results.ts —
+     * the quick card is a compressed echo of the full type copy, never new claims. */
+    card: {
+      misreadLabel: string;
+      verdictLabel: string;
+      stuckLabel: string;
+      salaryLabel: string;
+      salaryLabelSg: string;
+      salaryLabelMultiple: string;
+      salaryDisposableSuffix: string; // appended when disposable multiple exists
+      salarySource: string;
+      brandFooter: string;
+    };
+    /** What the market most often misreads this type as — one line per category. */
+    misread: Record<ResultCategory, string>;
+    /** The one honest sentence for this type, distilled from results.ts mainRisk. */
+    verdict: Record<ResultCategory, string>;
+    /** One truth per q3 stuck-point option value. */
+    stuck: Record<'value' | 'no_reply' | 'interview' | 'abroad' | 'mba_q', string>;
   };
   confirmation: {
     title: string;
