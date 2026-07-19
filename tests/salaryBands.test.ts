@@ -66,3 +66,53 @@ describe('drift guard — bands must stay verbatim in the salary report dataset'
     }
   });
 });
+
+describe('getQuickBand — quick-read (zero-typing) mapping', () => {
+  it('maps finance × y1 (1–3y) to the finance entry band', async () => {
+    const { getQuickBand } = await import('@/lib/salaryBands');
+    const qb = getQuickBand('finance', 'y1', 'zh-TW');
+    expect(qb).not.toBeNull();
+    expect(qb!.band!.functionLabel).toBe('永續金融');
+    expect(qb!.band!.sgBand).toBe('S$65k–90k');
+    expect(qb!.nominal).toBe('1.8–3.3×');
+    expect(qb!.disposable).toBe('1.6×');
+  });
+
+  it('y6 (6–8y) rounds DOWN to mid, never up to senior', async () => {
+    const { getQuickBand } = await import('@/lib/salaryBands');
+    const qb = getQuickBand('carbon', 'y6', 'zh-TW');
+    expect(qb!.band!.expLabel).toBe('4 到 8 年');
+    expect(qb!.band!.sgBand).toContain('S$104k');
+  });
+
+  it('y8 maps to senior; senior disposable stays null (never invented)', async () => {
+    const { getQuickBand } = await import('@/lib/salaryBands');
+    const qb = getQuickBand('corporate', 'y8', 'zh-TW');
+    expect(qb!.band!.sgBand).toBe('S$200k–400k');
+    expect(qb!.disposable).toBeNull();
+  });
+
+  it("'other' sector: no SG band row, but exp-column facts still returned", async () => {
+    const { getQuickBand } = await import('@/lib/salaryBands');
+    const qb = getQuickBand('other', 'y1', 'zh-TW');
+    expect(qb!.band).toBeNull();
+    expect(qb!.twAnchor).toContain('68 萬');
+    expect(qb!.nominal).toBe('1.8–3.3×');
+  });
+
+  it('unknown years option → null (no guessing)', async () => {
+    const { getQuickBand } = await import('@/lib/salaryBands');
+    expect(getQuickBand('finance', 'bogus', 'zh-TW')).toBeNull();
+  });
+
+  it('quick band strings stay inside the drift-guarded dataset', async () => {
+    const { getQuickBand, _internal } = await import('@/lib/salaryBands');
+    for (const sector of ['finance', 'carbon', 'consulting', 'corporate']) {
+      for (const y of Object.keys(_internal.QUICK_YEARS)) {
+        const qb = getQuickBand(sector, y, 'zh-TW');
+        expect(qb).not.toBeNull();
+        expect(qb!.band).not.toBeNull();
+      }
+    }
+  });
+});

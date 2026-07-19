@@ -9,6 +9,7 @@ import { INPUT_LIMITS, type InputType, type QuestionId } from '@/lib/constants';
 /** Draft autosave key — survives an interrupted commute (mobile audit). */
 const DRAFT_KEY = 'gtos_material_draft';
 import { labelFor } from '@/lib/taxonomy';
+import { getQuickBand } from '@/lib/salaryBands';
 import type {
   ConsentContent,
   ErrorsContent,
@@ -27,7 +28,7 @@ type Phase = 'input' | 'extracting' | 'confirm' | 'questions' | 'generating' | '
 /** Deterministic four-answer → category read. Rough by design — the quick read
  * trades precision for zero typing; the full pipeline stays the honest one. */
 function mapQuick(a: Record<string, string>): ResultCategory {
-  const senior = a.q2 === 'y3' || a.q2 === 'y6';
+  const senior = a.q2 === 'y3' || a.q2 === 'y6' || a.q2 === 'y8';
   if (a.q3 === 'mba_q' || a.q1 === 'mba')
     return senior ? 'ready_for_mba_story_sprint' : 'career_positioning_before_mba';
   if (a.q1 === 'student' || a.q2 === 'y0') return 'profile_building_needed';
@@ -294,7 +295,12 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
         showResult={phase === 'quick_result'}
         onShowResult={() => {
           const category = mapQuick(quickAnswers);
-          phCapture('quick_completed', { locale, category, market: quickAnswers.q4 ?? '' });
+          phCapture('quick_completed', {
+            locale,
+            category,
+            market: quickAnswers.q4 ?? '',
+            sector: quickAnswers.q5 ?? '',
+          });
           setPhase('quick_result');
         }}
         onFull={() => {
@@ -790,17 +796,69 @@ function QuickRead(p: {
     { id: 'q2', ...q.q2 },
     { id: 'q3', ...q.q3 },
     { id: 'q4', ...q.q4 },
+    { id: 'q5', ...q.q5 },
   ];
   const allAnswered = qs.every((x) => p.answers[x.id]);
 
   if (p.showResult) {
     const category = mapQuick(p.answers);
     const type = p.share.types[category];
+    const qb = getQuickBand(p.answers.q5 ?? '', p.answers.q2 ?? '', p.locale);
+    const stuckLine = (q.stuck as Record<string, string>)[p.answers.q3 ?? ''];
     return (
       <div className="mt-8">
-        <p className="text-xs uppercase tracking-eyebrow text-pine">{q.resultEyebrow}</p>
-        <h1 className="mt-2 text-3xl font-semibold">{type.label}</h1>
-        <p className="mt-3 text-ink-soft">{type.shareLine}</p>
+        {/* Screenshot-worthy mini report card — the quick read's actual value.
+            Every claim echoes results.ts; every number comes from the
+            drift-guarded salary dataset. No LLM, fully deterministic. */}
+        <div className="rounded-2xl border-2 border-pine bg-paper p-6 sm:p-7">
+          <p className="text-xs uppercase tracking-eyebrow text-pine">{q.resultEyebrow}</p>
+          <h1 className="mt-2 text-3xl font-semibold">{type.label}</h1>
+
+          <p className="mt-5 text-xs uppercase tracking-eyebrow text-ink-soft">
+            {q.card.misreadLabel}
+          </p>
+          <p className="mt-1.5 text-sm leading-relaxed">{q.misread[category]}</p>
+
+          {stuckLine && (
+            <>
+              <p className="mt-4 text-xs uppercase tracking-eyebrow text-ink-soft">
+                {q.card.stuckLabel}
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed">{stuckLine}</p>
+            </>
+          )}
+
+          <div className="mt-4 border-l-2 border-pine pl-4">
+            <p className="text-xs uppercase tracking-eyebrow text-ink-soft">
+              {q.card.verdictLabel}
+            </p>
+            <p className="mt-1.5 text-sm font-medium leading-relaxed">{q.verdict[category]}</p>
+          </div>
+
+          {qb && (
+            <div className="mt-5 rounded-lg bg-mist/40 px-4 py-3.5">
+              <p className="text-xs uppercase tracking-eyebrow text-ink-soft">
+                {q.card.salaryLabel}
+              </p>
+              {qb.band && (
+                <p className="mt-1.5 text-sm">
+                  {q.card.salaryLabelSg}
+                  {qb.band.functionLabel}・{qb.band.expLabel}：
+                  <span className="font-semibold">{qb.band.sgBand}</span>
+                </p>
+              )}
+              <p className="mt-1 text-sm">{qb.twAnchor}</p>
+              <p className="mt-1 text-sm">
+                {q.card.salaryLabelMultiple} {qb.nominal}
+                {qb.disposable ? `${q.card.salaryDisposableSuffix}${qb.disposable}` : ''}
+              </p>
+              <p className="mt-2 text-xs text-ink-soft">{q.card.salarySource}</p>
+            </div>
+          )}
+
+          <p className="mt-5 text-right text-xs text-ink-soft">{q.card.brandFooter}</p>
+        </div>
+
         <p className="mt-5 rounded-lg border border-line bg-mist/30 px-5 py-4 text-sm text-ink-soft">
           {q.resultNote}
         </p>
