@@ -6,6 +6,15 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "audit",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "-e",
+        "process.env.NEXT_PUBLIC_POSTHOG_KEY='';process.env.POSTHOG_PERSONAL_API_KEY='';process.env.POSTHOG_PROJECT_ID='';process.env.RESEND_API_KEY='';process.env.RESEND_FROM='';process.env.FOUNDER_EMAIL='';require('child_process').spawn(process.execPath,['node_modules/next/dist/bin/next','dev'],{stdio:'inherit'})"
+      ],
+      "port": 3000
     }
   ]
 }
