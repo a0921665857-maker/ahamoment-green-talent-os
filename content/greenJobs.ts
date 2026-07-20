@@ -288,75 +288,20 @@ export const greenJobs: GreenJobsData = {
       url: 'https://www.linkedin.com/jobs/view/4400177866',
     },
   ],
-  // MBA / strategy track — from Michael's LinkedIn MBA alerts (7/09–7/10).
-  mbaPicks: [
-    {
-      org: 'The LEGO Group',
-      roleZh: 'APAC 策略夥伴',
-      roleEn: 'Strategy Partner, APAC',
-      market: 'SG',
-      metaZh: '新加坡 · 更新 7/10',
-      metaEn: 'Singapore · updated 7/10',
-      salaryZh: 'S$150k–220k/年（推估；區域策略職，含獎金）',
-      salaryEn: 'Est. S$150k–220k/yr (regional strategy role, incl. bonus)',
-      salarySources: [
-        { label: 'Glassdoor · Singapore strategy', url: 'https://www.glassdoor.sg/Salaries/singapore-strategy-manager-salary-SRCH_IL.0,9_IM1123_KO10,26.htm' },
-      ],
-      takeZh: [
-        'LEGO 在新加坡設一個 APAC 策略夥伴，訊號很清楚：玩具和娛樂品牌把亞太當成下一段成長主戰場，而且要的是能坐在區域總部、直接跟高層做決策的人。這種「Strategy Partner」通常掛在 GM 或 CEO 底下，做的是市場進入、成長議題、跨部門的大專案，是典型的 MBA 後策略職，不是行銷執行。',
-        '適合 MBA 剛畢業、或顧問想轉進品牌方策略端的人。面試打的牌是把一個模糊的成長問題結構化拆開的能力，不是產業年資。天花板看你能不能從「做分析」升級成「扛一條線的成長數字」；純顧問背景要小心被嫌只會做 deck、落不了地。',
-      ],
-      takeEn: [
-        'LEGO opening an APAC Strategy Partner in Singapore is a clear signal: toy and entertainment brands are treating Asia-Pacific as the next growth battleground, and they want someone who can sit at the regional HQ and make calls with senior leadership. A role like this usually reports to a GM or CEO, working on market entry, growth questions and big cross-functional projects — a classic post-MBA strategy seat, not marketing execution.',
-        'It fits a fresh MBA, or a consultant moving into a brand’s strategy side. The card you play in interviews is structuring a vague growth problem, not years in the industry. The ceiling is whether you can go from doing the analysis to owning a growth number; a pure-consulting background should watch out for being seen as deck-only and unable to land things.',
-      ],
-      url: 'https://www.linkedin.com/jobs/search/?keywords=LEGO%20Strategy%20Partner%20APAC',
-    },
-    {
-      org: 'Netflix',
-      roleZh: '資深經理，市場經營（APAC）',
-      roleEn: 'Senior Manager, Market Activation (APAC)',
-      market: 'SG',
-      metaZh: '新加坡 · 更新 7/10',
-      metaEn: 'Singapore · updated 7/10',
-      salaryZh: 'S$180k–300k+/年（推估；Netflix 薪酬偏高，含股票）',
-      salaryEn: 'Est. S$180k–300k+/yr (Netflix pays high; incl. equity)',
-      salarySources: [
-        { label: 'Levels.fyi · Netflix', url: 'https://www.levels.fyi/companies/netflix/salaries' },
-      ],
-      takeZh: [
-        'Netflix 在亞太找市場經營資深經理，是串流大戰進入「單一市場精耕」階段的訊號：內容備齊了，現在要把每個國家的訂閱和參與度一國一國催起來。這個位子偏商業和成長營運，工作是把全球策略落地到亞太各市場，講究數據感加執行力。',
-        '適合有品牌、成長或顧問底、想進科技娛樂業做區域營運的人。要的不是純創意，是能把一個成長假設變成可跑的行動、再用數字證明它有效。股票和獎金是甜點，但 Netflix 節奏快、績效導向強、對「不留庸才」出了名，抗壓性不夠的人會很痛苦。',
-      ],
-      takeEn: [
-        'Netflix hiring a Senior Manager for Market Activation in APAC signals the streaming war has moved into single-market cultivation: the content is there, now they lift subscriptions and engagement country by country. The seat leans commercial and growth-ops, landing global strategy into each APAC market, and it runs on data sense plus execution.',
-        'It fits someone with a brand, growth or consulting base who wants regional ops in tech-entertainment. What it wants isn’t pure creative, it’s turning a growth hypothesis into a runnable plan and proving it with numbers. Equity and bonus are the sweetener, but Netflix is fast, performance-driven and famous for keeping only top performers — short on resilience and it hurts.',
-      ],
-      url: 'https://www.linkedin.com/jobs/search/?keywords=Netflix%20Market%20Activation%20APAC',
-    },
-    {
-      org: 'Meta',
-      roleZh: '經濟政策經理，APAC',
-      roleEn: 'Economic Policy Manager, APAC',
-      market: 'SG',
-      metaZh: '新加坡 · 更新 7/09',
-      metaEn: 'Singapore · updated 7/09',
-      salaryZh: 'S$180k–260k/年（推估；含股票）',
-      salaryEn: 'Est. S$180k–260k/yr (incl. equity)',
-      salarySources: [
-        { label: 'Levels.fyi · Meta', url: 'https://www.levels.fyi/companies/facebook/salaries' },
-      ],
-      takeZh: [
-        'Meta 在亞太設經濟政策經理，訊號是大型科技平台在監管壓力越來越大的環境下，需要一批懂經濟、又能跟政府和智庫對話的人來守政策這條線。這個職務交界在經濟研究和政府關係之間，做的是把平台的商業利益翻譯成政策語言，去影響法規怎麼寫。',
-        '適合有經濟、政策、顧問或政府背景，想進科技巨頭做公共事務的人。打的牌是同時聽得懂商業和政策兩邊的話、再把它接起來。天花板高、影響力大，但要認清這是防守型職能：你的成就感來自擋掉風險、守住空間，不是做出一個產品。吃不吃這一套，投之前要想清楚。',
-      ],
-      takeEn: [
-        'Meta setting up an Economic Policy Manager in APAC signals that under rising regulatory pressure, large tech platforms need people who understand economics and can hold a conversation with governments and think tanks to guard the policy line. The role sits between economic research and government relations, translating the platform’s commercial interests into policy language to shape how rules get written.',
-        'It fits someone with an economics, policy, consulting or government background who wants public affairs at a tech giant. The card you play is hearing both the commercial and the policy side and connecting them. High ceiling, real influence — but be clear it’s a defensive function: your satisfaction comes from blocking risk and holding space, not from shipping a product. Whether that suits you is worth deciding before you apply.',
-      ],
-      url: 'https://www.linkedin.com/jobs/search/?keywords=Meta%20Economic%20Policy%20Manager%20APAC',
-    },
-  ],
+  // MBA / strategy track — emptied 2026-07-20. The 3 prior entries (LEGO,
+  // Netflix, Meta; 7/09–7/10) all failed the current standard on inspection:
+  // `url` pointed at a LinkedIn *search query*, not a real postable job page
+  // (fails "link must lead back to an actual application"); salary was a
+  // generic company-wide/city-level aggregate (exactly the Tier-3 pattern
+  // rule 2 in SKILL.md bans); and Netflix/Meta are the literal examples the
+  // MBA-keyword rule names as roles to filter out (no genuine sustainability/
+  // climate/impact angle) — LEGO didn't have one either. Rather than patch
+  // 3 unfit entries, the array is empty until a future weekly run sources and
+  // verifies real MBA-track picks under the same rules as weeklyPicks (14-day
+  // freshness, WebFetch-verified JD + link, salary Tier 1/2/MCF/reference-price
+  // only). The page hides this section entirely when the array is empty — no
+  // broken "empty state" to fix.
+  mbaPicks: [],
 };
 
 export interface GreenJobsCopy {
