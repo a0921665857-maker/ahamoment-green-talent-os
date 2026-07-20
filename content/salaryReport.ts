@@ -88,7 +88,7 @@ const zhTW: SalaryReport = {
     {
       tag: '發現 03',
       head: '光有「永續」職稱不會加薪，真正值錢的是它配上什麼硬技能',
-      body: '碳核算和 Scope 3 的專長，比同資歷的人高 12 到 18%〔OS〕。在新加坡，有碳足跡評估、生命週期分析（LCA）、永續採購實戰的人，溢價 10 到 12%〔MP〕。同樣掛「永續」兩個字，掛在會寫報告書上，跟掛在會算碳、會談供應鏈數據上，市場開的價完全不同。',
+      body: '碳核算和 Scope 3 的專長，比同資歷的人高 12 到 18%〔OS〕。同一份調查裡，會 LCA、氣候風險建模、ESG 數據分析的人，溢價更明顯，只是市場還沒給出一個乾淨的公開數字〔OS〕。同樣掛「永續」兩個字，掛在會寫報告書上，跟掛在會算碳、會談供應鏈數據上，市場開的價完全不同。',
     },
   ],
   sgTitle: '新加坡薪資帶（主場）',
@@ -205,7 +205,7 @@ const en: SalaryReport = {
     {
       tag: 'Finding 03',
       head: 'A “sustainability” title alone won’t raise your pay; what it hangs on does',
-      body: 'Carbon-accounting / Scope 3 specialists earn 12–18% above peers [OS]; in Singapore, hands-on carbon footprinting, LCA and sustainable-procurement experience adds 10–12% [MP]. The same word “sustainability” priced onto report-writing versus onto carbon maths and supply-chain data are two very different numbers.',
+      body: 'Carbon-accounting / Scope 3 specialists earn 12–18% above peers [OS]; in the same survey, those fluent in LCA, climate-risk modelling and ESG data analytics command an even sharper premium, though the market hasn’t put a clean public number on it [OS]. The same word “sustainability” priced onto report-writing versus onto carbon maths and supply-chain data are two very different numbers.',
     },
   ],
   sgTitle: 'Singapore salary bands (home turf)',
