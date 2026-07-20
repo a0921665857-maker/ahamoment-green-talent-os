@@ -37,7 +37,9 @@ function PickCard({ p, L, t }: { p: WeeklyPick; L: Locale; t: GreenJobsCopy }) {
       {/* salary block */}
       <div className="mt-4 rounded-xl bg-mist/40 px-4 py-3">
         <p className="text-[11px] font-semibold uppercase tracking-eyebrow text-pine">
-          {L === 'zh-TW' ? '薪資帶（估算）' : 'Salary (est.)'}
+          {p.salarySources.length > 0
+            ? L === 'zh-TW' ? '薪資帶（估算）' : 'Salary (est.)'
+            : L === 'zh-TW' ? '薪資' : 'Salary'}
         </p>
         <p className="mt-1 text-sm tabular-nums">{L === 'zh-TW' ? p.salaryZh : p.salaryEn}</p>
         {p.salarySources.length > 0 && (
