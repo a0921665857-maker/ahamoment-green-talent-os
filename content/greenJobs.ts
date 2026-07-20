@@ -17,7 +17,6 @@ export interface JobLink {
 
 export interface JobMarket {
   key: MarketKey;
-  employers: string[]; // employers with a standing green-collar hiring presence
   boards: JobLink[]; // real, public search entry points (constructed, not scraped)
 }
 
@@ -37,6 +36,12 @@ export interface WeeklyPick {
   salaryZh: string; // 薪資帶(估算)— a tight, sourced range, never false precision
   salaryEn: string;
   salarySources: SalarySource[]; // clickable source links backing the range
+  // Only meaningful when salarySources is non-empty — tells the renderer which
+  // header to show, so a Tier-1 disclosed figure never gets labelled "estimated"
+  // and a future Tier-13 cross-jurisdiction reference price never does either
+  // (see SKILL.md rule 13). Undefined + non-empty sources falls back to 'estimated'
+  // for backward compatibility with older picks written before this field existed.
+  salaryConfidence?: 'disclosed' | 'estimated' | 'reference';
   // 我們的點評 — paragraphs. See docs/job-pick-playbook.md. Para 1 = signal/strategy,
   // para 2 = fit/play/cost. Michael's voice, the moat.
   takeZh: string[];
@@ -58,7 +63,6 @@ export const greenJobs: GreenJobsData = {
   markets: [
     {
       key: 'SG',
-      employers: ['EY', 'ERM', 'Arup', 'Deloitte', 'GlobalFoundries', 'GIC', 'Siemens Energy', 'Neste', 'Swiss Re', 'AXA'],
       boards: [
         { label: 'LinkedIn · sustainability', url: 'https://sg.linkedin.com/jobs/sustainability-jobs' },
         { label: 'JobStreet · ESG', url: 'https://sg.jobstreet.com/ESG-jobs' },
@@ -67,7 +71,6 @@ export const greenJobs: GreenJobsData = {
     },
     {
       key: 'TW',
-      employers: ['台灣世曦', 'KPMG', 'Deloitte 勤業眾信', '台積電', '中鼎工程', 'PwC'],
       boards: [
         { label: '104 · 永續', url: 'https://www.104.com.tw/jobs/search/?keyword=%E6%B0%B8%E7%BA%8C' },
         { label: '104 · ESG', url: 'https://www.104.com.tw/jobs/search/?keyword=ESG' },
@@ -76,7 +79,6 @@ export const greenJobs: GreenJobsData = {
     },
     {
       key: 'HK',
-      employers: ['HKEX', 'HSBC', 'ERM', 'AECOM', 'Arup'],
       boards: [
         { label: 'JobsDB · environmental', url: 'https://hk.jobsdb.com/environmental-jobs' },
         { label: 'LinkedIn · sustainability', url: 'https://hk.linkedin.com/jobs/sustainability-jobs' },
@@ -84,7 +86,6 @@ export const greenJobs: GreenJobsData = {
     },
     {
       key: 'UK',
-      employers: ['MSCI', 'LSEG', 'Schroders', 'ERM', 'Bloomberg', 'PwC'],
       boards: [
         { label: 'LinkedIn · sustainability', url: 'https://uk.linkedin.com/jobs/sustainability-jobs' },
         { label: 'Indeed · sustainability & ESG', url: 'https://uk.indeed.com/q-sustainability-esg-jobs.html' },
@@ -111,11 +112,11 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '這缺不是研究職，是 OCBC 集團在幫私人銀行補「永續怎麼落地到客戶資產配置」這一塊。私人銀行這幾年被推著要有講得出口的永續主張，原因不是監管，是超高淨值家族自己在要求，尤其是接班的二代，他們對錢要投去哪裡開始有立場，家族辦公室也會直接拿 ESG 框架來問。這職位掛在 CIO Office 底下，做的是把永續包裝成能對客戶說清楚、經得起追問的產品與論述，不是寫報告書。',
+        '這缺不是研究職，是 OCBC 集團在幫私人銀行補「永續怎麼落地到客戶資產配置」這一塊。私人銀行這幾年被推著要有講得出口的永續主張，這讀起來不像是監管推的，比較像超高淨值家族自己在要求，尤其是接班的二代，他們對錢要投去哪裡開始有立場，家族辦公室也會直接拿 ESG 框架來問。這職位掛在 CIO Office 底下，做的是把永續包裝成能對客戶說清楚、經得起追問的產品與論述，不是寫報告書。',
         '適合已經做過 ESG 研究、又聽得懂私人銀行語言的人，純分析師背景會卡在不知道怎麼把框架翻成一個 5000 萬新幣的家族要聽的話。面試該帶的是你怎麼把一套 ESG 邏輯講成客戶聽得懂、也願意動錢的故事，不是背了幾個框架。代價要先想清楚：這是 CIO Office 裡的支援與治理職，不是前線 RM，獎金天花板比真的在管錢、在跑業績的人低很多，你換到的是話語權，不是最高的那個數字。',
       ],
       takeEn: [
-        'This isn’t a research seat — OCBC Group is building out the function that translates sustainability into actual client portfolio construction inside private banking. Private banks have been pushed toward a credible sustainability proposition not mainly by regulation but by ultra-high-net-worth families themselves, especially next-gen heirs who now have opinions on where money goes, and family offices that show up with an ESG framework and hard questions. Sitting in the CIO Office, this role packages sustainability into something that survives client scrutiny, not a report.',
+        'This isn’t a research seat — OCBC Group is building out the function that translates sustainability into actual client portfolio construction inside private banking. Private banks have been pushed toward a credible sustainability proposition, and this reads less like a regulatory push than ultra-high-net-worth families themselves driving it, especially next-gen heirs who now have opinions on where money goes, and family offices that show up with an ESG framework and hard questions. Sitting in the CIO Office, this role packages sustainability into something that survives client scrutiny, not a report.',
         'It fits someone who has done ESG research and can also speak private-banking language — a pure analyst background stalls at not knowing how to translate a framework into what a S$50M family actually wants to hear. Bring, in the interview, a story of turning ESG logic into something a client understood and acted on, not a list of frameworks memorised. Price the cost first: this is a support-and-governance seat inside CIO Office, not a front-line RM job — the bonus ceiling sits well below people actually running client money, so what you’re buying is a voice in the room, not the top number.',
       ],
       url: 'https://www.linkedin.com/jobs/view/4414204287',
@@ -207,12 +208,12 @@ export const greenJobs: GreenJobsData = {
       market: 'HK',
       metaZh: '香港 · VP · 更新 7/13',
       metaEn: 'Hong Kong · VP · updated 7/13',
-      salaryZh: 'HK$1.0M–1.5M/年（總薪酬，推估；公司與地區具名數據互相印證）',
-      salaryEn: 'Est. HK$1.0M–1.5M/yr total pay (company- and location-specific data, cross-checked across two sources)',
+      salaryZh: 'HK$0.9M–1.3M/年（總薪酬，Glassdoor 現頁估算；該公司該地區該職級具名數據）',
+      salaryEn: 'Est. HK$0.9M–1.3M/yr total pay (per Glassdoor’s current company- and location-specific page)',
       salarySources: [
         { label: 'Glassdoor · SocGen VP Hong Kong', url: 'https://www.glassdoor.com.hk/Salary/Soci%C3%A9t%C3%A9-G%C3%A9n%C3%A9rale-Vice-President-Hong-Kong-Salaries-EJI_IE10350.0,16_KO17,31_IL.32,41_IC2308631.htm' },
-        { label: 'eFinancialCareers · SocGen HK salaries', url: 'https://www.efinancialcareers.hk/news/2019/11/salaries-pay-bonuses-societe-generale-hong-kong' },
       ],
+      salaryConfidence: 'estimated',
       takeZh: [
         'JD 寫得很白：要中國客戶與交易經驗、要能跟中國國企或創辦人主導的公司打交道、要中英雙語。這是一家法國銀行在香港蓋一張專門服務中國資金、投向電池、礦業、潔淨科技這些硬資產的結構融資桌。訊號是：歐系銀行正在把香港辦公室，定位成專門承接「中國資本流向全球減碳相關硬資產」這條線，不是單純做境內中國業務，而是做境外部署。',
         '適合有真正中國客戶起源經驗、懂結構性融資與信用、中文流利到能談判的人，泛 ESG 銀行背景但沒做過中國客戶起源的人卡不進門檻。面試該帶你實際主導或支援過的一筆中國相關結構融資案，講清楚你的國企或創辦人關係網。代價要認清：這是地緣政治曝險很高的位子，中國資金流向電池、礦業這種被美中供應鏈競爭盯上的領域，制裁風險跟銀行對中國對手風險偏好隨時在變；而且是 VP 不是 MD，薪資紮實但不是市場天花板，要等升遷才會摸到。',
@@ -235,12 +236,13 @@ export const greenJobs: GreenJobsData = {
       salarySources: [
         { label: 'LinkedIn 職缺揭露薪資', url: 'https://www.linkedin.com/jobs/view/4441395718' },
       ],
+      salaryConfidence: 'disclosed',
       takeZh: [
-        'Waymo(Alphabet 旗下自駕車公司)在倫敦開一個永續合規職，訊號是自駕車／機器人計程車業務規模化到需要單獨面對美國以外的環境法規體系(英國、歐盟這一套)，而且職缺裡提到「清潔能源與生命週期管理」，代表管的不只是文件合規，還碰車隊層級的能源與電池生命週期。這種職缺在純自駕車公司裡很少見，多數永續人力還是掛在母公司 Alphabet 底下，Waymo 自己開一個合規專職，等於在說「我們現在被當成一個獨立受監管的實體」。',
+        'Waymo(Alphabet 旗下自駕車公司)在倫敦開一個永續合規職，訊號是自駕車／機器人計程車業務規模化到需要單獨面對美國以外的環境法規體系(英國、歐盟這一套)，而且職缺裡提到「清潔能源與生命週期管理」，代表管的不只是文件合規，還碰車隊層級的能源與電池生命週期。這種職缺在純自駕車公司裡很少見，通常掛在母公司 Alphabet 層級，Waymo 自己開一個合規專職，等於在說「我們現在被當成一個獨立受監管的實體」。',
         '適合有環境合規、受監管產業(公用事業、航空、汽車)背景、能把多國標準翻成一份可執行內部合規計畫的人，單純「喜歡永續」接不住，20 到 25% 的出差比例代表這不是純辦公室職務，要真的下場碰營運。面試該帶一個你從一堆國際標準裡，實際組出一套合規計畫的案例。天花板：薪資揭露透明、倫敦水準算紮實，但比起 Waymo 核心自駕技術職還是低一截；而且這是這個快速擴張的業務單位裡第一批這類職缺，職務範圍很可能隨 Waymo 國際策略調整而重新定義。',
       ],
       takeEn: [
-        'Waymo (Alphabet’s autonomous-vehicle unit) opening a sustainability compliance seat in London signals the robotaxi business has scaled to the point it needs to answer to environmental regulatory regimes beyond the US — UK and EU frameworks — and the listing’s mention of “clean energy and lifecycle management” means this touches fleet-level energy and battery lifecycle, not just paperwork. This kind of role is rare at a pure-play AV company, where most sustainability headcount usually sits at parent Alphabet — Waymo staffing its own dedicated compliance hire is a tell it’s now treated as a standalone regulated entity.',
+        'Waymo (Alphabet’s autonomous-vehicle unit) opening a sustainability compliance seat in London signals the robotaxi business has scaled to the point it needs to answer to environmental regulatory regimes beyond the US — UK and EU frameworks — and the listing’s mention of “clean energy and lifecycle management” means this touches fleet-level energy and battery lifecycle, not just paperwork. This kind of role is rare at a pure-play AV company, where sustainability headcount usually sits at the parent-company level — Waymo staffing its own dedicated compliance hire is a tell it’s now treated as a standalone regulated entity.',
         'It fits someone from environmental compliance in a regulated industry — utilities, aviation, auto — who can translate multi-jurisdiction standards into an actionable internal plan; “enthusiastic about sustainability” alone won’t carry it, and the 20–25% travel requirement signals real operational engagement, not a desk job. Bring, in the interview, an example of building a compliance program out of a patchwork of international standards. The ceiling: pay is disclosed and solid for London, but still a step below Waymo’s core AV engineering roles, and as one of the first roles of its kind in a fast-scaling unit, the mandate itself will likely get redefined as Waymo’s international strategy evolves.',
       ],
       url: 'https://www.linkedin.com/jobs/view/4441395718',
@@ -256,11 +258,11 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        'CarbonChain 是幫重工業(金屬、礦業、化工)做碳會計軟體的公司，第一次開合作夥伴總監這個位子，訊號很清楚：產品已經靠直接銷售驗證過市場，現在要透過四大會計師事務所跟 Accenture 這種全球系統整合商去衝規模，這是氣候科技廠商從「產品跟市場對上了」走到「透過通路衝規模」的經典訊號。反過來看也是訊號：四大跟 Accenture 想把碳會計軟體包進自己的減碳顧問服務裡去轉售，而不是自己從頭做。',
+        'CarbonChain 是幫重工業(金屬、礦業、能源)大宗商品供應鏈做碳會計軟體的公司，第一次開合作夥伴總監這個位子，訊號很清楚：產品已經靠直接銷售驗證過市場，現在要透過四大會計師事務所跟 Accenture 這種全球系統整合商去衝規模，這是氣候科技廠商從「產品跟市場對上了」走到「透過通路衝規模」的經典訊號。反過來看也是訊號：四大跟 Accenture 想把碳會計軟體包進自己的減碳顧問服務裡去轉售，而不是自己從頭做。',
         '適合真的從零建立過夥伴銷售管線、跟四大或系統整合商談過合作的人，不是「跟夥伴合作過」這種泛泛經驗接得住，JD 明講要「一年 100 萬美元以上的夥伴帶來的管線」這種硬指標。面試該帶你具體的管線數字跟你建立的那段顧問公司關係，這就是門檻本身。代價：職缺沒揭露薪資，這是新創第一個這種職位，內部沒有現成打法，薪資結構通常底薪不高、佣金或認股權占比重，而且成不成，取決於四大到底想不想真的跟你合作，執行風險還沒被驗證過。',
       ],
       takeEn: [
-        'CarbonChain builds carbon-accounting software for heavy industry — metals, mining, chemicals — and is hiring its first-ever partnerships leader. The signal is clear: the product has already been validated through direct sales, and now it needs to scale distribution through Big 4 firms and global systems integrators like Accenture — the classic sign a climate-tech vendor is moving from product-market fit to go-to-market scale. Read the other way, it also signals Big 4 and Accenture want to resell carbon-accounting software bundled into their own decarbonization consulting rather than build it themselves.',
+        'CarbonChain builds carbon-accounting software for heavy-industry commodity supply chains — metals, mining, energy — and is hiring its first-ever partnerships leader. The signal is clear: the product has already been validated through direct sales, and now it needs to scale distribution through Big 4 firms and global systems integrators like Accenture — the classic sign a climate-tech vendor is moving from product-market fit to go-to-market scale. Read the other way, it also signals Big 4 and Accenture want to resell carbon-accounting software bundled into their own decarbonization consulting rather than build it themselves.',
         'It fits someone who has actually built partner-sourced pipeline from scratch with named consultancies — “worked with partners” in general won’t clear the bar; the JD states the hard number outright: $1M+ in annual partner-sourced pipeline. Bring, in the interview, your specific pipeline figure and the named consultancy relationship you built — that is the bar itself. The cost: no salary disclosed, this is the startup’s first role of its kind with no internal playbook yet, pay typically runs lower base with heavier commission or equity, and whether it works depends on whether the Big 4 actually want to partner — the execution risk here hasn’t been proven yet.',
       ],
       url: 'https://www.linkedin.com/jobs/view/4439578740',
@@ -366,7 +368,6 @@ export interface GreenJobsCopy {
   weeklyEmpty: string;
   mbaTitle: string;
   mbaNote: string;
-  employersLabel: string;
   boardsLabel: string;
   sourceNote: string;
   ctaTitle: string;
@@ -387,7 +388,6 @@ export const greenJobsCopy: Record<Locale, GreenJobsCopy> = {
     weeklyEmpty: '本週精選整理中。訂閱《綠領情報》週刊，每週一收到當週 Top 10。',
     mbaTitle: 'MBA / 策略職',
     mbaNote: 'MBA 關鍵字掃到的策略、成長、政策職，跟綠領分開放。',
-    employersLabel: '長期招募綠領的雇主',
     boardsLabel: '精選搜尋入口',
     sourceNote: '連結導向雇主官方頁或求職平台，職缺內容與薪資一律以原始頁面為準。',
     ctaTitle: '不確定自己該投哪一個？',
@@ -406,7 +406,6 @@ export const greenJobsCopy: Record<Locale, GreenJobsCopy> = {
     weeklyEmpty: 'This week’s picks are being curated. Subscribe to Green-Collar Intel Weekly to get the Top 10 every Monday.',
     mbaTitle: 'MBA / strategy track',
     mbaNote: 'Strategy, growth and policy roles from the MBA keyword, kept separate from green-collar.',
-    employersLabel: 'Employers hiring green-collar consistently',
     boardsLabel: 'Curated search entry points',
     sourceNote: 'Links point to employer pages or job boards; listing details and salaries are per the original source.',
     ctaTitle: 'Not sure which one to go for?',
