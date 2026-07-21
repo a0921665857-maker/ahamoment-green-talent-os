@@ -15,6 +15,7 @@ import { ShareableTypeCard } from '@/components/ShareableTypeCard';
 import { ReportPending } from '@/components/ReportPending';
 import { LineActions } from '@/components/LineActions';
 import { MobileStickyCta } from '@/components/MobileStickyCta';
+import { MarketPulseCard } from '@/components/MarketPulseCard';
 import { calendlyWithContext } from '@/lib/bookingUrl';
 
 export const dynamic = 'force-dynamic';
@@ -219,6 +220,9 @@ export default async function ResultPage({
             </aside>
           );
         })()}
+        {/* 市場脈搏:診斷對應的當週真實市場(content/marketPulse.ts,週日管線更新;
+            過期自動隱藏)。與上方薪資帶同一資料紀律:人工策展,絕不 LLM 生成。 */}
+        <MarketPulseCard locale={L} utmContent="report" />
         <PaidOfferCta
           locale={L}
           category={report.category}

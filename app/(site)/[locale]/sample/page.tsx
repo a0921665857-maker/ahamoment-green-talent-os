@@ -7,6 +7,7 @@ import { ctaOffers } from '@/lib/scoring/resultClassifier';
 import { sampleReports } from '@/content/sampleReport';
 import { InlineCtaCard } from '@/components/InlineCtaCard';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { MarketPulseCard } from '@/components/MarketPulseCard';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
 import { ShareableTypeCard } from '@/components/ShareableTypeCard';
@@ -65,6 +66,7 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
             <InlineCtaCard locale={L} content={c.paidOffers} calendlyUrl={calendlyUrl} sessionToken={null} />
           }
         />
+        <MarketPulseCard locale={L} utmContent="sample" />
         <PaidOfferCta
           locale={L}
           category={s.category}
