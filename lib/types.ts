@@ -189,6 +189,13 @@ export const EmailDraftSchema = z.object({
 });
 export type EmailDraft = z.infer<typeof EmailDraftSchema>;
 
+/** Outcome-loop (d30/d90) personalization: one short noun-phrase naming the thing
+ * the report told this person to fix first — slots into "你最該先補的是「___」". */
+export const FocusAreaSchema = z.object({
+  focus_area: z.string().min(1).max(120),
+});
+export type FocusArea = z.infer<typeof FocusAreaSchema>;
+
 export const TranslationSchema = z.object({ text: z.string().min(1) });
 
 /* ------------------------------- API request bodies -------------------------- */
