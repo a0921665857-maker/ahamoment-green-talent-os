@@ -100,6 +100,9 @@ export default async function ResultPage({
     secondary_offer: report.secondaryOffer,
   });
   const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL ?? '';
+  // Direct-payment path for the one async offer (no session to schedule). Unset env = unchanged behavior.
+  const deepReadPayLink = process.env.NEXT_PUBLIC_STRIPE_LINK_DEEP_READ;
+  const stripeLinks = deepReadPayLink ? { deep_read: deepReadPayLink } : undefined;
 
   return (
     <div className="min-h-screen">
@@ -224,6 +227,7 @@ export default async function ResultPage({
           content={c.paidOffers}
           calendlyUrl={calendlyUrl}
           sessionToken={token}
+          stripeLinks={stripeLinks}
         />
         <ShareableTypeCard
           locale={L}

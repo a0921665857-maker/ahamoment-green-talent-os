@@ -18,6 +18,9 @@ export function PaidOfferCta(props: {
   content: PaidOffersContent;
   calendlyUrl: string;
   sessionToken: string;
+  // Direct-payment links (Stripe Payment Links) per offer. Only async offers belong
+  // here — anything that needs a scheduled session must keep the booking path.
+  stripeLinks?: Partial<Record<OfferId, string>>;
 }) {
   const { content } = props;
   const roleLabel: Record<Slot['role'], string> = {
@@ -107,6 +110,7 @@ export function PaidOfferCta(props: {
         {props.slots.map((s) => {
           const o = content.offers[s.offer];
           const isPrimary = s.role === 'primary';
+          const payHref = props.stripeLinks?.[s.offer];
           return (
             <div
               key={s.offer}
@@ -123,21 +127,28 @@ export function PaidOfferCta(props: {
               <p className="mt-3 text-sm">{o.blurb}</p>
               <p className="mt-3 text-xs text-ink-soft">{o.delivery}</p>
               <a
-                href={calendlyWithContext(props.calendlyUrl, {
-                  token: props.sessionToken,
-                  category: props.category,
-                  offer: s.offer,
-                })}
+                href={
+                  payHref ??
+                  calendlyWithContext(props.calendlyUrl, {
+                    token: props.sessionToken,
+                    category: props.category,
+                    offer: s.offer,
+                  })
+                }
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => track('booking_clicked', { offer: s.offer })}
+                onClick={() =>
+                  payHref
+                    ? track('cta_clicked', { cta: 'stripe_pay', offer: s.offer })
+                    : track('booking_clicked', { offer: s.offer })
+                }
                 className={
                   isPrimary
                     ? 'mt-4 inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper'
                     : 'mt-4 inline-block rounded-lg border border-pine px-5 py-2.5 text-sm text-pine'
                 }
               >
-                {content.bookCta}
+                {payHref ? (content.payCta ?? content.bookCta) : content.bookCta}
               </a>
             </div>
           );
