@@ -21,10 +21,10 @@
 
 ## 發現（依轉換槓桿排序）
 
-### F1（最高槓桿・5 分鐘修）報告信從未寄出，但等待文案承諾會寄
-- `lib/email.ts:19-21`：`if (!apiKey || !from) return` — 環境變數清單裡**沒有 `RESEND_FROM`**（有 RESEND_API_KEY），`sendReportEmail` 必然 no-op。創辦人通知有 fallback 寄件人所以照收——「我收得到 lead 通知」掩蓋了「用戶收不到報告」。
-- 等待畫面文案：「通常需要三到五分鐘…你可以直接關掉這頁：報告在雲端生成，完成後會寄到你剛剛留的信箱」。聽話關頁又沒存連結的人＝永久孤兒。與手動補寄歷史 leads 的現象互證。
-- 修法：Vercel prod 環境補 `RESEND_FROM`（已驗證網域寄件人）；補上前先把文案降級成「保留這個連結」。
+### F1（已更正 2026-07-21：原判錯誤，prod 寄信正常）
+- **更正**：Gmail 實據（07-17、07-18 三封「你的綠領職涯 MRI 報告寫好了」，寄件人 `mri@ahamoment-career.com`，收件含 +nametest／+warmtest／本尊）證明 **prod 的 Vercel 環境有設 RESEND_FROM，用戶報告信正常寄出**。等待文案的承諾在 prod 成立。
+- 誤判根因：拿本機 `.env.local`（確實缺 `RESEND_FROM`）推斷 prod 環境，越界推論。教訓已記：env 斷言必須對著它所在的環境驗證。
+- 殘餘事實：本機開發環境寄信仍為 no-op（`lib/email.ts:19-21` 閘門）。屬預期行為（開發不寄信），不需修。
 
 ### F2（結構性最大）速讀側門能見度 7%，但它是轉換最好的資產
 - 幾何實測：入口在桌機 y=744（720 摺線下 24px）、手機 1.1 屏。第一屏＝標題＋四 tab＋空白貼上框（作業牆）。
@@ -48,7 +48,10 @@
 ### F6 分析口徑修正案（寫回 autoresearch）
 - 軸二量尺改為：`mri_started → material_submitted`（person 去重）。
 - 預約轉換分母改為當期新報告本人，不用 report_viewed。
-- 面板／變體實驗照舊，但假設優先序以 F1–F4 為先（結構修復 > 文案微調）。
+- 面板／變體實驗照舊，但假設優先序以 F2–F4 為先（結構修復 > 文案微調）。
+
+## 修復紀錄（2026-07-21，branch `fix/funnel-f2-f5-walkthrough`，commit 7d39dcd）
+F2 速讀側門上移第一屏（桌機 y=744→302、手機 1.1 屏→0.58 屏，text link 改卡片＋實心按鈕）；F3 提交按鈕常啟用＋按鈕旁 role=alert 錯誤＋計數器「還差 N 字」＋consent 捲動定位＋新增 fileMissing 錯誤；F4 零題時換 introComplete 文案；F5 `normalizeGreenEconomy` 掛進 submit 路由＋`labelFor` 跨組 fallback（實測同素材 slug 洩漏消失）；追加 report 等待頁 LINE 保存。typecheck ✅ 112/112 tests ✅（+6 taxonomy）。
 
 ## 正分（實走驗證通過）
 抽取品質高（職位／公司／意向全中，年資 4+2 正確合計 6）；草稿自動保存＋重整還原＋切語言不掉字；報告個人化銳利（引用 20 投 3 面、「太合規導向」回饋並精準重述）；6 條 Calendly 連結 token/utm 全對；prod console 零錯誤；landing 桌機首屏健康（hero 0.2 屏、雙 CTA 0.7 屏）。
