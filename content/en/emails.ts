@@ -46,4 +46,35 @@ If the timing is right, the report is here: {{report_url}}. If it is not yet, th
 
 Michael`,
   },
+  outcomeD30: {
+    subject: 'That thing we talked about a month ago, did you move on it?',
+    body: `Hi {{name}},
+
+A month ago we talked about the one thing worth fixing first: {{focus_area}}. I said I would come back and ask, so this email is just three questions, a line or two each is fine, just reply:
+
+1. Did you move on it? (which part, or not yet)
+2. If you are stuck, where?
+3. Any new movement at all? (applications, interviews, an offer, a raise, tell me if there is, and it is fine if there is not)
+
+Does not need to read well, fragments are fine. I actually read these.
+
+Michael
+
+If you would rather not get this series, just reply and say so, or click here: {{unsubscribe_url}}`,
+  },
+  outcomeD90: {
+    subject: 'Three months on, how are things going',
+    body: `Hi {{name}},
+
+Three months ago we talked about {{focus_area}}. This one has two questions, same deal, just reply:
+
+1. What is the biggest change in your career this quarter?
+2. Looking back, was the original read on you right?
+
+If something good happened in that time (an interview, an offer, a raise), I would also like to know: can I quote this story anonymously? I would rewrite it so no one could recognize you.
+
+Michael
+
+If you would rather not get this series, just reply and say so, or click here: {{unsubscribe_url}}`,
+  },
 };

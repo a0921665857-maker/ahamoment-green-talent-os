@@ -265,6 +265,10 @@ export interface EmailsContent {
   d0: EmailTemplate;
   d2: EmailTemplate;
   d6: EmailTemplate;
+  /** Outcome loop (docs/outcome-loop-design-2026-07-21.md), sent d+30/d+90 after a
+   * booked consult. Placeholders: {{name}}, {{focus_area}}, {{unsubscribe_url}}. */
+  outcomeD30: EmailTemplate;
+  outcomeD90: EmailTemplate;
 }
 
 export interface PrivacyPageContent {
