@@ -1,4 +1,6 @@
-# Career Digital Twin 產品圖 v1（2026-07-21，階段二；Michael 點頭即開工）
+# Career Digital Twin 產品圖 v1（2026-07-21，階段二；同日 Michael 說「開工」，v1 已建成上線）
+
+> **建成紀錄（2026-07-21，branch feat/twin-v1 → main bad07d6）**：三項範圍全數落地。與原圖的三個偏差：①token 改無狀態 HMAC 24h（非一次性）：零 migration 換來的取捨，防轉寄靠短效期；「認領通知信」由 magic link 信本身承擔（連結只寄給信箱主人）②對比區塊放在 twin 檔案頁（非新報告尾）：不動報告生成鏈，風險更小③白名單用 env `TWIN_WHITELIST`（未設＝功能靜默關閉）。**啟用步驟（Michael）**：Vercel 加 `TWIN_WHITELIST`（逗號分隔 email；可先放自己的信箱試走）；`TWIN_LINK_SECRET` 可不設（自動後備 ADMIN_SESSION_SECRET）。kill criteria 照原文：上線 60 天回訪重跑 <5 人 → 降級內部工具（量測：events.twin_viewed 與同 email 第二次 report_generated）。
 
 一句話：把 MRI 從「一次性報告」變成「可更新的職涯檔案」。用戶情況變了回來重跑，系統顯示兩次之間的變化。這就是 PDF 最終報告說的 recurring 核心，也是 ChatGPT twin 案的最小誠實版。
 
