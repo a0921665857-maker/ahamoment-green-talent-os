@@ -28,7 +28,7 @@ const SECTION_DEPTH: Record<(typeof REPORT_SECTION_KEYS)[number], SectionDepth> 
   green_career_fit: 'deep',
   mba_readiness: 'medium',
   commercial_clarity: 'tight',
-  international_positioning: 'tight',
+  international_positioning: 'medium',
   interview_readiness: 'tight',
   cv_readiness: 'tight',
   recommended_next_move: 'medium',
@@ -66,7 +66,11 @@ const SECTION_DIRECTIVES: Record<(typeof REPORT_SECTION_KEYS)[number], string> =
   commercial_clarity:
     'A sharp read on how commercial their impact currently sounds, tied to one concrete signal. Do NOT give salary benchmarks.',
   international_positioning:
-    'Which specific market or region their profile reads strongest in, and the ONE concrete marker in their material that makes it travel there (or the one that pins it local). Name the market and the marker explicitly — not "internationally" but which market and why. One sharp observation. Do NOT give a relocation plan.',
+    'Three layers, woven into flowing prose — no headings, no bullets, no numbering, no dashes: ' +
+    '(1) Which specific market or region their profile reads strongest in, and the ONE concrete marker in their material that makes it travel there (or the one that pins it local) — name the market and the marker explicitly, not "internationally" but which market and why. ' +
+    '(2) Immediately after, one rewritten sentence showing HOW they could describe themselves for that market, built from a specific fact already in their material (a project, a framework, a client type). This is a NEW sentence you are drafting for them, not a verbatim quote — do NOT wrap it in quotation marks. Introduce it with the cue phrase "你可以這樣說：" in zh-TW or "You could put it this way:" in en, so the reader can tell it is a suggested line, not something they already said. ' +
+    '(3) Close with ONE concrete, doable-now move to strengthen that positioning — one sentence to add, drop, or reorder in how they already describe themselves, not a plan. Introduce it with the cue phrase "下一步：" in zh-TW or "One move:" in en. ' +
+    'Do NOT give a relocation plan or a multi-step plan.',
   interview_readiness:
     'The one question type they would most struggle with, and why. Do NOT provide sample answers.',
   cv_readiness:
@@ -79,7 +83,7 @@ const SECTION_DIRECTIVES: Record<(typeof REPORT_SECTION_KEYS)[number], string> =
 
 export const mriReportPrompt: PromptDef<ReportInput, typeof ReportSectionsSchema> = {
   id: 'mri_report',
-  version: 'v2',
+  version: 'v3',
   model: MODELS.quality,
   temperature: 0.5,
   maxTokens: 9000,
