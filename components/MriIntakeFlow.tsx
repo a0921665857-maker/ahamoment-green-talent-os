@@ -134,8 +134,20 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
   async function handleSubmit() {
     setError(null);
     if (!inputReady) {
-      if (!consentProcessing) setError(errors.consentRequired);
-      else if (inputType !== 'cv_pdf' && !textOk) setError(errors.tooShort);
+      // Walkthrough F3: the button used to be disabled in this state, so these
+      // errors were unreachable and a not-ready click gave zero feedback (the
+      // /mri rageclick hotspot). The click now names the blocker and moves you to it.
+      if (!consentProcessing) {
+        setError(errors.consentRequired);
+        document.getElementById('consent-box')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (inputType === 'cv_pdf') {
+        setError(errors.fileMissing);
+      } else {
+        setError(errors.tooShort);
+        const ta = document.getElementById('material-input');
+        ta?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (ta instanceof HTMLTextAreaElement) ta.focus({ preventScroll: true });
+      }
       return;
     }
     setBusy(true);
@@ -322,6 +334,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
           flow={flow}
           consent={consent}
           errors={errors}
+          error={error}
           locale={locale}
           privacyHref={props.privacyHref}
           sampleHref={props.sampleHref}
@@ -414,6 +427,7 @@ function InputStep(p: {
   flow: FlowContent;
   consent: ConsentContent;
   errors: ErrorsContent;
+  error: string | null;
   locale: Locale;
   privacyHref: string;
   sampleHref: string;
@@ -446,6 +460,21 @@ function InputStep(p: {
       >
         {p.flow.intro.sampleCta}
       </a>
+
+      {/* Zero-typing front door (walkthrough F2): 9/123 found the below-fold text
+          link; all 9 finished and 5 took the full MRI. Promoted above the paste
+          wall so the "wrong moment" majority gets an action inside screen one. */}
+      <div className="mt-6 rounded-xl border border-sage bg-sage-soft/30 px-5 py-4">
+        <p className="font-medium">{p.flow.quick.entryTitle}</p>
+        <p className="mt-1 text-sm text-ink-soft">{p.flow.quick.entryBody}</p>
+        <button
+          type="button"
+          onClick={p.onQuick}
+          className="mt-3 inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
+        >
+          {p.flow.quick.entryButton}
+        </button>
+      </div>
 
       <div className="mt-6 flex flex-wrap gap-2">
         {TAB_ORDER.map((t) => (
@@ -493,26 +522,27 @@ function InputStep(p: {
       ) : (
         <div className="mt-4">
           <textarea
+            id="material-input"
             value={p.text}
             onChange={(e) => p.setText(e.target.value)}
             placeholder={tab.placeholder}
             rows={10}
             className="w-full resize-y rounded-lg border border-line bg-paper px-4 py-3 text-ink outline-none focus:border-pine"
           />
-          <p className="mt-1 text-right text-xs text-ink-soft">
-            {p.flow.charCount.replace('{count}', String(p.text.trim().length))}
-          </p>
+          {(() => {
+            const min = p.locale === 'zh-TW' ? INPUT_LIMITS.minCharsZh : INPUT_LIMITS.minCharsEn;
+            const len = p.text.trim().length;
+            const short = len > 0 && len < min;
+            return (
+              <p className={short ? 'mt-1 text-right text-xs font-medium text-pine' : 'mt-1 text-right text-xs text-ink-soft'}>
+                {short
+                  ? p.flow.charCountNeed.replace('{count}', String(len)).replace('{need}', String(min - len))
+                  : p.flow.charCount.replace('{count}', String(len))}
+              </p>
+            );
+          })()}
         </div>
       )}
-
-      {/* zero-typing side door — value before any paste for the commute audience */}
-      <button
-        type="button"
-        onClick={p.onQuick}
-        className="mt-5 block text-left text-sm font-medium text-pine underline-offset-2 hover:underline"
-      >
-        {p.flow.quick.entryCta}
-      </button>
 
       {/* no-CV escape hatch — the 78% material-step drop is mostly "wrong moment",
           not "no intent"; give the commuter a way to come back or hand over via LINE */}
@@ -530,7 +560,7 @@ function InputStep(p: {
       <SaveForLater locale={p.locale} copy={p.flow.saveLater} />
 
       {/* consent — inline, required before submit */}
-      <div className="mt-6 rounded-lg border border-line bg-mist/30 px-5 py-4">
+      <div id="consent-box" className="mt-6 rounded-lg border border-line bg-mist/30 px-5 py-4">
         <p className="text-sm text-ink-soft">{p.consent.redactHint}</p>
         <p className="mt-1 text-sm text-ink-soft">
           {p.consent.retentionSummary}{' '}
@@ -560,11 +590,18 @@ function InputStep(p: {
         <p className="ml-7 mt-2 text-xs text-ink-soft">{p.consent.noAccessNote}</p>
       </div>
 
+      {/* The blocker, named at the point of action — the top-of-page error is two
+          screens away from this button (walkthrough F3). */}
+      {p.error && (
+        <p role="alert" className="mt-6 rounded border border-line bg-mist px-4 py-3 text-sm text-ink">
+          {p.error}
+        </p>
+      )}
       <button
         type="button"
-        disabled={!p.inputReady || p.busy}
+        disabled={p.busy}
         onClick={p.onSubmit}
-        className="mt-6 rounded-lg bg-pine px-6 py-3 text-paper transition-opacity disabled:opacity-40"
+        className="mt-4 rounded-lg bg-pine px-6 py-3 text-paper transition-opacity disabled:opacity-40"
       >
         {p.flow.submit}
       </button>
@@ -690,10 +727,13 @@ function QuestionsStep(p: {
   sampleLabel: string;
 }) {
   const setA = (id: string, v: string) => p.setAnswers({ ...p.answers, [id]: v });
+  // Walkthrough F4: rich material can yield zero follow-ups; promising "three to
+  // five questions" over a bare email gate reads as an email harvest.
+  const intro = p.qs.length === 0 ? p.questions.introComplete : p.questions.intro;
   return (
     <div className="mt-8">
-      <h1 className="text-2xl font-semibold">{p.questions.intro.title}</h1>
-      <p className="mt-2 text-ink-soft">{p.questions.intro.body}</p>
+      <h1 className="text-2xl font-semibold">{intro.title}</h1>
+      <p className="mt-2 text-ink-soft">{intro.body}</p>
 
       <div className="mt-6 space-y-6">
         {p.qs.map((q) => (

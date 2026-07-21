@@ -5,6 +5,10 @@ export const questions: QuestionsContent = {
     title: 'A few things your material did not tell us',
     body: 'Three to five quick questions — only the ones we actually could not read. They sharpen the report considerably.',
   },
+  introComplete: {
+    title: 'Your material covered everything — no follow-ups needed',
+    body: 'We only ask when something cannot be read from your material, and this time nothing is missing. Leave an email and your report starts generating right away, saved to a link you can return to.',
+  },
   emailGate: {
     // Report-delivery framing; adjusted to honest copy 2026-06-15 with founder approval (email sending not yet enabled).
     title: 'Your report is ready — enter your email',

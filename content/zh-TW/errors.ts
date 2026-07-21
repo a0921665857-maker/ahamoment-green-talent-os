@@ -2,6 +2,7 @@ import type { ErrorsContent } from '../schema';
 
 export const errors: ErrorsContent = {
   tooShort: '內容有點太短，還讀不出你的輪廓。請再補幾行：你的角色、做過的專案，或你正在考慮的方向。約 80 字就足夠。',
+  fileMissing: '還沒選擇檔案。請選一個 PDF，或改用其他分頁直接貼上文字。',
   tooLong: '內容超過 40,000 字元上限。請保留最相關的部分：近期經歷，以及你正面臨的選擇。',
   fileTooLarge: 'PDF 檔案超過 10MB 上限。請輸出較輕量的版本（文字型、非掃描檔）後再試一次。',
   fileType: '這裡僅支援 PDF 檔案。其他格式請改用其他分頁貼上文字。',

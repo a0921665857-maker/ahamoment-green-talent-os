@@ -41,6 +41,7 @@ export interface FlowContent {
   submit: string;
   submitHint: string; // shown under a disabled submit so people know why
   charCount: string; // "{count} characters"
+  charCountNeed: string; // below-minimum state: contains {count} and {need}
   progress: {
     extraction: { title: string; stages: string[] };
     report: { title: string; stages: string[]; note: string };
@@ -77,7 +78,11 @@ export interface FlowContent {
    * (misread + verdict + real salary band from the drift-guarded dataset),
    * not just a type label. q5 (sector) exists solely to unlock the band. */
   quick: {
-    entryCta: string;
+    /** Promoted above-fold entry card (walkthrough F2): the zero-typing door the
+     * 80% material-step drop never found as a below-fold text link. */
+    entryTitle: string;
+    entryBody: string;
+    entryButton: string;
     title: string;
     intro: string;
     q1: { label: string; options: { value: string; label: string }[] };
@@ -139,6 +144,9 @@ export interface QuestionDef {
 }
 export interface QuestionsContent {
   intro: { title: string; body: string };
+  /** Zero-questions state (walkthrough F4): rich material yields no follow-ups;
+   * the promise-of-questions copy must not render over a bare email gate. */
+  introComplete: { title: string; body: string };
   emailGate: {
     title: string;
     body: string; // binding copy — founder override 2026-06-12
@@ -233,6 +241,7 @@ export interface SeoContent {
 
 export interface ErrorsContent {
   tooShort: string;
+  fileMissing: string; // cv_pdf tab submit with no file chosen (walkthrough F3)
   tooLong: string;
   fileTooLarge: string;
   fileType: string;

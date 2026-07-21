@@ -38,6 +38,7 @@ export const flow: FlowContent = {
   submit: '開始 MRI',
   submitHint: '貼上一些內容、並勾選下方的資料處理同意，就能開始。',
   charCount: '{count} 字元',
+  charCountNeed: '{count} 字元，還差 {need} 字就能開始',
   progress: {
     extraction: {
       title: '正在閱讀你的資料',
@@ -81,7 +82,9 @@ export const flow: FlowContent = {
     invalid: '這個 email 看起來怪怪的，再檢查一下。',
   },
   quick: {
-    entryCta: '或者先來 60 秒速讀版：五題全用點的，不用貼任何東西 →',
+    entryTitle: '手邊沒資料？先拿 60 秒速讀卡',
+    entryBody: '五題全用點的，不用貼任何東西：你的類型、市場怎麼誤讀你、你這段年資的真實行情。',
+    entryButton: '開始 60 秒速讀',
     title: '60 秒速讀版',
     intro: '五題，全部用手指點。直接拿你的速讀卡：類型、市場怎麼誤讀你、你這段年資的真實行情。',
     q1: {

@@ -64,6 +64,16 @@ export default async function ResultPage({
               homeHref={`/${L}/mri`}
               homeLabel={c.landing.hero.cta}
             />
+            {/* The 3–5 minute wait is the highest-abandon moment on a commute;
+                give the reader the same LINE bookmark the flow's generating
+                phase offers (walkthrough follow-up). */}
+            <LineActions
+              title={c.flow.line.generatingHint}
+              saveLabel={c.flow.line.saveCta}
+              shareText={c.flow.line.shareTextReport}
+              sharePath={`/${L}/result/${token}?utm_source=line_self&utm_medium=save`}
+              context="generating"
+            />
           </main>
         </div>
       );

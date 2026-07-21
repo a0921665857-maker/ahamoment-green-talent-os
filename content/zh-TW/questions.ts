@@ -5,6 +5,10 @@ export const questions: QuestionsContent = {
     title: '有幾件事，你的資料還沒告訴我們',
     body: '三到五個快問快答，只問真的讀不出來的部分。這會讓報告精準很多。',
   },
+  introComplete: {
+    title: '你的資料夠完整，不用再補問',
+    body: '系統只在真的讀不出來時才提問，你這次全部讀出來了。留個 email，報告會用這個連結為你保存，馬上開始產生。',
+  },
   emailGate: {
     // 報告交付框架；2026-06-15 經創辦人同意改為誠實版（寄信功能尚未啟用）。
     title: '報告就緒，留個 email 馬上看',

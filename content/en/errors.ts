@@ -2,6 +2,7 @@ import type { ErrorsContent } from '../schema';
 
 export const errors: ErrorsContent = {
   tooShort: "That's a little too short to read you properly. Add a bit more — a few lines about your roles, projects, or what you're weighing up. 150 characters is enough.",
+  fileMissing: 'No file selected yet. Choose a PDF, or switch tabs and paste text instead.',
   tooLong: 'That input is over the 40,000-character limit. Trim it to the most relevant parts — recent roles and the decision you are facing.',
   fileTooLarge: 'That PDF is over 10MB. Export a lighter version (text-based, no scans) and try again.',
   fileType: 'Only PDF files are supported here. For anything else, paste the text into one of the other tabs.',

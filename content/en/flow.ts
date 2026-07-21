@@ -38,6 +38,7 @@ export const flow: FlowContent = {
   submit: 'Run the MRI',
   submitHint: 'Paste a little content and tick the processing consent below to start.',
   charCount: '{count} characters',
+  charCountNeed: '{count} characters — {need} more to start',
   progress: {
     extraction: {
       title: 'Reading your material',
@@ -81,7 +82,9 @@ export const flow: FlowContent = {
     invalid: 'That email looks off — mind checking it?',
   },
   quick: {
-    entryCta: 'Or try the 60-second quick read: five tap-only questions, nothing to paste →',
+    entryTitle: 'Nothing to paste on hand? Take the 60-second quick read',
+    entryBody: 'Five tap-only questions, nothing to paste: your type, how the market misreads you, and the real salary band for your experience.',
+    entryButton: 'Start the 60-second read',
     title: '60-second quick read',
     intro: 'Five questions, all taps. Walk away with your quick-read card: your type, how the market misreads you, and the real salary band for your experience.',
     q1: {

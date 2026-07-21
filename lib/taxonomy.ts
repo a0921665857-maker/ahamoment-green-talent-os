@@ -101,9 +101,47 @@ export function partitionSlugs(group: TaxonomyGroup, values: string[]): { known:
 }
 
 export function labelFor(group: TaxonomyGroup, slug: string, locale: 'en' | 'zh-TW'): string {
-  const term = taxonomy[group].find((t) => t.slug === slug);
+  let term = taxonomy[group].find((t) => t.slug === slug);
+  if (!term) {
+    // The extractor sometimes files a known slug under the wrong group
+    // (walkthrough F5: sector slug in domains rendered raw). Any known label
+    // beats leaking a slug into the UI.
+    for (const g of Object.keys(taxonomy) as TaxonomyGroup[]) {
+      term = taxonomy[g].find((t) => t.slug === slug);
+      if (term) break;
+    }
+  }
   if (!term) return slug;
   return locale === 'zh-TW' ? term.label_zh : term.label_en;
+}
+
+/** Extraction post-processing (walkthrough F5): re-home known slugs the model
+ * filed under the wrong group, and move truly unknown values into free_text so
+ * the monthly taxonomy review (MAINTENANCE_GUIDE) actually receives them. */
+export function normalizeGreenEconomy<T extends {
+  sectors: string[];
+  functions: string[];
+  domains: string[];
+  free_text: string[];
+}>(ge: T): T {
+  const groups = ['sectors', 'functions', 'domains'] as const;
+  const out: Record<(typeof groups)[number], string[]> = { sectors: [], functions: [], domains: [] };
+  const freeText = [...ge.free_text];
+  for (const from of groups) {
+    for (const slug of ge[from]) {
+      if (isKnownSlug(from, slug)) {
+        if (!out[from].includes(slug)) out[from].push(slug);
+        continue;
+      }
+      const home = groups.find((g) => isKnownSlug(g, slug));
+      if (home) {
+        if (!out[home].includes(slug)) out[home].push(slug);
+      } else if (!freeText.includes(slug)) {
+        freeText.push(slug);
+      }
+    }
+  }
+  return { ...ge, sectors: out.sectors, functions: out.functions, domains: out.domains, free_text: freeText };
 }
 
 /** Slug lists formatted for injection into the extraction prompt. */

@@ -16,6 +16,7 @@ import { clientIp, errorJson, json } from '@/lib/http';
 import { recordEvent } from '@/lib/events';
 import { callPrompt, PromptValidationError } from '@/lib/anthropic';
 import { profileExtractionPrompt } from '@/lib/prompts';
+import { normalizeGreenEconomy } from '@/lib/taxonomy';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
@@ -137,6 +138,10 @@ export async function POST(req: NextRequest) {
     if (e instanceof PromptValidationError) return errorJson('extraction_failed', 502, errors.extractionFailed);
     return errorJson('extraction_failed', 502, errors.extractionFailed);
   }
+
+  // Re-home mis-grouped taxonomy slugs and shunt unknowns to free_text before
+  // anything downstream (confirm chips, scoring, admin) reads the payload.
+  profile = { ...profile, green_economy: normalizeGreenEconomy(profile.green_economy) };
 
   await db.from('extracted_profiles').insert({
     session_id: session.id,
