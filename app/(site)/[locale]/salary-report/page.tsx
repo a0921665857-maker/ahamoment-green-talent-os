@@ -198,6 +198,25 @@ export default async function SalaryReportPage({
           <p className="mt-4 text-sm text-paper/70">{r.ctaSub}</p>
         </section>
 
+        {/* sequel cross-link — the report answers "what am I worth", the map
+            answers "how do I become worth more" */}
+        <a
+          href={`/${L}/levelup?utm_source=salary_report&utm_medium=cross_link`}
+          className="mt-8 block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-5 transition hover:border-pine"
+        >
+          <p className="text-xs uppercase tracking-eyebrow text-pine">
+            {L === 'zh-TW' ? '第二話' : 'Part two'}
+          </p>
+          <p className="mt-2 text-lg font-semibold leading-snug">
+            {L === 'zh-TW'
+              ? '你值多少講完了。續集講：怎麼變更值錢。'
+              : 'That was what you are worth. The sequel: how to become worth more.'}
+          </p>
+          <span className="mt-2 inline-block text-sm font-medium text-pine">
+            {L === 'zh-TW' ? '打開《綠領晉級地圖》→' : 'Open the Level-Up Map →'}
+          </span>
+        </a>
+
         {/* newsletter — capture the reader as a repeat visitor */}
         <div className="mt-8">
           <NewsletterSignup locale={L} copy={newsletterCopy[L]} source="salary_report" />

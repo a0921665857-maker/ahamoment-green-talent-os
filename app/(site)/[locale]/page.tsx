@@ -124,6 +124,26 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </span>
         </a>
 
+        {/* the salary report's sequel — what you're worth → how to become worth more */}
+        <a
+          href={`/${L}/levelup`}
+          className="mt-3 block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
+        >
+          <h2 className="text-xl font-semibold leading-snug">
+            {L === 'zh-TW'
+              ? '《綠領晉級地圖 2026 H2》：哪個技能、哪張證照後面真的有錢？'
+              : 'Green-Collar Level-Up Map 2026 H2: which skills and certificates actually pay?'}
+          </h2>
+          <p className="mt-2 text-sm text-ink-soft">
+            {L === 'zh-TW'
+              ? '唯一有乾淨溢價數字的技能（碳核算 × Scope 3 +12 到 18%）、證照買到的是門不是加薪，以及三種人各自的兩年路線。'
+              : 'The one skill with a clean premium (carbon accounting × Scope 3, +12–18%), why certificates buy the door and not the raise, and two-year routes for three profiles.'}
+          </p>
+          <span className="mt-3 inline-block text-sm font-medium text-pine">
+            {L === 'zh-TW' ? '打開地圖 →' : 'Open the map →'}
+          </span>
+        </a>
+
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {tools.map((tool) => (
             <a

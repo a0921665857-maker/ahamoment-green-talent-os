@@ -9,6 +9,7 @@ const STATIC_PATHS = [
   '',
   '/mri',
   '/salary-report',
+  '/levelup',
   '/cost-of-living',
   '/jd',
   '/mba-roi',
