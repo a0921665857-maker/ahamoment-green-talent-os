@@ -243,6 +243,13 @@ export default async function ResultPage({
           addLabel={c.flow.line.addCta}
           context="report_end"
         />
+        {/* Twin teaser — the paid perk that turns a one-off report into a file. */}
+        <p className="mt-8 text-sm text-ink-soft">
+          {c.twin.resultLink.prompt}{' '}
+          <a href={`/${L}/twin`} className="font-medium text-pine underline-offset-2 hover:underline">
+            {c.twin.resultLink.cta} →
+          </a>
+        </p>
       </main>
       {/* Mobile-only floating CTA — the report is ~15 screens; give the acting-now
           reader something to tap without scrolling to the bottom. Desktop untouched. */}

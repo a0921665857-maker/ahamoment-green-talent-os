@@ -110,6 +110,62 @@ export async function sendSaveForLaterEmail(opts: {
 }
 
 /**
+ * Twin magic-link email. Best-effort, gated on RESEND_API_KEY / RESEND_FROM.
+ * The link IS the access credential — 24h expiry, sent only to the address owner.
+ */
+export async function sendTwinLinkEmail(opts: {
+  to: string;
+  twinUrl: string;
+  locale: Locale;
+}): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM;
+  if (!apiKey || !from) return;
+
+  const isZh = opts.locale === 'zh-TW';
+  const subject = isZh
+    ? '你的職涯檔案登入連結（24 小時有效）'
+    : 'Your career file sign-in link (valid 24 hours)';
+  const body = isZh
+    ? [
+        '嗨，',
+        '',
+        '這是你的職涯檔案登入連結，點開就能看到歷次 MRI 與前後對比：',
+        opts.twinUrl,
+        '',
+        '連結 24 小時內有效，過期再跟我要一條就好。',
+        '如果這不是你要求的，直接忽略這封信，你的報告不會被任何人看到。',
+        '',
+        'Michael',
+        'AhaMoment',
+      ].join('\n')
+    : [
+        'Hi,',
+        '',
+        'Here is your career file sign-in link — your MRI history and the comparison between runs:',
+        opts.twinUrl,
+        '',
+        'The link stays valid for 24 hours; ask me for a fresh one anytime.',
+        'If you did not request this, ignore this email — your reports stay private.',
+        '',
+        'Michael',
+        'AhaMoment',
+      ].join('\n');
+
+  try {
+    await new Resend(apiKey).emails.send({
+      from,
+      to: opts.to,
+      subject,
+      text: body,
+      replyTo: process.env.FOUNDER_EMAIL || undefined,
+    });
+  } catch {
+    /* best-effort */
+  }
+}
+
+/**
  * Notifies the founder of every new completed lead (email, name, category, grade,
  * a link to the report, and a positioning excerpt). Gated on RESEND_API_KEY +
  * FOUNDER_EMAIL. Because it sends to your OWN inbox, Resend's test sender works

@@ -299,6 +299,51 @@ export interface ShareContent {
 }
 
 /** Everything a locale must provide. */
+/** Career Digital Twin (v1): magic-link report timeline + band diff. Invite/paid only. */
+export type TwinBandKey =
+  | 'story_index'
+  | 'mba_index'
+  | 'climate_index'
+  | 'commercial_credibility'
+  | 'international_positioning'
+  | 'interview_readiness'
+  | 'cv_readiness'
+  | 'green_economy_fit'
+  | 'mba_readiness';
+export interface TwinContent {
+  request: {
+    title: string;
+    intro: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    submitCta: string;
+    sentNote: string; // generic — never confirms whether the email is on the list
+    inviteNote: string;
+    invalidEmail: string;
+  };
+  hub: {
+    title: string;
+    intro: string;
+    latestLabel: string;
+    reportCta: string;
+    diffTitle: string;
+    diffIntro: string;
+    needTwo: string;
+    upWord: string;
+    downWord: string;
+    sameSummary: string; // contains {n}
+    unknownWord: string;
+    updateTitle: string;
+    updateBody: string;
+    updateCta: string;
+    expiredTitle: string;
+    expiredBody: string;
+    requestAgainCta: string;
+  };
+  bandNames: Record<TwinBandKey, string>;
+  resultLink: { prompt: string; cta: string };
+}
+
 export interface LocaleContent {
   sample: SampleContent;
   share: ShareContent;
@@ -313,4 +358,5 @@ export interface LocaleContent {
   errors: ErrorsContent;
   emails: EmailsContent;
   privacyPage: PrivacyPageContent;
+  twin: TwinContent;
 }

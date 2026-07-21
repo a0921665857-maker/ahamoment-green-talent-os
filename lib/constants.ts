@@ -159,6 +159,9 @@ export const EVENT_NAMES = [
   'quick_to_full_clicked',
   'line_add_clicked',
   'line_self_share_clicked',
+  'twin_link_requested',
+  'twin_link_sent',
+  'twin_viewed',
 ] as const;
 export type EventName = (typeof EVENT_NAMES)[number];
 
