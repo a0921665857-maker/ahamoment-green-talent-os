@@ -110,7 +110,12 @@ export function PaidOfferCta(props: {
         {props.slots.map((s) => {
           const o = content.offers[s.offer];
           const isPrimary = s.role === 'primary';
-          const payHref = props.stripeLinks?.[s.offer];
+          // Carry the session token into Stripe as client_reference_id so every
+          // payment maps back to a report (no anonymous money, per the funnel rule).
+          const payHrefRaw = props.stripeLinks?.[s.offer];
+          const payHref = payHrefRaw
+            ? `${payHrefRaw}${payHrefRaw.includes('?') ? '&' : '?'}client_reference_id=${encodeURIComponent(props.sessionToken)}`
+            : undefined;
           return (
             <div
               key={s.offer}
