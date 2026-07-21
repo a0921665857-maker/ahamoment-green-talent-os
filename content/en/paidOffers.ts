@@ -130,7 +130,7 @@ export const paidOffers: PaidOffersContent = {
       delivery: 'Eight weeks, end to end.',
       forWhom: 'Professionals targeting international roles or MBA admissions, committed, and wanting the whole arc handled by one accountable person.',
       blurb:
-        'Everything above, sequenced: positioning, story, documents, and interview readiness — finished, not just advised on. Comparable international application packages in Singapore start at twice this price.',
+        'Everything above, sequenced: positioning, story, documents, and interview readiness — finished, not just advised on.',
     },
   },
 };
