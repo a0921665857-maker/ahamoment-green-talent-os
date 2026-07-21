@@ -152,10 +152,40 @@ export default async function SalaryReportPage({
         <p className="mt-4 text-ink-soft">{r.multiples}</p>
         <div className="mt-5 rounded-xl bg-mist/50 px-5 py-5 text-sm text-ink-soft">{r.caveat}</div>
 
-        {/* HK / JP */}
-        <h2 className="mt-14 text-2xl font-semibold">{r.hkjpTitle}</h2>
+        {/* Hong Kong */}
+        <h2 className="mt-14 text-2xl font-semibold">{r.hkTitle}</h2>
         <p className="mt-4 text-ink-soft">{r.hk}</p>
-        <p className="mt-4 text-ink-soft">{r.jp}</p>
+
+        {/* Japan */}
+        <h2 className="mt-14 text-2xl font-semibold">{r.jpTitle}</h2>
+        <p className="mt-2 text-xs uppercase tracking-eyebrow text-pine">{r.jpNote}</p>
+        <div className="mt-4 overflow-x-auto rounded-xl border border-line">
+          <table className="w-full min-w-[620px] text-sm">
+            <thead>
+              <tr className="bg-mist/40 text-left">
+                {r.jpTable.head.map((h, i) => (
+                  <th key={i} className="px-4 py-3 text-xs uppercase tracking-eyebrow text-ink-soft">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {r.jpTable.rows.map((row, i) => (
+                <tr key={i} className="border-t border-line align-top">
+                  {row.map((cell, j) => (
+                    <td key={j} className={`px-4 py-3 ${j === 0 ? 'font-medium' : 'tabular-nums text-ink-soft'}`}>
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4 text-sm text-ink-soft">{r.jpStartupNote}</p>
+        <p className="mt-4 text-ink-soft">{r.jpTrend}</p>
+        <div className="mt-5 rounded-xl bg-mist/50 px-5 py-5 text-sm text-ink-soft">{r.jpGap}</div>
 
         {/* skill combos */}
         <h2 className="mt-14 text-2xl font-semibold">{r.skillTitle}</h2>

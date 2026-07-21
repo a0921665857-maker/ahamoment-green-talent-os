@@ -35,9 +35,14 @@ export interface SalaryReport {
   twTable: SalaryTable;
   multiples: string;
   caveat: string;
-  hkjpTitle: string;
+  hkTitle: string;
   hk: string;
-  jp: string;
+  jpTitle: string;
+  jpNote: string;
+  jpTable: SalaryTable;
+  jpStartupNote: string;
+  jpTrend: string;
+  jpGap: string;
   skillTitle: string;
   skillIntro: string;
   skills: { tag: string; head: string; body: string }[];
@@ -120,9 +125,51 @@ const zhTW: SalaryReport = {
     '用年薪換算真實倍數：入行 0 到 3 年大約 1.8 到 3.3 倍，中段 4 到 8 年大約 2.7 到 3.3 倍，資深 8 年以上大約 2.2 到 3.3 倍。',
   caveat:
     '有兩件事我得老實說。第一，台灣 4 到 8 年這一段沒有可靠的公開中位數，那個區間是我從新人和主管職之間內插推估的。第二，帳面倍數不等於生活品質倍數：新加坡一個單房月租常常 S$2,500 起跳，但個人所得稅又明顯比台灣高薪級距低。把居住成本扣掉之後，實際可支配所得的差距大概收斂到 1.6 到 2.6 倍。還是很大，只是沒有帳面上看起來那麼誇張。',
-  hkjpTitle: '香港與日本（很短，因為數據就是薄）',
+  hkTitle: '香港（簡短，市場本來就小）',
   hk: '香港：環境顧問月薪大約 HK$21k–24k〔JD〕，跟台灣同級距離不大。唯一的例外是永續金融，靠著港交所 ESG 披露樞紐的定位撐起來。香港的綠領機會集中在金融塔尖，塔基的薪水不會比台灣有明顯優勢。',
-  jp: '日本：公開的職能級薪資帶樣本太少。Robert Walters 和 Morgan McKinley 的 2026 日本指南都沒公開永續職能的具體數字，唯一可靠的背景只有 2025 年春鬥平均調薪 5.46%。這個市場我查不到可靠的公開數據，所以不編；真的想去日本的人，建議直接下載這兩家的指南 PDF 自己查。',
+  jpTitle: '日本薪資帶（三個海外市場裡資料最厚的一個）',
+  jpNote: '年薪・日圓（萬円）・沒有任何一家獵頭指南出過「ESG 專章薪資表」，下表是獵頭指南、專業轉職站、現役求人票、官方統計四層來源交叉查證後的結果，信心標記照舊保留',
+  jpTable: {
+    head: ['職能', '基層', '中階', '資深／頂端'],
+    rows: [
+      [
+        '企業內 ESG／永續部門（in-house）',
+        '440–750 萬円（楽天、あずさ監査法人、推進職缺等在招個案，活求人可能已下架）〔DD〕',
+        '管理職手前 800–900 萬円；成熟度較高的企業另可釋出 1,000 萬円以上職缺〔JAC〕',
+        '具語言力與人員管理責任的 offer 案例，可達 1,200 萬円以上〔JAC〕',
+      ],
+      [
+        'ESG／永續顧問',
+        '未經驗採用 600–800 萬円〔SC〕；大手事務所 Associate 可達 700–1,000 萬円〔JAC〕',
+        '資深顧問 800–1,100 萬円〔SC〕；經理級 1,200–1,800 萬円〔JAC〕',
+        'Director 2,000 萬円以上〔JAC〕；脫碳專門顧問經理以上同樣可望超過 2,000 萬円，頂端策略顧問合夥人另有數千萬円等級案例〔SI〕',
+      ],
+      [
+        '再生能源（太陽光／風力）',
+        '開發職起薪落在業界通行帶 500–1,000 萬円下段，JAC 未拆分層級〔JAC〕',
+        '開發專案經理（Project Manager）1,000–1,500 萬円〔RW〕',
+        '事業開發總監 1,300–1,600 萬円，工程總監 1,400–2,000 萬円〔RW〕；大型業者平均年收：INPEX 1,117 萬、J-POWER 1,046 萬、Renova 992 萬円〔JAC〕',
+      ],
+      [
+        'Carbon／climate（GX 人材）',
+        '非管理職在職者平均 600 萬円，高於非 GX 職 69 萬円〔KOTORA〕',
+        '轉職求人票 600–1,300 萬円；新創高階提示上看 1,500 萬円，標題數字〔SC・NIKKEI〕',
+        '管理職在職者平均 952 萬円，高於非 GX 職 49 萬円，整體溢價 +13%〔KOTORA〕',
+      ],
+      [
+        'Sustainable finance／ESG 投資',
+        'ESG アナリスト（證券・運用）750–1,400 萬円〔SI〕',
+        '銀行 project finance（ESG／再エネ）現役求人 500–1,400 萬円〔MPJ〕',
+        'サステナ投資マネージャー 800–2,000 萬円以上〔SI〕',
+      ],
+    ],
+  },
+  jpStartupNote:
+    '氣候科技新創（單一公司案例，不是平台統計）：アスエネ全體平均 567 萬円，細分工程師 500–800、顧問 700–1,100、M&A 與策略 600–2,000 萬円〔TL〕；ゼロボード採用 500–800、行銷主管 900–1,000 萬円；e-dash 工程師 450–700、客戶成功 500–700 萬円；enechain 資深職缺全數落在 900–1,800 萬円區間；フェイガー 700–1,300 萬円〔SC〕。這塊數字看起來不低，但每一筆都是單一在招職缺，換一家公司可能完全不同，別當成統計平均。保險業的 ESG 職，查無任何一筆可靠資料，這一格我寧可留白，不編數字。',
+  jpTrend:
+    '政策紅利算得出來：2023 年成立的 GX 推進法定調未來十年官民 150 兆円投資〔METI〕，GX 相關求人數 2016 到 2022 六年間成長 5.87 倍，實際轉職人數只跟上 3.09 倍〔RC〕，需求成長快，人才補位跟不上。GX 溢價集中在基層：整體 +13%，拆開看非管理職 +13%、管理職只有 +5.4%〔KOTORA〕，對年輕人斜率改變最大。顧問是薪資電梯，in-house 是天花板：顧問從 600 萬能一路通到 2,000 萬以上，in-house 大多卡在 1,200 萬〔JAC・SI〕。東京集中度極高，東京平均月薪比全國高 22%〔MHLW〕，ESG、金融、顧問職缺幾乎全在東京。全產業基準線參考：一般勞工月薪 330,400 円，33 年來最大增幅 +3.8%〔MHLW〕；doda 全職業別平均年収 429 萬円〔PERSOL〕；2025 年春鬥最終集計加薪 5.25%，連續兩年破 5%，創 34 年新高〔RENGO〕。',
+  jpGap:
+    '幾件事我得老實說。第一，日本沒有任何一家獵頭指南出過「ESG 專章薪資表」，上面這張表全部是拼接交叉，信心標記請照著看，別當成官方公告。第二，保險業 ESG 職完全查無可靠公開資料，見上一段。第三，部長級以上的 in-house 薪資只有間接證據，是 offer 案例和獵頭觀察，不是統計級樣本。第四，厚生勞動省沒有「永續職」這個職業分類，官方的綠領對照組在日本本來就不存在，這是一個誠實的缺口，不是我漏查。',
   skillTitle: '正在拉高你議價力的四種技能組合',
   skillIntro:
     '「綠領溢價」在兩個市場是兩個完全不同的故事。新加坡的溢價是真的、算得出來的；台灣的職稱溢價只有 5.3%。但這個「低」本身就是情報：市場付的錢，不在「永續」兩個字，在它底下掛的硬技能。台灣的綠領需求有 41% 來自電子半導體和製造業〔VC〕，這些公司要的是能做碳盤查、能源管理、供應鏈數據的人。',
@@ -155,7 +202,7 @@ const zhTW: SalaryReport = {
   ctaSub: '大約 5 分鐘 · 免費 · 免註冊',
   sourcesLabel: '方法論與來源附錄',
   method:
-    '2026 年 7 月，以公開網路來源交叉查證。每個數字都保留原始區間，不做假精確；單一來源、自報樣本、模型推估都會標註；查不到可靠數據的市場（日本、氣候新創薪資帶、台灣 4 到 8 年中段），我就直接說樣本不足。匯率用 1 SGD ≈ 25 TWD，1 USD ≈ 1.35 SGD ≈ 33.75 TWD。開場那個場景是我根據薪資數據拼出來的典型情境，不是特定某個人。',
+    '2026 年 7 月，以公開網路來源交叉查證。每個數字都保留原始區間，不做假精確；單一來源、自報樣本、模型推估都會標註；查不到可靠數據的地方（台灣 4 到 8 年中段、日本保險業 ESG 職、多數城市的氣候新創薪資帶），我就直接說樣本不足。日本節在 2026 年 7 月以獵頭指南、專業轉職站、現役求人票、官方統計四層來源交叉查證，信心標記見該節。匯率用 1 SGD ≈ 25 TWD，1 USD ≈ 1.35 SGD ≈ 33.75 TWD；日圓數字保留原幣別，不做二次換算，避免堆疊誤差。開場那個場景是我根據薪資數據拼出來的典型情境，不是特定某個人。',
   sources: [
     { code: 'MOE', name: '環境部×104《2025 下半年綠領人才就業趨勢報告》', note: '台灣官方主來源' },
     { code: 'MP', name: 'Michael Page《Singapore Salary Guide 2026》', note: '招聘顧問指南' },
@@ -166,6 +213,19 @@ const zhTW: SalaryReport = {
     { code: 'VC', name: 'Vocus 對 MOE 報告的分析', note: '二手分析' },
     { code: 'JD', name: 'Jobsdb 香港環境顧問薪資', note: '平台數據' },
     { code: 'MOM', name: '新加坡人力部 EP 合格薪資門檻', note: '官方，2025 起適用' },
+    { code: 'JAC', name: 'JAC Recruitment 日本市場薪資趨勢頁（永續／ESG 顧問／再生能源）', note: '獵頭指南，2026 年 4 至 7 月更新' },
+    { code: 'DD', name: 'doda 求人票關鍵字搜尋頁（「サステナビリティ」）', note: '個別在招職缺搜尋結果，時效性有限' },
+    { code: 'SC', name: 'サスキャリ（sus-career.com）媒體專文與現役求人頁', note: '轉職媒體，含求人票案例' },
+    { code: 'SI', name: 'sus-insights.com 年収ランキング', note: '產業匯整站' },
+    { code: 'KOTORA', name: 'Kotora 轉引 Deloitte Tohmatsu《GX人材の年収に関する調査》（2024-10）', note: '唯一調查型結構數據，信心最高' },
+    { code: 'MHLW', name: '厚生労働省《令和 6 年賃金構造基本統計調査》', note: '日本官方薪資統計' },
+    { code: 'PERSOL', name: 'doda／Persol Career《平均年収ランキング 2025》新聞稿', note: '轉職平台官方統計' },
+    { code: 'RENGO', name: '日本労働組合総連合会（連合）2025 春鬥最終集計', note: '官方工會統計，取最終集計非首波快報' },
+    { code: 'MPJ', name: 'Michael Page Japan 現役 ESG／project finance 求人頁', note: '單一求人票案例' },
+    { code: 'NIKKEI', name: '日経リスキリング（會員限定文章標題）', note: '標題數字，全文在付費牆內未讀到' },
+    { code: 'METI', name: '経済産業省 GX 政策資料（GX 推進法／150 兆円投資）', note: '日本官方政策文件' },
+    { code: 'TL', name: 'tleon.co.jp 轉載アスエネ員工薪資頁', note: '單一公司薪資頁' },
+    { code: 'RC', name: 'Recruit 新聞稿《GX人材の転職市場動向》（2023-08 發布）', note: 'GX 求人成長倍率調查，涵蓋 2016–2022' },
   ],
   footer:
     '© 2026 AhaMoment 綠領情報 · 本報告是市場資訊彙整，不是個人投資、法律或移民建議 · 數字都附來源、保留區間，弱數據已標註。',
@@ -237,9 +297,52 @@ const en: SalaryReport = {
     'On an annualised basis the real multiples are: 0–3 yrs ~1.8–3.3×; mid 4–8 yrs ~2.7–3.3×; senior 8+ yrs ~2.2–3.3×.',
   caveat:
     'Two honest caveats. First, Taiwan has no reliable public median for the 4–8-year band; that range is interpolated. Second, a nominal multiple isn’t a quality-of-life multiple: a Singapore studio routinely rents at S$2,500+/month, while personal income tax is markedly lower than Taiwan’s high brackets. Net of housing, the disposable-income gap converges to roughly 1.6–2.6×. Still large, just not as dramatic as the headline.',
-  hkjpTitle: 'Hong Kong and Japan (brief, because the data is simply thin)',
+  hkTitle: 'Hong Kong (brief, the market itself is small)',
   hk: 'Hong Kong: environmental consultants earn ~HK$21k–24k/month [JD], not far from Taiwan’s equivalent. The exception is sustainable finance, buoyed by HKEX’s ESG-disclosure hub role. Green-collar opportunity concentrates at the financial apex; the base offers no clear edge over Taiwan.',
-  jp: 'Japan: function-level public bands are too thin. Robert Walters and Morgan McKinley both publish 2026 Japan guides but don’t disclose specific sustainability figures; the only reliable backdrop is the 2025 shuntō average raise of 5.46%. I couldn’t find reliable public data here, so I don’t invent it; if you’re serious about Japan, download both guides’ PDFs and check directly.',
+  jpTitle: 'Japan salary bands (the best-sourced of the three overseas markets)',
+  jpNote:
+    'Annual · JPY (man-yen) · No headhunter guide publishes a dedicated ESG salary table; the bands below are cross-checked across four source layers — headhunter guides, specialist job sites, live postings, official statistics — confidence flags kept as-is',
+  jpTable: {
+    head: ['Function', 'Entry', 'Mid', 'Senior/Top'],
+    rows: [
+      [
+        'In-house ESG/sustainability (corporate)',
+        '¥4.4–7.5M (live postings incl. Rakuten, KPMG AZSA, ESG-promotion roles; postings may since have expired) [DD]',
+        'Pre-management level ¥8–9M; more mature organisations post ¥10M+ roles [JAC]',
+        'Offer examples with language skills and people-management responsibility reach ¥12M+ [JAC]',
+      ],
+      [
+        'ESG/sustainability consulting',
+        'No-experience hires ¥6–8M [SC]; large-firm Associates reach ¥7–10M [JAC]',
+        'Senior consultant ¥8–11M [SC]; manager level ¥12–18M [JAC]',
+        'Director ¥20M+ [JAC]; decarbonization-specialist consultants at manager level and above can also exceed ¥20M, with top strategy-firm partners reaching the tens-of-millions-yen tier in some cases [SI]',
+      ],
+      [
+        'Renewable energy (solar/wind)',
+        'Entry-level pay sits at the lower end of the industry-wide ¥5–10M band, JAC gives no tier breakdown [JAC]',
+        'Development project manager ¥10–15M [RW]',
+        'Business development director ¥13–16M, construction director ¥14–20M [RW]; large-firm average pay: INPEX ¥11.17M, J-POWER ¥10.46M, Renova ¥9.92M [JAC]',
+      ],
+      [
+        'Carbon/climate (GX talent)',
+        'Non-management incumbents average ¥6M, ¥0.69M above non-GX roles [KOTORA]',
+        'Job-market postings ¥6–13M; headline venture offers up to ¥15M, a title-level figure [SC/NIKKEI]',
+        'Management incumbents average ¥9.52M, ¥0.49M above non-GX roles, overall premium +13% [KOTORA]',
+      ],
+      [
+        'Sustainable finance/ESG investing',
+        'ESG analyst (securities/asset mgmt) ¥7.5–14M [SI]',
+        'Bank project finance (ESG/renewables), live listing ¥5–14M [MPJ]',
+        'Sustainability investment manager ¥8–20M+ [SI]',
+      ],
+    ],
+  },
+  jpStartupNote:
+    'Climate-tech startups (single-company examples, not a platform average): Asuene averages ¥5.67M overall — engineers ¥5–8M, consultants ¥7–11M, M&A/strategy ¥6–20M [TL]; Zeroboard recruiting ¥5–8M, marketing lead ¥9–10M; e-dash engineers ¥4.5–7M, customer success ¥5–7M; enechain senior roles cluster ¥9–18M; Faeger ¥7–13M [SC]. These numbers look strong, but each is one live posting, not a statistical average, and will vary company to company. ESG roles in insurance are a genuine blank; I found no reliable public data, so that cell stays empty rather than invented.',
+  jpTrend:
+    'The policy dividend is measurable: Japan’s 2023 GX Promotion Act commits to ¥150 trillion in public-private investment over ten years [METI]; GX-related job postings grew 5.87× between 2016 and 2022, while actual job changes only kept pace at 3.09×, demand is outrunning the talent pipeline [RC]. The green premium concentrates at the junior level: +13% overall, splitting into +13% for non-management and only +5.4% for management [KOTORA], the steepest slope change sits with younger workers. Consulting is the salary elevator, in-house is the ceiling: consultants run from ¥6M up past ¥20M, while in-house roles mostly cap around ¥12M [JAC/SI]. Tokyo concentration is extreme; Tokyo’s average monthly wage runs 22% above the national figure [MHLW], and ESG, finance and consulting roles sit almost entirely there. Market-wide reference points: general workers’ monthly wage is ¥330,400, the largest year-on-year rise in 33 years at +3.8% [MHLW]; doda’s cross-industry average annual salary is ¥4.29M [PERSOL]; the 2025 shuntō final tally landed at +5.25%, the second straight year above 5% and the highest in 34 years [RENGO].',
+  jpGap:
+    'A few honest caveats. First, no headhunter guide in Japan publishes a dedicated ESG salary table; every row above is cross-checked and stitched together, read the confidence flags, don’t mistake this for an official release. Second, ESG roles in insurance are a genuine blank, see the note above. Third, in-house pay above department-head level rests on indirect evidence only, offer anecdotes and recruiter observation, not a statistical sample. Fourth, Japan’s labour ministry has no “sustainability role” occupational category at all, so an official green-collar benchmark simply doesn’t exist there, that’s an honest gap, not something I failed to look for.',
   skillTitle: 'Four skill combinations lifting your leverage',
   skillIntro:
     'The “green premium” is two different stories by market. In Singapore it’s real and quantifiable; in Taiwan the title premium is only 5.3%. That “low” is itself intelligence: the money isn’t in the word “sustainability”, it’s in the hard skill underneath it. 41% of Taiwan’s green-collar demand comes from electronics/semiconductor and manufacturing [VC], which want people who can do carbon inventory, energy management and supply-chain data.',
@@ -272,7 +375,7 @@ const en: SalaryReport = {
   ctaSub: 'About 5 min · Free · No signup',
   sourcesLabel: 'Methodology & sources',
   method:
-    'Cross-checked against public online sources in July 2026. Every figure keeps its original range with no false precision; single-source, self-reported and model-estimated numbers are flagged; for markets without reliable data (Japan, climate-tech startup bands, Taiwan’s 4–8-year mid-band) I simply say the sample is insufficient. FX: 1 SGD ≈ 25 TWD, 1 USD ≈ 1.35 SGD ≈ 33.75 TWD. The opening scene is a composite I built from salary data, not a specific person.',
+    'Cross-checked against public online sources in July 2026. Every figure keeps its original range with no false precision; single-source, self-reported and model-estimated numbers are flagged; where the data simply isn’t reliable (Taiwan’s 4–8-year mid-band, Japan’s insurance-sector ESG roles, most cities’ climate-tech startup bands) I say so directly. The Japan section was cross-checked in July 2026 across four source layers — headhunter guides, specialist job sites, live postings, official statistics — see that section for confidence flags. FX: 1 SGD ≈ 25 TWD, 1 USD ≈ 1.35 SGD ≈ 33.75 TWD; yen figures keep their original currency, no secondary conversion, to avoid stacking errors. The opening scene is a composite I built from salary data, not a specific person.',
   sources: [
     { code: 'MOE', name: 'MoENV × 104, “H2-2025 Green-Collar Talent Employment Trends”', note: 'Taiwan official primary source' },
     { code: 'MP', name: 'Michael Page, Singapore Salary Guide 2026', note: 'Recruiter guide' },
@@ -283,6 +386,19 @@ const en: SalaryReport = {
     { code: 'VC', name: 'Vocus analysis of the MOE report', note: 'Secondary analysis' },
     { code: 'JD', name: 'Jobsdb Hong Kong environmental-consultant pay', note: 'Platform data' },
     { code: 'MOM', name: 'Singapore MOM EP qualifying salary threshold', note: 'Official, effective 2025' },
+    { code: 'JAC', name: 'JAC Recruitment Japan market-salary trend pages (sustainability/ESG consulting/renewables)', note: 'Headhunter guide, updated Apr–Jul 2026' },
+    { code: 'DD', name: 'doda job-listing keyword search page ("sustainability")', note: 'Live posting search results, time-limited' },
+    { code: 'SC', name: 'Sus-Career (sus-career.com) feature articles and live job listings', note: 'Job-transition media, incl. posting examples' },
+    { code: 'SI', name: 'sus-insights.com salary rankings', note: 'Industry aggregator site' },
+    { code: 'KOTORA', name: 'Kotora, relaying Deloitte Tohmatsu “Survey on GX Talent Salaries” (2024-10)', note: 'Only structured survey-level data, highest confidence' },
+    { code: 'MHLW', name: 'Ministry of Health, Labour and Welfare, Basic Survey on Wage Structure (Reiwa 6)', note: 'Japan official wage statistics' },
+    { code: 'PERSOL', name: 'doda / Persol Career, “2025 Average Annual Salary Ranking” release', note: 'Job-platform official statistics' },
+    { code: 'RENGO', name: 'Japanese Trade Union Confederation (Rengo), 2025 shuntō final tally', note: 'Official union statistics, final tally not the first flash estimate' },
+    { code: 'MPJ', name: 'Michael Page Japan live ESG/project-finance job listings', note: 'Single-posting example' },
+    { code: 'NIKKEI', name: 'Nikkei Reskilling (member-gated article headline)', note: 'Headline figure; full text behind paywall, not read' },
+    { code: 'METI', name: 'Ministry of Economy, Trade and Industry, GX policy documents (GX Promotion Act / ¥150T investment)', note: 'Japan official policy document' },
+    { code: 'TL', name: 'tleon.co.jp, republishing Asuene employee salary page', note: 'Single-company salary page' },
+    { code: 'RC', name: 'Recruit press release, “GX Talent Job-Market Trends” (published Aug 2023)', note: 'GX job-growth multiple survey, covers 2016–2022' },
   ],
   footer:
     '© 2026 AhaMoment Green-Collar Intel · Market information, not personal investment, legal or immigration advice · Figures cite sources and keep ranges; weak data is flagged.',
