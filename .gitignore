@@ -13,3 +13,7 @@ node_modules/
 # Generated files (tool-owned — do not track or hand-edit)
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# local-only working files
+scratch/
+.mcp.json
