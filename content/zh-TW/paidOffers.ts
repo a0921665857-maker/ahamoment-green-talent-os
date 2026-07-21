@@ -26,7 +26,7 @@ export const paidOffers: PaidOffersContent = {
     '我是 Michael。我從四大 ESG 顧問，走到 INSEAD，再走進碳市場第一線，中間最難的，是發現我的頭銜在面試官眼裡根本沒翻譯過來，得自己重新講一次我是誰。這條你正要走的路，我走過，也記得每一個卡住的地方。這通電話，是我本人跟你聊，不是助理、不是表單。',
   replyPrompt: '還不想排時段？直接回信問我一個問題就好。我親手回你，不是機器人。',
   replyCta: '回信問我一個問題',
-  replyEmail: 'a0921665857@gmail.com',
+  replyEmail: 'mri@ahamoment-career.com',
   inlineCta: {
     line: '讀到這裡，如果有哪一段讓你想反駁、或想追問「所以我該怎麼做」，直接問我，我親手回，不是機器人。',
     bookCta: '免費 30 分鐘，我唸給你聽',

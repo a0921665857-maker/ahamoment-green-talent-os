@@ -29,7 +29,7 @@ export const paidOffers: PaidOffersContent = {
     'I’m Michael. I went from Big 4 ESG consultant to INSEAD to the front line of carbon markets — and the hardest part was realising my title didn’t translate in an interviewer’s eyes; I had to learn to say who I am from scratch. The road you’re about to walk, I’ve walked it, and I remember every place it gets stuck. This call is me, personally — not an assistant, not a form.',
   replyPrompt: 'Not ready to book a slot? Just reply with one question — I read and answer every one myself, not a bot.',
   replyCta: 'Reply with one question',
-  replyEmail: 'a0921665857@gmail.com',
+  replyEmail: 'mri@ahamoment-career.com',
   inlineCta: {
     line: 'If anything so far made you want to push back — or ask “so what do I actually do” — ask me directly. I answer personally, not a bot.',
     bookCta: 'Free 30 min — I’ll walk you through it',
