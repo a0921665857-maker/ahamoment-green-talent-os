@@ -16,6 +16,7 @@ export const paidOffers: PaidOffersContent = {
   confidentiality:
     'Human review is private. Your materials are never used as public examples or testimonials without your explicit written permission.',
   bookCta: 'Set this up for me',
+  payCta: 'Pay now — no scheduling needed',
   stickyCall: 'Free 30-min read',
   stickyLine: 'Add LINE',
   recommendedLabel: 'Where most people start',
@@ -127,7 +128,7 @@ export const paidOffers: PaidOffersContent = {
       originalPrice: 'US$1,560+',
       priceNote: 'Optional hybrid: a lower base fee + a success bonus when you hit the goal (admission / scholarship / offer).',
       delivery: 'Eight weeks, end to end.',
-      forWhom: 'Committed professionals who want the whole arc handled with one person accountable.',
+      forWhom: 'Professionals targeting international roles or MBA admissions, committed, and wanting the whole arc handled by one accountable person.',
       blurb:
         'Everything above, sequenced: positioning, story, documents, and interview readiness — finished, not just advised on.',
     },

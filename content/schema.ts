@@ -206,6 +206,7 @@ export interface PaidOffersContent {
   creditPolicy: string;
   confidentiality: string;
   bookCta: string;
+  payCta?: string; // direct-payment CTA label, used when a Stripe payment link is configured for an offer
   stickyCall: string; // short label for the mobile sticky bar
   stickyLine: string; // short LINE label for the mobile sticky bar
   recommendedLabel: string; // badge on the entry "first step" offers, cuts choice overload
