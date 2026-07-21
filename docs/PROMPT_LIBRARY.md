@@ -22,6 +22,7 @@
 - **profile_extraction:** no invention; PII exclusion; evidence_assets ≤25 words each, themed; taxonomy slugs only (else free_text); confidence per group; missing_fields from the known question-bank ID list.
 - **dimension_scoring:** must cite evidence per score; confidence < 0.4 when guessing; rubric anchors are the law — no vibes scoring.
 - **mri_report:** specificity contract (≥1 evidence_ref per section); the 10 hard exclusions verbatim; word caps; one honest criticism in `core_story_gap`; bands not numbers; limited-data framing flag; no guarantees.
+  - `international_positioning` (v3+): three layers in one flowing body — (1) which market the profile reads strongest in + the one marker why, (2) one rewritten self-description sentence for that market cued by "你可以這樣說："/"You could put it this way:" (a draft, never quotation-marked since it is not verbatim), (3) one doable-now strengthening move cued by "下一步："/"One move:". No relocation plan, no multi-step plan.
 - **teardown_memo:** drafted FOR Michael, candid, may include what the free report withheld.
 - **followup_email:** template skeleton from `emails.ts`; model only personalizes the variable lines; ≤120 words.
 
