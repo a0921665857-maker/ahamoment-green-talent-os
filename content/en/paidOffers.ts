@@ -3,7 +3,7 @@ import type { PaidOffersContent } from '../schema';
 export const paidOffers: PaidOffersContent = {
   title: 'If you want to go deeper',
   intro:
-    'This report can tell you how the market reads you now. What it can’t do is sit across from you and say: “If I were you, I’d fix this part first — and here’s why.” Those 30 minutes, I give you for free.',
+    'This report can tell you how the market reads you now. What it can’t do is sit across from you, listen to the project you never put on your CV, and tell you how to say that part so you get read as who you actually are. Those 30 minutes, I give you for free.',
   primaryLabel: 'Recommended for your result',
   entryLabel: 'Low-risk entry point',
   anchorLabel: 'The full journey',
@@ -20,10 +20,10 @@ export const paidOffers: PaidOffersContent = {
   stickyCall: 'Free 30-min read',
   stickyLine: 'Add LINE',
   recommendedLabel: 'Where most people start',
-  freeHeroCta: 'Get my free 30-min read',
+  freeHeroCta: 'Book 30 min and rewrite what gets misread',
   freeReassure: 'Free · no pitch · if it’s not a fit I’ll say so',
   freeAgenda:
-    'What happens in the 30 minutes:\n· First 10 min: you talk, I listen.\n· Next 15 min: I tell you straight — given your situation, the one gap to close next, and why.\n· Last 5 min: if a paid service fits, I’ll say so; if not, I’ll say that too.\nNo slides, no hard sell — people who tell the truth don’t need to pressure you.',
+    'What happens in the 30 minutes:\n· First 10 min: you talk, I listen.\n· Next 15 min: I tell you straight what the market reads you as today, which line caused it, and what to say instead so you get read right.\n· Last 5 min: if a paid service fits, I’ll say so; if not, I’ll say that too.\nNo slides, no hard sell — people who tell the truth don’t need to pressure you.',
   paidDivider: 'Want to go deeper, faster? Options matched to your result — but you can always start with the free chat above.',
   founderLine:
     'I’m Michael. I went from Big 4 ESG consultant to INSEAD to the front line of carbon markets — and the hardest part was realising my title didn’t translate in an interviewer’s eyes; I had to learn to say who I am from scratch. The road you’re about to walk, I’ve walked it, and I remember every place it gets stuck. This call is me, personally — not an assistant, not a form.',
