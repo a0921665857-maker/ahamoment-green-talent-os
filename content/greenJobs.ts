@@ -197,7 +197,7 @@ export const greenJobs: GreenJobsData = {
       salarySources: [],
       takeZh: [
         'JD 裡最有訊息量的一句是要對「internal and external clients」做影響力測量顧問服務：一家香港家族地產集團把社會價值測量做成能對外輸出的能力，不只是自家 ESG 報告的一個章節。要求會 SROI 這類具體方法學、還點名 Certified Social Value Practitioner 認證是加分，這讀起來像團隊在把「社會影響」從敘事轉成可審計的數字。JD 結尾要求能在專案裡用 AI 工具，2026 年的香港永續職缺已經把這條寫成標配。',
-        '適合做過影響力測量、能同時跟企業跟 NGO 兩邊講話的人：這個缺的日常是把兩種語言互translate。面試帶一個你算過的 SROI 或影響測量案例，講清楚你的假設跟折現怎麼設的。代價明擺著：Assistant Manager 是執行層，掛出一天 160 人申請的擁擠度，加上薪資未揭露，議價空間要靠你把方法學的稀缺性講出來。',
+        '適合做過影響力測量、能同時跟企業跟 NGO 兩邊講話的人：這個缺的日常是把兩種語言互相翻譯。面試帶一個你算過的 SROI 或影響測量案例，講清楚你的假設跟折現怎麼設的。代價明擺著：Assistant Manager 是執行層，掛出一天 160 人申請的擁擠度，加上薪資未揭露，議價空間要靠你把方法學的稀缺性講出來。',
       ],
       takeEn: [
         'The most informative line in the JD: impact measurement and management consultancy for “internal and external clients” — a Hong Kong family property group packaging social-value measurement as an exportable capability, not a chapter in its own ESG report. Requiring concrete methodology (SROI) and naming the Certified Social Value Practitioner credential as an advantage reads like a team converting “social impact” from narrative into auditable numbers. The closing requirement to apply AI-enabled approaches in projects — in 2026 Hong Kong sustainability JDs now list that as standard equipment.',
@@ -220,7 +220,7 @@ export const greenJobs: GreenJobsData = {
         '適合懂 GRI、ISSB 這些框架、又想從寫報告轉去做產品的人：這是一張從「ESG 文書」跳去「ESG 工具」的轉軌票。面試帶一個你把框架翻成流程或工具的實例，哪怕只是你自己做的試算表模板。代價要睜眼看：12 到 18 個月約聘、Associate 級、掛出 16 小時 193 人申請，這是一個入口不是一個歸宿，進去是為了兩年後帶著產品經驗出來。',
       ],
       takeEn: [
-        'The title says Researcher; the JD reads product research for ESG software: identify SMEs’ sustainability pain points and data gaps, work with the tech team to design automated-reporting features, and translate HKEX and Greater Bay Area regulatory requirements “into clear, actionable workflows”. The signal sits one layer back: HKEX disclosure rules are sinking down supply chains, SMEs cannot carry sustainability departments, so someone turns compliance into software sold to them — this posting is that production line hiring.',
+        'The title says Researcher; the JD reads product research for ESG software: identify SMEs’ sustainability pain points and data gaps, work with the tech team to design automated-reporting features, and translate HKEX and Greater Bay Area regulatory requirements “into clear, actionable, and logical workflows”. The signal sits one layer back: HKEX disclosure rules are sinking down supply chains, SMEs cannot carry sustainability departments, so someone turns compliance into software sold to them — this posting is that production line hiring.',
         'It fits someone fluent in GRI and ISSB who wants to move from writing reports to building product — a transfer ticket from ESG paperwork to ESG tooling. Bring one example of turning a framework into a workflow or tool, even a spreadsheet template you built yourself. Keep eyes open on the costs: a 12-to-18-month contract, associate level, 193 applicants in sixteen hours — this is an entrance, not a destination; you go in to come out two years later with product experience.',
       ],
       url: 'https://www.linkedin.com/jobs/view/4425264871',
@@ -256,11 +256,11 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        'ESG 數據商開客戶成功缺，是這個行業商業模式的一面鏡子：資料庫賣出去只是開始，客戶會不會用、用得深不深，決定明年續不續約，所以需要有人專職「讓機構投資人真的把數據用起來」。JD 是標準 CSM 配置：訓練客戶、管詢問、把市場需求回傳給產品端，工具是 Salesforce。訊號是 ESG 數據業從搶新客轉向顧留存，這個轉向會持續產生這類職缺。',
+        'ESG 數據商開客戶成功缺，是這個行業商業模式的一面鏡子：資料庫賣出去只是開始，客戶會不會用、用得深不深，決定明年續不續約，所以需要有人專職「讓機構投資人真的把數據用起來」。JD 是標準 CSM 配置：訓練客戶、管詢問、把市場需求回傳給 ISS 業務主管，工具是 Salesforce。訊號是 ESG 數據業從搶新客轉向顧留存，這個轉向會持續產生這類職缺。',
         '適合有金融服務客戶端經驗、又懂 responsible investment 語彙的人：不用寫程式，要會把數據翻成客戶的決策語言。面試帶一個你把快流失的客戶救回來、或把用量推深的實例，數字講清楚。代價：CSM 在數據商內部的話語權通常排在產品跟銷售後面，升遷要靠把客戶聲音變成產品決策的能力；薪資未揭露，我們查過 ISS 在美國的掛缺，職稱職能不同不能比照，留白。',
       ],
       takeEn: [
-        'An ESG data house hiring client success is a mirror of the industry’s business model: selling the database is only the start — whether clients use it, and how deeply, decides next year’s renewal, so someone owns “making institutional investors actually use the data”. The JD is standard CSM kit: train clients, own inquiries, feed market requirements back to product, on Salesforce. The signal: ESG data is shifting from chasing new logos to defending retention, and that shift will keep producing seats like this.',
+        'An ESG data house hiring client success is a mirror of the industry’s business model: selling the database is only the start — whether clients use it, and how deeply, decides next year’s renewal, so someone owns “making institutional investors actually use the data”. The JD is standard CSM kit: train clients, own inquiries, communicate market requirements to ISS business leaders, on Salesforce. The signal: ESG data is shifting from chasing new logos to defending retention, and that shift will keep producing seats like this.',
         'It fits someone with client-facing financial-services experience who speaks responsible-investment vocabulary: no coding required, but you must translate data into clients’ decision language. Bring one save — a churning client you recovered or usage you deepened — with the numbers. The costs: CSM voice inside data vendors usually ranks behind product and sales, and promotion runs through converting client signal into product decisions; salary undisclosed — we checked ISS postings in the US and the titles and functions differ, so no reference band applies and the field stays blank.',
       ],
       url: 'https://www.linkedin.com/jobs/view/4424726325',
