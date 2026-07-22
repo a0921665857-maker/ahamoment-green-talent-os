@@ -9,6 +9,8 @@
  * back to the session token (still countable as a health metric, just not
  * funnel-joined). No-op when NEXT_PUBLIC_POSTHOG_KEY is unset.
  */
+import { posthogHost } from './posthogHost';
+
 export async function phCaptureServer(
   event: string,
   distinctId: string,
@@ -16,7 +18,7 @@ export async function phCaptureServer(
 ): Promise<void> {
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
   if (!key) return;
-  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
+  const host = posthogHost(process.env.NEXT_PUBLIC_POSTHOG_HOST);
   try {
     await fetch(`${host}/i/v0/e/`, {
       method: 'POST',

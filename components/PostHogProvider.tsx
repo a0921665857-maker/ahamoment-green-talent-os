@@ -4,9 +4,10 @@ import { Suspense, useEffect, type ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import posthog from 'posthog-js';
 import { PostHogProvider as PHProvider, usePostHog } from 'posthog-js/react';
+import { posthogHost } from '@/lib/posthogHost';
 
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
+const HOST = posthogHost(process.env.NEXT_PUBLIC_POSTHOG_HOST);
 // Session replay is OFF unless explicitly enabled — this product handles CV/PII
 // under an explicit consent flow, so replay needs a deliberate privacy decision.
 const REPLAY_ENABLED = process.env.NEXT_PUBLIC_POSTHOG_ENABLE_REPLAY === 'true';
