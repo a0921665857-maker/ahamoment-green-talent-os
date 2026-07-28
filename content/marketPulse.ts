@@ -26,7 +26,7 @@ export interface MarketPulseCopy {
 }
 
 export const marketPulse = {
-  updatedAt: '2026-07-22',
+  updatedAt: '2026-07-28',
   items: [
     {
       posted: '2026-07-21',
@@ -44,14 +44,8 @@ export const marketPulse = {
       salary: 'S$9,000–17,000/月',
       url: 'https://www.mycareersfuture.gov.sg/job/consulting/associate-director-esg-consulting-kpmg-services-6b1d7a5f5b63f669d73518837aa0589d',
     },
-    {
-      posted: '2026-07-14',
-      roleZh: '碳交易台計畫總監',
-      roleEn: 'Program Director, Carbon Trading Desk',
-      org: '129 Knots',
-      salary: 'S$12,000–20,000/月',
-      url: 'https://www.mycareersfuture.gov.sg/job/consulting/program-director-carbon-trading-desk-129-knots-2067dd222cd138e3f6231167c7261e57',
-    },
+    // 129 Knots「碳交易台計畫總監」於 2026-07-28 移除:posted 07-14 已滿 14 天
+    // 新鮮度上限,且該缺 07-28 關單(2026-07-26 週報預警「週三後上架要移除」)。
   ] satisfies MarketPulseItem[],
   zh: {
     eyebrow: '市場脈搏',

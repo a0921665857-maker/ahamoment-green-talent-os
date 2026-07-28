@@ -59,7 +59,7 @@ export interface GreenJobsData {
 }
 
 export const greenJobs: GreenJobsData = {
-  updatedAt: '2026-07-22',
+  updatedAt: '2026-07-28',
   markets: [
     {
       key: 'SG',
@@ -92,193 +92,209 @@ export const greenJobs: GreenJobsData = {
       ],
     },
   ],
-  // Human-approved weekly shortlist. Approved by Michael 2026-07-22 (midweek
-  // bonus run) — sources: his LinkedIn job-alert emails (SG/HK/UK, 7/14–7/22
-  // window) + MyCareersFuture cross-checks. TW excluded per 2026-07-19 policy
-  // (see scheduled-tasks/green-jobs-weekly/SKILL.md). Commentary follows
-  // docs/job-pick-playbook.md. Salary shown only where Tier 1 (disclosed on the
-  // posting itself — Stavian); Temasek/PwC/IIX checked against MyCareersFuture
-  // (rule 12) with no same-company-same-title match, so left "not disclosed"
-  // rather than guessed. All 8 links verified live and all JDs verified against
-  // the primary posting (not a search summary) on 2026-07-22.
+  // Human-approved weekly shortlist. Curated 2026-07-26 (Sunday run), approved
+  // by Michael 2026-07-28. Sources: his LinkedIn job-alert emails (SG/HK/UK,
+  // 7/19–7/24 window) + MyCareersFuture cross-checks. TW excluded per 2026-07-19
+  // policy (see scheduled-tasks/green-jobs-weekly/SKILL.md). Commentary follows
+  // docs/job-pick-playbook.md. All 9 picks salary-undisclosed: no posting
+  // discloses a band, the 3 SG picks have no same-company-same-title match on
+  // MyCareersFuture (rule 12), and the 2 UK picks have no comparable posting in
+  // a US mandatory-disclosure jurisdiction (rule 13) — so every salary field is
+  // honestly blank rather than guessed. All JDs verified against the primary
+  // posting page and all links re-verified by the independent rule-14 audit at
+  // upload time (2026-07-28).
   weeklyPicks: [
+    // ── 🇸🇬 SG ──────────────────────────────────────────────────────────────
     {
       org: 'Temasek',
-      roleZh: '永續高級助理／助理副總裁（永續方案）',
-      roleEn: 'SA/AVP, Sustainability (Sustainable Solutions)',
+      roleZh: '永續策略助理副總裁（政策與洞察）',
+      roleEn: 'Assistant Vice President, Sustainability Strategy (Policy & Insights)',
       market: 'SG',
-      metaZh: '新加坡 · SA/AVP · 掛出 7/21',
-      metaEn: 'Singapore · SA/AVP · posted 7/21',
+      metaZh: '新加坡 · AVP · 掛出 7/22',
+      metaEn: 'Singapore · AVP · posted 7/22',
       salaryZh: '薪資未揭露，建議面談時直接詢問',
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '職稱掛「Sustainability」，但 JD 的核心字是 technoeconomic modelling 跟 commercial thesis construction，這讀起來不是企業永續職，是投資評估職。Sustainable Solutions 這條線做的是把脫碳變成可投資的生意：找 Sustainable-Living 趨勢裡的機會、開發碳中和 pilot、對清潔能源部門做技術經濟分析。訊號是同一週淡馬錫連掛三個永續相關缺（這筆加上 Community Stewardship 約聘與 Investment Innovation 約聘），主權基金端的永續人力在擴，而且擴的是「會算數的那種」。',
-        '適合能源工程或顧問出身、又真的建過財務模型的人；只做過永續報告書、沒碰過技術經濟分析的人接不住，JD 要六年以上清潔能源、投資或企業轉型經驗不是客套。面試別談理念，帶一個你算過的清潔能源技術路線經濟性分析，講你的假設哪裡最脆弱。代價講在前面：薪資未揭露（MCF 也查無此缺），SA/AVP 在淡馬錫的層級不算高，而 JD 裡 multi-stakeholder 這個詞出現的頻率預告了內部協調的比重。',
+        '這個缺掛在 Temasek 的 Sustainability Strategy 團隊、直接匯報 Director of Sustainability Strategy，JD 的核心動作是 horizon scanning：掃全球永續政策、法規、框架與市場趨勢，再把它 distill 成給領導層與投資團隊的可行建議。這讀起來不是報告撰寫職，是主權基金的政策情報職，要的是能跨 climate、nature、social 三條 workstream 把外部訊號翻成內部決策輸入的人。訊號是 Temasek 這個月在永續線連開多個缺，而這筆開到 AVP 級、還明列要 partner 投資團隊，讀起來像永續政策正在往投資決策桌靠。',
+        '適合真的做過政策或法規分析、又聽得懂投資語言的人；JD 要最低 8 年永續政策、策略或法規分析經驗，只做過企業永續報告的人接不住這個「翻譯給投資團隊聽」的要求。面試別談理念，帶一段你把某條新法規翻成具體投資或營運動作的實例，講你怎麼判斷哪些訊號值得升級到領導層。代價講在前面：薪資未揭露、MCF 查無此缺；掛出沒多久已約 200 人申請，是熱缺；而且 horizon scanning 是幕僚職，影響力靠說服投資團隊採納，不是自己下決策。',
       ],
       takeEn: [
-        'The title says Sustainability, but the JD keywords are technoeconomic modelling and commercial thesis construction — this reads as an investment-evaluation seat, not a corporate-sustainability one. The Sustainable Solutions line turns decarbonisation into investable business: sourcing Sustainable-Living trend opportunities, developing decarbonisation pilots, running technoeconomics across clean energy sectors. The signal: Temasek posted three sustainability-adjacent roles in the same week (this one, plus Community Stewardship and Investment Innovation contracts) — sovereign-fund sustainability headcount is expanding, and specifically the kind that runs numbers.',
-        'It fits someone from energy engineering or consulting who has actually built financial models; a reporting-only sustainability background will not hold six-plus years of clean energy, investment or corporate-transition experience plus technoeconomic analysis. In the interview, skip the conviction speech — bring one clean-energy technoeconomic analysis you ran and name where your assumptions are weakest. The costs upfront: salary undisclosed (nothing on MyCareersFuture either), SA/AVP sits mid-table in Temasek’s hierarchy, and the frequency of “multi-stakeholder” in the JD forecasts the coordination load.',
+        'This seat sits in Temasek’s Sustainability Strategy team, reporting to the Director of Sustainability Strategy, and the JD’s core verb is horizon scanning: scan global sustainability policy, regulation, frameworks and market trends, then distill them into actionable recommendations for leadership and investment teams. It reads less like a reporting job and more like a sovereign-fund policy-intelligence seat — one that turns external signal into internal decision input across climate, nature and social workstreams. The signal: Temasek posted several sustainability roles this month, and this one opening at AVP level while explicitly partnering investment teams reads like sustainability policy moving closer to the investment table.',
+        'It fits someone who has genuinely done policy or regulatory analysis and speaks the language of investment; the JD asks for a minimum of 8 years in sustainability policy, strategy or regulatory analysis, and a reporting-only background will not hold the “translate for the investment team” demand. Skip the conviction speech — bring one example of turning a new regulation into a concrete investment or operating action, and how you decide which signals deserve to be escalated to leadership. Costs upfront: salary undisclosed, nothing on MyCareersFuture; roughly 200 applicants already, so it is hot; and horizon scanning is a staff role — your leverage is persuading the investment team to adopt, not making the call yourself.',
       ],
-      url: 'https://www.linkedin.com/jobs/view/4440450319',
+      url: 'https://www.linkedin.com/jobs/view/4421999859',
     },
     {
-      org: 'Stavian Talent（代招，僱主為未具名跨商品貿易商）',
-      roleZh: '資深碳交易員',
-      roleEn: 'Senior Carbon Trader (Singapore)',
+      org: 'HP',
+      roleZh: '永續與合規計畫經理',
+      roleEn: 'Sustainability and Compliance Program Manager',
       market: 'SG',
-      metaZh: '新加坡 · 資深 · 掛出 7/20',
-      metaEn: 'Singapore · senior · posted 7/20',
-      salaryZh: '月薪 S$15,000–20,000（職缺揭露，底薪）',
-      salaryEn: 'S$15,000–20,000/month base (disclosed on posting)',
-      salarySources: [
-        { label: 'LinkedIn 職缺頁（揭露）', url: 'https://www.linkedin.com/jobs/view/4442038186' },
-      ],
-      salaryConfidence: 'disclosed',
-      takeZh: [
-        '這筆最值錢的是它把價碼印出來了：資深碳交易員在新加坡的底薪帶，月薪一萬五到兩萬新幣，這是本週唯一自揭薪資的精選。JD 讀起來是純交易職掛在碳資產上：自營加 flow 兩本書、結構化 offtake 與遠期、VaR 與資本限額管理，要十年商品交易資歷其中至少五年在碳市場，還明寫要「close 過結構化交易，不是只會報價」。訊號是又一家跨商品貿易商在新加坡建碳交易台，跟本月稍早 129 Knots 建 desk 是同一條線：碳在商品行眼裡已經是正式資產類別，不是 ESG 部門的副業。',
-        '適合真的有 P&L 紀錄的商品交易員；ESG 分析或碳顧問背景請自動跳過，這個 JD 沒有留模糊空間。面試就是你的 P&L 跟一筆你從頭 close 到尾的結構化交易。代價有兩層：代招且僱主未具名，你在盡職調查自己未來雇主這件事上先天資訊不對稱；自營交易台的存續綁著老闆對碳行情的信念，desk 收掉的速度可以跟建起來一樣快。',
-      ],
-      takeEn: [
-        'The most valuable thing here is the printed price: a senior carbon trader’s base band in Singapore, S$15,000–20,000 a month — the only salary-disclosed pick this week. The JD reads as a pure trading seat on carbon assets: proprietary plus flow books, structured offtakes and forwards, VaR and capital limits, ten years in commodities with at least five in carbon, and the explicit line about having closed structured deals, “not merely pricing them”. The signal: another cross-commodities merchant is standing up a carbon desk in Singapore, the same line as 129 Knots earlier this month — carbon is now a proper asset class to trading houses, not an ESG side project.',
-        'This fits commodity traders with a real P&L record; ESG analysts and carbon consultants should skip — the JD leaves no ambiguity. The interview is your P&L and one structured deal you closed end to end. Two layers of cost: it is a recruiter posting for an unnamed employer, so you start with an information disadvantage in diligencing your own future firm; and a prop desk’s lifespan is tied to the owner’s conviction on carbon — desks can be shut as fast as they are built.',
-      ],
-      url: 'https://www.linkedin.com/jobs/view/4442038186',
-    },
-    {
-      org: 'PwC Singapore',
-      roleZh: '永續與氣候變遷顧問 經理／資深經理（風險服務）',
-      roleEn: 'Sustainability & Climate Change Advisory, Manager/Senior Manager (Risk Services)',
-      market: 'SG',
-      metaZh: '新加坡 · 經理級 · 掛出 7/21',
-      metaEn: 'Singapore · manager level · posted 7/21',
+      metaZh: '新加坡 · 計畫經理 · 掛出 7/23',
+      metaEn: 'Singapore · program manager · posted 7/23',
       salaryZh: '薪資未揭露，建議面談時直接詢問',
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '這個缺掛在 Risk Services 底下，這個位置本身就是訊號：PwC 把永續當風險生意做，客戶買單的理由是 ISSB 與各地披露法規壓下來的合規焦慮，不是品牌形象。JD 的清單很誠實：碳盤查要算得準、重大性評估要帶得動、還要「被客戶當成 ESG 的 trusted advisor」，翻譯過來是既要技術底也要能賣案子。對非新加坡籍讀者最實際的一行字是 JD 明寫提供工作簽證贊助，這在本週八筆裡是唯一明示的。',
-        '適合在企業端做過完整永續報告流程、想換到顧問槓桿上的人：你教過一家公司做完的事，顧問身分可以重複賣二十次。面試帶一個你實際算過的碳盤查或吵過的範疇三邊界，講你怎麼跟審計員或客戶把口徑吵定的。代價是顧問業的老三樣：工時、差旅、以及 Manager/Senior Manager 這個夾心層要同時背 delivery 跟帶團隊；薪資未揭露，MCF 上也查無同職缺。',
+        '這個缺是把「永續」放進產品工程的位子，不是企業 CSR。JD 的核心是 Design-for-Environment：用環境要求去定義並落實 DfE 目標、在產品設計決策點上找環境改善機會、追蹤環境目標進度、還要 lead 產品合規策略去滿足全球法規與自願性要求。這讀起來像硬體公司把「產品要能賣進各地市場」的環境合規壓力，變成一個橫跨設計與法遵的常設職能。訊號是連消費電子大廠都把產品環境合規做成專職 program manager，而不是丟給外部顧問。',
+        '適合工程或環境科學底、又懂產品開發節奏的人；JD 要 3 年以上產品合規、永續或工程經驗，學歷點名工程、材料或環境科學，純永續報告背景會發現這裡談的是產品規格不是揭露書。面試帶一個你實際推動過的產品環境改善，或講一條你熟的法規（能耗、材料限制、回收）怎麼牽動設計決策。代價：這是 program manager 執行層、要跨設計與法遵兩邊協調；薪資未揭露、MCF 查無此缺。',
       ],
       takeEn: [
-        'The seat hangs under Risk Services, and that placement is itself the signal: PwC sells sustainability as a risk business, and clients pay out of compliance anxiety driven by ISSB and local disclosure rules, not brand image. The JD’s list is honest — corporate carbon footprints calculated accurately, materiality assessments led, and being seen as a “trusted advisor on ESG & Sustainability matters” — which translates to technical depth plus the ability to sell work. For non-Singaporean readers the most practical line: work-visa sponsorship is explicitly available, the only pick of this week’s eight that says so.',
-        'It fits someone who has run the full sustainability-reporting cycle in-house and wants the consulting leverage: what you taught one company to do, a consultant sells twenty times. Bring a carbon inventory you actually calculated or a Scope 3 boundary fight you settled, and how you closed the methodology argument. The costs are consulting’s usual three: hours, travel, and the Manager/Senior Manager squeeze of carrying delivery while managing a team; salary undisclosed, with no matching posting on MyCareersFuture.',
+        'This role puts “sustainability” inside product engineering, not corporate CSR. The JD’s core is Design-for-Environment: apply environmental requirements to define and implement DfE goals, find environmental-improvement opportunities at product-design decision points, track progress against environmental targets, and lead product-compliance strategies to meet global regulatory and voluntary requirements. It reads like a hardware company turning the pressure of “our products must be sellable into every market” into a standing function that straddles design and compliance. The signal: even a consumer-electronics major now staffs product environmental compliance as a dedicated program manager rather than outsourcing it.',
+        'It fits an engineering or environmental-science background that understands product-development cadence; the JD asks for 3+ years in product compliance, sustainability or engineering, and names engineering, materials or environmental science degrees — a reporting-only sustainability background will find this is about product specs, not disclosure documents. Bring one product environmental improvement you actually drove, or explain how one regulation you know (energy, material restrictions, recycling) moves design decisions. Cost: this is an execution-layer program-manager seat coordinating across design and compliance; salary undisclosed, nothing on MyCareersFuture.',
       ],
-      url: 'https://www.linkedin.com/jobs/view/4433675456',
+      url: 'https://www.linkedin.com/jobs/view/4444421271',
     },
     {
-      org: 'Impact Investment Exchange (IIX)',
-      roleZh: '投資人關係副總監',
-      roleEn: 'Associate Director, Investor Relations',
+      org: 'UOB',
+      roleZh: '資料分析經理（集團批發銀行）',
+      roleEn: 'Manager, Data Analytics, Group Wholesale Banking',
       market: 'SG',
-      metaZh: '新加坡 · 副總監 · 掛出 7/21',
-      metaEn: 'Singapore · associate director · posted 7/21',
+      metaZh: '新加坡 · 經理 · 掛出 7/23',
+      metaEn: 'Singapore · manager · posted 7/23',
       salaryZh: '薪資未揭露，建議面談時直接詢問',
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '表面是 IR 職，實際是募資前線：JD 明寫要在 Orange Climate Fund 的 pre-close 到 first close 過程中「主動帶投資人互動」，基金正在關鍵募資期，這時候開 12 到 15 年資歷的資深 IR 缺，讀起來像找能直接上場的人不是來養的。IIX 做的是性別視角乘氣候的交叉產品（Women’s Livelihood Bonds、Orange Bonds），這個缺的存在本身是個訊號：這類產品在亞洲走到了機構資金願意進場、需要專業 IR 機制承接的階段。',
-        '適合真的管過基金 IR 全流程的人：JD 點名 capital account、NAV 報告、waterfall 溝通、covenant 監控，這些是資管老手的肌肉記憶，純 ESG 或影響力敘事背景補不出來。面試帶你帶過的 first close 經驗跟一段你救回來的 LP 關係。代價要自己掂：IIX 是影響力平台不是商業資管，同樣年資的薪資帶大概率低一截且未揭露，你買的是這個交叉領域的先行者位置。',
+        '這個缺表面是數據分析師，但 JD 明寫要 support「sector-specific 與 ESG analytics」的開發與交付、跟 ESG stakeholders 一起釐清分析需求，還要試 GenAI 驅動的分析自動化。這讀起來像批發銀行把 ESG 數據從人工整理，推進到工程化、可重複產出的階段——ESG 是它幾條 sector analytics 之一，不是全部，但已經被寫進核心職責而不是點綴。訊號是銀行端的 ESG 工作正在「資料工程化」，需要的是會寫 code 的人，不只是懂框架的人。',
+        '適合會 Python、SQL、又聽得懂 ESG 語彙的資料人：JD 要 3 到 5 年資料分析經驗、偏好銀行或受監管環境。面試別強調你懂 ESG 框架，帶一個你把某類分析從人工變成自動 pipeline 的實例，講清楚 ETL 怎麼設計。誠實代價：ESG 只是這個 wholesale banking 分析職能的一塊，想做純永續的人會覺得比重不夠；掛出沒多久已 200 人以上申請；薪資未揭露、MCF 查無同職缺。',
       ],
       takeEn: [
-        'On the surface an IR seat; in practice a fundraising front line. The JD says it plainly: take an active leadership role in investor engagement through the Orange Climate Fund’s pre-close and first close — the fund is mid-raise, and opening a 12-to-15-year senior IR seat now reads like hiring someone who can play immediately, not be developed. IIX runs gender-lens-times-climate products (Women’s Livelihood Bonds, Orange Bonds), and this opening is itself a signal: the category has reached the stage in Asia where institutional money shows up and demands professional IR mechanics.',
-        'It fits someone who has genuinely run fund IR end to end — the JD names capital accounts, NAV reporting, waterfall communications, covenant monitoring, the muscle memory of asset-management veterans that no amount of impact narrative substitutes for. Bring a first close you carried and an LP relationship you rescued. Weigh the cost yourself: IIX is an impact platform, not commercial asset management — the band for equivalent tenure likely sits a notch lower and is undisclosed; what you are buying is the front-runner seat in this crossover.',
+        'On the surface a data analyst, but the JD explicitly asks you to support the development and delivery of “sector-specific and ESG analytics,” clarify analytical requirements with ESG stakeholders, and experiment with GenAI-enabled analytics automation. It reads like a wholesale bank moving ESG data from manual assembly toward engineered, repeatable output — ESG is one of several sector-analytics lines, not the whole job, but it is written into the core responsibilities rather than tacked on. The signal: bank-side ESG work is being “data-engineered,” and it needs people who write code, not just people who know frameworks.',
+        'It fits a data person who knows Python and SQL and speaks ESG vocabulary; the JD asks for 3–5 years in data analytics, preferably in banking or a regulated environment. Do not lead with framework knowledge — bring one example of turning a class of analysis from manual into an automated pipeline, and be specific about the ETL design. Honest cost: ESG is only one slice of this wholesale-banking analytics function, so anyone wanting pure sustainability will find the weighting thin; 200+ applicants already; salary undisclosed, no matching MyCareersFuture posting.',
       ],
-      url: 'https://www.linkedin.com/jobs/view/4442603350',
+      url: 'https://www.linkedin.com/jobs/view/4407028275',
     },
+    // ── 🇭🇰 HK ──────────────────────────────────────────────────────────────
     {
-      org: 'Nan Fung Group 南豐集團',
-      roleZh: '永續與共享價值助理經理',
-      roleEn: 'Assistant Manager, Sustainability and Shared Value',
+      org: 'The Bank of East Asia (BEA) 東亞銀行',
+      roleZh: '永續經理（資料與分析）',
+      roleEn: 'Sustainability Manager (Data and Analytics)',
       market: 'HK',
-      metaZh: '香港 · 助理經理 · 掛出 7/21',
-      metaEn: 'Hong Kong · assistant manager · posted 7/21',
+      metaZh: '香港 · 經理 · 掛出 7/24',
+      metaEn: 'Hong Kong · manager · posted 7/24',
       salaryZh: '薪資未揭露，建議面談時直接詢問',
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        'JD 裡最有訊息量的一句是要對「internal and external clients」做影響力測量顧問服務：一家香港家族地產集團把社會價值測量做成能對外輸出的能力，不只是自家 ESG 報告的一個章節。要求會 SROI 這類具體方法學、還點名 Certified Social Value Practitioner 認證是加分，這讀起來像團隊在把「社會影響」從敘事轉成可審計的數字。JD 結尾要求能在專案裡用 AI 工具，2026 年的香港永續職缺已經把這條寫成標配。',
-        '適合做過影響力測量、能同時跟企業跟 NGO 兩邊講話的人：這個缺的日常是把兩種語言互相翻譯。面試帶一個你算過的 SROI 或影響測量案例，講清楚你的假設跟折現怎麼設的。代價明擺著：Assistant Manager 是執行層，掛出一天 160 人申請的擁擠度，加上薪資未揭露，議價空間要靠你把方法學的稀缺性講出來。',
+        '這個缺的核心字是 financed emissions：JD 要 support 銀行的 net zero roadmap、measure 集團的 financed emissions、做放貸與投資組合的 sectorial baselining，還要跟 Data Science & Governance 部門一起建 data dictionary、data lineage、找資料缺口。這讀起來不是寫永續報告，是幫一家銀行把「我們貸出去的錢排了多少碳」變成可量測、可追蹤的資料基礎建設。訊號是香港的銀行正在把淨零承諾從口號推到 financed emissions 的實際帳，需要同時懂碳會計與資料工程的人。',
+        '適合會用 Tableau、Python、又懂碳排放核算的人；JD 要 5 年以上經驗、學歷接受資料科學或綠色金融、環境管理相關，並明寫 Cantonese is a must。面試帶一個你算過或建過的排放資料流程，講你怎麼處理資料缺口這個 financed emissions 最痛的環節。代價：這是 support 角色、匯報 Senior Sustainability Manager，執行比重高；薪資未揭露；廣東話為硬門檻，非粵語者直接排除。',
       ],
       takeEn: [
-        'The most informative line in the JD: impact measurement and management consultancy for “internal and external clients” — a Hong Kong family property group packaging social-value measurement as an exportable capability, not a chapter in its own ESG report. Requiring concrete methodology (SROI) and naming the Certified Social Value Practitioner credential as an advantage reads like a team converting “social impact” from narrative into auditable numbers. The closing requirement to apply AI-enabled approaches in projects — in 2026 Hong Kong sustainability JDs now list that as standard equipment.',
-        'It fits someone who has done impact measurement and can speak both corporate and NGO — the daily work is translating between the two languages. Bring one SROI or impact measurement you actually computed, and be clear on how you set assumptions and discounting. The costs are in plain sight: Assistant Manager is the execution layer, 160 applicants within a day marks the crowd, and with salary undisclosed your leverage comes from making the methodology scarcity legible.',
+        'The core phrase here is financed emissions: the JD asks you to support the bank’s net-zero roadmap, measure the Group’s financed emissions, run sectorial baselining across lending and investment portfolios, and work with the Data Science & Governance department to build a data dictionary, data lineage and identify data gaps. This is not report-writing — it is building the data infrastructure to make “how much carbon does our lending finance” measurable and trackable. The signal: Hong Kong banks are pushing net-zero pledges from slogan to the actual financed-emissions ledger, and they need people who understand both carbon accounting and data engineering.',
+        'It fits someone with Tableau and Python who understands emissions accounting; the JD asks for 5+ years, accepts data-science or green-finance/environmental-management degrees, and states plainly that Cantonese is a must. Bring one emissions data process you computed or built, and how you handled data gaps — the most painful part of financed-emissions work. Cost: this is a support role reporting to a Senior Sustainability Manager, execution-heavy; salary undisclosed; Cantonese is a hard gate that rules out non-speakers.',
       ],
-      url: 'https://www.linkedin.com/jobs/view/4431066092',
+      url: 'https://www.linkedin.com/jobs/view/4444329089',
     },
     {
-      org: 'Carbon Exchange (Hong Kong) Limited',
-      roleZh: 'ESG 研究員（大灣區）',
-      roleEn: 'ESG Researcher (Greater Bay Area Focus)',
+      org: 'Hongkong Land 置地公司',
+      roleZh: '集團永續治理、報告與系統資深經理',
+      roleEn: 'Senior Manager, Group Sustainability Governance, Reporting & Systems',
       market: 'HK',
-      metaZh: '香港 · 專員級 · 12–18 個月約聘 · 掛出 7/21',
-      metaEn: 'Hong Kong · associate · 12–18-month contract · posted 7/21',
+      metaZh: '香港 · 資深經理 · 掛出 7/22',
+      metaEn: 'Hong Kong · senior manager · posted 7/22',
       salaryZh: '薪資未揭露，建議面談時直接詢問',
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '職稱是 Researcher，JD 讀起來是 ESG 軟體的產品研究職：找中小企的永續痛點跟資料缺口、跟技術團隊一起設計自動化報告功能、把 HKEX 跟大灣區的法規要求「翻譯成清楚可執行的工作流」。訊號在後面那層：港交所的披露規則正在往供應鏈下沉，中小企撐不起永續部門，就會有人把合規做成軟體賣給他們，這個缺就是那條生產線在補人。',
-        '適合懂 GRI、ISSB 這些框架、又想從寫報告轉去做產品的人：這是一張從「ESG 文書」跳去「ESG 工具」的轉軌票。面試帶一個你把框架翻成流程或工具的實例，哪怕只是你自己做的試算表模板。代價要睜眼看：12 到 18 個月約聘、Associate 級、掛出 16 小時 193 人申請，這是一個入口不是一個歸宿，進去是為了兩年後帶著產品經驗出來。',
+        '這是一家上市地產集團把 ESG 治理與揭露當成 senior manager 級的常設專職：JD 要 lead 年度永續報告與 Board、管理層揭露、管 GRESB、MSCI、DJSI 這些 ESG 評級與投資人揭露、還要 oversee 永續資料系統的持續改善。這讀起來像公司在回應投資人與評級機構的壓力——ESG 評分直接影響它在資本市場被怎麼看，所以要一個能同時搞定報告品質與資料系統的人。訊號是 ESG 揭露在上市公司這端，已經從「合規任務」變成「投資人關係的一部分」。',
+        '適合真的 lead 過上市公司永續報告全流程的人：JD 要 10 年以上、且點名要有帶上市跨國公司永續報告的實績，資淺的人接不住這個 governance 層級。面試帶你經手過的一份完整永續報告、或你把某個 ESG 評級分數拉上去的具體做法。代價：這是報告與治理職，不是策略或投資職，天花板在「把數字管好」；薪資未揭露；需要英文加粵語與普通話。',
       ],
       takeEn: [
-        'The title says Researcher; the JD reads product research for ESG software: identify SMEs’ sustainability pain points and data gaps, work with the tech team to design automated-reporting features, and translate HKEX and Greater Bay Area regulatory requirements “into clear, actionable, and logical workflows”. The signal sits one layer back: HKEX disclosure rules are sinking down supply chains, SMEs cannot carry sustainability departments, so someone turns compliance into software sold to them — this posting is that production line hiring.',
-        'It fits someone fluent in GRI and ISSB who wants to move from writing reports to building product — a transfer ticket from ESG paperwork to ESG tooling. Bring one example of turning a framework into a workflow or tool, even a spreadsheet template you built yourself. Keep eyes open on the costs: a 12-to-18-month contract, associate level, 193 applicants in sixteen hours — this is an entrance, not a destination; you go in to come out two years later with product experience.',
+        'This is a listed property group staffing ESG governance and disclosure as a standing senior-manager seat: the JD asks you to lead the annual sustainability report and Board/management disclosures, manage ESG ratings and investor disclosures across GRESB, MSCI and DJSI, and oversee continuous improvement of sustainability data systems. It reads like a company answering pressure from investors and rating agencies — its ESG scores directly shape how capital markets see it, so it wants someone who can handle both reporting quality and data systems. The signal: for listed companies, ESG disclosure has shifted from a compliance task to part of investor relations.',
+        'It fits someone who has genuinely led the full sustainability-reporting cycle at a listed company; the JD asks for 10+ years and a proven track record leading reporting for a listed multinational — junior candidates will not hold this governance level. Bring a full sustainability report you owned, or a specific move that lifted an ESG rating score. Cost: this is a reporting-and-governance role, not strategy or investment, and the ceiling is “manage the numbers well”; salary undisclosed; English plus Cantonese and Mandarin required.',
       ],
-      url: 'https://www.linkedin.com/jobs/view/4425264871',
+      url: 'https://www.linkedin.com/jobs/view/4443104933',
     },
     {
-      org: 'MUFG',
-      roleZh: '永續客戶方案 分析師／副理',
-      roleEn: 'Analyst/Associate, Sustainable Client Solutions',
-      market: 'UK',
-      metaZh: '倫敦 · 入門級 · 掛出 7/19',
-      metaEn: 'London · entry level · posted 7/19',
+      org: 'EY',
+      roleZh: '氣候變遷與永續服務 資深顧問（核數）',
+      roleEn: 'Climate Change and Sustainability Service, Senior (Core Assurance)',
+      market: 'HK',
+      metaZh: '香港 · 資深（顧問級） · 掛出 7/22',
+      metaEn: 'Hong Kong · senior (associate) · posted 7/22',
       salaryZh: '薪資未揭露，建議面談時直接詢問',
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '這是日系銀行在倫敦補永續金融「知識中樞」的缺：做客戶簡報素材、追蹤 taxonomy 跟監管動態、幫 relationship manager 找永續金融的商機。別把它讀成後台 CSR，JD 明寫 desirable 是 front office 經驗，這個位子是幫前台找 deal 的內容引擎。訊號是連日系行都把永續金融的內容力當獲客工具在建制化，而且從 entry 級開始養，管線思維。',
-        '適合想進永續金融正門的新人：這個入口不要求你先是銀行家，要求你能把監管跟市場動態寫成「讓客戶想約下一次會」的東西。面試帶一份你自己寫過的市場或監管解讀，證明你能產內容不是只會轉述。代價：entry 級薪資帶配倫敦生活成本要自己精算，掛出兩天破兩百人申請；薪資未揭露，美國同職缺查無可比對象（同公司同職稱在強制揭露轄區沒有掛），照規矩留白。',
+        'Big 4 的氣候與永續服務開 senior 缺，是這個行業需求的溫度計：JD 要幫客戶編 ESG 報告並給對齊資本市場期待的管理建議、協助制定 ESG 策略與碳目標、還要做 ESG 風險管理含供應鏈與 EHS。這讀起來是標準的 ESG 顧問配置——技術要夠、又要能面對客戶。訊號是香港企業的 ESG 合規需求還在擴，撐得起 Big 4 持續補顧問人力。',
+        '適合在企業或顧問端做過 ESG、想要顧問槓桿的人：JD 要 4 年以上顧問或商業經驗、且要有 ESG、CSR、碳管理、EHS 或再生能源其中的實戰底。面試帶一個你實際做過的碳盤查或 ESG 策略案，講你怎麼跟客戶把方法學口徑講定。代價是顧問業老三樣：工時、專案壓力，以及 senior 這層要同時 delivery 又開始帶人；薪資未揭露。',
       ],
       takeEn: [
-        'This is a Japanese bank building its sustainable-finance knowledge hub in London: client engagement materials, tracking taxonomies and regulation, helping relationship managers spot sustainable-finance opportunities. Do not read it as back-office CSR — the JD lists front-office experience as desirable; the seat is a content engine that finds deals for the front line. The signal: even Japanese banks are institutionalising sustainable-finance content as a client-acquisition tool, and they are growing it from entry level — pipeline thinking.',
-        'It fits someone entering sustainable finance through the front door: the entrance does not require you to already be a banker, it requires turning regulation and market movement into something a client wants a second meeting about. Bring a market or regulatory read-out you wrote yourself, proving you produce content rather than relay it. The costs: an entry-level band against London living costs needs your own arithmetic, and applications passed two hundred within two days; salary undisclosed, and no same-company same-title posting exists in a mandatory-disclosure jurisdiction to reference, so the field stays blank by our rules.',
+        'A Big Four climate-and-sustainability practice opening a senior role is a thermometer for the sector: the JD asks you to compile clients’ ESG reports with management advice aligned to capital-market expectations, help formulate ESG strategies and carbon targets, and run ESG risk management including supply chain and EHS. It reads like a standard ESG-consulting kit — technical depth plus client-facing ability. The signal: Hong Kong corporate ESG-compliance demand is still expanding, enough to sustain Big Four adding advisory headcount.',
+        'It fits someone who has done ESG in-house or in consulting and wants the consulting leverage; the JD asks for 4+ years of consultancy or commercial experience and real ground in ESG, CSR, carbon management, EHS or renewable energy. Bring a carbon inventory or ESG strategy you actually delivered, and how you settled methodology with the client. The cost is consulting’s usual three: hours, project pressure, and the senior-level squeeze of delivering while starting to manage others; salary undisclosed.',
       ],
-      url: 'https://www.linkedin.com/jobs/view/4424617502',
+      url: 'https://www.linkedin.com/jobs/view/4442962419',
     },
     {
-      org: 'ISS STOXX Sustainability',
-      roleZh: '客戶成功專員（永續解決方案）',
-      roleEn: 'Client Success Specialist, Sustainability Solutions',
-      market: 'UK',
-      metaZh: '倫敦 · 中階 · 掛出 7/19',
-      metaEn: 'London · mid-senior · posted 7/19',
+      org: 'Climind',
+      roleZh: '永續顧問與成長專員',
+      roleEn: 'Sustainability Consulting and Growth Specialist',
+      market: 'HK',
+      metaZh: '香港 · 專員級 · 掛出 7/23',
+      metaEn: 'Hong Kong · associate · posted 7/23',
       salaryZh: '薪資未揭露，建議面談時直接詢問',
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        'ESG 數據商開客戶成功缺，是這個行業商業模式的一面鏡子：資料庫賣出去只是開始，客戶會不會用、用得深不深，決定明年續不續約，所以需要有人專職「讓機構投資人真的把數據用起來」。JD 是標準 CSM 配置：訓練客戶、管詢問、把市場需求回傳給 ISS 業務主管，工具是 Salesforce。訊號是 ESG 數據業從搶新客轉向顧留存，這個轉向會持續產生這類職缺。',
-        '適合有金融服務客戶端經驗、又懂 responsible investment 語彙的人：不用寫程式，要會把數據翻成客戶的決策語言。面試帶一個你把快流失的客戶救回來、或把用量推深的實例，數字講清楚。代價：CSM 在數據商內部的話語權通常排在產品跟銷售後面，升遷要靠把客戶聲音變成產品決策的能力；薪資未揭露，我們查過 ISS 在美國的掛缺，職稱職能不同不能比照，留白。',
+        '這個缺把「永續顧問」跟「climate tech 產品」綁在同一張職缺上：JD 要 lead 永續顧問專案（氣候風險評估、策略、脫碳規劃），同時要 participate 在 climate LLM 的開發，做需求評估、方案設計、產品功能發布，還要管跟學術機構與氣候金融研究組織的外部合作。這讀起來像一家 climate tech 公司在找能同時做顧問交付與產品開發的複合型人。訊號是氣候顧問正在跟 AI 產品化收斂，這類「顧問加產品」的混合職會愈來愈多。',
+        '適合懂永續框架、又想碰產品的人：JD 要金融、經濟或永續相關學歷、有永續顧問或氣候風險評估經驗、會用 Python。面試帶一個你把某個氣候方法學變成流程或工具的實例。代價要睜眼看：Climind 是規模較小的 climate tech 公司，公開資訊有限，進去前值得自己查清楚它的產品與資金狀況；且掛出沒多久已 178 人申請，這個利基職競爭意外地擠；薪資未揭露。',
       ],
       takeEn: [
-        'An ESG data house hiring client success is a mirror of the industry’s business model: selling the database is only the start — whether clients use it, and how deeply, decides next year’s renewal, so someone owns “making institutional investors actually use the data”. The JD is standard CSM kit: train clients, own inquiries, communicate market requirements to ISS business leaders, on Salesforce. The signal: ESG data is shifting from chasing new logos to defending retention, and that shift will keep producing seats like this.',
-        'It fits someone with client-facing financial-services experience who speaks responsible-investment vocabulary: no coding required, but you must translate data into clients’ decision language. Bring one save — a churning client you recovered or usage you deepened — with the numbers. The costs: CSM voice inside data vendors usually ranks behind product and sales, and promotion runs through converting client signal into product decisions; salary undisclosed — we checked ISS postings in the US and the titles and functions differ, so no reference band applies and the field stays blank.',
+        'This role binds “sustainability consulting” and “climate-tech product” into one posting: the JD asks you to lead sustainability consulting projects (climate risk assessment, strategy, decarbonisation planning) while participating in developing climate LLMs — needs assessment, solution design, product feature releases — and managing external collaboration with academic institutions and climate-finance research organisations. It reads like a climate-tech firm hiring a hybrid who can do both consulting delivery and product development. The signal: climate consulting is converging with AI productisation, and these “consulting-plus-product” hybrid roles will multiply.',
+        'It fits someone fluent in sustainability frameworks who wants to touch product; the JD asks for a finance/economics/sustainability degree, sustainability-consulting or climate-risk-assessment experience, and Python. Bring one example of turning a climate methodology into a workflow or tool. Keep eyes open on the cost: Climind is a smaller climate-tech firm with limited public information, so check its product and funding before committing; 178 applicants already make this niche seat surprisingly crowded; salary undisclosed.',
       ],
-      url: 'https://www.linkedin.com/jobs/view/4424726325',
+      url: 'https://www.linkedin.com/jobs/view/4426183778',
+    },
+    // ── 🇬🇧 UK ──────────────────────────────────────────────────────────────
+    {
+      org: 'HSBC Asset Management',
+      roleZh: '另類投資責任投資資深專員',
+      roleEn: 'Senior Alternatives Responsible Investment Specialist',
+      market: 'UK',
+      metaZh: '倫敦 · 資深 · 掛出 7/23',
+      metaEn: 'London · senior · posted 7/23',
+      salaryZh: '薪資未揭露，建議面談時直接詢問',
+      salaryEn: 'Not disclosed — ask directly at interview',
+      salarySources: [],
+      takeZh: [
+        '這是資產管理端把 ESG 直接放進另類投資決策的位子，不是後台。JD 要 support ESG 整合到 NZA 與 Alternative Solutions 的投資策略、design 並維護 sustainable investment frameworks、提供 ESG 洞見與數據給投資決策，還要在資深層級 engage GP 去推動重大 ESG 議題的改善。這讀起來像 HSBC Asset Management 在把責任投資從政策文件，落到實際跟 GP 談判、影響底層資產的層級。訊號是另類資產的 ESG 整合正在補專業人力，因為這塊最難用公開數據評估。',
+        '適合真的在另類投資裡做過 ESG 整合的人：JD 要 extensive 的責任投資、ESG 整合實績，且要能 develop 並 apply sustainable investment frameworks，泛用 ESG 敘事背景補不出「跟 GP 談判」這個肌肉。面試帶一個你實際影響過某個 GP 或某筆投資 ESG 條件的實例。代價：地點在倫敦，倫敦生活成本要自己算；薪資未揭露，且我們查過 HSBC 在美國強制揭露轄區沒有掛同職稱的可比職缺，照規矩留白。',
+      ],
+      takeEn: [
+        'This puts ESG directly into alternative-investment decisions on the asset-management side, not the back office. The JD asks you to support integrating ESG across NZA and Alternative Solutions investment strategies, design and maintain sustainable-investment frameworks, provide ESG insight and data for investment decisions, and engage GPs at senior levels to drive improvement on material ESG issues. It reads like HSBC Asset Management moving responsible investment from policy documents down to actually negotiating with GPs and shaping underlying assets. The signal: ESG integration in alternatives is adding specialist headcount, because it is the hardest space to assess with public data.',
+        'It fits someone who has genuinely done ESG integration inside alternatives; the JD asks for an extensive responsible-investment/ESG-integration track record and the ability to develop and apply sustainable-investment frameworks — a generic ESG-narrative background cannot fake the “negotiate with GPs” muscle. Bring one example where you actually moved a GP or an investment’s ESG terms. Cost: London-based, so run the cost-of-living arithmetic yourself; salary undisclosed, and we checked — HSBC has no same-title posting in a US mandatory-disclosure jurisdiction to reference, so the field stays blank by our rules.',
+      ],
+      url: 'https://www.linkedin.com/jobs/view/4444498573',
+    },
+    {
+      org: 'J.P. Morgan Asset Management',
+      roleZh: '永續投資與盡責管理 產品經理（副理）',
+      roleEn: 'Product Manager, Sustainable Investing & Stewardship, Associate',
+      market: 'UK',
+      metaZh: '倫敦 · 副理 · 掛出 7/22',
+      metaEn: 'London · associate · posted 7/22',
+      salaryZh: '薪資未揭露，建議面談時直接詢問',
+      salaryEn: 'Not disclosed — ask directly at interview',
+      salarySources: [],
+      takeZh: [
+        '這個缺要先看懂它是什麼、不是什麼：JD 掛在 SI&S Product Management 團隊，核心是幫 Stewardship 業務做 product management，set 產品願景、跑 product cabinet 與 agile ceremony、用 code（Python、SQL、R）做原型分析、維護 backlog 與 roadmap。這讀起來不是 ESG 分析職，是 stewardship（盡責管理、代理投票）這個功能的產品與工具層。訊號是大型資管把 stewardship 從人工流程，推向有產品、有 roadmap、有 KPI 的內部工具化，這塊需要的是懂產品又懂 stewardship 的人。',
+        '適合有金融服務產品管理經驗、又懂 stewardship 或 proxy voting 的人：JD 要 4 年以上金融服務（偏財管或資管）經驗、product management 加 Agile、還要真的會寫 code 做分析。面試別把自己講成 ESG 專家，講你把某個內部工具從構想帶到上線的產品故事。代價：這是 PM 職、綠色成分是透過工具間接接觸而非直接做永續分析，想做純 ESG 的人會覺得隔了一層；地點倫敦、掛出沒多久已 200 人以上申請；薪資未揭露，美國同職稱同職能可比職缺查無，留白。',
+      ],
+      takeEn: [
+        'Read this one for what it is and is not: the JD sits in the SI&S Product Management team, and the core is product management for the Stewardship business — set the product vision, run product cabinets and agile ceremonies, build prototype analytics in code (Python, SQL, R), and maintain the backlog and roadmap. This is not an ESG-analysis role; it is the product and tooling layer of stewardship (responsible ownership, proxy voting). The signal: large asset managers are moving stewardship from manual process to internal tooling with product, roadmap and KPIs — and that needs someone who understands both product and stewardship.',
+        'It fits someone with financial-services product-management experience who knows stewardship or proxy voting; the JD asks for 4+ years in financial services (preferably wealth or asset management), product management plus Agile, and genuine coding for analysis. Do not pitch yourself as an ESG expert — tell the product story of taking an internal tool from idea to launch. Cost: this is a PM seat where the green content is reached through tooling rather than direct sustainability analysis, so anyone wanting pure ESG will feel a layer removed; London-based, 200+ applicants already; salary undisclosed, no comparable same-title same-function US posting found, left blank.',
+      ],
+      url: 'https://www.linkedin.com/jobs/view/4369493797',
     },
   ],
-  // MBA / strategy track — emptied 2026-07-20. The 3 prior entries (LEGO,
-  // Netflix, Meta; 7/09–7/10) all failed the current standard on inspection:
-  // `url` pointed at a LinkedIn *search query*, not a real postable job page
-  // (fails "link must lead back to an actual application"); salary was a
-  // generic company-wide/city-level aggregate (exactly the Tier-3 pattern
-  // rule 2 in SKILL.md bans); and Netflix/Meta are the literal examples the
-  // MBA-keyword rule names as roles to filter out (no genuine sustainability/
-  // climate/impact angle) — LEGO didn't have one either. Rather than patch
-  // 3 unfit entries, the array is empty until a future weekly run sources and
-  // verifies real MBA-track picks under the same rules as weeklyPicks (14-day
-  // freshness, WebFetch-verified JD + link, salary Tier 1/2/MCF/reference-price
-  // only). The page hides this section entirely when the array is empty — no
-  // broken "empty state" to fix.
+  // MBA / strategy track — stays empty this week (2026-07-28 refresh). The MBA
+  // keyword surfaced only generic strategy/growth roles (Google APAC Strategy,
+  // McKinsey Associate, State Street, Mastercard VP, Morgan Stanley, Temasek
+  // Portfolio Development) with no genuine sustainability/climate/impact angle,
+  // so all were filtered per the MBA special rule. The one sustainability-angled
+  // hybrid (Climind) is listed under HK weeklyPicks instead. The page hides this
+  // section entirely when the array is empty.
   mbaPicks: [],
 };
 
