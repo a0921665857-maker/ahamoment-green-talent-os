@@ -69,6 +69,31 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <p className="text-xs uppercase tracking-eyebrow text-pine">{c.landing.hero.eyebrow}</p>
         <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">{c.landing.hero.title}</h1>
         <p className="mt-4 text-base font-medium text-pine">{c.landing.hero.credibilityLine}</p>
+      {/* Flagship. Placed immediately after the h1 because the ask was that this be
+          the first thing a visitor sees, and the hero's explanatory paragraph, band
+          glyph and CTA row together push anything after them past 800px. Compact on
+          purpose: unmissable, but short enough not to bury the MRI pitch below it.
+          The only solid-pine block on the page. */}
+      <a
+        href={`/${L}/judgment?utm_source=home&utm_medium=flagship`}
+        className="mt-6 block rounded-2xl bg-pine px-6 py-5 text-paper transition hover:bg-pine-deep"
+      >
+        <p className="text-xs uppercase tracking-eyebrow text-sage-soft">
+          {L === 'zh-TW' ? '新上線 · 免費 · 不用留 email' : 'New · free · no email'}
+        </p>
+        <p className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">
+          {L === 'zh-TW' ? '綠領判斷力：你缺的不是知識，是判斷' : 'Green-Collar Judgment: it was never the knowledge'}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-sage-soft">
+          {L === 'zh-TW'
+            ? '12 題判斷練習，先作答才看得到解答。每個錯的選項都會告訴你它為什麼誘人。'
+            : '12 judgment exercises. You commit before seeing any reasoning, and every wrong option explains why it was tempting.'}
+        </p>
+        <span className="mt-4 inline-block rounded-lg bg-paper px-4 py-2 text-sm font-medium text-pine">
+          {L === 'zh-TW' ? '開始練習' : 'Start practising'}
+        </span>
+      </a>
+
         <p className="mt-5 max-w-2xl text-lg text-ink-soft">{c.landing.hero.subtitle}</p>
 
         {/* signature: the band scale glyph */}
@@ -92,6 +117,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             {c.landing.hero.secondaryCta}
           </a>
         </div>
+
         <a href={`/${L}/types`} className="mt-4 inline-block text-sm text-pine underline-offset-2 hover:underline">
           {L === 'zh-TW' ? '或先看看 8 種綠領人才類型 →' : 'Or browse the 8 green-career types →'}
         </a>
