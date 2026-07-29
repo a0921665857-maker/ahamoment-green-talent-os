@@ -13,8 +13,9 @@ import { errors } from './errors';
 import { emails } from './emails';
 import { privacyPage } from './privacy';
 import { twin } from './twin';
+import { judgment } from './judgment';
 
 export const zhTW: LocaleContent = {
   sample, share, landing, flow, questions, results, reportTemplates,
-  paidOffers, consent, seo, errors, emails, privacyPage, twin,
+  paidOffers, consent, seo, errors, emails, privacyPage, twin, judgment,
 };

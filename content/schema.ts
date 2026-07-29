@@ -11,6 +11,7 @@ import type {
   ReportSectionKey,
   ResultCategory,
 } from '@/lib/constants';
+import type { BackgroundKey, Verdict } from '@/lib/judgment';
 
 export interface LandingContent {
   hero: {
@@ -348,6 +349,108 @@ export interface TwinContent {
   resultLink: { prompt: string; cta: string };
 }
 
+/**
+ * 綠領判斷力 (/[locale]/judgment) — chrome only. The competency graph, the 26
+ * explainers and the 12 reps live in `content/judgment/data.json` and are
+ * zh-TW originals; per rule 10 they are never machine-translated, so the `en`
+ * locale gets English chrome plus an honest notice (`zhOnlyNotice`).
+ */
+export interface JudgmentContent {
+  meta: { title: string; description: string };
+  eyebrow: string;
+  title: string;
+  lede: string;
+  backLink: string;
+  /** Rendered only where the module's content is not in the reader's locale. */
+  zhOnlyNotice: { body: string; cta: string } | null;
+  beta: { tag: string; body: string; mailSubject: string };
+  tabs: { start: string; gaps: string; reps: string; map: string };
+  bandLead: string; // contains {band}
+  bandNone: string;
+  start: {
+    backgroundTitle: string;
+    backgroundHint: string;
+    backgrounds: Record<BackgroundKey, { label: string; hint: string }>;
+    domainTitle: string;
+    domainHint: string;
+    cta: string;
+    ctaBlocked: string;
+  };
+  gaps: {
+    needBackground: string;
+    stateTitle: string;
+    stateNote: string;
+    weakSignalNote: string; // appended to a low-confidence basis
+    backgroundBasis: string; // contains {label}
+    haveTitle: string;
+    maybeTitle: string;
+    maybeHint: string;
+    gapTitle: string;
+    gapRule: string;
+    basisLabel: string;
+    financeTag: string;
+    sustainabilityTag: string;
+    whyPaysLabel: string;
+    timeLabel: string;
+    explainerSummary: string;
+    explainerPending: string;
+    repsAttached: string; // contains {n}
+    moreLabel: string; // contains {n}
+    cta: string;
+  };
+  reps: {
+    title: string;
+    rule: string;
+    stateTitle: string;
+    /** Local-only storage disclosure — shown wherever progress is written. */
+    storageNote: string;
+    backToList: string;
+    start: string;
+    again: string;
+    answeredPending: string;
+    answeredWith: string; // contains {key}
+    minutes: string; // contains {n}
+    gate: { title: string; hint: string; placeholder: string; submit: string; skip: string };
+    reveal: {
+      choiceLine: string; // contains {key}
+      bestIs: string; // contains {key}
+      yourReasonLabel: string;
+      skippedLabel: string;
+      addReasonPlaceholder: string;
+      takeawayLabel: string;
+      reasoningTitle: string;
+      breakdownSummary: string;
+      temptingLabel: string;
+      failureTitle: string;
+      sourcesLabel: string;
+      checkedOn: string; // contains {date}
+    };
+    verdicts: Record<Verdict, string>;
+    empty: string;
+  };
+  map: {
+    title: string;
+    intro: string;
+    legendTitle: string;
+    legendBody: string; // contains {n}
+    depthLabel: string;
+    depths: [string, string, string];
+    statuses: { have: string; maybe: string; gap: string };
+  };
+  exit: { title: string; body: string; betaNote: string; mailSubject: string };
+  about: {
+    summary: string;
+    title: string;
+    intro: string; // contains {competencies} {explainers} {reps}
+    blocks: { heading: string; body: string }[];
+    identityTitle: string;
+    identityMail: string;
+    honestTitle: string;
+    honestPoints: string[];
+  };
+  footer: { origin: string; disclaimer: string };
+}
+
 export interface LocaleContent {
   sample: SampleContent;
   share: ShareContent;
@@ -363,4 +466,5 @@ export interface LocaleContent {
   emails: EmailsContent;
   privacyPage: PrivacyPageContent;
   twin: TwinContent;
+  judgment: JudgmentContent;
 }

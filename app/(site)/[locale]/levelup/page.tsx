@@ -58,11 +58,11 @@ export default async function LevelupPage({
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
         <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
-        {/* 綠領判斷力：26 個能力節點 + 12 題判斷練習。靜態頁，放在 public/judgment.html。
+        {/* 綠領判斷力：26 個能力節點 + 12 題判斷練習。站內頁 /[locale]/judgment。
             擺在 verdict 之前，因為讀到這裡的人剛看完 lede、還沒開始滑長文，
             是唯一一個「他還有精神點別的東西」的位置。 */}
         <a
-          href="/judgment.html"
+          href={`/${L}/judgment?utm_source=levelup&utm_medium=cross_link`}
           className="mt-8 block rounded-xl border border-pine/40 bg-sage-soft/30 px-6 py-5 transition hover:border-pine"
         >
           <p className="text-xs uppercase tracking-eyebrow text-pine">免費・不用留 email</p>

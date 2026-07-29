@@ -12,8 +12,17 @@ const nextConfig: NextConfig = {
    */
   async redirects() {
     const target = process.env.BOOKING_REDIRECT_URL ?? process.env.NEXT_PUBLIC_CALENDLY_URL;
-    if (!target) return [];
-    return [{ source: "/book", destination: target, permanent: false }];
+    const rules = [
+      /**
+       * /judgment.html was live for about an hour as a standalone file carrying its
+       * own palette, before the module became a real page inside the design system.
+       * Temporary, not permanent: a 308 would be cached by browsers and would
+       * outlive the reason for it.
+       */
+      { source: "/judgment.html", destination: "/zh-TW/judgment", permanent: false },
+    ];
+    if (target) rules.unshift({ source: "/book", destination: target, permanent: false });
+    return rules;
   },
 };
 
