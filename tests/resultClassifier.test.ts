@@ -6,6 +6,8 @@ import {
   pickCategory,
   toBand,
 } from '@/lib/scoring/resultClassifier';
+import { RESULT_CATEGORIES } from '@/lib/constants';
+import { isArchivedOffer } from '@/lib/services';
 import { goldenSeeds, mkInput } from './fixtures/scoreVectors';
 
 describe('toBand boundaries (1.0–2.4 / 2.5–3.7 / 3.8–5.0)', () => {
@@ -149,47 +151,38 @@ describe('classifier rules R0–R8 (first match wins)', () => {
   });
 });
 
-describe('offer mapping + secondary overlays', () => {
-  it('strong_profile_weak_story gains cv_linkedin_review when cv_readiness ≤ 2', () => {
-    const input = mkInput(
-      {
-        career_clarity: { score: 2.5 },
-        differentiation: { score: 2.5 },
-        story_risk: { score: 2.5 },
-        commercial_credibility: { score: 3 },
-        cv_readiness: { score: 2 },
-      },
-      { base: 3.8, mba_intent: 'no' },
-    );
-    const cat = pickCategory(input);
-    expect(cat).toBe('strong_profile_weak_story');
-    expect(offersFor(cat, input.scores, input.timeline)).toEqual({
-      primary: 'teardown_90',
-      secondary: 'cv_linkedin_review',
-    });
+describe('offer mapping — two-service catalogue (Gate 8)', () => {
+  it('MBA-intent categories route to the MBA story teardown', () => {
+    for (const cat of ['ready_for_mba_story_sprint', 'career_positioning_before_mba'] as const) {
+      expect(offersFor(cat)).toEqual({
+        primary: 'mba_story_teardown',
+        secondary: 'offer_path_read',
+      });
+    }
   });
 
-  it('mock-pack overlay fires only with interview ≤ 2 AND timeline <6m, into an empty slot', () => {
-    const base = {
-      cv_readiness: { score: 4.5 },
-      career_clarity: { score: 2.5 },
-      differentiation: { score: 2.5 },
-      story_risk: { score: 2.5 },
-      commercial_credibility: { score: 2.6 },
-      interview_readiness: { score: 2 },
-    };
-    const urgent = mkInput(base, { mba_intent: 'no', timeline: '<6m' });
-    expect(offersFor('cv_strong_narrative_weak', urgent.scores, '<6m').secondary).toBe(
-      'mock_interview_pack',
-    );
-    expect(offersFor('cv_strong_narrative_weak', urgent.scores, '6-12m').secondary).toBeNull();
+  it('every other category routes to the offer/path read', () => {
+    for (const cat of [
+      'strong_profile_weak_story',
+      'climate_career_builder',
+      'profile_building_needed',
+      'high_potential_low_commercial_clarity',
+      'interview_ready_positioning_weak',
+      'cv_strong_narrative_weak',
+    ] as const) {
+      expect(offersFor(cat)).toEqual({
+        primary: 'offer_path_read',
+        secondary: 'mba_story_teardown',
+      });
+    }
   });
 
-  it('overlay never overrides a category-specific secondary', () => {
-    const input = mkInput({ interview_readiness: { score: 1.5 } }, { timeline: '<6m' });
-    expect(offersFor('career_positioning_before_mba', input.scores, '<6m').secondary).toBe(
-      'teardown_90',
-    );
+  it('never returns an archived offer for any category or timeline', () => {
+    for (const cat of RESULT_CATEGORIES) {
+      const { primary, secondary } = offersFor(cat);
+      expect(isArchivedOffer(primary)).toBe(false);
+      if (secondary) expect(isArchivedOffer(secondary)).toBe(false);
+    }
   });
 });
 
@@ -239,50 +232,50 @@ describe('lead grading', () => {
   });
 });
 
-describe('ctaOffers — exactly the binding 3-slot rule', () => {
-  it('no category secondary → entry leads with the cheapest yes (deep_read)', () => {
-    expect(
-      ctaOffers({ category: 'ready_for_mba_story_sprint', primary_offer: 'mba_story_sprint', secondary_offer: null }),
-    ).toEqual([
-      { offer: 'mba_story_sprint', role: 'primary' },
-      { offer: 'deep_read', role: 'entry' },
-      { offer: 'full_package', role: 'anchor' },
-    ]);
-  });
-
-  it('category secondary takes precedence in the entry slot', () => {
+describe('ctaOffers — two public slots, no archived offer can reach a report', () => {
+  it('recommended service first, the other public service second', () => {
     expect(
       ctaOffers({
-        category: 'interview_ready_positioning_weak',
-        primary_offer: 'teardown_90',
-        secondary_offer: 'mock_interview_pack',
+        category: 'ready_for_mba_story_sprint',
+        primary_offer: 'mba_story_teardown',
+        secondary_offer: 'offer_path_read',
       }),
     ).toEqual([
-      { offer: 'teardown_90', role: 'primary' },
-      { offer: 'mock_interview_pack', role: 'entry' },
-      { offer: 'full_package', role: 'anchor' },
+      { offer: 'mba_story_teardown', role: 'primary' },
+      { offer: 'offer_path_read', role: 'entry' },
     ]);
   });
 
-  it('teardown primary with no secondary → deep_read entry, anchor last', () => {
-    expect(
-      ctaOffers({ category: 'cv_strong_narrative_weak', primary_offer: 'teardown_90', secondary_offer: null }),
-    ).toEqual([
-      { offer: 'teardown_90', role: 'primary' },
-      { offer: 'deep_read', role: 'entry' },
-      { offer: 'full_package', role: 'anchor' },
-    ]);
-  });
-
-  it('never more than 3, never duplicates', () => {
+  it('never more than 2, never duplicates', () => {
     const out = ctaOffers({
-      category: 'career_positioning_before_mba',
-      primary_offer: 'climate_positioning_sprint',
-      secondary_offer: 'teardown_90',
+      category: 'cv_strong_narrative_weak',
+      primary_offer: 'offer_path_read',
+      secondary_offer: 'offer_path_read',
     });
-    expect(out.length).toBeLessThanOrEqual(3);
+    expect(out.length).toBeLessThanOrEqual(2);
     expect(new Set(out.map((o) => o.offer)).size).toBe(out.length);
-    expect(out[out.length - 1].offer).toBe('full_package');
+  });
+
+  /**
+   * Rows written before Gate 8 still hold ids like `teardown_90`. Rendering one
+   * would show a price the buyer cannot pay, so the catalogue must take over.
+   */
+  it('falls back to the live catalogue when a stored classification is archived', () => {
+    const out = ctaOffers({
+      category: 'strong_profile_weak_story',
+      primary_offer: 'teardown_90',
+      secondary_offer: 'cv_linkedin_review',
+    });
+    expect(out.map((s) => s.offer)).toEqual(['offer_path_read', 'mba_story_teardown']);
+    expect(out.every((s) => !isArchivedOffer(s.offer))).toBe(true);
+  });
+
+  it('classify() end-to-end never surfaces an archived offer', () => {
+    for (const seed of goldenSeeds) {
+      const c = classify(seed.input);
+      expect(isArchivedOffer(c.primary_offer)).toBe(false);
+      for (const slot of ctaOffers(c)) expect(isArchivedOffer(slot.offer)).toBe(false);
+    }
   });
 });
 

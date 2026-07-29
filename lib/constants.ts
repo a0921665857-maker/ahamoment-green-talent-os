@@ -39,9 +39,15 @@ export const RESULT_CATEGORIES = [
 export type ResultCategory = (typeof RESULT_CATEGORIES)[number];
 
 export const OFFER_IDS = [
-  // Entry-tier "first yes" products (lowest friction first). The free intro call
-  // and Deep Read are the cheapest yeses; consult is a low-risk human entry.
+  // --- Public catalogue (Gate 8, 2026-07-29) ---
+  // The free front door plus exactly two paid services. Everything below the
+  // divider is ARCHIVED: kept for historical rows in `scores`/`reports`, never
+  // rendered on a public surface. See lib/services.ts for the single source of
+  // truth on what is public and what it costs.
   'intro_call_free',
+  'offer_path_read',
+  'mba_story_teardown',
+  // --- Archived (pre-Gate-8 menu; do not surface) ---
   'deep_read',
   'consult_60',
   'teardown_90',
@@ -49,7 +55,6 @@ export const OFFER_IDS = [
   'climate_positioning_sprint',
   'mba_story_sprint',
   'mock_interview_pack',
-  // INSEAD-differentiated green-career services
   'offer_negotiation',
   'climate_finance_transition',
   'full_package',
