@@ -116,6 +116,11 @@ code{font-family:var(--mono);background:var(--fin-soft);padding:.08em .38em;
 
 /* The map: left edge = which side of the seam, fill = your status. Two encodings
    that never collide, so a chip can be read at a glance in either direction. */
+.betabar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:baseline;
+  border:1px solid var(--fin);background:var(--fin-soft);border-radius:10px;
+  padding:.6rem .8rem;margin:.9rem 0 .2rem;font-size:.86rem;line-height:1.6}
+.betatag{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.1em;
+  background:var(--fin);color:#fff;padding:.12rem .45rem;border-radius:4px;flex:none}
 .maprow{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:.45rem}
 .mapnode{border:1px solid var(--line);border-left:4px solid var(--sus);border-radius:9px;
   padding:.5rem .68rem;font-size:.9rem;line-height:1.5;background:var(--paper)}
@@ -136,6 +141,12 @@ a:focus-visible{outline:2px solid var(--fin);outline-offset:2px}
 <div class="wrap">
   <h1>綠領判斷力</h1>
   <p class="lede">綠領工作要的是永續與財務的交集。多數人從環工、CSR、公關進來，卡在財務那一半；金融背景的人卡在盤查邊界與揭露準則。這裡只做那個交集。</p>
+
+  <div class="betabar">
+    <span class="betatag">BETA</span>
+    <span>這是第一版，內容還在長。看到寫錯的、看不懂的、或你公司的情況對不上的，<b>直接寄信跟我說</b>——我會回，也會改。</span>
+    <span class="betamail"></span>
+  </div>
 
   <nav class="tabs"><div class="row">
     <button class="pill" data-tab="start" aria-pressed="true">① 你在哪裡</button>
@@ -456,6 +467,7 @@ function exitHtml(where){
   return `<div class="card" style="border-color:var(--fin)">
     <b>這一題在你公司的版本是什麼？</b>
     <p style="margin:.4rem 0">寫一句話問我。不用長，講你卡在哪就好——我會回你一個具體的下一步，不收錢也不會把你加進任何名單。</p>
+    <p class="tiny" style="margin:.4rem 0">這一版還在改。你覺得哪裡寫得不對、或哪一段沒幫到你，也歡迎直接說，那對我最有用。</p>
     <p style="margin:.4rem 0"><a href="mailto:${esc(id.email)}?subject=${subject}">${esc(id.email)}</a></p>
   </div>`;
 }
@@ -472,6 +484,8 @@ function renderAbout(){
   ${(DATA.identity&&DATA.identity.name)?`<h3>這是誰做的</h3>
   <p><b>${esc(DATA.identity.name)}</b>${DATA.identity.line?'——'+esc(DATA.identity.line):''}</p>
   ${DATA.identity.email?`<p>有問題直接寫信：<a href="mailto:${esc(DATA.identity.email)}">${esc(DATA.identity.email)}</a>。我自己回。</p>`:''}`:''}
+  <h3>這一版是 Beta</h3>
+  <p>26 個能力節點、26 篇說明、12 題判斷練習，全部寫完並查證過來源，但這是第一次公開。內容會隨法規變、也會隨你們的回饋改。<b>看到錯的、少的、或講不清楚的，寄信給我</b>——這個階段回饋比讚有用得多。</p>
   <h3>誠實說明</h3>
   <ul>
     <li>這裡的內容全部原創撰寫，事實都附公開來源，不含任何學校教材或購買教材。</li>
@@ -520,6 +534,17 @@ document.addEventListener('input', e=>{
     S.why[id]=e.target.value; save();
   }
 });
+
+// The beta bar's address is written in at render time so the launch switch stays
+// the single place the contact lives.
+(function(){
+  var el=document.querySelector('.betamail'); var id=DATA.identity||{};
+  if(el && id.email){
+    var a=document.createElement('a');
+    a.href='mailto:'+id.email+'?subject='+encodeURIComponent('綠領判斷力 回饋');
+    a.textContent=id.email; el.appendChild(a);
+  } else if(el){ el.remove(); }
+})();
 
 renderStart(); show('start');
 </script>
