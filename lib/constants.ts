@@ -167,6 +167,11 @@ export const EVENT_NAMES = [
   'twin_link_requested',
   'twin_link_sent',
   'twin_viewed',
+  // Payment rail (Gate 8). `checkout_started` is client-side intent;
+  // `payment_succeeded` is written only by the signature-verified Stripe
+  // webhook, never by anything the browser can reach.
+  'checkout_started',
+  'payment_succeeded',
 ] as const;
 export type EventName = (typeof EVENT_NAMES)[number];
 
