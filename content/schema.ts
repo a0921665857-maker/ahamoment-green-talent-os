@@ -237,6 +237,8 @@ export interface ConsentContent {
   processing: { label: string; detail: string };
   aggregate: { label: string };
   redactHint: string;
+  /** Named the moment before upload: a human reads this, not only a model. */
+  whoSeesIt: string;
   noAccessNote: string;
   retentionSummary: string;
   privacyLinkLabel: string;

@@ -613,6 +613,7 @@ function InputStep(p: {
           />
           <span>{p.consent.aggregate.label}</span>
         </label>
+        <p className="ml-7 mt-2 text-xs text-ink-soft">{p.consent.whoSeesIt}</p>
         <p className="ml-7 mt-2 text-xs text-ink-soft">{p.consent.noAccessNote}</p>
       </div>
 

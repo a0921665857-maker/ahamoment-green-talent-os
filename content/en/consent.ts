@@ -11,6 +11,8 @@ export const consent: ConsentContent = {
     label: 'Optional: my anonymized profile data may be included in aggregate market insights (never identifiable, never your documents).',
   },
   redactHint: 'Feel free to remove names or contact details before uploading — the analysis works without them.',
+  whoSeesIt:
+    'Who sees it: Michael, and nobody else. He can read what you pasted in the admin view, to make the read and to prepare a conversation if you later book one. There is no team, no outsourcing, and no other account.',
   noAccessNote: 'We never access your LinkedIn, ChatGPT, or Claude accounts. You choose what to share.',
   retentionSummary: 'Raw uploads auto-delete after 90 days. Delete everything anytime.',
   privacyLinkLabel: 'Privacy & data',
