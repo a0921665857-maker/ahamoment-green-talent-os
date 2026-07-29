@@ -54,6 +54,7 @@ const zh: NavCopy = {
     {
       title: '資料與情報',
       links: [
+        { label: '綠領揭薪指數（週更）', href: '/salary-index' },
         { label: '2026 亞太綠領薪資報告', href: '/salary-report' },
         { label: '綠領晉級地圖', href: '/levelup' },
         { label: '綠領職缺雷達（週更）', href: '/jobs' },
@@ -109,6 +110,7 @@ const en: NavCopy = {
     {
       title: 'Data & intelligence',
       links: [
+        { label: 'Posted-salary index (weekly)', href: '/salary-index' },
         { label: '2026 APAC green salary report', href: '/salary-report' },
         { label: 'Green career level-up map', href: '/levelup' },
         { label: 'Green jobs radar (weekly)', href: '/jobs' },
