@@ -7,7 +7,6 @@ import { ctaOffers } from '@/lib/scoring/resultClassifier';
 import { getReportByToken, getSessionStatusByToken } from '@/lib/reportData';
 import { getPersonalBand } from '@/lib/salaryBands';
 import { localeRedirectPath } from '@/lib/reportView';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ScrollDepth } from '@/components/ScrollDepth';
 import { InlineCtaCard } from '@/components/InlineCtaCard';
 import { MriLiteReport } from '@/components/MriLiteReport';
@@ -50,13 +49,7 @@ export default async function ResultPage({
     if (sess && sess.status !== 'failed') {
       return (
         <div className="min-h-screen">
-          <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
-            <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-              {c.seo.siteName}
-            </a>
-            <LanguageSwitcher current={L} />
-          </nav>
-          <main className="mx-auto max-w-2xl px-6 pb-24 pt-6">
+          <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
             <ReportPending
               token={token}
               title={c.flow.progress.report.title}
@@ -108,12 +101,6 @@ export default async function ResultPage({
   return (
     <div className="min-h-screen">
       <ScrollDepth surface="report" extra={{ category: report.category, locale: L }} />
-      <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
       <main className="mx-auto max-w-2xl px-6 pb-28 pt-6 sm:pb-24">
         {report.degraded && (
           <p className="mb-6 rounded border border-line bg-mist px-4 py-3 text-sm text-ink-soft">

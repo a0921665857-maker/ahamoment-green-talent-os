@@ -6,7 +6,6 @@ import type { Locale, OfferId } from '@/lib/constants';
 import { FREE_OFFER_ID, PUBLIC_PAID_OFFER_IDS, priceFor } from '@/lib/services';
 import { ServiceCtas } from '@/components/ServiceCtas';
 import { PageViewPing } from '@/components/PageViewPing';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 /** Scope boundary block — "what this service does not do". Declared at module
  * scope: a component defined inside the page body is re-created every render. */
@@ -46,14 +45,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
     <div className="min-h-screen">
       <PageViewPing name="services_page_viewed" props={{ locale: L }} />
 
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
-
-      <main className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <h1 className="text-3xl font-semibold">{o.title}</h1>
         <p className="mt-3 max-w-2xl text-ink-soft">{o.intro}</p>
         <p className="mt-4 max-w-2xl rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">

@@ -2,10 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LOCALES, type Locale } from '@/lib/constants';
 import { isLocale } from '@/content/locales';
-import { getContent } from '@/content';
 import { levelupReports } from '@/content/levelup';
 import { newsletterCopy } from '@/content/newsletter';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 
 export function generateStaticParams() {
@@ -31,7 +29,6 @@ export default async function LevelupPage({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const L = locale as Locale;
-  const c = getContent(L);
   const r = levelupReports[L];
 
   const mriHref = `/${L}/mri?utm_source=levelup&utm_medium=lead_magnet&utm_content=on_site`;
@@ -39,17 +36,6 @@ export default async function LevelupPage({
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <div className="flex items-center gap-4">
-          <a href={mriHref} className="text-sm text-pine underline-offset-2 hover:underline">
-            {r.backToMri}
-          </a>
-          <LanguageSwitcher current={L} />
-        </div>
-      </nav>
 
       <article className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         {/* header */}

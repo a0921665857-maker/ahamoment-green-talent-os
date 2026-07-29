@@ -3,7 +3,6 @@ import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { RESULT_CATEGORIES, type Locale } from '@/lib/constants';
 import { TYPE_STYLE, cardLineOf } from '@/lib/shareCardStyle';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 /**
  * Public "which type are you?" gallery — a discovery/curiosity surface for the 8
@@ -31,12 +30,6 @@ export default async function TypesPage({ params }: { params: Promise<{ locale: 
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
 
       <header className="mx-auto max-w-3xl px-6 pb-10 pt-8">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>

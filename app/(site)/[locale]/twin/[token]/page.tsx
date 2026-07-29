@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { verifyTwinToken } from '@/lib/twinAuth';
 import { getTwinReports } from '@/lib/twinData';
 import { recordEvent } from '@/lib/events';
@@ -45,13 +44,7 @@ export default async function TwinHubPage({
   if (!email) {
     return (
       <div className="min-h-screen">
-        <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-          <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-            {c.seo.siteName}
-          </a>
-          <LanguageSwitcher current={L} />
-        </nav>
-        <main className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+        <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
           <h1 className="text-3xl font-semibold">{t.expiredTitle}</h1>
           <p className="mt-3 max-w-2xl text-ink-soft">{t.expiredBody}</p>
           <a
@@ -78,12 +71,6 @@ export default async function TwinHubPage({
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
       <main className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <h1 className="text-3xl font-semibold">{t.title}</h1>
         <p className="mt-3 max-w-2xl text-ink-soft">{t.intro}</p>

@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
-import { getContent } from '@/content';
 import { paymentCopy } from '@/content/payment';
 import { LINE_OA_URL, type Locale } from '@/lib/constants';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { PageViewPing } from '@/components/PageViewPing';
 
 export const dynamic = 'force-dynamic';
@@ -25,7 +23,6 @@ export default async function PaymentSuccessPage({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const L = locale as Locale;
-  const c = getContent(L);
   const p = paymentCopy[L].success;
   const bookingUrl = process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() ?? '';
 
@@ -35,14 +32,7 @@ export default async function PaymentSuccessPage({
           anyone with the URL, and the payment record already lives server-side. */}
       <PageViewPing name="payment_success_viewed" props={{ locale: L }} />
 
-      <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
-
-      <main className="mx-auto max-w-2xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
         <h1 className="text-3xl font-semibold">{p.title}</h1>
         <p className="mt-3 text-ink-soft">{p.body}</p>
 

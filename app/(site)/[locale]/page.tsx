@@ -3,8 +3,6 @@ import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { REPORT_SECTION_KEYS, type Locale } from '@/lib/constants';
 import { displayPrice, FREE_OFFER_ID, PUBLIC_PAID_OFFER_IDS } from '@/lib/services';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import { ReturnReportLink } from '@/components/ReturnReportLink';
 import { LatestContent } from '@/components/LatestContent';
 import { FounderAvatar } from '@/components/FounderAvatar';
 import { LineActions } from '@/components/LineActions';
@@ -57,13 +55,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-        <span className="text-sm font-semibold tracking-tight">{c.seo.siteName}</span>
-        <div className="flex items-center gap-4">
-          <ReturnReportLink locale={L} label={c.landing.hero.viewExistingReport} />
-          <LanguageSwitcher current={L} />
-        </div>
-      </nav>
 
       {/* hero */}
       <header className="mx-auto max-w-3xl px-6 pb-16 pt-10">

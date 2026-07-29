@@ -6,7 +6,6 @@ import type { Locale } from '@/lib/constants';
 import { ctaOffers } from '@/lib/scoring/resultClassifier';
 import { sampleReports } from '@/content/sampleReport';
 import { InlineCtaCard } from '@/components/InlineCtaCard';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { MarketPulseCard } from '@/components/MarketPulseCard';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
@@ -34,13 +33,7 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
-      <main className="mx-auto max-w-2xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
         <div className="mb-8 rounded-lg border border-line bg-mist/40 px-5 py-5">
           <p className="text-xs uppercase tracking-eyebrow text-pine">{c.sample.pageEyebrow}</p>
           <h1 className="mt-2 text-2xl font-semibold">{c.sample.pageTitle}</h1>
