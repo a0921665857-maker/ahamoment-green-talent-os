@@ -17,3 +17,7 @@ tsconfig.tsbuildinfo
 # local-only working files
 scratch/
 .mcp.json
+
+# Real call records — contain a named person's own words about their career.
+# The template is tracked; the records themselves never are.
+ops/validation/records/

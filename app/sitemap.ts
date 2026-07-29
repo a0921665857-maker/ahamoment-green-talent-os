@@ -9,6 +9,7 @@ const STATIC_PATHS = [
   '',
   '/mri',
   '/salary-report',
+  '/salary-index',
   '/levelup',
   '/judgment',
   '/cost-of-living',
@@ -18,6 +19,8 @@ const STATIC_PATHS = [
   '/services',
   '/sample',
   '/privacy',
+  // The 8-type index page was a sitemap orphan: only its children were listed.
+  '/types',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -30,7 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({
         url: `${base}/${locale}${path}`,
         lastModified: now,
-        changeFrequency: path === '' || path === '/jobs' ? 'weekly' : 'monthly',
+        changeFrequency:
+          path === '' || path === '/jobs' || path === '/salary-index' ? 'weekly' : 'monthly',
         priority: path === '' ? 1 : path === '/mri' ? 0.9 : 0.6,
       });
     }

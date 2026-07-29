@@ -1,5 +1,12 @@
 # START HERE — final, conversion-optimized version
 
+> **SUPERSEDED — 2026-07-30 (Gate 8).**
+> This document describes a product state and a pricing ladder that no longer exist.
+> Do not act on it. The single source of truth is
+> [`docs/product/CURRENT_PRODUCT_STRATEGY.md`](../product/CURRENT_PRODUCT_STRATEGY.md).
+> Kept for history only — its USD ladder and Stripe path were replaced by two NT$/SGD services and hosted Payment Links.
+
+
 This is the version to run. It supersedes the earlier zips and scattered prompts.
 Three parts: (1) the conversion-optimized final, (2) exactly how to run it, (3) two prompts to
 paste into Claude Code.

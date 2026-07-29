@@ -15,13 +15,13 @@ import {
   type Timeline,
 } from '@/lib/constants';
 import type { Bands, Classification, DimensionScores, WeightedSummary } from '@/lib/types';
+import { isPublicPaidOffer, PUBLIC_PAID_OFFER_IDS } from '@/lib/services';
 import {
   bandCutoffs,
   classifierThresholds as T,
   indexWeights,
   leadGradeRules,
   MIN_DIMENSION_CONFIDENCE,
-  overlayThresholds,
 } from './scoreWeights';
 
 /* --------------------------------- aggregates -------------------------------- */
@@ -154,59 +154,33 @@ export function pickCategory(input: ClassifierInput): ResultCategory {
     : 'climate_career_builder';
 }
 
-/** Category → primary/secondary offers (PAID_OFFER_STRATEGY.md mapping table). */
-export function offersFor(
-  category: ResultCategory,
-  scores: DimensionScores,
-  timeline: Timeline,
-): { primary: OfferId; secondary: OfferId | null } {
-  let primary: OfferId;
-  let secondary: OfferId | null = null;
-
-  switch (category) {
-    case 'ready_for_mba_story_sprint':
-      primary = 'mba_story_sprint';
-      break;
-    case 'strong_profile_weak_story':
-      primary = 'teardown_90';
-      if (scores.cv_readiness.score <= overlayThresholds.cvReviewIfCvReadinessAtMost)
-        secondary = 'cv_linkedin_review';
-      break;
-    case 'climate_career_builder':
-      primary = 'climate_positioning_sprint';
-      break;
-    case 'career_positioning_before_mba':
-      primary = 'climate_positioning_sprint';
-      secondary = 'teardown_90';
-      break;
-    case 'profile_building_needed':
-      primary = 'teardown_90'; // framed as optional; honest build-first guidance is the headline
-      break;
-    case 'high_potential_low_commercial_clarity':
-      primary = 'climate_positioning_sprint';
-      secondary = 'teardown_90';
-      break;
-    case 'interview_ready_positioning_weak':
-      primary = 'teardown_90';
-      secondary = 'mock_interview_pack';
-      break;
-    case 'cv_strong_narrative_weak':
-      primary = 'teardown_90';
-      break;
-  }
-
-  // Any-category overlay: mock pack when interviews are imminent and weak.
-  // Fills an EMPTY secondary slot only — category-specific secondaries take precedence.
-  if (
-    secondary === null &&
-    scores.interview_readiness.score <= overlayThresholds.mockPackIfInterviewAtMost &&
-    timeline === '<6m' &&
-    // defensive: no category maps mock pack as primary today, but the mapping is config
-    (primary as OfferId) !== 'mock_interview_pack'
-  ) {
-    secondary = 'mock_interview_pack';
-  }
-
+/**
+ * Category → the one recommended service, plus the other public one as the
+ * alternative.
+ *
+ * Gate 8 (2026-07-29) replaced the 11-item mapping table with a two-service
+ * catalogue, so this is now a single question: is this person standing in front
+ * of an MBA application, or in front of a career/offer decision? Everything the
+ * old table expressed through overlays (mock-interview packs, CV reviews,
+ * multi-week sprints) refers to services that no longer exist publicly.
+ *
+ * The old signature also took `scores` and `timeline` to drive overlays. With a
+ * two-item catalogue neither can change the answer, so they are gone rather
+ * than left in place as dead parameters that imply a decision they don't make.
+ */
+export function offersFor(category: ResultCategory): {
+  primary: OfferId;
+  secondary: OfferId | null;
+} {
+  const mbaCategories: ResultCategory[] = [
+    'ready_for_mba_story_sprint',
+    'career_positioning_before_mba',
+  ];
+  const primary: OfferId = mbaCategories.includes(category)
+    ? 'mba_story_teardown'
+    : 'offer_path_read';
+  const secondary: OfferId =
+    primary === 'mba_story_teardown' ? 'offer_path_read' : 'mba_story_teardown';
   return { primary, secondary };
 }
 
@@ -232,7 +206,7 @@ export function gradeLead(
 
 export function classify(input: ClassifierInput): Classification {
   const category = pickCategory(input);
-  const { primary, secondary } = offersFor(category, input.scores, input.timeline);
+  const { primary, secondary } = offersFor(category);
   const lead_grade = gradeLead(category, input.summary, input.timeline, input.seniority);
   return {
     category,
@@ -243,33 +217,33 @@ export function classify(input: ClassifierInput): Classification {
   };
 }
 
-/** The cheapest paid "yes" — the universal low-risk entry (PRODUCT_OPTIMIZATION_ROADMAP). */
-const CHEAPEST_YES: OfferId = 'deep_read';
-
 /**
- * The three CTA slots shown on the report: primary recommendation + a low-risk
- * entry + full_package anchor. The entry slot prefers a category-specific
- * secondary (tailored); absent that, it leads with the cheapest paid yes
- * (Deep Read) per START_HERE — "the first yes is the hardest; make it small."
- * Deduped, nulls dropped, max 3, anchor last. The free intro call is surfaced
- * separately as a quiet always-on option in PaidOfferCta.
+ * The paid slots shown on the report: the recommended service, then the other
+ * public one. Two slots, never three — the anchor slot existed to make a
+ * NT$30,000 package look reasonable, and that package no longer exists.
+ * Archived offers can never reach a slot. The free call is rendered separately
+ * as the hero in PaidOfferCta.
  */
 export function ctaOffers(c: Pick<Classification, 'category' | 'primary_offer' | 'secondary_offer'>): {
   offer: OfferId;
-  role: 'primary' | 'entry' | 'anchor';
+  role: 'primary' | 'entry';
 }[] {
-  const slots: { offer: OfferId; role: 'primary' | 'entry' | 'anchor' }[] = [];
-  slots.push({ offer: c.primary_offer, role: 'primary' });
+  const slots: { offer: OfferId; role: 'primary' | 'entry' }[] = [];
+  if (isPublicPaidOffer(c.primary_offer)) slots.push({ offer: c.primary_offer, role: 'primary' });
+  if (c.secondary_offer && isPublicPaidOffer(c.secondary_offer) && c.secondary_offer !== c.primary_offer)
+    slots.push({ offer: c.secondary_offer, role: 'entry' });
 
-  const entry =
-    c.secondary_offer && c.secondary_offer !== 'full_package' ? c.secondary_offer : CHEAPEST_YES;
-  if (entry !== c.primary_offer) slots.push({ offer: entry, role: 'entry' });
-
-  if (!slots.some((s) => s.offer === 'full_package'))
-    slots.push({ offer: 'full_package', role: 'anchor' });
+  // Historical rows (pre-Gate-8 classifications persisted in `scores`) can carry
+  // archived offer ids. Rather than render a service that cannot be bought, fall
+  // back to today's catalogue in its canonical order.
+  if (slots.length === 0)
+    return PUBLIC_PAID_OFFER_IDS.map((offer, i) => ({
+      offer: offer as OfferId,
+      role: i === 0 ? ('primary' as const) : ('entry' as const),
+    }));
 
   const seen = new Set<OfferId>();
-  return slots.filter((s) => (seen.has(s.offer) ? false : (seen.add(s.offer), true))).slice(0, 3);
+  return slots.filter((s) => (seen.has(s.offer) ? false : (seen.add(s.offer), true))).slice(0, 2);
 }
 
 /* ----------------------------------- utils ----------------------------------- */

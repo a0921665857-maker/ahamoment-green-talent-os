@@ -8,6 +8,7 @@ import {
   REPORT_SECTION_KEYS,
   RESULT_CATEGORIES,
 } from '@/lib/constants';
+import { PUBLIC_PAID_OFFER_IDS, priceFor } from '@/lib/services';
 
 const en = getContent('en');
 const zh = getContent('zh-TW');
@@ -82,12 +83,60 @@ describe('report templates', () => {
 });
 
 describe('paid offers', () => {
-  it('all offers present with locale-appropriate currency in both locales', () => {
-    const currency = { en: /US\$|Free/i, 'zh-TW': /NT\$|免費/ } as const;
-    for (const [code, c] of [['en', en], ['zh-TW', zh]] as const) {
+  it('every offer id has copy in both locales', () => {
+    for (const c of [en, zh]) {
       for (const id of OFFER_IDS) {
         expect(c.paidOffers.offers[id].name.length).toBeGreaterThan(0);
-        expect(c.paidOffers.offers[id].price).toMatch(currency[code]);
+        expect(c.paidOffers.offers[id].blurb.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  /**
+   * The single-source rule. A public price must exist in exactly one place —
+   * lib/services.ts — so a stale locale string can never disagree with what the
+   * payment link charges. Archived offers keep their historical strings.
+   */
+  it('public paid offers carry no price string in content', () => {
+    for (const c of [en, zh]) {
+      for (const id of PUBLIC_PAID_OFFER_IDS) {
+        expect(c.paidOffers.offers[id].price).toBeUndefined();
+      }
+    }
+  });
+
+  it('publishes the founder-authorised price per market', () => {
+    for (const id of PUBLIC_PAID_OFFER_IDS) {
+      expect(priceFor(id, 'zh-TW').display).toBe('NT$6,800');
+      expect(priceFor(id, 'en').display).toBe('SGD 420');
+      expect(priceFor(id, 'zh-TW').currency).toBe('TWD');
+      expect(priceFor(id, 'en').currency).toBe('SGD');
+    }
+  });
+
+  it('no public price is hedged with a "from" qualifier', () => {
+    for (const id of PUBLIC_PAID_OFFER_IDS) {
+      for (const loc of ['en', 'zh-TW'] as const) {
+        const d = priceFor(id, loc).display;
+        expect(d).not.toMatch(/起|from|\+/i);
+      }
+    }
+  });
+
+  /** Gate 8 removed the refund guarantee: with no company entity behind it, it
+   * was a promise that could not be executed. This guards the removal. */
+  it('carries no refund guarantee in either locale', () => {
+    for (const c of [en, zh]) {
+      const surface = JSON.stringify(c.paidOffers);
+      expect(surface).not.toMatch(/全額退費|full refund|退費保證/i);
+    }
+  });
+
+  it('both public services state what they do not do', () => {
+    for (const c of [en, zh]) {
+      for (const id of PUBLIC_PAID_OFFER_IDS) {
+        expect(c.paidOffers.offers[id].notIncluded?.length ?? 0).toBeGreaterThanOrEqual(2);
+        expect(c.paidOffers.offers[id].decisionMoment?.length ?? 0).toBeGreaterThan(0);
       }
     }
   });

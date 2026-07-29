@@ -2,8 +2,7 @@ import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { REPORT_SECTION_KEYS, type Locale } from '@/lib/constants';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import { ReturnReportLink } from '@/components/ReturnReportLink';
+import { displayPrice, FREE_OFFER_ID, PUBLIC_PAID_OFFER_IDS } from '@/lib/services';
 import { LatestContent } from '@/components/LatestContent';
 import { FounderAvatar } from '@/components/FounderAvatar';
 import { LineActions } from '@/components/LineActions';
@@ -56,13 +55,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-        <span className="text-sm font-semibold tracking-tight">{c.seo.siteName}</span>
-        <div className="flex items-center gap-4">
-          <ReturnReportLink locale={L} label={c.landing.hero.viewExistingReport} />
-          <LanguageSwitcher current={L} />
-        </div>
-      </nav>
 
       {/* hero */}
       <header className="mx-auto max-w-3xl px-6 pb-16 pt-10">
@@ -269,16 +261,16 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <h2 className="text-xl font-semibold">{c.landing.offersTeaser.title}</h2>
         <p className="mt-2 max-w-2xl text-ink-soft">{c.landing.offersTeaser.intro}</p>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {(['intro_call_free', 'deep_read', 'teardown_90', 'full_package'] as const).map((id) => {
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          {([FREE_OFFER_ID, ...PUBLIC_PAID_OFFER_IDS] as const).map((id) => {
             const offer = c.paidOffers.offers[id];
+            const price = displayPrice(id, L) ?? offer.price ?? '';
             return (
               <div key={id} className="flex flex-col rounded-xl border border-line bg-paper p-5">
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className="font-semibold">{offer.name}</h3>
-                  <span className="shrink-0 text-sm font-medium text-pine">{offer.price}</span>
+                  <span className="shrink-0 text-sm font-medium text-pine">{price}</span>
                 </div>
-                {offer.priceNote && <p className="mt-2 text-xs text-pine">{offer.priceNote}</p>}
                 <p className="mt-2 text-sm text-ink-soft">{offer.blurb}</p>
               </div>
             );

@@ -39,9 +39,15 @@ export const RESULT_CATEGORIES = [
 export type ResultCategory = (typeof RESULT_CATEGORIES)[number];
 
 export const OFFER_IDS = [
-  // Entry-tier "first yes" products (lowest friction first). The free intro call
-  // and Deep Read are the cheapest yeses; consult is a low-risk human entry.
+  // --- Public catalogue (Gate 8, 2026-07-29) ---
+  // The free front door plus exactly two paid services. Everything below the
+  // divider is ARCHIVED: kept for historical rows in `scores`/`reports`, never
+  // rendered on a public surface. See lib/services.ts for the single source of
+  // truth on what is public and what it costs.
   'intro_call_free',
+  'offer_path_read',
+  'mba_story_teardown',
+  // --- Archived (pre-Gate-8 menu; do not surface) ---
   'deep_read',
   'consult_60',
   'teardown_90',
@@ -49,7 +55,6 @@ export const OFFER_IDS = [
   'climate_positioning_sprint',
   'mba_story_sprint',
   'mock_interview_pack',
-  // INSEAD-differentiated green-career services
   'offer_negotiation',
   'climate_finance_transition',
   'full_package',
@@ -135,9 +140,20 @@ export type GreenDepth = (typeof GREEN_DEPTHS)[number];
 export const LEAD_GRADES = ['A', 'B', 'C'] as const;
 export type LeadGrade = (typeof LEAD_GRADES)[number];
 
+/**
+ * First-party event whitelist for `/api/mri/event` and `recordEvent`.
+ *
+ * `page_view` and `language_selected` were removed in Gate 8: they had zero
+ * call sites anywhere in the repo, so the first-party funnel was silently
+ * missing its own head while the docs claimed it was canonical. Landing traffic
+ * comes from PostHog's `$pageview`.
+ *
+ * PostHog also receives client-only product events that are deliberately NOT in
+ * this list (`scroll_depth`, `judgment_*`, `services_page_viewed`, …) — they
+ * carry no session token and belong in analytics, not in the funnel table. The
+ * full map of both sinks is docs/analytics/EVENT_DICTIONARY.md.
+ */
 export const EVENT_NAMES = [
-  'page_view',
-  'language_selected',
   'mri_started',
   'input_method_selected',
   'consent_given',
@@ -151,6 +167,7 @@ export const EVENT_NAMES = [
   'cta_clicked',
   'booking_clicked',
   'newsletter_subscribed',
+  'jd_translate_submitted',
   'jd_translated',
   'mba_roi_calculated',
   'save_for_later_submitted',
@@ -162,6 +179,11 @@ export const EVENT_NAMES = [
   'twin_link_requested',
   'twin_link_sent',
   'twin_viewed',
+  // Payment rail (Gate 8). `checkout_started` is client-side intent;
+  // `payment_succeeded` is written only by the signature-verified Stripe
+  // webhook, never by anything the browser can reach.
+  'checkout_started',
+  'payment_succeeded',
 ] as const;
 export type EventName = (typeof EVENT_NAMES)[number];
 

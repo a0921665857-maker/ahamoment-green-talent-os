@@ -187,12 +187,18 @@ export interface ReportTemplatesContent {
 
 export interface OfferCopy {
   name: string;
-  price: string; // current (possibly early-bird) display price
+  /** Archived offers only. Public prices live in lib/services.ts (single source);
+   * leaving this unset for a public offer is deliberate, not an omission. */
+  price?: string;
   originalPrice?: string; // strike-through pre-discount price when on early-bird
   priceNote?: string; // e.g. hybrid "base + success bonus" note under the price
   delivery: string;
   forWhom: string;
   blurb: string;
+  /** The decision the buyer is standing in front of when this is the right call. */
+  decisionMoment?: string;
+  /** Explicit scope boundary — what this consultation does NOT do. */
+  notIncluded?: string[];
 }
 export interface PaidOffersContent {
   title: string;
@@ -203,11 +209,13 @@ export interface PaidOffersContent {
   earlyBird: string; // small tag shown next to a discounted price
   allServicesCta: string; // link from the report's 3-slot CTA to the full services page
   bookingNote: string; // "every booking starts with a free 30-min chat" framing
-  guarantee: string; // satisfaction/risk-reversal guarantee shown near the offers
-  creditPolicy: string;
   confidentiality: string;
   bookCta: string;
   payCta?: string; // direct-payment CTA label, used when a Stripe payment link is configured for an offer
+  /** Scope-boundary heading on the services page ("this consultation does not…"). */
+  notIncludedLabel: string;
+  /** Heading above the decision-moment line on a service card. */
+  decisionMomentLabel: string;
   stickyCall: string; // short label for the mobile sticky bar
   stickyLine: string; // short LINE label for the mobile sticky bar
   recommendedLabel: string; // badge on the entry "first step" offers, cuts choice overload
@@ -229,6 +237,8 @@ export interface ConsentContent {
   processing: { label: string; detail: string };
   aggregate: { label: string };
   redactHint: string;
+  /** Named the moment before upload: a human reads this, not only a model. */
+  whoSeesIt: string;
   noAccessNote: string;
   retentionSummary: string;
   privacyLinkLabel: string;

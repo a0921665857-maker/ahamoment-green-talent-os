@@ -1,5 +1,12 @@
 # NEXT_ACTIONS.md
 
+> **SUPERSEDED — 2026-07-30 (Gate 8).**
+> This document describes a product state and a pricing ladder that no longer exist.
+> Do not act on it. The single source of truth is
+> [`docs/product/CURRENT_PRODUCT_STRATEGY.md`](../product/CURRENT_PRODUCT_STRATEGY.md).
+> Kept for history only — every "immediate next task" in it was completed before 2026-07.
+
+
 ## Immediate next task (builder)
 Phase 3 build is COMPLETE. Immediate next steps are Michael's (no further code needed to ship the free beta):
 1. Create Supabase project → run supabase/schema.sql (+ optional seed.sql) → confirm private `source-materials` bucket exists.

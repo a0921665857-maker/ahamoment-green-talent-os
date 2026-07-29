@@ -2,8 +2,28 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
-import { OFFER_IDS, type Locale } from '@/lib/constants';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import type { Locale, OfferId } from '@/lib/constants';
+import { FREE_OFFER_ID, PUBLIC_PAID_OFFER_IDS, priceFor } from '@/lib/services';
+import { ServiceCtas } from '@/components/ServiceCtas';
+import { PageViewPing } from '@/components/PageViewPing';
+
+/** Scope boundary block — "what this service does not do". Declared at module
+ * scope: a component defined inside the page body is re-created every render. */
+function Scope({ label, items }: { label: string; items?: string[] }) {
+  if (!items?.length) return null;
+  return (
+    <div className="mt-4 border-t border-line pt-4">
+      <p className="text-xs uppercase tracking-eyebrow text-ink-soft">{label}</p>
+      <ul className="mt-2 space-y-1">
+        {items.map((line) => (
+          <li key={line} className="text-sm text-ink-soft">
+            · {line}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -17,68 +37,81 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
   const L = locale as Locale;
   const c = getContent(L);
   const o = c.paidOffers;
-  const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL ?? '';
+  const bookingUrl = process.env.NEXT_PUBLIC_CALENDLY_URL?.trim() ?? '';
+
+  const free = o.offers[FREE_OFFER_ID];
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
+      <PageViewPing name="services_page_viewed" props={{ locale: L }} />
 
-      <main className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <h1 className="text-3xl font-semibold">{o.title}</h1>
         <p className="mt-3 max-w-2xl text-ink-soft">{o.intro}</p>
         <p className="mt-4 max-w-2xl rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">
           {o.bookingNote}
         </p>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {OFFER_IDS.map((id) => {
-            const offer = o.offers[id];
-            // Entry "first yes" offers carry a recommended badge to counter choice
-            // overload across the full menu (0-conversion audit finding).
-            const recommended = id === 'intro_call_free' || id === 'deep_read';
+        {/* The free front door — the entry to both paid services, not a product. */}
+        <section className="mt-10 rounded-xl border-2 border-pine bg-sage-soft/30 p-6">
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <h2 className="text-xl font-semibold">{free.name}</h2>
+            <span className="text-sm font-medium text-pine">{free.price}</span>
+          </div>
+          <p className="mt-3 text-sm text-ink">{free.blurb}</p>
+          <p className="mt-3 text-xs text-ink-soft">{free.forWhom}</p>
+          <p className="mt-1 text-xs text-ink-soft">{free.delivery}</p>
+          <Scope label={o.notIncludedLabel} items={free.notIncluded} />
+          <ServiceCtas
+            offer={FREE_OFFER_ID}
+            locale={L}
+            bookingUrl={bookingUrl}
+            bookLabel={o.bookCta}
+            payLabel={o.payCta ?? ''}
+            lineLabel={o.stickyLine}
+          />
+        </section>
+
+        <div className="mt-12 space-y-6">
+          {PUBLIC_PAID_OFFER_IDS.map((id) => {
+            const offer = o.offers[id as OfferId];
+            const price = priceFor(id, L);
             return (
-              <div
-                key={id}
-                className={
-                  recommended
-                    ? 'flex flex-col rounded-xl border-2 border-pine bg-paper p-5'
-                    : 'flex flex-col rounded-xl border border-line bg-paper p-5'
-                }
-              >
-                {recommended && (
-                  <span className="mb-2 self-start rounded-full bg-sage-soft px-3 py-0.5 text-xs font-medium text-pine-deep">
-                    {o.recommendedLabel}
-                  </span>
-                )}
-                <div className="flex items-baseline justify-between gap-3">
-                  <h2 className="text-lg font-semibold">{offer.name}</h2>
-                  <span className="shrink-0 text-sm font-medium text-pine">{offer.price}</span>
+              <section key={id} className="rounded-xl border border-line bg-paper p-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
+                  <h2 className="text-xl font-semibold">{offer.name}</h2>
+                  <span className="shrink-0 text-base font-semibold text-pine">{price.display}</span>
                 </div>
-                {offer.priceNote && <p className="mt-2 text-xs text-pine">{offer.priceNote}</p>}
-                <p className="mt-3 text-sm">{offer.blurb}</p>
-                <p className="mt-3 text-xs text-ink-soft">{offer.forWhom}</p>
+
+                {offer.decisionMoment && (
+                  <p className="mt-4 border-l-2 border-pine pl-4 text-sm text-ink">
+                    <span className="block text-xs uppercase tracking-eyebrow text-ink-soft">
+                      {o.decisionMomentLabel}
+                    </span>
+                    {offer.decisionMoment}
+                  </p>
+                )}
+
+                <p className="mt-4 text-sm">{offer.blurb}</p>
+                <p className="mt-4 text-xs text-ink-soft">{offer.forWhom}</p>
                 <p className="mt-1 text-xs text-ink-soft">{offer.delivery}</p>
-                <a
-                  href={calendlyUrl || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-block self-start rounded-lg border border-pine px-5 py-2 text-sm text-pine"
-                >
-                  {o.bookCta}
-                </a>
-              </div>
+
+                <Scope label={o.notIncludedLabel} items={offer.notIncluded} />
+
+                <ServiceCtas
+                  offer={id as OfferId}
+                  locale={L}
+                  bookingUrl={bookingUrl}
+                  bookLabel={o.bookCta}
+                  payLabel={o.payCta ?? ''}
+                  lineLabel={o.stickyLine}
+                />
+              </section>
             );
           })}
         </div>
 
-        <p className="mt-8 text-sm font-medium text-pine">{o.guarantee}</p>
-        <p className="mt-2 text-sm text-ink-soft">{o.creditPolicy}</p>
-        <p className="mt-1 text-sm text-ink-soft">{o.confidentiality}</p>
+        <p className="mt-10 text-sm text-ink-soft">{o.confidentiality}</p>
 
         <div className="mt-12 border-t border-line pt-10 text-center">
           <a href={`/${L}/mri`} className="inline-block rounded-lg bg-pine px-6 py-3 text-paper">

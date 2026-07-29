@@ -1,13 +1,19 @@
 'use client';
-import type { Locale, OfferId, ResultCategory } from '@/lib/constants';
+import { LINE_OA_URL, type Locale, type OfferId, type ResultCategory } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
 import { FounderAvatar } from '@/components/FounderAvatar';
 import { phCapture } from '@/components/PostHogProvider';
 import { calendlyWithContext } from '@/lib/bookingUrl';
+import {
+  isPublicPaidOffer,
+  paymentLinkFor,
+  paymentLinkWithContext,
+  priceFor,
+} from '@/lib/services';
 
 interface Slot {
   offer: OfferId;
-  role: 'primary' | 'entry' | 'anchor';
+  role: 'primary' | 'entry';
 }
 
 export function PaidOfferCta(props: {
@@ -18,15 +24,11 @@ export function PaidOfferCta(props: {
   content: PaidOffersContent;
   calendlyUrl: string;
   sessionToken: string;
-  // Direct-payment links (Stripe Payment Links) per offer. Only async offers belong
-  // here — anything that needs a scheduled session must keep the booking path.
-  stripeLinks?: Partial<Record<OfferId, string>>;
 }) {
   const { content } = props;
   const roleLabel: Record<Slot['role'], string> = {
     primary: content.primaryLabel,
     entry: content.entryLabel,
-    anchor: content.anchorLabel,
   };
   const free = content.offers.intro_call_free;
   const isZh = props.locale === 'zh-TW';
@@ -37,9 +39,18 @@ export function PaidOfferCta(props: {
     ? `Michael 你好，我的類型是「${props.categoryLabel}」，我想問的一個問題是：`
     : `Hi Michael — my type is "${props.categoryLabel}", and my one question is:`;
   const mailto = `mailto:${content.replyEmail}?subject=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
-  const bookUrl = calendlyWithContext(props.calendlyUrl, { token: props.sessionToken, category: props.category });
+  // A booking CTA is rendered only when a real booking URL is configured.
+  // calendlyWithContext returns '#' for an empty base, and a '#' button that
+  // silently does nothing is worse than no button at all.
+  const hasBooking = Boolean(props.calendlyUrl?.trim());
+  const bookUrl = hasBooking
+    ? calendlyWithContext(props.calendlyUrl, { token: props.sessionToken, category: props.category })
+    : '';
 
-  function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
+  function track(
+    name: 'booking_clicked' | 'cta_clicked' | 'checkout_started',
+    extra: Record<string, string>,
+  ) {
     // Deliberately dual-sinked (see PostHogProvider note): the first-party events
     // table is canonical, but PostHog funnels were blind to the last mile — a
     // booking_clicked=0 misread of this exact gap drove a wrong product verdict.
@@ -80,15 +91,27 @@ export function PaidOfferCta(props: {
             </a>
           </p>
         </div>
-        <a
-          href={bookUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => track('booking_clicked', { offer: 'intro_call_free' })}
-          className="mt-5 inline-block rounded-lg bg-pine px-6 py-3 text-sm text-paper"
-        >
-          {content.freeHeroCta}
-        </a>
+        {hasBooking ? (
+          <a
+            href={bookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track('booking_clicked', { offer: 'intro_call_free' })}
+            className="mt-5 inline-block rounded-lg bg-pine px-6 py-3 text-sm text-paper"
+          >
+            {content.freeHeroCta}
+          </a>
+        ) : (
+          <a
+            href={LINE_OA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track('cta_clicked', { cta: 'line_add', surface: 'report_hero' })}
+            className="mt-5 inline-block rounded-lg bg-pine px-6 py-3 text-sm text-paper"
+          >
+            {content.stickyLine}
+          </a>
+        )}
         <p className="mt-2 text-xs text-ink-soft">{content.freeReassure}</p>
       </div>
 
@@ -110,12 +133,22 @@ export function PaidOfferCta(props: {
         {props.slots.map((s) => {
           const o = content.offers[s.offer];
           const isPrimary = s.role === 'primary';
+          const paidId = isPublicPaidOffer(s.offer) ? s.offer : null;
+          // Price comes from lib/services (single source), never from content —
+          // a stale string in a locale file must not be able to disagree with
+          // what the payment link actually charges.
+          const price = paidId ? priceFor(paidId, props.locale) : null;
           // Carry the session token into Stripe as client_reference_id so every
           // payment maps back to a report (no anonymous money, per the funnel rule).
-          const payHrefRaw = props.stripeLinks?.[s.offer];
-          const payHref = payHrefRaw
-            ? `${payHrefRaw}${payHrefRaw.includes('?') ? '&' : '?'}client_reference_id=${encodeURIComponent(props.sessionToken)}`
-            : undefined;
+          const rawLink = paidId ? paymentLinkFor(paidId, props.locale) : null;
+          const payHref =
+            rawLink && paidId
+              ? paymentLinkWithContext(rawLink, {
+                  token: props.sessionToken,
+                  offer: paidId,
+                  locale: props.locale,
+                })
+              : undefined;
           return (
             <div
               key={s.offer}
@@ -127,34 +160,46 @@ export function PaidOfferCta(props: {
             >
               <p className="text-xs uppercase tracking-eyebrow text-pine">{roleLabel[s.role]}</p>
               <h3 className="mt-2 text-lg font-semibold">{o.name}</h3>
-              <p className="mt-1 text-sm font-medium text-ink">{o.price}</p>
-              {o.priceNote && <p className="mt-2 text-xs text-pine">{o.priceNote}</p>}
+              {price && <p className="mt-1 text-sm font-medium text-ink">{price.display}</p>}
               <p className="mt-3 text-sm">{o.blurb}</p>
               <p className="mt-3 text-xs text-ink-soft">{o.delivery}</p>
-              <a
-                href={
-                  payHref ??
-                  calendlyWithContext(props.calendlyUrl, {
-                    token: props.sessionToken,
-                    category: props.category,
-                    offer: s.offer,
-                  })
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  payHref
-                    ? track('cta_clicked', { cta: 'stripe_pay', offer: s.offer })
-                    : track('booking_clicked', { offer: s.offer })
-                }
-                className={
-                  isPrimary
-                    ? 'mt-4 inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper'
-                    : 'mt-4 inline-block rounded-lg border border-pine px-5 py-2.5 text-sm text-pine'
-                }
-              >
-                {payHref ? (content.payCta ?? content.bookCta) : content.bookCta}
-              </a>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                {bookUrl && (
+                  <a
+                    href={calendlyWithContext(props.calendlyUrl, {
+                      token: props.sessionToken,
+                      category: props.category,
+                      offer: s.offer,
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => track('booking_clicked', { offer: s.offer })}
+                    className={
+                      isPrimary
+                        ? 'inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper'
+                        : 'inline-block rounded-lg border border-pine px-5 py-2.5 text-sm text-pine'
+                    }
+                  >
+                    {content.bookCta}
+                  </a>
+                )}
+                {payHref && (
+                  <a
+                    href={payHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      track('checkout_started', {
+                        offer: s.offer,
+                        currency: price?.currency ?? 'unknown',
+                      })
+                    }
+                    className="inline-block rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
+                  >
+                    {content.payCta ?? content.bookCta}
+                  </a>
+                )}
+              </div>
             </div>
           );
         })}
@@ -167,9 +212,7 @@ export function PaidOfferCta(props: {
         {content.allServicesCta} →
       </a>
 
-      <p className="mt-6 text-sm font-medium text-pine">{content.guarantee}</p>
-      <p className="mt-2 text-sm text-ink-soft">{content.creditPolicy}</p>
-      <p className="mt-1 text-sm text-ink-soft">{content.confidentiality}</p>
+      <p className="mt-6 text-sm text-ink-soft">{content.confidentiality}</p>
     </section>
   );
 }

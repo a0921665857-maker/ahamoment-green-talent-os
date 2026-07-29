@@ -34,8 +34,8 @@ export const sampleReports: Record<Locale, SampleReport> = {
   'zh-TW': {
     name: null,
     category: 'climate_career_builder',
-    primaryOffer: 'climate_positioning_sprint',
-    secondaryOffer: 'teardown_90',
+    primaryOffer: 'offer_path_read',
+    secondaryOffer: 'mba_story_teardown',
     limitedData: false,
     mbaIntent: 'considering',
     bands,
@@ -93,8 +93,8 @@ export const sampleReports: Record<Locale, SampleReport> = {
   en: {
     name: null,
     category: 'climate_career_builder',
-    primaryOffer: 'climate_positioning_sprint',
-    secondaryOffer: 'teardown_90',
+    primaryOffer: 'offer_path_read',
+    secondaryOffer: 'mba_story_teardown',
     limitedData: false,
     mbaIntent: 'considering',
     bands,

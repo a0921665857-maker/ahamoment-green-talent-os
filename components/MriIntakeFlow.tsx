@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { phCapture, phDistinctId } from '@/components/PostHogProvider';
 import type { Locale, ResultCategory } from '@/lib/constants';
@@ -107,9 +107,24 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
   const inputReady =
     consentProcessing && (inputType === 'cv_pdf' ? Boolean(file) : textOk);
 
-  useEffect(() => {
-    phCapture('mri_started', { locale });
-  }, [locale]);
+  /**
+   * `mri_started` fires on the first real interaction, not on mount.
+   *
+   * It used to fire in an effect at mount, which made it a synonym for "the
+   * /mri URL was opened" — so every conversion rate computed against it was
+   * wrong, and the 2026-07 audit had to throw the number out. One person can
+   * only start once per mount; `startedRef` guards React StrictMode's double
+   * invoke and any re-render.
+   */
+  const startedRef = useRef(false);
+  const markStarted = useCallback(
+    (trigger: 'tab' | 'typing' | 'file' | 'quick' | 'consent') => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+      phCapture('mri_started', { locale, trigger });
+    },
+    [locale],
+  );
 
   // Restore an interrupted draft once on mount (mobile audit: reload used to wipe it).
   useEffect(() => {
@@ -340,21 +355,32 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
           sampleHref={props.sampleHref}
           inputType={inputType}
           setInputType={(t) => {
+            markStarted('tab');
             setInputType(t);
             track('input_method_selected', token, { input_type: t });
           }}
           text={text}
-          setText={setText}
+          setText={(v: string) => {
+            if (v.trim().length > 0) markStarted('typing');
+            setText(v);
+          }}
           file={file}
-          setFile={setFile}
+          setFile={(f: File | null) => {
+            if (f) markStarted('file');
+            setFile(f);
+          }}
           consentProcessing={consentProcessing}
-          setConsentProcessing={setConsentProcessing}
+          setConsentProcessing={(v: boolean) => {
+            if (v) markStarted('consent');
+            setConsentProcessing(v);
+          }}
           consentAggregate={consentAggregate}
           setConsentAggregate={setConsentAggregate}
           inputReady={inputReady}
           busy={busy}
           onSubmit={handleSubmit}
           onQuick={() => {
+            markStarted('quick');
             phCapture('quick_started', { locale });
             setPhase('quick');
           }}
@@ -587,6 +613,7 @@ function InputStep(p: {
           />
           <span>{p.consent.aggregate.label}</span>
         </label>
+        <p className="ml-7 mt-2 text-xs text-ink-soft">{p.consent.whoSeesIt}</p>
         <p className="ml-7 mt-2 text-xs text-ink-soft">{p.consent.noAccessNote}</p>
       </div>
 

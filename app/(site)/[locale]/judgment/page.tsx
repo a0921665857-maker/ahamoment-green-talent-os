@@ -5,8 +5,9 @@ import { LOCALES, type Locale } from '@/lib/constants';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { judgmentData } from '@/lib/judgment';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { JudgmentApp } from '@/components/JudgmentApp';
+import { PageViewPing } from '@/components/PageViewPing';
+import { ScrollDepth } from '@/components/ScrollDepth';
 
 /**
  * 綠領判斷力 — on-site, in the site's own design system.
@@ -54,20 +55,14 @@ export default async function JudgmentPage({
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <div className="flex items-center gap-4">
-          <a href={mriHref} className="text-sm text-pine underline-offset-2 hover:underline">
-            {t.backLink}
-          </a>
-          <LanguageSwitcher current={L} />
-        </div>
-      </nav>
+      <PageViewPing name="judgment_page_viewed" props={{ locale: L }} />
+      <ScrollDepth surface="judgment" extra={{ locale: L }} />
 
       <article className="mx-auto max-w-3xl px-6 pb-24 pt-6">
-        <p className="text-xs uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>
+        <a href={mriHref} className="text-sm text-pine underline-offset-2 hover:underline">
+          {t.backLink}
+        </a>
+        <p className="mt-6 text-xs uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>
         <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{t.lede}</p>
 

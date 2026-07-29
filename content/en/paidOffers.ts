@@ -9,14 +9,14 @@ export const paidOffers: PaidOffersContent = {
   anchorLabel: 'The full journey',
   earlyBird: 'Early-bird',
   allServicesCta: 'See all services & pricing',
-  bookingNote: 'Whichever service you pick, we start with a free 30-minute chat — to check your needs and expectations line up before you commit. If it is not a fit, I will tell you straight.',
-  guarantee: 'Satisfaction guarantee: if your first session is not useful to you, full refund. The risk sits with me, not you.',
-  creditPolicy:
-    'Teardown fee credits 100% toward any sprint or package booked within 30 days.',
+  bookingNote:
+    'Both services start with a 30-minute positioning call: I ask you three questions, work out which decision you are actually facing, and tell you whether I can help. If I can, I tell you the price on that call. If I can’t, I say that instead.',
   confidentiality:
-    'Human review is private. Your materials are never used as public examples or testimonials without your explicit written permission.',
-  bookCta: 'Set this up for me',
-  payCta: 'Pay now — no scheduling needed',
+    'Calls are private. Your materials are never used as public examples or testimonials without your explicit written permission.',
+  bookCta: 'Book the 30-minute call',
+  payCta: 'Pay now',
+  notIncludedLabel: 'What this does not do',
+  decisionMomentLabel: 'The decision you are standing in front of',
   stickyCall: 'Free 30-min read',
   stickyLine: 'Add LINE',
   recommendedLabel: 'Where most people start',
@@ -38,11 +38,45 @@ export const paidOffers: PaidOffersContent = {
   },
   offers: {
     intro_call_free: {
-      name: 'Free 30 min: I’ll read your own report back to you',
+      name: '30-minute positioning call',
       price: 'Free',
       delivery: 'One 30-minute call, no written deliverable.',
-      forWhom: 'Anyone still deciding whether this is the right direction.',
-      blurb: 'This call does one thing: looks at your MRI result and tells you, given where you are, the one gap to close first — and why. No slides, nothing to sell you — you leave with one clear next step. And if you don’t actually need a paid service, I’ll tell you that too.',
+      forWhom: 'Anyone standing in front of a specific decision who wants to check the direction first.',
+      decisionMoment: 'You have a decision to make and you are not sure what to judge it against.',
+      blurb:
+        'The 30 minutes run the same way every time: I ask you three questions to work out which decision you are actually facing, tell you the one thing I think you should do next, then say whether I can help with it and what it costs. If you don’t need a paid service, I say that instead.',
+      notIncluded: [
+        'Not a full career consultation — 30 minutes is not enough time for that.',
+        'No CV edits, no writing anything on your behalf.',
+        'No promises about offers, salary, or referrals.',
+      ],
+    },
+    offer_path_read: {
+      name: 'Offer & Path Read',
+      delivery: 'A 60–90 minute one-to-one call, plus a one-page written memo within 48 hours.',
+      forWhom:
+        'People holding an offer, or choosing between two paths. You already have career capital — what you are short of is judgement, not information.',
+      decisionMoment: 'You have an offer, or you have to pick one of two roads, and there is a clock on it.',
+      blurb:
+        'We take the decision apart: what the offer terms actually mean, whether the level is a lateral move or a downlevel, what is genuinely left after tax and cost of living if the role is in Singapore, whether you clear the EP salary threshold, where the negotiable room sits — and, most importantly, what you give up by saying no. Within 48 hours I write the judgement up as a one-page memo you can take to a partner or family.',
+      notIncluded: [
+        'I do not negotiate with your employer, and I never contact them on your behalf.',
+        'No promises about salary outcomes or offers.',
+        'No legal, tax, or immigration advice — where that comes up, I tell you who to ask.',
+      ],
+    },
+    mba_story_teardown: {
+      name: 'MBA Story Teardown',
+      delivery: 'A 90-minute one-to-one call, plus a one-page written memo within 48 hours.',
+      forWhom: 'Applicants whose story reads like everyone else’s.',
+      decisionMoment: 'You are about to submit, and your story sounds like a thousand other applications.',
+      blurb:
+        'I went from Big 4 ESG consulting into INSEAD, and the hardest part was realising my title did not translate for an admissions committee. These 90 minutes do the same work on yours: what your experience actually proves, whether Why MBA and Why now hold up as cause and effect, whether your stated goal genuinely needs the degree, and which piece of your material is missing. The memo captures the narrative spine we land on and the gap list.',
+      notIncluded: [
+        'No essay writing, no editing, no proofreading.',
+        'No school list and no admit-odds prediction — nobody can calculate that honestly.',
+        'No admission promises, and no recommendation letters.',
+      ],
     },
     deep_read: {
       name: 'Deep Read',

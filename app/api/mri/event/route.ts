@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { errorJson, json } from '@/lib/http';
-import { isEventName, recordEvent } from '@/lib/events';
+import { isClientWritableEventName, recordEvent } from '@/lib/events';
 
 export const runtime = 'nodejs';
 
@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
   } catch {
     return errorJson('generic', 400);
   }
-  if (!isEventName(body.name)) return errorJson('generic', 400);
+  // Server-only names (payments) are rejected here — see lib/events.ts.
+  if (!isClientWritableEventName(body.name)) return errorJson('generic', 400);
 
   let sessionId: string | null = null;
   if (body.session_token) {

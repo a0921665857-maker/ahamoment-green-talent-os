@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -22,13 +21,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
-      <main className="mx-auto max-w-2xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
         <h1 className="text-3xl font-semibold">{p.title}</h1>
         <p className="mt-3 text-ink-soft">{p.intro}</p>
         <div className="mt-8 space-y-7">

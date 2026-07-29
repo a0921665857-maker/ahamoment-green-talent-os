@@ -4,7 +4,6 @@ import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { RESULT_CATEGORIES, type Locale, type ResultCategory } from '@/lib/constants';
 import { TYPE_STYLE, cardLineOf } from '@/lib/shareCardStyle';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 function isCategory(x: string): x is ResultCategory {
   return (RESULT_CATEGORIES as readonly string[]).includes(x);
@@ -74,14 +73,8 @@ export default async function TypePage({
 
   return (
     <div className="min-h-screen">
-      <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
-        <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
-          {c.seo.siteName}
-        </a>
-        <LanguageSwitcher current={L} />
-      </nav>
 
-      <main className="mx-auto max-w-2xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
         {/* the type card (static mirror of the shareable card / OG image) */}
         <div className="mx-auto max-w-md overflow-hidden rounded-2xl border border-line bg-paper shadow-sm">
           <div style={{ height: 10, background: style.accent }} />
