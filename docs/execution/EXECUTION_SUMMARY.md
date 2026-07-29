@@ -80,6 +80,14 @@ tests/{payments,salaryIndex,nav,purge,events}.test.ts
 4. **揭薪指數尚未逐筆複驗**，所以敘事上不能宣稱經過稽核。
 5. **首頁與新導覽的敘事還不一致**（九個出口 vs 三個決策入口），這是刻意留給你的決定。
 
+## 一個要更正的偏差
+
+動工前工作目錄有四個你未提交的內容線檔案（`docs/material-bank.md`、`docs/threads-log.md`、`docs/threads-published-corpus.md`、`docs/voice-canon.md`）。原本的處理方式是原樣保留、不碰、不提交，WP-1 也確實把它們從 commit 裡退了出來。
+
+但 WP-3 提交時我用了 `git add -- ... docs`，那個路徑參數把這四個檔案一起掃進了 `3860d6c`。
+
+**內容完好無損**，一個字都沒有被改動或遺失，只是它們現在是那個 commit 的一部分，而不是留在你手上的未提交改動。沒有回頭改寫歷史，因為 branch 已經推出去了，改寫的代價高於這個偏差本身。要把它們單獨拆出來的話：`git log -p 3860d6c -- docs/threads-log.md` 看得到原始 diff。
+
 ## 回滾
 
 ```bash
