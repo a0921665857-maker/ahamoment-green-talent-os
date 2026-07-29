@@ -1,5 +1,12 @@
 # HANDOFF — run this with Claude Code
 
+> **SUPERSEDED — 2026-07-30 (Gate 8).**
+> This document describes a product state and a pricing ladder that no longer exist.
+> Do not act on it. The single source of truth is
+> [`docs/product/CURRENT_PRODUCT_STRATEGY.md`](../product/CURRENT_PRODUCT_STRATEGY.md).
+> Kept for history only — all four phases it describes are finished; it also overlaps ~80% with START_HERE.
+
+
 Goal: get the built app running on your machine, implement the V1.1 changes minimally and
 time-boxed, deploy a free beta, then go validate. Hand this to **Claude Code** (terminal or the
 desktop app's agent) with the project folder open. The plain Claude chat app cannot run `npm` or

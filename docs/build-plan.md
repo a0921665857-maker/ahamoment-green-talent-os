@@ -1,5 +1,12 @@
 # 綠領職涯產品 — 完整執行藍圖(Build Plan)
 
+> **SUPERSEDED — 2026-07-30 (Gate 8).**
+> This document describes a product state and a pricing ladder that no longer exist.
+> Do not act on it. The single source of truth is
+> [`docs/product/CURRENT_PRODUCT_STRATEGY.md`](../product/CURRENT_PRODUCT_STRATEGY.md).
+> Kept for history only — its P1/P2 monetisation (Stripe subscriptions, mentor module, employer product) is ruled out by the 2026-07-29 business constants.
+
+
 > **北極星**:把「免費氣候職涯測評」變成一個會成長、會回訪、會付費的產品線。
 > 瓶頸不是點子,是**分發**。所有優先序都圍繞:擴散 → 轉化 → 留存 → 信任。
 

@@ -1,5 +1,12 @@
 # ROADMAP.md
 
+> **SUPERSEDED — 2026-07-30 (Gate 8).**
+> This document describes a product state and a pricing ladder that no longer exist.
+> Do not act on it. The single source of truth is
+> [`docs/product/CURRENT_PRODUCT_STRATEGY.md`](../product/CURRENT_PRODUCT_STRATEGY.md).
+> Kept for history only — its V2/V3 assumption that AI modules become paid tiers contradicts the free/paid rule (only the founder's own time is charged for).
+
+
 ## V1 — Green Career MRI (build target: ~3–4 part-time weeks)
 Scope: everything in Phases 3–7 of the brief as refined by Phase 2 docs. Exit gate: 8 golden seeds pass; zh-TW quality approved; privacy checklist green; deployed; 20 beta users invited.
 

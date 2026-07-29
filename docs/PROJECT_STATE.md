@@ -1,5 +1,12 @@
 # PROJECT_STATE.md
 
+> **SUPERSEDED — 2026-07-30 (Gate 8).**
+> This document describes a product state and a pricing ladder that no longer exist.
+> Do not act on it. The single source of truth is
+> [`docs/product/CURRENT_PRODUCT_STRATEGY.md`](../product/CURRENT_PRODUCT_STRATEGY.md).
+> Kept for history only — it froze on 2026-06-12, before eleven pages, four crons and the whole payment rail shipped.
+
+
 ## Current phase
 Phase 3 (build) COMPLETE — approved by Michael 2026-06-12 with overrides logged below. V1 codebase built; all checkpoints green (tsc + 64 tests + next build). Awaiting Michael: Supabase project + env values + Vercel deploy + Phase 4 zh-TW review + `npm run seed` quality gate.
 Checkpoints 1–3/8 DONE:

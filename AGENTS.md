@@ -9,7 +9,7 @@ Tailwind v4 · Supabase · Anthropic SDK · Resend · Vitest. Package manager: *
 - Dev:       `npm run dev`   (or the preview MCP — don't hand-spawn a second server)
 - Build:     `npm run build`   (fails on TypeScript errors)
 - Typecheck: `npm run typecheck`
-- Test:      `npm test`   (Vitest, `tests/**` — 78 tests)
+- Test:      `npm test`   (Vitest, `tests/**`)
 - Lint:      `npm run lint`   (ESLint 9 flat config)
 
 ## Before starting
@@ -48,3 +48,24 @@ changing the locale-redirect exclusions affects every route; test after.
 ## Hard product constraints (always true)
 - No competition with Sylvera (carbon ratings / carbon markets).
 - No greenwashing (漂綠); copy opens with a concrete real scene, not abstract slogans.
+
+## Business constants (2026-07-29/30 — confirmed by Michael, NOT open questions)
+Read `docs/product/CURRENT_PRODUCT_STRATEGY.md` before proposing anything commercial.
+
+- **Charging is settled.** Paid one-to-one consulting is confirmed as fine under
+  his EP. Never re-add an EP / MOM / moonlighting gate, never list "can he
+  charge?" as a blocker, never default the paid services to off.
+- **Two paid services only**, priced per market by page language: Offer & Path
+  Read and MBA Story Teardown — NT$6,800 / SGD 420. Prices live in
+  `lib/services.ts` and nowhere else. No "起", no "from", no ranges.
+- **No company entity.** Personal capacity only, so: no invoices with a tax id,
+  no corporate training, no refund guarantee we cannot execute.
+- **Free/paid rule:** anything that does not consume his personal time is free
+  forever. Knowledge, the judgement drills, the MRI, the salary report, the JD
+  reader, templates and job intel never go behind a paywall.
+- **≈3 hours a week**, Monday and Wednesday evenings. Anything that creates a
+  standing obligation to a stranger (multi-week sprints, reply-to-me email
+  loops) is out — 2026-10 (SCR) and 2027 Q1 are scheduled disappearances.
+- Proposals that violate these get rejected, so do not spend a turn writing
+  them. The archived eleven-offer menu, Stripe subscriptions, the mentor module
+  and the employer-side product are all already dead.
