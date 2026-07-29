@@ -8,6 +8,7 @@ import { getReportByToken, getSessionStatusByToken } from '@/lib/reportData';
 import { getPersonalBand } from '@/lib/salaryBands';
 import { localeRedirectPath } from '@/lib/reportView';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { ScrollDepth } from '@/components/ScrollDepth';
 import { InlineCtaCard } from '@/components/InlineCtaCard';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
@@ -106,6 +107,7 @@ export default async function ResultPage({
 
   return (
     <div className="min-h-screen">
+      <ScrollDepth surface="report" extra={{ category: report.category, locale: L }} />
       <nav className="mx-auto flex max-w-2xl items-center justify-between px-6 py-5">
         <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
           {c.seo.siteName}

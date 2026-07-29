@@ -140,9 +140,20 @@ export type GreenDepth = (typeof GREEN_DEPTHS)[number];
 export const LEAD_GRADES = ['A', 'B', 'C'] as const;
 export type LeadGrade = (typeof LEAD_GRADES)[number];
 
+/**
+ * First-party event whitelist for `/api/mri/event` and `recordEvent`.
+ *
+ * `page_view` and `language_selected` were removed in Gate 8: they had zero
+ * call sites anywhere in the repo, so the first-party funnel was silently
+ * missing its own head while the docs claimed it was canonical. Landing traffic
+ * comes from PostHog's `$pageview`.
+ *
+ * PostHog also receives client-only product events that are deliberately NOT in
+ * this list (`scroll_depth`, `judgment_*`, `services_page_viewed`, …) — they
+ * carry no session token and belong in analytics, not in the funnel table. The
+ * full map of both sinks is docs/analytics/EVENT_DICTIONARY.md.
+ */
 export const EVENT_NAMES = [
-  'page_view',
-  'language_selected',
   'mri_started',
   'input_method_selected',
   'consent_given',
@@ -156,6 +167,7 @@ export const EVENT_NAMES = [
   'cta_clicked',
   'booking_clicked',
   'newsletter_subscribed',
+  'jd_translate_submitted',
   'jd_translated',
   'mba_roi_calculated',
   'save_for_later_submitted',

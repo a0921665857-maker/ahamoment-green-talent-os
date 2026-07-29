@@ -1,7 +1,7 @@
 # 真實素材庫 v3（Material Bank — 索引層）
 
 **2026-07-16 起，正典升級**：個人素材的最高真理源是 Michael 的主檔
-`C:\Users\michael\Desktop\Michael_Threads_故事引擎主檔_v1.md`
+`C:\Users\michael\Desktop\weekend-emails-2026-07\Michael_Threads_故事引擎主檔_v1.md`（2026-07-28 更正路徑）
 （100 題訪談校正版、人格側寫與決策模型、50 顆分級故事子彈、五種轉換 × 六變數生成系統、紅黃綠公開分級、語氣模型、生成前 7 條檢查）。
 
 **主檔不進 repo**：內含黃級與紅級隱私（薪資、家庭、感情、客戶事件），repo 會推上 GitHub，所以主檔永遠留在本機。本檔只是索引層＋repo 內可安全存放的綠級內容。

@@ -7,6 +7,8 @@ import { getContent } from '@/content';
 import { judgmentData } from '@/lib/judgment';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { JudgmentApp } from '@/components/JudgmentApp';
+import { PageViewPing } from '@/components/PageViewPing';
+import { ScrollDepth } from '@/components/ScrollDepth';
 
 /**
  * 綠領判斷力 — on-site, in the site's own design system.
@@ -54,6 +56,8 @@ export default async function JudgmentPage({
 
   return (
     <div className="min-h-screen">
+      <PageViewPing name="judgment_page_viewed" props={{ locale: L }} />
+      <ScrollDepth surface="judgment" extra={{ locale: L }} />
       <nav className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-5">
         <a href={`/${L}`} className="text-sm font-semibold tracking-tight">
           {c.seo.siteName}

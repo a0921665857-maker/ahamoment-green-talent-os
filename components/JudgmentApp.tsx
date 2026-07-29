@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { phCapture } from '@/components/PostHogProvider';
 import type { Band } from '@/lib/constants';
 import type { JudgmentContent } from '@/content/schema';
 import { JudgmentMarkdown } from '@/components/JudgmentMarkdown';
@@ -232,7 +233,15 @@ export function JudgmentApp({
   const total = judgmentData.graph.competencies.length;
   const answeredCount = reps.filter((r) => answers[r.id]).length;
 
+  /**
+   * The judgment module shipped with zero instrumentation — 898 lines and not a
+   * single event, so "does anyone finish it" has never been answerable. These
+   * five calls are the whole funnel: opened, gaps read, practice opened, each
+   * answer, and completion. No answer text and no free-text reasoning is ever
+   * sent: `verdict` is one of three fixed values and `rep` is a question id.
+   */
   function goTab(next: Tab) {
+    phCapture('judgment_tab_viewed', { tab: next, answered: answeredCount });
     setTab(next);
     setOpenRep(null);
     window.scrollTo(0, 0);
@@ -249,6 +258,13 @@ export function JudgmentApp({
 
   function choose(repId: string, key: string) {
     if (answers[repId]) return; // commit-first: the choice is final, so it counts
+    const rep = reps.find((r) => r.id === repId);
+    const verdict = rep?.options.find((o) => o.key === key)?.verdict ?? 'unknown';
+    const nextCount = answeredCount + 1;
+    phCapture('judgment_answered', { rep: repId, verdict, answered: nextCount });
+    if (nextCount === reps.length) {
+      phCapture('judgment_completed', { total: reps.length });
+    }
     setSaved((p) => ({ ...p, answers: { ...p.answers, [repId]: key } }));
     setDraft('');
   }
