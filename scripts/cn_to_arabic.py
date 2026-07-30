@@ -423,6 +423,28 @@ def walk(node, log: list[tuple[str, str]]):
     return node
 
 
+# Words that take an ordinal, where the source often writes the ordinal and the
+# quantity with nothing between them: 「範疇二兩萬六千八百五十噸」. That reads fine in
+# Chinese because 範疇二 is a known label, but once both halves are digits the two
+# numbers fuse into one wrong number ("範疇 226,850"). The conversion cannot tell
+# them apart, so it reports them instead of guessing. 2026-07-30: four of these
+# shipped undetected into carbon-accounting worked examples, where a reader who
+# adds up the numbers finds them wrong.
+ORDINAL_LABELS = "範疇|第|層|類|期|級|章|條|項|款|步|型|版|區|線|階"
+FUSION_RE = re.compile(rf"(?:{ORDINAL_LABELS})\s?(?:[0-9]{{3,}}|[0-9]{{1,3}},[0-9]{{3}})")
+
+
+def fusion_suspects(node: object, path: str = "") -> list[tuple[str, str]]:
+    """Label-then-long-number hits worth a human look after conversion."""
+    if isinstance(node, str):
+        return [(m.group(0), node[max(0, m.start() - 60) : m.end() + 60]) for m in FUSION_RE.finditer(node)]
+    if isinstance(node, list):
+        return [h for v in node for h in fusion_suspects(v, path)]
+    if isinstance(node, dict):
+        return [h for v in node.values() for h in fusion_suspects(v, path)]
+    return []
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -452,6 +474,15 @@ def main() -> int:
             shown[run] += 1
             print(f"  {run} → {parsed}")
             print(f"      …{ctx}…")
+
+    suspects = fusion_suspects(converted)
+    if suspects:
+        print(f"\n!! {len(suspects)} possible ordinal/quantity fusions — check each by hand:")
+        for hit, ctx in suspects:
+            print(f"  {hit}")
+            print(f"      …{ctx}…")
+        print("  (a legitimate 「公報第 023 卷」 looks the same as a broken 「範疇 226,850」;")
+        print("   only the arithmetic in the surrounding sentence tells them apart)")
 
     if args.dry_run:
         return 0
