@@ -116,7 +116,7 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '這個缺掛在 Temasek 的 Sustainability Strategy 團隊、直接匯報 Director of Sustainability Strategy，JD 的核心動作是 horizon scanning：掃全球永續政策、法規、框架與市場趨勢，再把它 distill 成給領導層與投資團隊的可行建議。這讀起來不是報告撰寫職，是主權基金的政策情報職，要的是能跨 climate、nature、social 三條 workstream 把外部訊號翻成內部決策輸入的人。訊號是 Temasek 這個月在永續線連開多個缺，而這筆開到 AVP 級、還明列要 partner 投資團隊，讀起來像永續政策正在往投資決策桌靠。',
+        '這個缺掛在 Temasek 的 Sustainability Strategy 團隊、直接匯報 Director of Sustainability Strategy，JD 的核心動作是 horizon scanning：掃全球永續政策、法規、框架與市場趨勢，再把它 distill 成給領導層與投資團隊的可行建議。這讀起來是主權基金的政策情報職，離報告撰寫很遠，要的是能跨 climate、nature、social 三條 workstream 把外部訊號翻成內部決策輸入的人。訊號是 Temasek 這個月在永續線連開多個缺，而這筆開到 AVP 級、還明列要 partner 投資團隊，讀起來像永續政策正在往投資決策桌靠。',
         '適合真的做過政策或法規分析、又聽得懂投資語言的人；JD 要最低 8 年永續政策、策略或法規分析經驗，只做過企業永續報告的人接不住這個「翻譯給投資團隊聽」的要求。面試別談理念，帶一段你把某條新法規翻成具體投資或營運動作的實例，講你怎麼判斷哪些訊號值得升級到領導層。代價講在前面：薪資未揭露、MCF 查無此缺；掛出沒多久已約 200 人申請，是熱缺；而且 horizon scanning 是幕僚職，影響力靠說服投資團隊採納，不是自己下決策。',
       ],
       takeEn: [
@@ -278,7 +278,7 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '這個缺要先看懂它是什麼、不是什麼：JD 掛在 SI&S Product Management 團隊，核心是幫 Stewardship 業務做 product management，set 產品願景、跑 product cabinet 與 agile ceremony、用 code（Python、SQL、R）做原型分析、維護 backlog 與 roadmap。這讀起來不是 ESG 分析職，是 stewardship（盡責管理、代理投票）這個功能的產品與工具層。訊號是大型資管把 stewardship 從人工流程，推向有產品、有 roadmap、有 KPI 的內部工具化，這塊需要的是懂產品又懂 stewardship 的人。',
+        '這個缺要先看懂它是什麼、不是什麼：JD 掛在 SI&S Product Management 團隊，核心是幫 Stewardship 業務做 product management，set 產品願景、跑 product cabinet 與 agile ceremony、用 code（Python、SQL、R）做原型分析、維護 backlog 與 roadmap。這讀起來是 stewardship（盡責管理、代理投票）這個功能的產品與工具層，ESG 分析只佔很小一塊。訊號是大型資管把 stewardship 從人工流程，推向有產品、有 roadmap、有 KPI 的內部工具化，這塊需要的是懂產品又懂 stewardship 的人。',
         '適合有金融服務產品管理經驗、又懂 stewardship 或 proxy voting 的人：JD 要 4 年以上金融服務（偏財管或資管）經驗、product management 加 Agile、還要真的會寫 code 做分析。面試別把自己講成 ESG 專家，講你把某個內部工具從構想帶到上線的產品故事。代價：這是 PM 職、綠色成分是透過工具間接接觸而非直接做永續分析，想做純 ESG 的人會覺得隔了一層；地點倫敦、掛出沒多久已 200 人以上申請；薪資未揭露，美國同職稱同職能可比職缺查無，留白。',
       ],
       takeEn: [
