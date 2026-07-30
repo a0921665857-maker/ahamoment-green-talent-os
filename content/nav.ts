@@ -17,15 +17,15 @@ export interface NavCopy {
   /** Skip-to-content label (accessibility). */
   skipToContent: string;
   home: string;
-  doors: { label: string; hint: string; href: string }[];
   /**
-   * The free practice tool, reachable from the header without becoming a fourth
-   * door. It was only in the footer and on one home-page card, so the module the
-   * site treats as its flagship was the hardest thing on the site to find. Kept
-   * deliberately lighter than the doors: a door is a situation the reader
-   * recognises, this is a thing they can go and do.
+   * Stages of a single journey, in order, phrased as the reader's own situation:
+   * I don't know what I'm missing → I know, and I want to close it → I'm looking
+   * at roles → I have an offer to compare. The practice module is the second
+   * stage. It sat in the footer for a while, which left the journey with a hole:
+   * the site told a reader what their gap was and then handed them job listings,
+   * with nothing in between about closing it.
    */
-  practice: { label: string; href: string };
+  doors: { label: string; hint: string; href: string }[];
   services: string;
   footerTitle: string;
   footerGroups: { title: string; links: { label: string; href: string }[] }[];
@@ -44,11 +44,11 @@ const zh: NavCopy = {
   skipToContent: '跳到主要內容',
   home: '首頁',
   doors: [
-    { label: '我不知道下一步怎麼走', hint: '五分鐘免費診斷', href: '/mri' },
-    { label: '我正在看職缺或準備轉職', hint: '本週精選＋JD 判讀', href: '/jobs' },
-    { label: '我在比薪資、職級或 offer', hint: '亞太綠領薪資帶', href: '/salary-report' },
+    { label: '我不知道我缺什麼', hint: '五分鐘免費診斷', href: '/mri' },
+    { label: '我想補上缺的那一塊', hint: '免費 12 題判斷練習', href: '/judgment' },
+    { label: '我正在看職缺', hint: '本週精選＋JD 判讀', href: '/jobs' },
+    { label: '我在比薪資或 offer', hint: '亞太綠領薪資帶', href: '/salary-report' },
   ],
-  practice: { label: '綠領判斷力（免費）', href: '/judgment' },
   services: '服務與定價',
   footerTitle: '站內索引',
   footerGroups: [
@@ -101,11 +101,11 @@ const en: NavCopy = {
   skipToContent: 'Skip to content',
   home: 'Home',
   doors: [
-    { label: 'I don’t know what my next move is', hint: 'Free 5-minute diagnostic', href: '/mri' },
-    { label: 'I’m looking at roles or preparing a move', hint: 'Weekly picks + JD read', href: '/jobs' },
-    { label: 'I’m comparing salary, level or an offer', hint: 'APAC green-collar bands', href: '/salary-report' },
+    { label: 'I don’t know what I’m missing', hint: 'Free 5-minute diagnostic', href: '/mri' },
+    { label: 'I want to close the gap', hint: 'Free, 12 judgement exercises', href: '/judgment' },
+    { label: 'I’m looking at roles', hint: 'Weekly picks + JD read', href: '/jobs' },
+    { label: 'I’m comparing an offer', hint: 'APAC green-collar bands', href: '/salary-report' },
   ],
-  practice: { label: 'Judgement practice (free)', href: '/judgment' },
   services: 'Services & pricing',
   footerTitle: 'Everything on this site',
   footerGroups: [

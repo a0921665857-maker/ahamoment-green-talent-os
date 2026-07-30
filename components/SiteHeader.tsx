@@ -9,10 +9,15 @@ import { phCapture } from '@/components/PostHogProvider';
 /**
  * The one header every page shares.
  *
- * Its three entries are decision moments, not product categories, because that
- * is the only thing a first-time reader can match themselves against. Landing
- * on /salary-report from search used to be a dead end: the old per-page nav
- * held the site name and a language switcher and nothing else.
+ * Its entries are the reader's own situation, not product categories, because
+ * that is the only thing a first-time reader can match themselves against. They
+ * are also in order, and the order is one journey: I don't know what I'm missing
+ * → I know, and I want to close it → I'm looking at roles → I have an offer to
+ * compare. The second stage was missing for a while, which meant the site named
+ * a reader's gap and then handed them job listings with nothing in between.
+ *
+ * Landing on /salary-report from search used to be a dead end: the old per-page
+ * nav held the site name and a language switcher and nothing else.
  *
  * Client component only for the mobile disclosure and the click events; it
  * renders its full link list in the initial HTML, so a crawler and a reader
@@ -50,25 +55,28 @@ export function SiteHeader({
           {siteName}
         </a>
 
-        <nav aria-label={n.footerTitle} className="hidden items-center gap-6 md:flex">
+        {/* Four doors plus the services button no longer fit between the site
+            name and the language switcher at 768px, so the full rail waits for
+            lg and the disclosure below covers md. Cramming them was the other
+            option and it produced two-line labels in a 44px-tall header. */}
+        {/* flex-wrap because the rail is 976px at 1024px exactly once a returning
+            reader's report link appears — one character more anywhere and it
+            would overflow. Wrapping to a second line is the graceful failure. */}
+        <nav
+          aria-label={n.footerTitle}
+          className="hidden min-w-0 flex-wrap items-center justify-end gap-x-5 gap-y-2 lg:flex"
+        >
           {n.doors.map((d) => (
             <a
               key={d.href}
               href={`${base}${d.href}`}
               onClick={() => go(d.href, 'header')}
-              className="group text-sm text-ink-soft transition-colors hover:text-pine"
+              className="group whitespace-nowrap text-sm text-ink-soft transition-colors hover:text-pine"
             >
               <span className="block leading-tight">{d.label}</span>
               <span className="block text-xs text-ink-soft/70 group-hover:text-pine/70">{d.hint}</span>
             </a>
           ))}
-          <a
-            href={`${base}${n.practice.href}`}
-            onClick={() => go(n.practice.href, 'header')}
-            className="shrink-0 text-sm text-ink-soft transition-colors hover:text-pine"
-          >
-            {n.practice.label}
-          </a>
           <a
             href={`${base}/services`}
             onClick={() => go('/services', 'header')}
@@ -80,7 +88,7 @@ export function SiteHeader({
           <LanguageSwitcher current={locale} />
         </nav>
 
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-3 lg:hidden">
           <ReturnReportLink locale={locale} label={returnReportLabel} />
           <LanguageSwitcher current={locale} />
           <button
@@ -96,7 +104,7 @@ export function SiteHeader({
       </div>
 
       {open && (
-        <nav id="site-nav-mobile" aria-label={n.footerTitle} className="border-t border-line md:hidden">
+        <nav id="site-nav-mobile" aria-label={n.footerTitle} className="border-t border-line lg:hidden">
           <ul className="mx-auto max-w-5xl px-6 py-3">
             {n.doors.map((d) => (
               <li key={d.href} className="border-b border-line/60 last:border-0">
@@ -110,15 +118,6 @@ export function SiteHeader({
                 </a>
               </li>
             ))}
-            <li className="border-b border-line/60">
-              <a
-                href={`${base}${n.practice.href}`}
-                onClick={() => go(n.practice.href, 'header_mobile')}
-                className="block py-3 text-sm"
-              >
-                {n.practice.label}
-              </a>
-            </li>
             <li>
               <a
                 href={`${base}/services`}
