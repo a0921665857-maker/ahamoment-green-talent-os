@@ -8,6 +8,7 @@ import { FounderAvatar } from '@/components/FounderAvatar';
 import { LineActions } from '@/components/LineActions';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 import { newsletterCopy } from '@/content/newsletter';
+import { navCopy } from '@/content/nav';
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -19,6 +20,14 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   // Free tools = the "map" layer of the product map: everyone gets the map for
   // free; only customisation is paid.
   const tools = [
+    {
+      href: `/${L}/salary-index`,
+      title: L === 'zh-TW' ? '綠領揭薪指數' : 'Posted-Salary Index',
+      desc:
+        L === 'zh-TW'
+          ? '職缺頁上真的寫出來的薪水。樣本不足的格子照樣列出，不補數字。'
+          : 'Salaries job postings actually printed. Cells without enough samples stay empty.',
+    },
     {
       href: `/${L}/jobs`,
       title: L === 'zh-TW' ? '綠領職缺雷達' : 'Green-Collar Jobs Radar',
@@ -56,69 +65,99 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <div className="min-h-screen">
 
-      {/* hero */}
-      <header className="mx-auto max-w-3xl px-6 pb-16 pt-10">
+      {/*
+        FIRST SCREEN — one sentence, one button (founder decision, 2026-07-30).
+        It previously carried eleven competing first-order exits: the flagship
+        card, two CTAs, a types link, the band glyph, a credibility line, a time
+        promise and a privacy line, plus a four-tool grid immediately below. At
+        146 visitors a month there is no budget for a visitor to choose. The h1
+        stays because it is the page's SEO asset; everything else moved down one
+        screen, in the same order, with nothing deleted.
+      */}
+      <header className="mx-auto max-w-3xl px-6 pb-14 pt-12 sm:pb-20 sm:pt-16">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{c.landing.hero.eyebrow}</p>
         <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">{c.landing.hero.title}</h1>
-        <p className="mt-4 text-base font-medium text-pine">{c.landing.hero.credibilityLine}</p>
-      {/* Flagship. Placed immediately after the h1 because the ask was that this be
-          the first thing a visitor sees, and the hero's explanatory paragraph, band
-          glyph and CTA row together push anything after them past 800px. Compact on
-          purpose: unmissable, but short enough not to bury the MRI pitch below it.
-          The only solid-pine block on the page. */}
-      <a
-        href={`/${L}/judgment?utm_source=home&utm_medium=flagship`}
-        className="mt-6 block rounded-2xl bg-pine px-6 py-5 text-paper transition hover:bg-pine-deep"
-      >
-        <p className="text-xs uppercase tracking-eyebrow text-sage-soft">
-          {L === 'zh-TW' ? '新上線 · 免費 · 不用留 email' : 'New · free · no email'}
-        </p>
-        <p className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">
-          {L === 'zh-TW' ? '綠領判斷力：你缺的不是知識，是判斷' : 'Green-Collar Judgment: it was never the knowledge'}
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-sage-soft">
-          {L === 'zh-TW'
-            ? '12 題判斷練習，先作答才看得到解答。每個錯的選項都會告訴你它為什麼誘人。'
-            : '12 judgment exercises. You commit before seeing any reasoning, and every wrong option explains why it was tempting.'}
-        </p>
-        <span className="mt-4 inline-block rounded-lg bg-paper px-4 py-2 text-sm font-medium text-pine">
-          {L === 'zh-TW' ? '開始練習' : 'Start practising'}
-        </span>
-      </a>
-
-        <p className="mt-5 max-w-2xl text-lg text-ink-soft">{c.landing.hero.subtitle}</p>
-
-        {/* signature: the band scale glyph */}
-        <div className="mt-8 flex items-end gap-1.5" aria-hidden>
-          <span className="h-4 w-10 rounded-sm bg-band-emerging" />
-          <span className="h-6 w-10 rounded-sm bg-band-developing" />
-          <span className="h-9 w-10 rounded-sm bg-band-strong" />
-        </div>
-
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <a
-            href={`/${L}/mri`}
-            className="w-full rounded-lg bg-pine px-6 py-3 text-center text-paper sm:w-auto"
-          >
-            {c.landing.hero.cta}
-          </a>
-          <a
-            href={`/${L}/sample`}
-            className="w-full rounded-lg border border-pine px-6 py-3 text-center text-pine sm:w-auto"
-          >
-            {c.landing.hero.secondaryCta}
-          </a>
-        </div>
-
-        <a href={`/${L}/types`} className="mt-4 inline-block text-sm text-pine underline-offset-2 hover:underline">
-          {L === 'zh-TW' ? '或先看看 8 種綠領人才類型 →' : 'Or browse the 8 green-career types →'}
+        <a
+          href={`/${L}/mri?utm_source=home&utm_medium=hero`}
+          className="mt-10 inline-block w-full rounded-lg bg-pine px-7 py-3.5 text-center text-paper sm:w-auto"
+        >
+          {c.landing.hero.cta}
         </a>
-        <p className="mt-4 text-sm text-ink-soft">{c.landing.hero.timePromise}</p>
-        <p className="mt-6 max-w-2xl text-sm text-ink-soft">{c.landing.hero.privacyLine}</p>
+        <p className="mt-3 text-sm text-ink-soft">{c.landing.hero.timePromise}</p>
       </header>
 
+      {/*
+        SECOND SCREEN — the three decision moments, sharing content/nav.ts with
+        the site header so the doors can never drift apart.
+      */}
+      <section className="border-y border-line bg-mist/20">
+        <div className="mx-auto max-w-3xl px-6 py-12">
+          <p className="max-w-2xl text-lg text-ink-soft">{c.landing.hero.subtitle}</p>
+          <p className="mt-10 text-xs uppercase tracking-eyebrow text-pine">
+            {L === 'zh-TW' ? '你現在在哪一格' : 'Where you are right now'}
+          </p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            {navCopy[L].doors.map((d) => (
+              <a
+                key={d.href}
+                href={`/${L}${d.href}?utm_source=home&utm_medium=door`}
+                className="flex flex-col rounded-xl border border-line bg-paper px-5 py-4 transition hover:border-pine"
+              >
+                <span className="text-sm font-semibold leading-snug">{d.label}</span>
+                <span className="mt-2 text-xs text-ink-soft">{d.hint}</span>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a
+              href={`/${L}/sample`}
+              className="rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
+            >
+              {c.landing.hero.secondaryCta}
+            </a>
+            <a href={`/${L}/types`} className="text-sm text-pine underline-offset-2 hover:underline">
+              {L === 'zh-TW' ? '或先看看 8 種綠領人才類型 →' : 'Or browse the 8 green-career types →'}
+            </a>
+          </div>
+
+          <p className="mt-6 text-base font-medium text-pine">{c.landing.hero.credibilityLine}</p>
+          <p className="mt-3 max-w-2xl text-sm text-ink-soft">{c.landing.hero.privacyLine}</p>
+
+          {/* signature: the band scale glyph */}
+          <div className="mt-8 flex items-end gap-1.5" aria-hidden>
+            <span className="h-4 w-10 rounded-sm bg-band-emerging" />
+            <span className="h-6 w-10 rounded-sm bg-band-developing" />
+            <span className="h-9 w-10 rounded-sm bg-band-strong" />
+          </div>
+        </div>
+      </section>
+
+      {/* Judgment flagship — kept whole, moved below the doors. */}
+      <section className="mx-auto max-w-3xl px-6 pt-12">
+        <a
+          href={`/${L}/judgment?utm_source=home&utm_medium=flagship`}
+          className="block rounded-2xl bg-pine px-6 py-5 text-paper transition hover:bg-pine-deep"
+        >
+          <p className="text-xs uppercase tracking-eyebrow text-sage-soft">
+            {L === 'zh-TW' ? '免費 · 不用留 email' : 'Free · no email'}
+          </p>
+          <p className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">
+            {L === 'zh-TW' ? '綠領判斷力：你缺的不是知識，是判斷' : 'Green-Collar Judgment: it was never the knowledge'}
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-sage-soft">
+            {L === 'zh-TW'
+              ? '12 題判斷練習，先作答才看得到解答。每個錯的選項都會告訴你它為什麼誘人。'
+              : '12 judgment exercises. You commit before seeing any reasoning, and every wrong option explains why it was tempting.'}
+          </p>
+          <span className="mt-4 inline-block rounded-lg bg-paper px-4 py-2 text-sm font-medium text-pine">
+            {L === 'zh-TW' ? '開始練習' : 'Start practising'}
+          </span>
+        </a>
+      </section>
+
       {/* free tools — everyone gets the map for free; only customisation is paid */}
-      <section className="mx-auto max-w-3xl px-6 pb-4">
+      <section className="mx-auto max-w-3xl px-6 pb-4 pt-12">
         <p className="text-xs uppercase tracking-eyebrow text-pine">
           {L === 'zh-TW' ? '免費工具 · 給你一張地圖' : 'Free tools · your map'}
         </p>
