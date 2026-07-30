@@ -191,6 +191,8 @@ export function JudgmentApp({
   const [saved, setSaved] = useState<SavedState>(EMPTY_STATE);
   const { bg, domains, answers, why } = saved;
   const [openRep, setOpenRep] = useState<string | null>(null);
+  /** Competency id whose map tile launched the current drill, so we can go back. */
+  const [cameFromMap, setCameFromMap] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
   const hydrated = useRef(false);
 
@@ -241,11 +243,43 @@ export function JudgmentApp({
    * answer, and completion. No answer text and no free-text reasoning is ever
    * sent: `verdict` is one of three fixed values and `rep` is a question id.
    */
-  function goTab(next: Tab) {
+  /**
+   * `rep` matters: this used to unconditionally clear openRep, so the drill CTA
+   * on a map tile ("去做判斷練習") landed the reader on the 12-question list with
+   * nothing open — they asked for one question and got a menu. The caller now
+   * says which question, if any, it means.
+   */
+  function goTab(next: Tab, rep: string | null = null) {
     phCapture('judgment_tab_viewed', { tab: next, answered: answeredCount });
     setTab(next);
-    setOpenRep(null);
+    setOpenRep(rep);
     window.scrollTo(0, 0);
+  }
+
+  /**
+   * Back to the tile the reader launched the drill from. Without this the CTA is
+   * a one-way door: it takes them out of the map and gives them no way in again.
+   */
+  function backToMapTile(competencyId: string) {
+    setCameFromMap(null);
+    goTab('map');
+    // The map mounts on a later React commit, and under concurrent rendering that
+    // is not a fixed number of frames away, so retry until the tile exists.
+    // setTimeout rather than requestAnimationFrame on purpose: rAF does not fire
+    // while the page is not compositing (a background tab, or a preview pane that
+    // is hidden), and then the reader comes back to a map that quietly did nothing.
+    let tries = 0;
+    const reveal = () => {
+      const el = document.getElementById(`map-${competencyId}`);
+      if (!(el instanceof HTMLDetailsElement)) {
+        if (tries++ < 30) setTimeout(reveal, 16);
+        return;
+      }
+      el.open = true;
+      el.scrollIntoView({ block: 'center' });
+      el.querySelector('summary')?.focus();
+    };
+    setTimeout(reveal, 0);
   }
 
   function toggleDomain(slug: string) {
@@ -461,16 +495,27 @@ export function JudgmentApp({
               if (!rep) return null;
               return (
                 <>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOpenRep(null);
-                      window.scrollTo(0, 0);
-                    }}
-                    className="mt-4 rounded-lg border border-line px-4 py-2 text-sm hover:border-pine"
-                  >
-                    ← {t.reps.backToList}
-                  </button>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpenRep(null);
+                        window.scrollTo(0, 0);
+                      }}
+                      className="rounded-lg border border-line px-4 py-2 text-sm hover:border-pine"
+                    >
+                      ← {t.reps.backToList}
+                    </button>
+                    {cameFromMap && (
+                      <button
+                        type="button"
+                        onClick={() => backToMapTile(cameFromMap)}
+                        className="rounded-lg border border-pine/40 px-4 py-2 text-sm font-medium text-pine hover:border-pine"
+                      >
+                        ← {t.reps.backToMap}
+                      </button>
+                    )}
+                  </div>
                   <RepDetail
                     rep={rep}
                     t={t}
@@ -555,9 +600,9 @@ export function JudgmentApp({
           t={t}
           bg={bg}
           assessment={assessment}
-          onOpenRep={(repId) => {
-            setOpenRep(repId);
-            goTab('reps');
+          onOpenRep={(repId, fromCompetencyId) => {
+            setCameFromMap(fromCompetencyId);
+            goTab('reps', repId);
           }}
         />
       )}
@@ -855,7 +900,7 @@ function MapCardActions({
 }: {
   t: JudgmentContent;
   c: JudgmentCompetency;
-  onOpenRep: (repId: string) => void;
+  onOpenRep: (repId: string, fromCompetencyId: string) => void;
 }) {
   const ex = judgmentData.explainers[c.id];
   const reps = c.reps ?? [];
@@ -872,7 +917,7 @@ function MapCardActions({
             <button
               key={repId}
               type="button"
-              onClick={() => onOpenRep(repId)}
+              onClick={() => onOpenRep(repId, c.id)}
               className="inline-flex min-h-11 items-center rounded-lg bg-pine px-3.5 text-xs font-semibold text-paper transition-colors hover:bg-pine-deep"
             >
               {reps.length > 1 ? `${t.gaps.cta}（第 ${i + 1} 題）` : t.gaps.cta} →
@@ -916,7 +961,7 @@ function KnowledgeMap({
   bg: BackgroundKey | null;
   assessment: ReturnType<typeof assess>;
   /** Jump straight into the drill that exercises this competency. */
-  onOpenRep: (repId: string) => void;
+  onOpenRep: (repId: string, fromCompetencyId: string) => void;
 }) {
   const families = judgmentData.graph.job_families;
   const byFamily = new Map<string, JudgmentCompetency[]>(families.map((f) => [f.id, []]));

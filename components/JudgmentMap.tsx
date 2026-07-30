@@ -86,7 +86,8 @@ export function JudgmentMap({
   /** Status words are an inference from the self-assessment, so they stay hidden
    * until the reader has actually given one. */
   showStatus: boolean;
-  onOpenRep: (repId: string) => void;
+  /** The competency id travels with the rep so the drill view can offer a way back. */
+  onOpenRep: (repId: string, fromCompetencyId: string) => void;
   cardHrefFor: (id: string) => string;
 }) {
   const byId = new Map(competencies.map((c) => [c.id, c]));
@@ -199,7 +200,7 @@ export function JudgmentMap({
                             <button
                               key={repId}
                               type="button"
-                              onClick={() => onOpenRep(repId)}
+                              onClick={() => onOpenRep(repId, c.id)}
                               className="inline-flex min-h-11 items-center rounded-lg bg-pine px-3.5 text-xs font-semibold text-paper transition-colors hover:bg-pine-deep"
                             >
                               {reps.length > 1 ? `${labels.drill}（第 ${i + 1} 題）` : labels.drill} →

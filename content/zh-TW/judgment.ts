@@ -74,6 +74,7 @@ export const judgment: JudgmentContent = {
     storageNote:
       '你的選擇與作答只存在你自己這台裝置的瀏覽器裡，不會上傳到任何地方，換一台裝置就不見了。',
     backToList: '回到題目清單',
+    backToMap: '回到地圖上的這一項',
     start: '開始這題',
     again: '再看一次',
     answeredPending: '你已經選了，還沒看解答。',

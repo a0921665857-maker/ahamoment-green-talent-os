@@ -91,6 +91,7 @@ export const judgment: JudgmentContent = {
     storageNote:
       'Your selections and answers stay in this browser on this device. Nothing is uploaded, and they disappear if you switch device.',
     backToList: 'Back to the list',
+    backToMap: 'Back to this one on the map',
     start: 'Start this one',
     again: 'Open it again',
     answeredPending: 'You have committed but have not opened the answer.',

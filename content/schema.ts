@@ -415,6 +415,9 @@ export interface JudgmentContent {
     /** Local-only storage disclosure — shown wherever progress is written. */
     storageNote: string;
     backToList: string;
+    /** Only rendered when the drill was opened from a map tile: the CTA is a
+     * one-way door without it. */
+    backToMap: string;
     start: string;
     again: string;
     answeredPending: string;
