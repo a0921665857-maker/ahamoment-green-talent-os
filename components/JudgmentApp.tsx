@@ -550,7 +550,17 @@ export function JudgmentApp({
         </section>
       )}
 
-      {tab === 'map' && <KnowledgeMap t={t} bg={bg} assessment={assessment} />}
+      {tab === 'map' && (
+        <KnowledgeMap
+          t={t}
+          bg={bg}
+          assessment={assessment}
+          onOpenRep={(repId) => {
+            setOpenRep(repId);
+            goTab('reps');
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -832,14 +842,66 @@ const STATUS_EDGE = {
   none: 'border-l-2 border-line bg-paper',
 } as const;
 
+/**
+ * The next action on a map card: read the three-minute explainer in place, or
+ * jump into the drill. The explainer opens inline rather than navigating,
+ * because the detail cards live on a different tab and only the assessed subset
+ * of competencies is rendered there — a link would sometimes land nowhere.
+ */
+function MapCardActions({
+  t,
+  c,
+  onOpenRep,
+}: {
+  t: JudgmentContent;
+  c: JudgmentCompetency;
+  onOpenRep: (repId: string) => void;
+}) {
+  const ex = judgmentData.explainers[c.id];
+  const reps = c.reps ?? [];
+  if (!ex && reps.length === 0) return null;
+  return (
+    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+      {ex && (
+        <details className="w-full">
+          <summary className="cursor-pointer text-xs font-medium text-pine">
+            {t.gaps.explainerSummary}
+          </summary>
+          <div className="mt-3 border-t border-line pt-3">
+            {ex.sections.map((sec, i) => (
+              <div key={i} className="mt-4 first:mt-0">
+                {sec.h && <h5 className="text-sm font-semibold text-pine-deep">{sec.h}</h5>}
+                <JudgmentMarkdown text={sec.body} className="mt-1.5" />
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
+      {reps.map((repId) => (
+        <button
+          key={repId}
+          type="button"
+          onClick={() => onOpenRep(repId)}
+          className="text-xs font-medium text-pine underline-offset-2 hover:underline"
+        >
+          {t.gaps.cta} →
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function KnowledgeMap({
   t,
   bg,
   assessment,
+  onOpenRep,
 }: {
   t: JudgmentContent;
   bg: BackgroundKey | null;
   assessment: ReturnType<typeof assess>;
+  /** Jump straight into the drill that exercises this competency. */
+  onOpenRep: (repId: string) => void;
 }) {
   const families = judgmentData.graph.job_families;
   const byFamily = new Map<string, JudgmentCompetency[]>(families.map((f) => [f.id, []]));
@@ -921,6 +983,10 @@ function KnowledgeMap({
                       {bg && <span>{t.map.statuses[statusOf(c.id) as 'have' | 'maybe' | 'gap']}</span>}
                     </p>
                     <p className="mt-1.5 text-sm">{c.name_zh}</p>
+                    {/* Every card ends in a next action. The map used to state a
+                        status and stop there, which told a reader they had a gap
+                        without telling them where to start on it. */}
+                    <MapCardActions t={t} c={c} onOpenRep={onOpenRep} />
                   </div>
                 );
               })}
