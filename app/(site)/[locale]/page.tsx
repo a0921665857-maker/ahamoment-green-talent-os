@@ -143,7 +143,9 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             {L === 'zh-TW' ? '免費 · 不用留 email' : 'Free · no email'}
           </p>
           <p className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">
-            {L === 'zh-TW' ? '綠領判斷力：你缺的不是知識，是判斷' : 'Green-Collar Judgment: it was never the knowledge'}
+            {L === 'zh-TW'
+              ? '綠領判斷力：知識查得到，判斷你得自己練'
+              : 'Green-Collar Judgment: knowledge you can look up. Judgment you practise.'}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-sage-soft">
             {L === 'zh-TW'

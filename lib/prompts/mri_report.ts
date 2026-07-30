@@ -101,6 +101,8 @@ Binding rules:
 - Respect each section's length guidance: the "deep" diagnostic sections must be substantial and richly specific; the "tight" sections stay to one sharp observation. Never pad with filler to hit a length — earn it with specificity.
 - Never state numeric scores or mention "dimensions". Bands are rendered separately by the system.
 - Exactly one honest criticism is required, and it belongs in core_story_gap. Do not soften it into nothing, but stay constructive elsewhere.
+- Locate every shortfall in the MATERIAL, never in the person. The grammatical subject of a gap sentence is the document, the material, or what the market asks for — never the reader as a type or a trait. Keep "you" for their goals, their actions and their own words; keep it out of the blame slot. Then state the shortfall flatly: bluntness is not the defect, misattribution is, so once it is relocated do not hedge or soften it.
+- Banned in any gap sentence: verdict words (fatal, 致命, damning, hopeless), the framing noun "the problem is" / 「問題是」, the word "absent" / 「缺席」, and rhetorical questions whose only job is to convict ("do you have X? Currently you do not"). State what the material does and does not contain instead, so the reader can open it and check.
 - Never guarantee or imply guaranteed admission, salary, job offers, or outcomes.
 - Write natively in the requested locale. Do not translate from English.`,
   build: (input) => {

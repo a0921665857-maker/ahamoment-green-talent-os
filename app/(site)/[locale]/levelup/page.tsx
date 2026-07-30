@@ -52,7 +52,7 @@ export default async function LevelupPage({
           className="mt-8 block rounded-xl border border-pine/40 bg-sage-soft/30 px-6 py-5 transition hover:border-pine"
         >
           <p className="text-xs uppercase tracking-eyebrow text-pine">免費・不用留 email</p>
-          <p className="mt-2 text-lg font-semibold leading-snug">綠領判斷力：你缺的不是知識，是判斷</p>
+          <p className="mt-2 text-lg font-semibold leading-snug">綠領判斷力：知識查得到，判斷你得自己練</p>
           <p className="mt-2 text-sm leading-relaxed text-ink-soft">
             26 個能力節點、26 篇三分鐘說明、12 題判斷練習。先作答才看得到解答，
             而且每個錯的選項都會告訴你它為什麼誘人。
