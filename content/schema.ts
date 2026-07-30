@@ -444,14 +444,28 @@ export interface JudgmentContent {
     legendTitle: string;
     legendBody: string; // contains {n}
     depthLabel: string;
-    /** One label per prerequisite depth in the graph (0–3). The route map draws a
-     * column per depth, so a missing label leaves a column unheaded. */
+    /** One label per prerequisite depth in the graph (0–3). The map stacks one
+     * band per depth, so a missing label leaves a band unheaded. */
     depths: [string, string, string, string];
     statuses: { have: string; maybe: string; gap: string };
-    /** Legend for the ring that marks finance_bridge competencies. */
-    financeRing: string;
-    /** Shown on narrow screens, where the map scrolls sideways. */
-    scrollHint: string;
+    /** How many competencies sit in a band. Contains {n}. */
+    tierCount: string;
+    /** Tile hint when a competency has no prerequisites at all. */
+    readyNow: string;
+    /** Tile hint naming the first prerequisite. Contains {name}. */
+    needFirst: string;
+    /** Tile hint when the reader's self-assessment already covers every
+     * prerequisite. Only ever shown once a background is picked. */
+    prereqsMet: string;
+    /** How many competencies list this one as a prerequisite. Contains {n}. */
+    unlocks: string;
+    /** Heading above the prerequisite chips inside an opened tile. */
+    prereqTitle: string;
+    /** Link from a map tile down to the full card in the family list. */
+    openCard: string;
+    /** States the map's one rule, so vertical position is not read as
+     * difficulty or importance. */
+    cartographicNote: string;
   };
   exit: { title: string; body: string; betaNote: string; mailSubject: string };
   about: {

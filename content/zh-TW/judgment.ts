@@ -109,16 +109,21 @@ export const judgment: JudgmentContent = {
   },
   map: {
     title: '知識地圖',
-    intro:
-      '所有能力依職能家族分組，每個節點標了門檻深度：越深的，越需要先會前面的東西。',
+    intro: '由上往下四層，越下面的越需要先會上面的東西。點任何一項，可以看到它要先會什麼、學完會接到哪裡。',
     legendTitle: '怎麼讀這張圖',
     legendBody:
       '{n} 個節點落在財務那一半，那是環境背景的人最容易卡住、也最難外包的地方。左邊那條線是你目前的狀態，選了背景之後才會出現。',
     depthLabel: '門檻：',
     depths: ['可以今天就開始', '需要一塊基礎', '需要兩塊', '需要三塊'],
     statuses: { have: '看起來有', maybe: '待確認', gap: '缺口' },
-    financeRing: '圈起來的是財務側',
-    scrollHint: '地圖可以左右滑',
+    tierCount: '{n} 項',
+    readyNow: '不用先修，今天就能開始',
+    needFirst: '要先會：{name}',
+    prereqsMet: '前置你都有了',
+    unlocks: '接著可以學 {n} 項',
+    prereqTitle: '要先會的',
+    openCard: '看完整說明',
+    cartographicNote: '位置只表示需要先會幾塊，不表示難度或重要性。',
   },
   exit: {
     title: '這一題在你公司的版本是什麼？',

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { phCapture } from '@/components/PostHogProvider';
-import { JudgmentGraph } from '@/components/JudgmentGraph';
+import { JudgmentMap } from '@/components/JudgmentMap';
 import type { Band } from '@/lib/constants';
 import type { JudgmentContent } from '@/content/schema';
 import { JudgmentMarkdown } from '@/components/JudgmentMarkdown';
@@ -873,7 +873,7 @@ function MapCardActions({
               key={repId}
               type="button"
               onClick={() => onOpenRep(repId)}
-              className="rounded-lg bg-pine px-3.5 py-2 text-xs font-semibold text-paper transition-colors hover:bg-pine-deep"
+              className="inline-flex min-h-11 items-center rounded-lg bg-pine px-3.5 text-xs font-semibold text-paper transition-colors hover:bg-pine-deep"
             >
               {reps.length > 1 ? `${t.gaps.cta}（第 ${i + 1} 題）` : t.gaps.cta} →
             </button>
@@ -884,7 +884,7 @@ function MapCardActions({
         <details>
           {/* Solid only when there is no drill to outrank it: one filled button per card. */}
           <summary
-            className={`inline-flex cursor-pointer list-none items-center rounded-lg px-3.5 py-2 text-xs transition-colors ${
+            className={`inline-flex min-h-11 cursor-pointer list-none items-center rounded-lg px-3.5 text-xs transition-colors ${
               reps.length > 0
                 ? 'border border-pine/40 font-medium text-pine hover:border-pine'
                 : 'bg-pine font-semibold text-paper hover:bg-pine-deep'
@@ -952,19 +952,30 @@ function KnowledgeMap({
         )}
       </div>
 
-      {/* The route view. Positions come from `prerequisites`, so this is the same
+      {/* The route view. Bands come from `prerequisites`, so this is the same
           data as the cards below, arranged by what has to come first. */}
       <div className="mt-8">
-        <JudgmentGraph
+        <JudgmentMap
           competencies={judgmentData.graph.competencies}
-          families={families}
           statusOf={statusOf}
-          hrefFor={(id) => `#${id}`}
+          showStatus={Boolean(bg)}
+          onOpenRep={onOpenRep}
+          cardHrefFor={(id) => `#${id}`}
           labels={{
-            columns: t.map.depths,
-            financeRing: t.map.financeRing,
+            depthLabel: t.map.depthLabel,
+            depths: t.map.depths,
             statuses: t.map.statuses,
-            scrollHint: t.map.scrollHint,
+            tierCount: t.map.tierCount,
+            readyNow: t.map.readyNow,
+            needFirst: t.map.needFirst,
+            prereqsMet: t.map.prereqsMet,
+            unlocks: t.map.unlocks,
+            prereqTitle: t.map.prereqTitle,
+            openCard: t.map.openCard,
+            cartographicNote: t.map.cartographicNote,
+            financeTag: t.gaps.financeTag,
+            sustainabilityTag: t.gaps.sustainabilityTag,
+            drill: t.gaps.cta,
           }}
         />
       </div>

@@ -128,15 +128,21 @@ export const judgment: JudgmentContent = {
   map: {
     title: 'Knowledge map',
     intro:
-      'Every competency, grouped by job family. Each node carries its depth: the deeper it sits, the more you need the ones before it.',
+      'Four layers, top to bottom. The lower a competency sits, the more of the ones above it you need first. Open any of them to see what has to come first and what it leads to.',
     legendTitle: 'How to read this',
     legendBody:
       '{n} nodes sit on the finance half, which is where people from an environmental background stall and which is hardest to outsource. The line on the left is your own state; it appears once you pick a background.',
     depthLabel: 'Depth: ',
     depths: ['Can start today', 'Needs one layer', 'Needs two', 'Needs three'],
     statuses: { have: 'Appears present', maybe: 'To confirm', gap: 'Gap' },
-    financeRing: 'Ringed nodes are the finance half',
-    scrollHint: 'The map scrolls sideways',
+    tierCount: '{n} of them',
+    readyNow: 'Nothing to learn first. Start today.',
+    needFirst: 'First you need: {name}',
+    prereqsMet: 'You already have what comes first',
+    unlocks: 'Opens up {n} more',
+    prereqTitle: 'What has to come first',
+    openCard: 'Full write-up',
+    cartographicNote: 'Position shows only how many layers come first, not difficulty or importance.',
   },
   exit: {
     title: 'What does this look like at your company?',
