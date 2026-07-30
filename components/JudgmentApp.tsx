@@ -861,10 +861,35 @@ function MapCardActions({
   const reps = c.reps ?? [];
   if (!ex && reps.length === 0) return null;
   return (
-    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+    <div className="mt-3 flex flex-col gap-2">
+      {/* The drill sits ABOVE the explainer, not beside it. Before, the explainer
+          was a w-full <details> first in a flex-wrap row, so opening 三分鐘搞懂
+          expanded a full article and shoved the drill button off the screen —
+          the reader lost the action by taking the first step toward it. */}
+      {reps.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2">
+          {reps.map((repId, i) => (
+            <button
+              key={repId}
+              type="button"
+              onClick={() => onOpenRep(repId)}
+              className="rounded-lg bg-pine px-3.5 py-2 text-xs font-semibold text-paper transition-colors hover:bg-pine-deep"
+            >
+              {reps.length > 1 ? `${t.gaps.cta}（第 ${i + 1} 題）` : t.gaps.cta} →
+            </button>
+          ))}
+        </div>
+      )}
       {ex && (
-        <details className="w-full">
-          <summary className="cursor-pointer text-xs font-medium text-pine">
+        <details>
+          {/* Solid only when there is no drill to outrank it: one filled button per card. */}
+          <summary
+            className={`inline-flex cursor-pointer list-none items-center rounded-lg px-3.5 py-2 text-xs transition-colors ${
+              reps.length > 0
+                ? 'border border-pine/40 font-medium text-pine hover:border-pine'
+                : 'bg-pine font-semibold text-paper hover:bg-pine-deep'
+            }`}
+          >
             {t.gaps.explainerSummary}
           </summary>
           <div className="mt-3 border-t border-line pt-3">
@@ -877,16 +902,6 @@ function MapCardActions({
           </div>
         </details>
       )}
-      {reps.map((repId) => (
-        <button
-          key={repId}
-          type="button"
-          onClick={() => onOpenRep(repId)}
-          className="text-xs font-medium text-pine underline-offset-2 hover:underline"
-        >
-          {t.gaps.cta} →
-        </button>
-      ))}
     </div>
   );
 }
@@ -963,17 +978,20 @@ function KnowledgeMap({
             <p className="mt-1.5 text-sm text-ink-soft">{f.what_you_do}</p>
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {list.map((c) => {
-                const d = Math.min(depthOf(c.id), 2);
+                // Was Math.min(depthOf(c.id), 2), which collapsed the deepest tier
+                // into the one above it: GC-031/032/033 read 「需要兩塊」 with the
+                // same ●●● as depth 2, so the card list contradicted the map.
+                const d = depthOf(c.id);
                 return (
                   <div
                     key={c.id}
                     id={c.id}
-                    className={`min-w-0 rounded-r-lg px-3 py-2.5 ${STATUS_EDGE[statusOf(c.id)]}`}
+                    className={`min-w-0 scroll-mt-20 rounded-r-lg px-3 py-2.5 transition-shadow [&:target]:ring-2 [&:target]:ring-pine ${STATUS_EDGE[statusOf(c.id)]}`}
                   >
                     <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-soft">
                       <span aria-hidden className="tracking-widest">
                         {'●'.repeat(d + 1)}
-                        {'○'.repeat(2 - d)}
+                        {'○'.repeat(Math.max(0, t.map.depths.length - 1 - d))}
                       </span>
                       <span>
                         {t.map.depthLabel}
