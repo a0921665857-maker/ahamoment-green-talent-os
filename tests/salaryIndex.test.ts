@@ -10,18 +10,35 @@ describe('posted-salary index integrity', () => {
   it('never publishes a range below the threshold', () => {
     for (const c of salaryCells) {
       if (c.n < MIN_N) {
-        expect(c.lo, `${c.market}/${c.fn}/${c.seniority} n=${c.n}`).toBeNull();
-        expect(c.hi).toBeNull();
+        expect(c.p25, `${c.market}/${c.fn}/${c.seniority} n=${c.n}`).toBeNull();
+        expect(c.p75).toBeNull();
+        expect(c.median).toBeNull();
       }
     }
   });
 
-  it('publishes a complete range whenever it does publish', () => {
+  it('publishes a complete, ordered quartile range whenever it does publish', () => {
     for (const c of salaryCells.filter(publishable)) {
-      expect(c.lo).not.toBeNull();
-      expect(c.hi).not.toBeNull();
-      expect(c.hi!).toBeGreaterThanOrEqual(c.lo!);
+      expect(c.p25).not.toBeNull();
+      expect(c.p75).not.toBeNull();
+      expect(c.median).not.toBeNull();
+      expect(c.p75!).toBeGreaterThanOrEqual(c.p25!);
+      expect(c.median!).toBeGreaterThanOrEqual(c.p25!);
+      expect(c.median!).toBeLessThanOrEqual(c.p75!);
       expect(c.currency.length).toBe(3);
+    }
+  });
+
+  /**
+   * The defect this replaced: the first export published min-to-max, so a single
+   * SGD 1,000 internship posting set the published entry floor for Singapore
+   * in-house sustainability. An intern is not an early-career hire.
+   */
+  it('publishes no floor low enough to be an internship', () => {
+    for (const c of salaryCells.filter(publishable)) {
+      if (c.currency === 'SGD' && c.period === 'monthly') {
+        expect(c.p25!, `${c.market}/${c.fn}/${c.seniority}`).toBeGreaterThan(2000);
+      }
     }
   });
 
@@ -36,8 +53,27 @@ describe('posted-salary index integrity', () => {
     expect(salaryIndexMeta.totalObservations).toBe(98);
     expect(salaryIndexMeta.postedObservations).toBe(97);
     expect(salaryIndexMeta.excludedUnknownSeniority).toBe(26);
+    expect(salaryIndexMeta.excludedInternship).toBe(1);
+    expect(salaryIndexMeta.excludedDuplicate).toBe(12);
+    expect(salaryIndexMeta.postingsInCells).toBe(59);
     // The number the pre-Gate-8 docs got wrong: three cells clear n≥5, not five.
     expect(salaryCells.filter(publishable).length).toBe(3);
+  });
+
+  it('accounts for every posted row with readable seniority', () => {
+    // 72 posted rows had readable seniority; 1 intern and 12 duplicates were
+    // removed, leaving 59 distinct postings. Nothing is dropped silently.
+    expect(
+      salaryIndexMeta.postingsInCells +
+        salaryIndexMeta.excludedInternship +
+        salaryIndexMeta.excludedDuplicate,
+    ).toBe(72);
+    expect(salaryCells.reduce((a, c) => a + c.n, 0)).toBe(salaryIndexMeta.postingsInCells);
+  });
+
+  it('does not claim to be hand-collected', () => {
+    expect(salaryIndexMeta.collectedBy).toContain('green-jobs-weekly');
+    expect(salaryIndexMeta.ledgerOpenedOn).toBe('2026-07-21');
   });
 
   it('every publishable cell today is Singapore — the skew is disclosed, not hidden', () => {
@@ -54,16 +90,14 @@ describe('posted-salary index integrity', () => {
     expect(new Set(keys).size).toBe(keys.length);
   });
 
-  it('the observation counts add up to the ledger total', () => {
-    const inCells = salaryCells.reduce((a, c) => a + c.n, 0);
-    // Verified against the ledger: 72 rows sit in cells, 26 have unreadable
-    // seniority (the single `estimated` row is one of those 26), and nothing
-    // else exists. Every observation is therefore either published, counted
-    // towards a below-threshold cell, or explicitly excluded — none is dropped
-    // silently, which is the property this test exists to hold.
-    expect(inCells).toBe(72);
-    expect(inCells + salaryIndexMeta.excludedUnknownSeniority).toBe(
-      salaryIndexMeta.totalObservations,
-    );
+  it('reconciles back to the ledger total', () => {
+    // 98 = 59 in cells + 1 intern + 12 duplicates + 26 unreadable seniority.
+    // (The single `estimated` row is one of the 26.)
+    expect(
+      salaryIndexMeta.postingsInCells +
+        salaryIndexMeta.excludedInternship +
+        salaryIndexMeta.excludedDuplicate +
+        salaryIndexMeta.excludedUnknownSeniority,
+    ).toBe(salaryIndexMeta.totalObservations);
   });
 });

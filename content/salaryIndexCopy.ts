@@ -7,6 +7,8 @@ export interface SalaryIndexCopy {
   intro: string;
   methodTitle: string;
   method: string[];
+  /** Verification status, kept separate so it can never be quietly dropped. */
+  methodExtra: string;
   tableTitle: string;
   tableNote: string;
   colFunction: string;
@@ -38,10 +40,12 @@ export const salaryIndexCopy: Record<Locale, SalaryIndexCopy> = {
     method: [
       '只收職缺頁上逐字寫出來的薪資（posted）。模型推估與自報薪資一律不進資料庫。',
       '職缺頁沒寫清楚年資的，那一筆不進任何格子——目前有 26 筆是這種狀況，它們只計入總數，不影響任何區間。',
-      '一個格子要累積到 5 筆才公布區間。不到 5 筆的格子照樣顯示，只是不給數字，並寫出目前有幾筆。',
-      '區間是該格所有職缺的最低下限到最高上限，不是平均、不是中位數。它回答的是「這個位置的招募薪資落在哪個範圍」，不是「你會拿多少」。',
-      '狀態誠實揭露：這批資料是當時從職缺頁抄錄的，但**尚未逐筆重新開頁核對**，所以整份標為「來源可查、未逐筆複驗」。在完成抽查之前，我們不會說它「經過稽核」。',
+      '一個格子要累積到 5 則不同的職缺才公布區間。不到 5 筆的格子照樣顯示，只是不給數字，並寫出目前有幾筆。',
+      '公布的是**中位數與 P25–P75**（第 25 到第 75 百分位），不是最低到最高。第一版曾經發過最低到最高，結果一則月薪 SGD 1,000 的實習職缺就把新加坡入門的下限拉到 1,000——那個數字誤導，2026-07-30 已修正。實習職缺現在直接排除，重複抓到的同一則職缺也排除（有 12 筆）。',
+      '誰在收、收多久：一個排程每週日自動掃三個市場的職缺板，不是人工逐筆輸入。目前庫裡的 98 筆全部是 2026-07-21 到 07-28 之間入庫的——這本帳只有幾天大，不是幾個月。下面標的 2025-11 到 2026-07 是「職缺被刊登／被看到的日期」，不是收集期間。',
     ],
+    methodExtra:
+      '狀態誠實揭露：每一筆都是當時從職缺頁讀到的，但**尚未逐筆重新開頁核對**，所以整份標為「來源可查、未逐筆複驗」。在完成抽查之前，我們不會說它「經過稽核」。',
     tableTitle: '目前的格子',
     tableNote: '按樣本數排序。有數字的是已達門檻的格子；其餘照樣列出，讓你看見缺口在哪裡。',
     colFunction: '職能',
@@ -75,10 +79,12 @@ export const salaryIndexCopy: Record<Locale, SalaryIndexCopy> = {
     method: [
       'Only salaries printed verbatim on the posting are recorded. Model estimates and self-reported figures never enter the database.',
       'If a posting does not make seniority readable, that row enters no cell — 26 rows are currently in that state. They count towards the total and affect no range.',
-      'A cell publishes a range only once it holds 5 observations. Below that the cell still appears, without numbers, showing how many it has.',
-      'The range runs from the lowest posted minimum to the highest posted maximum in that cell. It is not a mean or a median. It answers "what do postings for this seat advertise", not "what will you be paid".',
-      'Status is disclosed honestly: these rows were captured from postings at the time, but have **not each been re-opened and re-read since**, so the whole snapshot is marked "source available, not individually re-verified". Until a spot-check is recorded we will not call it audited.',
+      'A cell publishes a range only once it holds 5 distinct postings. Below that the cell still appears, without numbers, showing how many it has.',
+      'What is published is the **median and the P25–P75 range**, not the lowest-to-highest. The first version published lowest-to-highest, and a single SGD 1,000/month internship posting dragged Singapore’s entry floor down to 1,000 — that number was misleading and was corrected on 2026-07-30. Internships are now excluded outright, as are the 12 rows that turned out to be the same posting captured twice.',
+      'Who collects it, and for how long: a scheduled job sweeps three markets’ job boards every Sunday. Nothing is hand-entered. All 98 rows currently in the ledger were inserted between 2026-07-21 and 07-28 — this ledger is days old, not months. The 2025-11 to 2026-07 span below is when the POSTINGS were seen, not how long collection has run.',
     ],
+    methodExtra:
+      'Status, honestly: every row was read off the posting at capture time, and **none has been re-opened since**, so the whole snapshot is marked "source available, not individually re-verified". Until a spot-check is recorded we will not call it audited.',
     tableTitle: 'The cells as they stand',
     tableNote:
       'Sorted by sample size. Cells with numbers have cleared the threshold; the rest are listed anyway so you can see where the gaps are.',

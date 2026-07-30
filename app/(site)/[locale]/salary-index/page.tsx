@@ -61,9 +61,15 @@ export default async function SalaryIndexPage({
         <dl className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {[
             { k: L === 'zh-TW' ? '總觀測' : 'Observations', v: salaryIndexMeta.totalObservations },
-            { k: L === 'zh-TW' ? '揭薪筆數' : 'Posted', v: salaryIndexMeta.postedObservations },
+            { k: L === 'zh-TW' ? '進到格子裡' : 'In cells', v: salaryIndexMeta.postingsInCells },
             { k: L === 'zh-TW' ? '已達門檻格' : `Cells at n≥${MIN_N}`, v: published },
-            { k: L === 'zh-TW' ? '年資不明（不進格）' : 'Excluded (no seniority)', v: salaryIndexMeta.excludedUnknownSeniority },
+            {
+              k: L === 'zh-TW' ? '排除（年資不明／實習／重複）' : 'Excluded',
+              v:
+                salaryIndexMeta.excludedUnknownSeniority +
+                salaryIndexMeta.excludedInternship +
+                salaryIndexMeta.excludedDuplicate,
+            },
           ].map((s) => (
             <div key={s.k} className="rounded-lg border border-line bg-paper px-4 py-3">
               <dd className="text-2xl font-semibold tabular-nums">{s.v}</dd>
@@ -86,6 +92,9 @@ export default async function SalaryIndexPage({
               </li>
             ))}
           </ol>
+          <p className="mt-5 max-w-2xl border-l-2 border-pine pl-4 text-sm text-ink-soft">
+            {t.methodExtra}
+          </p>
         </section>
 
         <section className="mt-12">
@@ -123,10 +132,15 @@ export default async function SalaryIndexPage({
                             <td className="px-4 py-2.5 text-right tabular-nums">{c.n}</td>
                             <td className="px-4 py-2.5">
                               {ok ? (
-                                <span className="font-medium tabular-nums">
-                                  {money(c.lo!, c.currency)} – {money(c.hi!, c.currency)}
+                                <span className="tabular-nums">
+                                  <span className="font-medium">
+                                    {money(c.p25!, c.currency)} – {money(c.p75!, c.currency)}
+                                  </span>
                                   <span className="ml-1 text-xs font-normal text-ink-soft">
                                     /{c.period === 'monthly' ? (L === 'zh-TW' ? '月' : 'mo') : L === 'zh-TW' ? '年' : 'yr'}
+                                  </span>
+                                  <span className="ml-2 block text-xs font-normal text-ink-soft">
+                                    {L === 'zh-TW' ? '中位數' : 'median'} {money(c.median!, c.currency)}
                                   </span>
                                 </span>
                               ) : (
