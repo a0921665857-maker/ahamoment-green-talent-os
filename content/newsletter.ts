@@ -22,7 +22,7 @@ export const newsletterCopy: Record<Locale, NewsletterCopy> = {
     submitting: '訂閱中…',
     success: '訂閱成功，下一期發出時你會收到。',
     errorInvalid: '這個 email 看起來不太對，再確認一下？',
-    errorGeneric: '訂閱暫時失敗，稍後再試一次。',
+    errorGeneric: '這一步沒送出去，稍等一下再按一次就好。',
     privacy: '只寄《綠領情報》，隨時可退訂，絕不轉售你的 email。',
   },
   en: {
@@ -33,7 +33,7 @@ export const newsletterCopy: Record<Locale, NewsletterCopy> = {
     submitting: 'Subscribing…',
     success: 'You’re in — you’ll get the next issue when it goes out.',
     errorInvalid: 'That email looks off — mind checking it?',
-    errorGeneric: 'Subscription failed for now — please try again shortly.',
+    errorGeneric: 'That didn’t go through. Give it a moment and press it again.',
     privacy: 'Only the Green-Collar Intel issue, unsubscribe anytime, we never sell your email.',
   },
 };

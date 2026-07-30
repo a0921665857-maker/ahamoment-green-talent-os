@@ -190,11 +190,11 @@ export const jdTranslatorCopy: Record<Locale, JdTranslatorCopy> = {
     },
 
     errors: {
-      tooShort: '這段太短了，看起來不像一份完整的 JD。把職責和資格條件那幾段一起貼進來。',
-      tooLong: '太長了，一次翻一個職缺就好。',
-      rateLimited: '你這小時內跑太多次了，先等一下。要不要先去做一次綠領 MRI？',
-      notAJd: '這段看起來不是職缺描述。貼一份完整的 JD 給我，最好包含職責和資格條件。',
-      generic: '分析失敗了，再試一次。如果一直失敗，可能是格式太亂，把 JD 的主要段落挑出來重貼。',
+      tooShort: '還差一點內容才讀得出來。把職責和資格條件那兩段一起貼進來，翻出來的東西會準很多。',
+      tooLong: '一次翻一個職缺最準。挑你最想投的那一份貼進來就好。',
+      rateLimited: '這小時的次數用完了，等一下就會恢復。想先做點別的，可以去跑一次綠領 MRI。',
+      notAJd: '這段讀起來不像職缺描述。貼一份完整的 JD，最好包含職責和資格條件那兩段。',
+      generic: '這次沒讀出來。JD 如果貼得比較碎，挑出職責與資格那兩段再試一次，通常就過了。',
     },
   },
 
@@ -293,14 +293,14 @@ export const jdTranslatorCopy: Record<Locale, JdTranslatorCopy> = {
 
     errors: {
       tooShort:
-        'That’s too short to be a full JD. Paste the responsibilities and requirements sections too.',
-      tooLong: 'That’s too long — translate one posting at a time.',
+        'A little more to go before there’s enough to read. Paste the responsibilities and requirements sections too — that’s where the signal is.',
+      tooLong: 'One posting at a time gives the sharpest read. Paste the one you most want to apply for.',
       rateLimited:
-        'You’ve run this a lot in the past hour. Give it a moment — or go take the green-collar MRI in the meantime.',
+        'You’ve used up this hour’s runs; they come back shortly. In the meantime, the green-collar MRI is a good use of five minutes.',
       notAJd:
-        'That doesn’t look like a job description. Paste a full JD, ideally including responsibilities and requirements.',
+        'This doesn’t read like a job description. Paste a full JD, ideally with the responsibilities and requirements sections.',
       generic:
-        'The analysis failed. Try again — and if it keeps failing, the formatting may be too messy, so paste just the main sections.',
+        'That one didn’t come through. If the JD pasted in fragments, pulling out the responsibilities and requirements sections and trying again usually does it.',
     },
   },
 };
