@@ -63,6 +63,13 @@ export function SiteHeader({
             </a>
           ))}
           <a
+            href={`${base}${n.practice.href}`}
+            onClick={() => go(n.practice.href, 'header')}
+            className="shrink-0 text-sm text-ink-soft transition-colors hover:text-pine"
+          >
+            {n.practice.label}
+          </a>
+          <a
             href={`${base}/services`}
             onClick={() => go('/services', 'header')}
             className="shrink-0 rounded-lg border border-pine px-4 py-2 text-sm text-pine"
@@ -103,6 +110,15 @@ export function SiteHeader({
                 </a>
               </li>
             ))}
+            <li className="border-b border-line/60">
+              <a
+                href={`${base}${n.practice.href}`}
+                onClick={() => go(n.practice.href, 'header_mobile')}
+                className="block py-3 text-sm"
+              >
+                {n.practice.label}
+              </a>
+            </li>
             <li>
               <a
                 href={`${base}/services`}

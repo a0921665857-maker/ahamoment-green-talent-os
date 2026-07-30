@@ -18,6 +18,14 @@ export interface NavCopy {
   skipToContent: string;
   home: string;
   doors: { label: string; hint: string; href: string }[];
+  /**
+   * The free practice tool, reachable from the header without becoming a fourth
+   * door. It was only in the footer and on one home-page card, so the module the
+   * site treats as its flagship was the hardest thing on the site to find. Kept
+   * deliberately lighter than the doors: a door is a situation the reader
+   * recognises, this is a thing they can go and do.
+   */
+  practice: { label: string; href: string };
   services: string;
   footerTitle: string;
   footerGroups: { title: string; links: { label: string; href: string }[] }[];
@@ -40,6 +48,7 @@ const zh: NavCopy = {
     { label: '我正在看職缺或準備轉職', hint: '本週精選＋JD 判讀', href: '/jobs' },
     { label: '我在比薪資、職級或 offer', hint: '亞太綠領薪資帶', href: '/salary-report' },
   ],
+  practice: { label: '綠領判斷力（免費）', href: '/judgment' },
   services: '服務與定價',
   footerTitle: '站內索引',
   footerGroups: [
@@ -96,6 +105,7 @@ const en: NavCopy = {
     { label: 'I’m looking at roles or preparing a move', hint: 'Weekly picks + JD read', href: '/jobs' },
     { label: 'I’m comparing salary, level or an offer', hint: 'APAC green-collar bands', href: '/salary-report' },
   ],
+  practice: { label: 'Judgement practice (free)', href: '/judgment' },
   services: 'Services & pricing',
   footerTitle: 'Everything on this site',
   footerGroups: [
