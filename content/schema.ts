@@ -469,6 +469,27 @@ export interface JudgmentContent {
     /** States the map's one rule, so vertical position is not read as
      * difficulty or importance. */
     cartographicNote: string;
+    /** The drawn overview panel: all 26 stations and all 26 prerequisite edges,
+     * deliberately without node text — 26 sentences of 9 to 33 characters cannot
+     * share a viewport with a drawn topology, so the words live in the rail. */
+    overviewTitle: string;
+    overviewHint: string;
+    /** Legend. A hub is any competency something else depends on (10 of 26); a
+     * terminus is one nothing depends on (16 of 26). */
+    legendHub: string;
+    legendTerminus: string;
+    legendFinance: string;
+    isolatedNote: string;
+    /** The five competencies with no prerequisites at all. */
+    startTitle: string;
+    opensN: string; // contains {n}
+    opensNone: string;
+    /** The route rail: what this one needs, then it, then what it opens. */
+    routeTitle: string;
+    routeCount: string; // contains {n}
+    roleUp: string;
+    roleFocus: string;
+    roleDown: string;
   };
   exit: { title: string; body: string; betaNote: string; mailSubject: string };
   about: {
