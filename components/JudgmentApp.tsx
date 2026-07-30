@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { phCapture } from '@/components/PostHogProvider';
+import { JudgmentGraph } from '@/components/JudgmentGraph';
 import type { Band } from '@/lib/constants';
 import type { JudgmentContent } from '@/content/schema';
 import { JudgmentMarkdown } from '@/components/JudgmentMarkdown';
@@ -874,6 +875,23 @@ function KnowledgeMap({
         )}
       </div>
 
+      {/* The route view. Positions come from `prerequisites`, so this is the same
+          data as the cards below, arranged by what has to come first. */}
+      <div className="mt-8">
+        <JudgmentGraph
+          competencies={judgmentData.graph.competencies}
+          families={families}
+          statusOf={statusOf}
+          hrefFor={(id) => `#${id}`}
+          labels={{
+            columns: t.map.depths,
+            financeRing: t.map.financeRing,
+            statuses: t.map.statuses,
+            scrollHint: t.map.scrollHint,
+          }}
+        />
+      </div>
+
       {families.map((f) => {
         const list = (byFamily.get(f.id) ?? []).slice().sort((a, b) => depthOf(a.id) - depthOf(b.id));
         if (!list.length) return null;
@@ -887,6 +905,7 @@ function KnowledgeMap({
                 return (
                   <div
                     key={c.id}
+                    id={c.id}
                     className={`min-w-0 rounded-r-lg px-3 py-2.5 ${STATUS_EDGE[statusOf(c.id)]}`}
                   >
                     <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-soft">

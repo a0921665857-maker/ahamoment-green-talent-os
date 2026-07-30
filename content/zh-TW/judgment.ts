@@ -115,8 +115,10 @@ export const judgment: JudgmentContent = {
     legendBody:
       '{n} 個節點落在財務那一半，那是環境背景的人最容易卡住、也最難外包的地方。左邊那條線是你目前的狀態，選了背景之後才會出現。',
     depthLabel: '門檻：',
-    depths: ['可以今天就開始', '需要一點基礎', '進階'],
+    depths: ['可以今天就開始', '需要一塊基礎', '需要兩塊', '需要三塊'],
     statuses: { have: '看起來有', maybe: '待確認', gap: '缺口' },
+    financeRing: '圈起來的是財務側',
+    scrollHint: '地圖可以左右滑',
   },
   exit: {
     title: '這一題在你公司的版本是什麼？',

@@ -444,8 +444,14 @@ export interface JudgmentContent {
     legendTitle: string;
     legendBody: string; // contains {n}
     depthLabel: string;
-    depths: [string, string, string];
+    /** One label per prerequisite depth in the graph (0–3). The route map draws a
+     * column per depth, so a missing label leaves a column unheaded. */
+    depths: [string, string, string, string];
     statuses: { have: string; maybe: string; gap: string };
+    /** Legend for the ring that marks finance_bridge competencies. */
+    financeRing: string;
+    /** Shown on narrow screens, where the map scrolls sideways. */
+    scrollHint: string;
   };
   exit: { title: string; body: string; betaNote: string; mailSubject: string };
   about: {

@@ -133,8 +133,10 @@ export const judgment: JudgmentContent = {
     legendBody:
       '{n} nodes sit on the finance half, which is where people from an environmental background stall and which is hardest to outsource. The line on the left is your own state; it appears once you pick a background.',
     depthLabel: 'Depth: ',
-    depths: ['Can start today', 'Needs some grounding', 'Advanced'],
+    depths: ['Can start today', 'Needs one layer', 'Needs two', 'Needs three'],
     statuses: { have: 'Appears present', maybe: 'To confirm', gap: 'Gap' },
+    financeRing: 'Ringed nodes are the finance half',
+    scrollHint: 'The map scrolls sideways',
   },
   exit: {
     title: 'What does this look like at your company?',
