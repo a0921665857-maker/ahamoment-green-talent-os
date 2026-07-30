@@ -156,11 +156,11 @@ export const flow: FlowContent = {
       strong_profile_weak_story:
         '「不錯，但說不出為什麼非你不可的人」。你的主軸埋在履歷裡，讀者不會替你拼出來。',
       climate_career_builder:
-        '「還沒想清楚要什麼的探索者」。你缺的其實不是方向，是把一條賽道走深的可見行動。',
+        '「還沒想清楚要什麼的探索者」。方向你其實有，還缺的是把一條賽道走深、而且看得出來的行動。',
       career_positioning_before_mba:
         '「想用 MBA 解決定位問題的人」。方向沒定就申請，同一份檔案會賣低一個學校層級。',
       profile_building_needed:
-        '「有潛力，但查無實據的候選人」。不是你不行，是證明點還沒被記錄在任何讀得到的地方。',
+        '「有潛力，但查無實據的候選人」。能力沒問題，問題在證明點還沒被記錄在任何讀得到的地方。',
       high_potential_low_commercial_clarity:
         '「房間裡的技術專家」。大家看得出你強，看不出你值多少，因為你的影響力是用專案語言寫的。',
       interview_ready_positioning_weak:
@@ -170,7 +170,7 @@ export const flow: FlowContent = {
     },
     verdict: {
       ready_for_mba_story_sprint:
-        '再磨半年條列式經歷，機會成本是一整屆。你缺的是收束故事的決定，不是新成就。',
+        '再磨半年條列式經歷，機會成本是一整屆。你的成就已經夠了，還沒做的是收束故事那個決定。',
       strong_profile_weak_story: '你會一直進名單、一直被刷掉，而且永遠聽不到真正的原因。',
       climate_career_builder: '現在去念 MBA，等於付全額學費，換一半的回報。',
       career_positioning_before_mba: '用寫 essay 的過程找方向，是全世界最昂貴的思考場所。',
@@ -179,17 +179,17 @@ export const flow: FlowContent = {
       high_potential_low_commercial_clarity: '商業語言流利的同事，正在拿走你想要的位子。',
       interview_ready_positioning_weak:
         '對著錯的職缺發揮出色面試力，拿到的是你不想要的 offer。',
-      cv_strong_narrative_weak: '繼續打磨版面，只會讓缺席的論點更顯眼，不是更隱形。',
+      cv_strong_narrative_weak: '繼續打磨版面，只會讓那個缺席的論點更顯眼。',
     },
     stuck: {
       value:
-        '這通常不是資訊問題，是你還沒把經歷翻成市場聽得懂的語言。行情表其實一直是公開的。',
+        '行情表其實一直是公開的。卡住的多半在翻譯：你的經歷還沒被寫成市場聽得懂的語言。',
       no_reply:
-        '沒回音多半不是你不夠好，是六秒掃描裡讀不到你的主軸。被刷掉的是敘事，不是你。',
+        '六秒的掃描裡讀不到你的主軸，就不會有回音。被刷掉的是敘事，不是你。',
       interview:
         '進得了面試代表文件夠了。拿不到 offer，代表「為什麼是你」還沒有一個讓人複述得出來的答案。',
       abroad:
-        '去海外不是投更多履歷，是先讓那個市場讀懂你的價值。倍數一直在那裡，門檻是翻譯。',
+        '倍數一直在那裡，卡的是那個市場讀不讀得懂你。與其多投三十份，先改你自我介紹的第一句。',
       mba_q: '該不該念，取決於你念之前的定位，不是學校排名。MBA 放大軌跡，不創造軌跡。',
     },
   },
