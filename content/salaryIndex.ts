@@ -1,40 +1,39 @@
 import type { Locale } from '@/lib/constants';
 
 /**
- * 綠領揭薪指數 — a snapshot of the salary_index ledger, re-exported 2026-07-30.
+ * 綠領揭薪指數 — generated file. Do not hand-edit.
  *
- * HOW THE ROWS GET HERE. The `green-jobs-weekly` scheduled job runs every
- * Sunday, sweeps green-collar postings across Singapore, Hong Kong and the UK,
- * and records every qualifying posting that printed a salary. It is automated;
- * no row is hand-entered. All 98 rows currently in the ledger were inserted
- * between 2026-07-21 and 2026-07-28 — the ledger is days old, not months. The
- * 2025-11 to 2026-07 span in the dates below is when the POSTINGS were seen,
- * not how long collection has run.
+ * Regenerate with `python scripts/export_salary_index.py`, which is run by the
+ * green-jobs-weekly scheduled job every Sunday after that week's postings have
+ * been inserted. Editing this file by hand will be silently overwritten.
  *
- * WHAT GETS EXCLUDED, and why the numbers changed on 2026-07-30:
- *   - `estimated` and `self_reported` rows never enter (1 estimated row exists).
- *   - Rows whose seniority the posting never made readable: 26 of 98.
- *   - **Internships.** One "Sustainability Intern" posting at SGD 1,000–1,200
- *     sat inside the 0–3 band and, under the first export's min-to-max range,
- *     single-handedly published an entry floor of SGD 1,000. An intern is not
- *     an early-career hire; the row is excluded, not averaged in.
- *   - **Duplicates.** 12 rows were the same posting captured by more than one
- *     sweep, or the same posting filed under two functions. The dedupe_hash was
- *     meant to stop this and did not. n was inflated until this export.
- * 72 posted rows with readable seniority → 59 distinct postings in cells.
+ * HOW THE ROWS GET HERE. green-jobs-weekly sweeps green-collar postings across
+ * Singapore, Hong Kong and the UK every Sunday and records every qualifying
+ * posting that printed a salary. It is automated; no row is hand-entered. The
+ * ledger opened on 2026-07-21. The 2025-11-13 to 2026-07-28 span below is when
+ * the POSTINGS were seen, not how long collection has run.
  *
- * WHAT IS PUBLISHED. Median plus P25–P75 over each posting's band midpoint —
- * which is what INDEX_METHODOLOGY.md §2 specified all along. The first export
- * shipped min-to-max instead, which is why one intern could move the floor.
- * A range still appears only at n ≥ MIN_N; below that the cell keeps its place
- * on the page with its n and no numbers.
+ * WHAT IS EXCLUDED, and why:
+ *   - estimated and self-reported rows never enter.
+ *   - 26 rows whose seniority the posting never made readable.
+ *   - 1 internship posting(s). An intern is not an early-career hire,
+ *     and under a min-to-max range one intern moves the entire floor — which is
+ *     exactly what happened in the first snapshot.
+ *   - 12 duplicate rows: the same posting captured by more than one sweep,
+ *     or filed under two functions.
+ *   59 distinct postings remain in cells.
  *
- * VERIFICATION STATE. Every row was read off the posting at capture time and
- * none has been re-opened since, so the snapshot is
- * `source_available_unverified`. Nothing here may be described as audited.
+ * WHAT IS PUBLISHED. Median plus P25–P75 over each posting's band midpoint, per
+ * INDEX_METHODOLOGY.md §2, and only at n >= MIN_N. Below the threshold the cell
+ * keeps its place with its n and no numbers.
+ *
+ * VERIFICATION. Every row was read off the posting at capture time and none has
+ * been re-opened since, so the snapshot is `source_available_unverified`.
+ * Nothing here may be described as audited.
  */
 
 export const MIN_N = 5;
+export const GENERATED_ON = '2026-07-30';
 
 export type Market = 'SG' | 'HK' | 'UK';
 export type Fn =
@@ -99,27 +98,26 @@ export const salaryCells: SalaryCell[] = [
   { market: 'SG', fn: 'corporate_sustainability', seniority: '0-3', n: 8, median: 4000, p25: 3750, p75: 4200, currency: 'SGD', period: 'monthly', firstSeen: '2026-05-28', lastSeen: '2026-07-28', verification: 'source_available_unverified' },
   { market: 'SG', fn: 'esg_consulting', seniority: '0-3', n: 8, median: 4125, p25: 3750, p75: 4250, currency: 'SGD', period: 'monthly', firstSeen: '2025-11-13', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
   { market: 'SG', fn: 'corporate_sustainability', seniority: '4-8', n: 7, median: 5750, p25: 5000, p75: 6750, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-28', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'climate_tech', seniority: '4-8', n: 4, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-17', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
   { market: 'SG', fn: 'climate_tech', seniority: '0-3', n: 4, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2025-12-29', lastSeen: '2026-07-28', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'climate_tech', seniority: '4-8', n: 4, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-17', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
   { market: 'HK', fn: 'corporate_sustainability', seniority: '0-3', n: 3, median: null, p25: null, p75: null, currency: 'HKD', period: 'monthly', firstSeen: '2026-07-02', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'carbon_env_commodities', seniority: '4-8', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'carbon_env_commodities', seniority: '8+', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'compliance_disclosure', seniority: '0-3', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-06', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'compliance_disclosure', seniority: '4-8', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-20', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'esg_consulting', seniority: '4-8', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-09', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'corporate_sustainability', seniority: '8+', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-07', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'carbon_env_commodities', seniority: '0-3', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-06-24', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
   { market: 'HK', fn: 'sustainable_finance', seniority: '0-3', n: 2, median: null, p25: null, p75: null, currency: 'HKD', period: 'monthly', firstSeen: '2026-07-09', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
   { market: 'SG', fn: 'sustainable_finance', seniority: '0-3', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'esg_consulting', seniority: '8+', n: 1, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
-  { market: 'SG', fn: 'climate_tech', seniority: '8+', n: 1, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-21', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'carbon_env_commodities', seniority: '0-3', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-06-24', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'carbon_env_commodities', seniority: '4-8', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'carbon_env_commodities', seniority: '8+', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'corporate_sustainability', seniority: '8+', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-07', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'esg_consulting', seniority: '4-8', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-09', lastSeen: '2026-07-26', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'compliance_disclosure', seniority: '0-3', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-06', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'compliance_disclosure', seniority: '4-8', n: 2, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-20', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
   { market: 'HK', fn: 'esg_consulting', seniority: '8+', n: 1, median: null, p25: null, p75: null, currency: 'HKD', period: 'monthly', firstSeen: '2026-07-21', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
   { market: 'HK', fn: 'compliance_disclosure', seniority: '0-3', n: 1, median: null, p25: null, p75: null, currency: 'HKD', period: 'monthly', firstSeen: '2026-06-30', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
-  { market: 'UK', fn: 'climate_tech', seniority: '4-8', n: 1, median: null, p25: null, p75: null, currency: 'GBP', period: 'annual', firstSeen: '2026-07-03', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'esg_consulting', seniority: '8+', n: 1, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-22', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
+  { market: 'SG', fn: 'climate_tech', seniority: '8+', n: 1, median: null, p25: null, p75: null, currency: 'SGD', period: 'monthly', firstSeen: '2026-07-21', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
   { market: 'UK', fn: 'sustainable_finance', seniority: '0-3', n: 1, median: null, p25: null, p75: null, currency: 'GBP', period: 'annual', firstSeen: '2026-06-12', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
+  { market: 'UK', fn: 'climate_tech', seniority: '4-8', n: 1, median: null, p25: null, p75: null, currency: 'GBP', period: 'annual', firstSeen: '2026-07-03', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
   { market: 'UK', fn: 'climate_tech', seniority: '8+', n: 1, median: null, p25: null, p75: null, currency: 'GBP', period: 'annual', firstSeen: '2026-06-23', lastSeen: '2026-07-22', verification: 'source_available_unverified' },
 ];
-
 export function publishable(cell: SalaryCell): boolean {
   return cell.n >= MIN_N && cell.p25 !== null && cell.p75 !== null;
 }
