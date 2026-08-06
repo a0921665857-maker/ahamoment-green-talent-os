@@ -97,6 +97,20 @@ function fetchedDate(iso: string, locale: Locale): string {
   return locale === 'zh-TW' ? `${y} 年 ${Number(m)} 月 ${Number(d)} 日` : `${y}-${m}-${d}`;
 }
 
+/**
+ * Render whichever period shape a dataset uses. The datasets do not agree with
+ * each other on granularity, which is the point: rent is quarterly, CPI and
+ * unemployment monthly, income annual. Each figure shows its own.
+ * Used for the editorial line on each card. The source line beneath keeps the
+ * raw ISO period so a reader can match it to data.gov.sg character for character.
+ */
+export function sgOfficialPeriodLabel(period: string, locale: Locale): string {
+  if (period.includes('-Q')) return quarter(period, locale);
+  if (/^\d{4}-\d{2}$/.test(period)) return month(period, locale);
+  if (/^\d{4}$/.test(period)) return locale === 'zh-TW' ? `${period} 年` : period;
+  return period;
+}
+
 const num = (n: number): string => n.toLocaleString('en-US');
 const one = (n: number): string => n.toFixed(1);
 

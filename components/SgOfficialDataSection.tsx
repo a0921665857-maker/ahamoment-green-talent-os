@@ -5,7 +5,12 @@ import {
   sgOfficial,
   type SgOfficialSource,
 } from '@/content/sgOfficial';
-import { fillSgOfficial, sgOfficialCopy, sgOfficialVars } from '@/content/sgOfficialCopy';
+import {
+  fillSgOfficial,
+  sgOfficialCopy,
+  sgOfficialPeriodLabel,
+  sgOfficialVars,
+} from '@/content/sgOfficialCopy';
 
 /**
  * The official data.gov.sg block on /[locale]/cost-of-living. It sits between the
@@ -175,7 +180,7 @@ export function SgOfficialDataSection({ locale }: { locale: Locale }) {
               <p className="text-xs text-ink-soft">{f(s.label)}</p>
               <p className="mt-1 text-3xl font-semibold tabular-nums text-pine">{f(s.value)}</p>
               <p className="mt-1 text-xs text-ink-soft">
-                {source.latestPeriod} · {source.agency}
+                {sgOfficialPeriodLabel(source.latestPeriod, locale)} · {source.agency}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">{f(s.reading)}</p>
               <SourceLine source={source} locale={locale} t={t} now={now} />

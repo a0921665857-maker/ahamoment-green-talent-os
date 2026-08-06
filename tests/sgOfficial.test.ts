@@ -11,7 +11,12 @@ import {
   sgOfficialRenderedSources,
   sgOfficialSources,
 } from '@/content/sgOfficial';
-import { fillSgOfficial, sgOfficialCopy, sgOfficialVars } from '@/content/sgOfficialCopy';
+import {
+  fillSgOfficial,
+  sgOfficialCopy,
+  sgOfficialPeriodLabel,
+  sgOfficialVars,
+} from '@/content/sgOfficialCopy';
 
 /**
  * The cost-of-living page makes one structural claim about this data: it is
@@ -226,6 +231,27 @@ describe('official-section copy', () => {
         expect(s.value.length, `${locale}.${s.key}.value`).toBeGreaterThan(0);
         expect(s.reading.length, `${locale}.${s.key}.reading`).toBeGreaterThan(0);
       }
+    }
+  });
+
+  /**
+   * The six datasets disagree on granularity on purpose: rent is quarterly, CPI
+   * and unemployment monthly, income annual. Each figure has to show its own
+   * period, in the reader's language, or the section implies they are all as
+   * current as the newest one.
+   */
+  it('renders each period in its own granularity and locale', () => {
+    expect(sgOfficialPeriodLabel('2026-Q2', 'zh-TW')).toBe('2026 年第 2 季');
+    expect(sgOfficialPeriodLabel('2026-Q2', 'en')).toBe('2026 Q2');
+    expect(sgOfficialPeriodLabel('2026-06', 'zh-TW')).toBe('2026 年 6 月');
+    expect(sgOfficialPeriodLabel('2026-06', 'en')).toBe('June 2026');
+    expect(sgOfficialPeriodLabel('2025', 'zh-TW')).toBe('2025 年');
+    expect(sgOfficialPeriodLabel('2025', 'en')).toBe('2025');
+    // Every rendered dataset's period must actually be translated in zh-TW, not
+    // echoed back as a raw ISO string in the middle of Chinese copy.
+    for (const s of sgOfficialRenderedSources) {
+      expect(sgOfficialPeriodLabel(s.latestPeriod, 'zh-TW'), `${s.datasetKey} left untranslated`)
+        .not.toBe(s.latestPeriod);
     }
   });
 

@@ -670,10 +670,17 @@ def main() -> int:
     rendered = build(raw, args.date)
     existing = OUT_PATH.read_text(encoding="utf-8") if OUT_PATH.exists() else ""
 
-    # Ignore date stamps when deciding whether anything really moved, so a re-run
-    # in a quiet month does not produce a diff that is only a date.
+    # Ignore the run stamp when deciding whether anything really moved, so a
+    # re-run in a quiet month does not produce a diff that is only a date.
+    #
+    # Only `generatedOn` is normalised, NOT every date in the file. The salary
+    # index blanks all of them, which is safe there; here it would be a hole.
+    # `fetchedAt` is the single input to the 90-day staleness gate, so if a
+    # hand-edited fetch date were normalised away, --check would report
+    # "unchanged" on a file claiming stale data is fresh. Verified by editing
+    # a fetchedAt and confirming --check now reports CHANGED.
     def strip_date(text: str) -> str:
-        return re.sub(r"20\d\d-\d\d-\d\d", "DATE", text)
+        return re.sub(r"generatedOn: '20\d\d-\d\d-\d\d'", "generatedOn: 'DATE'", text)
 
     changed = strip_date(rendered) != strip_date(existing)
 
