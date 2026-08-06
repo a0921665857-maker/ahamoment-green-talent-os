@@ -3,10 +3,19 @@ import { notFound } from 'next/navigation';
 import { LOCALES, type Locale } from '@/lib/constants';
 import { isLocale } from '@/content/locales';
 import { costOfLiving } from '@/content/costOfLiving';
+import { SgOfficialDataSection } from '@/components/SgOfficialDataSection';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
+
+/**
+ * The official-data block decides at render time whether its snapshot has gone
+ * past 90 days. On a purely static page that decision would be frozen at build
+ * time and the notice would never appear. One re-render a day is enough for a
+ * dataset refreshed monthly, and keeps the page static between renders.
+ */
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,
@@ -78,6 +87,9 @@ export default async function CostOfLivingPage({
           </table>
         </div>
         <p className="mt-4 text-ink-soft">{r.sgAfter}</p>
+
+        {/* Official data.gov.sg figures. Separate section, never merged with the estimates above. */}
+        <SgOfficialDataSection locale={L} />
 
         {/* Taipei */}
         <h2 className="mt-14 text-2xl font-semibold">{r.twTitle}</h2>
