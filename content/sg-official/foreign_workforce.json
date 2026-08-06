@@ -1,0 +1,55 @@
+{
+ "dataset_key": "foreign_workforce",
+ "dataset_id": "d_ca90ebca85472a1bf8fb01362b7233fa",
+ "dataset_name": "Stock of Foreign Workforce by Pass Type",
+ "agency": "MOM",
+ "dataset_url": "https://data.gov.sg/datasets/d_ca90ebca85472a1bf8fb01362b7233fa/view",
+ "api_url": "https://data.gov.sg/api/action/datastore_search?resource_id=d_ca90ebca85472a1bf8fb01362b7233fa",
+ "licence": "Singapore Open Data Licence v1.0",
+ "licence_url": "https://data.gov.sg/open-data-licence",
+ "fetched_at": "2026-08-06T16:34:29+08:00",
+ "latest_period": "2022-12",
+ "note": "注意：此資料集官方僅更新至 2022-12，之後未再發布；較新數字請看 MOM 官網。",
+ "months": [
+  "2017-12",
+  "2018-12",
+  "2019-12",
+  "2020-12",
+  "2021-12",
+  "2022-12"
+ ],
+ "count_by_pass_type": {
+  "employment_pass": [
+   187700.0,
+   185800.0,
+   193700.0,
+   177100.0,
+   161700.0,
+   187300.0
+  ],
+  "other_work_passes": [
+   30700.0,
+   32100.0,
+   34700.0,
+   32200.0,
+   27200.0,
+   25400.0
+  ],
+  "s_pass": [
+   184400.0,
+   195500.0,
+   200000.0,
+   174000.0,
+   161800.0,
+   177900.0
+  ],
+  "work_permit": [
+   965200.0,
+   972600.0,
+   999000.0,
+   848200.0,
+   849700.0,
+   1033500.0
+  ]
+ }
+}
