@@ -1,23 +1,14 @@
 <style>
   .tw2sg-root{
-    --paper:#F7F8F6; --card:#FFFFFF; --ink:#17211C; --ink2:#5A6660;
+    /* --paper 與 MRI 站 globals.css 的 --color-paper（#f6f6f1）同值：嵌入時頁身與站頭零色差（缺陷 1 裁決） */
+    --paper:#f6f6f1; --card:#FFFFFF; --ink:#17211C; --ink2:#5A6660;
     --sg:#00703C; --sg-soft:#E3F0E8; --tw:#2B5C8A; --tw-soft:#E4EDF5;
     --risk:#B45309; --risk-soft:#FBF0E1; --warn-ink:#8A4204; --pending:#8A928D;
     --line:#D8DDD9; --rail:#00703C;
     --mono:"Cascadia Code","SF Mono",Consolas,"Courier New",monospace;
     --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
   }
-  @media (prefers-color-scheme: dark){
-    .tw2sg-root{ --paper:#101613; --card:#18201B; --ink:#E6EBE7; --ink2:#9AA69F;
-      --sg:#4CAF7A; --sg-soft:#1B2C22; --tw:#7BA7CE; --tw-soft:#1A2733;
-      --risk:#D98E3B; --risk-soft:#2E2418; --warn-ink:#E5A45C; --pending:#77807A; --line:#2A332D; --rail:#4CAF7A; }
-  }
-  :root[data-theme="dark"] .tw2sg-root{ --paper:#101613; --card:#18201B; --ink:#E6EBE7; --ink2:#9AA69F;
-    --sg:#4CAF7A; --sg-soft:#1B2C22; --tw:#7BA7CE; --tw-soft:#1A2733;
-    --risk:#D98E3B; --risk-soft:#2E2418; --warn-ink:#E5A45C; --pending:#77807A; --line:#2A332D; --rail:#4CAF7A; }
-  :root[data-theme="light"] .tw2sg-root{ --paper:#F7F8F6; --card:#FFFFFF; --ink:#17211C; --ink2:#5A6660;
-    --sg:#00703C; --sg-soft:#E3F0E8; --tw:#2B5C8A; --tw-soft:#E4EDF5;
-    --risk:#B45309; --risk-soft:#FBF0E1; --warn-ink:#8A4204; --pending:#8A928D; --line:#D8DDD9; --rail:#00703C; }
+  
 
   .tw2sg-root *{box-sizing:border-box}
   .tw2sg-root{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65;font-size:16px}

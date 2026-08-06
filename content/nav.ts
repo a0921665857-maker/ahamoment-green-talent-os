@@ -107,7 +107,7 @@ const en: NavCopy = {
     { label: 'I want to close the gap', hint: 'Free, 12 judgement exercises', href: '/judgment' },
     { label: 'I’m looking at roles', hint: 'Weekly picks + JD read', href: '/jobs' },
     { label: 'I’m comparing an offer', hint: 'APAC green-collar bands', href: '/salary-report' },
-    { label: 'I’m moving to Singapore', hint: 'Relocation guide (中文)', href: '/singapore' },
+    { label: 'I’m moving to Singapore', hint: 'Relocation guide', href: '/singapore' },
   ],
   services: 'Services & pricing',
   footerTitle: 'Everything on this site',
@@ -128,7 +128,7 @@ const en: NavCopy = {
         { label: 'Green career level-up map', href: '/levelup' },
         { label: 'Green jobs radar (weekly)', href: '/jobs' },
         { label: 'Cost of living', href: '/cost-of-living' },
-        { label: 'Taiwan → Singapore guide (中文)', href: '/singapore' },
+        { label: 'Taiwan → Singapore guide', href: '/singapore' },
       ],
     },
     {
