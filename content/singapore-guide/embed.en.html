@@ -5,8 +5,8 @@
     --sg:#00703C; --sg-soft:#E3F0E8; --tw:#2B5C8A; --tw-soft:#E4EDF5;
     --risk:#B45309; --risk-soft:#FBF0E1; --warn-ink:#8A4204; --pending:#8A928D;
     --line:#D8DDD9; --rail:#00703C;
-    --mono:"Cascadia Code","SF Mono",Consolas,"Courier New",monospace;
-    --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,Menlo,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   }
   
 
@@ -93,12 +93,12 @@
   .date{color:var(--ink2)}
   .card .why{font-size:13px;color:var(--ink2);margin:6px 0 0}
   .card.stale{border-color:var(--risk);background:var(--risk-soft)}
-  .card.stale .date::after{content:" ⚠ unverified for 90+ days";color:var(--risk);font-weight:700}
+  .card.stale .date::after{content:" ⚠ unverified for 90+ days";color:var(--warn-ink);font-weight:700}
   .copy{position:absolute;top:4px;right:4px;min-width:44px;min-height:44px;border:0;background:transparent;color:var(--ink2);cursor:pointer;font-size:15px;border-radius:8px}
   .copy:hover,.copy:focus-visible{outline:2px solid var(--sg);color:var(--sg)}
 
   .riskzone{margin:30px 0 0;background:var(--risk-soft);border:1px solid var(--risk);border-radius:12px;padding:16px;scroll-margin-top:70px}
-  .riskzone h2{margin:0 0 4px;font-size:18px;color:var(--risk)}
+  .riskzone h2{margin:0 0 4px;font-size:18px;font-weight:700;color:var(--warn-ink)}
   .riskzone p{margin:0 0 10px;font-size:14px}
   .risk4{display:grid;gap:8px}
   @media(min-width:640px){.risk4{grid-template-columns:1fr 1fr}}
@@ -107,14 +107,14 @@
   .risk4 span{font-size:13px;color:var(--ink2)}
 
   .honest{margin:32px 0 0;border-top:1px solid var(--line);padding-top:18px}
-  .honest h2{font-size:18px;margin:0 0 10px}
+  .honest h2{font-size:18px;font-weight:700;margin:0 0 10px}
   .honest ul{margin:0;padding-left:20px;font-size:14.5px}
   .honest li{margin-bottom:6px}
   #staleBtn{min-height:44px;margin-left:6px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink2);font-size:13px;cursor:pointer}
 
   .bridge{margin:28px 0 0;border:1px dashed var(--line);border-radius:12px;padding:16px}
   .bridge .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink2);display:block;margin-bottom:6px}
-  .bridge h2{font-size:17px;margin:0 0 8px}
+  .bridge h2{font-size:17px;font-weight:700;margin:0 0 8px}
   .bridge p{margin:0 0 10px;font-size:14.5px}
   .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:10px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
   .bridgebtn:hover{opacity:.9}
@@ -137,7 +137,7 @@
   <div class="stamp">
     <div class="row">
       <span class="m ok">Site-wide last verified 2026-08-06</span>
-      <span class="m" id="stampCount">41 supporting sources (deduplicated)・1 being verified・1 under review</span>
+      <span class="m" id="stampCount">41 supporting sources (deduplicated) · 1 being verified · 1 under review</span>
     </div>
     <div class="legend">Unmarked = verified against the official page; "under review" = figures listed, source re-check in progress; "being verified" = no trusted figure yet, so no figure is shown.</div>
   </div>
@@ -156,7 +156,7 @@
   <a href="#return">Moving back</a>
 </nav>
 
-<p class="coverage">Covers: <b>EP, S Pass, DP／LTVP</b> (salaried professionals and their families). Not sure which pass you fall under? Rough guide: a fixed monthly salary of S$5,600 or above usually means EP, S$3,300 or above means S Pass (financial-sector thresholds are higher; see Station 01). <span class="no">Not covered: WP (the rank-and-file route, see the <a href="https://www.mom.gov.sg/passes-and-permits/work-permit-for-foreign-worker" rel="noopener">official MOM page</a>), student passes, entrepreneur passes; nor job hunting and CVs. This guide starts the moment you have an offer.</span></p>
+<p class="coverage">Covers: <b>EP, S Pass, DP/LTVP</b> (salaried professionals and their families). Not sure which pass you fall under? Rough guide: a fixed monthly salary of S$5,600 or above usually means EP, S$3,300 or above means S Pass (financial-sector thresholds are higher; see Station 01). <span class="no">Not covered: WP (the rank-and-file route, see the <a href="https://www.mom.gov.sg/passes-and-permits/work-permit-for-foreign-worker" rel="noopener">official MOM page</a>), student passes, entrepreneur passes; nor job hunting and CVs. This guide starts the moment you have an offer.</span></p>
 
 <nav class="stagenav" aria-label="Stage navigation">
   <a href="#s1">Assess</a><a href="#s2">Apply</a><a href="#s3">Land</a><a href="#s4">Year 1</a><a href="#s5">Long term</a><a href="#return">Return</a><a href="#risk">Risks</a>
@@ -176,12 +176,12 @@
       <h3>EP minimum fixed monthly salary (current)</h3>
       <p class="val">From <span class="m">S$5,600</span> for most sectors, rising with age (<span class="m">S$10,700</span> at 45 and above); financial services from <span class="m">S$6,200</span> (<span class="m">S$11,800</span> at 45 and above). The threshold counts <b>fixed</b> monthly salary only; variable bonuses do not count.</p>
       <p class="why">Note: from 2027-01-01, new applications need <span class="m">S$6,000</span> (general) / <span class="m">S$6,600</span> (financial services). If you are negotiating an offer now but filing next year, the new thresholds apply to you.</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="compass-pass" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="compass-pass">
       <h3>Meeting the salary bar ≠ approval: COMPASS needs 40 points</h3>
       <p class="val">Four foundational criteria (salary, qualifications, nationality diversity, local employment) plus two bonus criteria; you pass at <span class="m">40 points</span>. Three exemptions: fixed monthly salary of <span class="m">S$22,500</span> or more, intra-corporate transferees, and short-term roles of one month or less.</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/compass" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/compass" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="compass-scoring" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="compass-scoring">
       <h3>Score COMPASS yourself: the six criteria</h3>
@@ -195,25 +195,25 @@
         <tr><td>C6 Strategic programme</td><td>Firm on a designated economic programme (bonus)</td><td class="m">＋10</td></tr>
       </table>
       <p class="why">C3 and C4 are attributes of the firm, not of you: the same person can get a completely different outcome applying through a different employer. The official pre-check, the Self-Assessment Tool (SAT), is run on the employer side (HR) via the EP eService, so at the interview you can simply ask: have you run the SAT?</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/compass" rel="noopener">Scoring</a><a href="https://www.mom.gov.sg/eservices/services/employment-s-pass-self-assessment-tool" rel="noopener">SAT tool</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/compass" rel="noopener">Scoring</a><a href="https://www.mom.gov.sg/eservices/services/employment-s-pass-self-assessment-tool" rel="noopener">SAT tool</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="spass-salary" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="spass-salary">
       <h3>S Pass: your threshold, and your employer's cost</h3>
-      <p class="val">Minimum fixed monthly salary for new applications: <span class="m">S$3,300</span> (financial services <span class="m">S$3,800</span>); from 2027-01-01 this rises to <span class="m">S$3,600／S$4,000</span>.</p>
+      <p class="val">Minimum fixed monthly salary for new applications: <span class="m">S$3,300</span> (financial services <span class="m">S$3,800</span>); from 2027-01-01 this rises to <span class="m">S$3,600/S$4,000</span>.</p>
       <p class="why">The employer also faces a quota (10% of the whole firm in services) and a monthly levy (a flat <span class="m">S$650</span> from 2025-09-01; the old tier system is abolished). That is the real cost structure behind an employer hesitating to hire you on an S Pass, and it is useful to know when negotiating the offer.</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/s-pass/eligibility" rel="noopener">Thresholds</a><a href="https://www.mom.gov.sg/passes-and-permits/s-pass/quota-and-levy/levy-and-quota-requirements" rel="noopener">Levy</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/s-pass/eligibility" rel="noopener">Thresholds</a><a href="https://www.mom.gov.sg/passes-and-permits/s-pass/quota-and-levy/levy-and-quota-requirements" rel="noopener">Levy</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="family-dp-ltvp" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="family-dp-ltvp">
       <h3>Can your family come along: two salary bars</h3>
       <p class="val">Spouse and unmarried children under 21 (Dependant's Pass, DP): the main applicant needs a fixed monthly salary of <span class="m">S$6,000</span>. Parents (Long-Term Visit Pass, LTVP): <span class="m">S$12,000</span>. Both look at your individual <b>fixed</b> monthly salary; year-end and variable bonuses do not count, and household income is not combined.</p>
-      <p class="why">A DP carries <b>no automatic right to work</b>: for your spouse to work in Singapore, an employer must separately apply for an EP／S Pass or a Work Permit for DP holders; the Letter of Consent (LOC) is only for DP holders running their own business. If your financial plan assumes two incomes, clear this hurdle before you count on it.</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/dependants-pass/eligibility" rel="noopener">DP</a><a href="https://www.mom.gov.sg/passes-and-permits/long-term-visit-pass/eligibility" rel="noopener">LTVP</a><a href="https://www.mom.gov.sg/passes-and-permits/dependants-pass/working-in-singapore" rel="noopener">DP work rules</a><span class="date">Captured 2026-08-06</span></div>
+      <p class="why">A DP carries <b>no automatic right to work</b>: for your spouse to work in Singapore, an employer must separately apply for an EP/S Pass or a Work Permit for DP holders; the Letter of Consent (LOC) is only for DP holders running their own business. If your financial plan assumes two incomes, clear this hurdle before you count on it.</p>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/dependants-pass/eligibility" rel="noopener">DP</a><a href="https://www.mom.gov.sg/passes-and-permits/long-term-visit-pass/eligibility" rel="noopener">LTVP</a><a href="https://www.mom.gov.sg/passes-and-permits/dependants-pass/working-in-singapore" rel="noopener">DP work rules</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="green-path" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="green-path">
       <h3>Aiming for sustainability work? Singapore is officially pushing this track</h3>
       <p class="val">The Singapore Green Plan 2030 is a whole-of-government national agenda, and the <b>Green Economy</b> is one of its five pillars, with net zero by 2050 as the long-term goal. Sustainability roles therefore span finance, energy and corporate sustainability teams, making this a track worth evaluating for Taiwanese professionals heading to Singapore.</p>
       <p class="why">Want to gauge your distance from a green-collar role? This site's free diagnostic tool sits right below the roadmap.</p>
-      <div class="src"><span class="chip sg">SG・Official blueprint</span><a href="https://www.greenplan.gov.sg" rel="noopener">Green Plan 2030</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · Official blueprint</span><a href="https://www.greenplan.gov.sg" rel="noopener">Green Plan 2030</a><span class="date">Captured 2026-08-06</span></div>
     </div>
   </div>
 </details>
@@ -224,17 +224,17 @@
     <div class="card" data-card="ep-apply-timeline" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="ep-apply-timeline">
       <h3>Applications go through the EP eService; timing depends on where the company sits</h3>
       <p class="val">Singapore-registered companies: processed or updated within <span class="m">10 working days</span>; overseas employers with no local entity: most within <span class="m">6 weeks</span>.</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/apply-for-a-pass" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/apply-for-a-pass" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="ipa-validity" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="ipa-validity">
       <h3>The IPA letter is your entry approval, valid for 6 months</h3>
       <p class="val">On approval you first receive an In-Principle Approval (IPA) letter; enter Singapore and complete card collection within <span class="m">6 months</span>. The IPA is not the pass card yet: registration and card collection come after arrival (see the next station).</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/key-facts" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/key-facts" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="medical-by-ipa" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="medical-by-ipa">
       <h3>Medical exam: whatever the IPA letter says is the rule</h3>
-      <p class="val">The official EP／S Pass eligibility pages carry <b>no</b> blanket medical-exam requirement (that rule belongs to the Work Permit); whether you need one, and what it covers, is stated in your IPA letter. Clinic marketing pages are not an official basis.</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility" rel="noopener">EP eligibility page</a><span class="date">Captured 2026-08-06</span></div>
+      <p class="val">The official EP/S Pass eligibility pages carry <b>no</b> blanket medical-exam requirement (that rule belongs to the Work Permit); whether you need one, and what it covers, is stated in your IPA letter. Clinic marketing pages are not an official basis.</p>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/eligibility" rel="noopener">EP eligibility page</a><span class="date">Captured 2026-08-06</span></div>
     </div>
   </div>
 </details>
@@ -245,23 +245,23 @@
     <div class="card" data-card="sgac" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="sgac">
       <h3>SG Arrival Card: within 3 days before arrival, free</h3>
       <p class="val">Submit online within <span class="m">3 days</span> of arrival, counting arrival day itself. It is <b>free</b>, and the only official portal is <span class="m">eservices.ica.gov.sg</span>; the many paid "agent" sites crowding search results are imitations.</p>
-      <div class="src"><span class="chip sg">SG・ICA</span><a href="https://www.ica.gov.sg/enter-transit-depart/entering-singapore/sg-arrival-card" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · ICA</span><a href="https://www.ica.gov.sg/enter-transit-depart/entering-singapore/sg-arrival-card" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="card-collection" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="card-collection">
       <h3>Card collection: register within 2 weeks; the card arrives in 5 working days</h3>
       <p class="val">Within <span class="m">2 weeks</span> of pass issuance, visit the Employment Pass Services Centre (EPSC) for fingerprinting and photo; the card is then delivered within <span class="m">5 working days</span>. Once registered for Singpass you can use the digital pass in the SGWorkPass app in the meantime.</p>
-      <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/key-facts" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/employment-pass/key-facts" rel="noopener">Official source</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="bank-three" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="bank-three">
       <h3>Bank accounts: three banks, three rulebooks; do not assume they match</h3>
       <p class="val">DBS opens accounts on the <b>IPA letter</b> (no need to wait for the physical card); OCBC's remote onboarding <b>does not cover Taiwan passports</b> (Hong Kong, Malaysia, Indonesia and mainland China only), and its in-branch route means passport + valid pass + one proof of address, with an initial deposit of <span class="m">S$1,000</span>; UOB is in-branch only and accepts original documents only.</p>
-      <div class="src"><span class="chip sg">SG・Bank sites</span><a href="https://www.dbs.com.sg/personal/deposits/for-foreigners/new-to-singapore" rel="noopener">DBS</a><a href="https://www.ocbc.com/personal-banking/deposits/360-savings-account" rel="noopener">OCBC</a><a href="https://www.uob.com.sg/personal/highlights/life-moments/foreigner-open-bank-account-in-singapore.page" rel="noopener">UOB</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · Bank sites</span><a href="https://www.dbs.com.sg/personal/deposits/for-foreigners/new-to-singapore" rel="noopener">DBS</a><a href="https://www.ocbc.com/personal-banking/deposits/360-savings-account" rel="noopener">OCBC</a><a href="https://www.uob.com.sg/personal/highlights/life-moments/foreigner-open-bank-account-in-singapore.page" rel="noopener">UOB</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="sim-rules" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="sim-rules">
       <h3>Mobile SIM: passport registration lasts only 30 days</h3>
       <p class="val">From 2024-07-15, prepaid SIMs registered on a foreign passport stay valid for <span class="m">30 days</span> and must be re-registered with a Singapore document (your work pass) before the deadline, or they are cut off with no refund of remaining value; the cap is <span class="m">3</span> prepaid cards per person. Get a short-term card on landing, then return to a store to re-register once you hold your pass.</p>
       <p class="why">The original IMDA announcement page is not machine-readable; the figures are cross-verified against the supervising ministry's (MDDI) page and the telco's official terms.</p>
-      <div class="src"><span class="chip sg">SG・MDDI／telcos</span><a href="https://www.mddi.gov.sg/other-pages/anti-scam-efforts/" rel="noopener">MDDI</a><a href="https://www.singtel.com/personal/products-services/mobile/prepaid-plans/hi-tourist/tnc" rel="noopener">Singtel terms</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MDDI/telcos</span><a href="https://www.mddi.gov.sg/other-pages/anti-scam-efforts/" rel="noopener">MDDI</a><a href="https://www.singtel.com/personal/products-services/mobile/prepaid-plans/hi-tourist/tnc" rel="noopener">Singtel terms</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card pending" data-card="singpass-timing" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="PENDING" data-status="pending" id="singpass-timing">
       <h3>The exact window for first-time Singpass registration</h3>
@@ -278,23 +278,23 @@
       <h3>Singapore tax: 183 days decides who you are</h3>
       <p class="val"><span class="m">≥183 days</span> in Singapore in the preceding calendar year = tax resident, on progressive rates with the first <span class="m">S$20,000</span> tax-free and a top rate of <span class="m">24%</span>; non-residents pay <span class="m">15%</span> on employment income or the resident rates, whichever is higher. Holders of a work pass valid <span class="m">≥1 year</span> are treated as residents from the start, <b>re-assessed at tax clearance when you leave</b>: if you are under 183 days by then, the whole period is re-settled as a non-resident.</p>
       <p class="why">So quitting before the half-year mark is a money question, not just a career one; and once the pass is cancelled you only get a short legal stay. Run the tax numbers before you pick a leaving date.</p>
-      <div class="src"><span class="chip sg">SG・IRAS</span><a href="https://www.iras.gov.sg/taxes/individual-income-tax/basics-of-individual-income-tax/tax-residency-and-tax-rates/individual-income-tax-rates" rel="noopener">Tax rates</a><a href="https://www.iras.gov.sg/taxes/individual-income-tax/basics-of-individual-income-tax/tax-residency-and-tax-rates/working-out-my-tax-residency" rel="noopener">Residency rules</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · IRAS</span><a href="https://www.iras.gov.sg/taxes/individual-income-tax/basics-of-individual-income-tax/tax-residency-and-tax-rates/individual-income-tax-rates" rel="noopener">Tax rates</a><a href="https://www.iras.gov.sg/taxes/individual-income-tax/basics-of-individual-income-tax/tax-residency-and-tax-rates/working-out-my-tax-residency" rel="noopener">Residency rules</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card risk" data-card="nhi-abolished" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="nhi-abolished">
       <h3>Taiwan NHI (健保): the overseas suspension option is abolished; stop following old guides</h3>
       <p class="val">From <span class="m">2024-12-23</span> the NHI Administration no longer accepts coverage suspension; while working abroad, <b>premiums keep being paid without interruption</b>. Nearly every online tutorial about suspending NHI before leaving to save premiums describes the pre-abolition regime.</p>
       <p class="why">Coverage only ends if your household registration is moved out; the rules for rejoining on return are on the Return Line. This section cites only current NHIA documents.</p>
-      <div class="src"><span class="chip tw">TW・NHIA</span><a href="https://www.nhi.gov.tw/ch/dl-80326-3e4b2b57624145da8397510cb55ad9c8-1.pdf" rel="noopener">Official Q&A PDF</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip tw">TW · NHIA</span><a href="https://www.nhi.gov.tw/ch/dl-80326-3e4b2b57624145da8397510cb55ad9c8-1.pdf" rel="noopener">Official Q&A PDF</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card risk" data-card="household-2yr" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="household-2yr">
       <h3>Taiwan household registration (戶籍): 2 years abroad and it is moved out, not revoked</h3>
       <p class="val">Household Registration Act, Article 16: after <span class="m">2 years</span> abroad, move-out registration applies (the household registration office may process it directly after notice). Move-out <b>does not affect nationality or the validity of your ID card</b>, and you can re-register the very day you re-enter Taiwan; but it does trigger NHI disenrolment and loss of voting eligibility.</p>
-      <div class="src"><span class="chip tw">TW・Law／MOI</span><a href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=D0030006&flno=16" rel="noopener">Statute</a><a href="https://www.moi.gov.tw/News_Content.aspx?n=4&s=276569" rel="noopener">MOI explainer</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip tw">TW · Law/MOI</span><a href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=D0030006&flno=16" rel="noopener">Statute</a><a href="https://www.moi.gov.tw/News_Content.aspx?n=4&s=276569" rel="noopener">MOI explainer</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card risk" data-card="tw-overseas-income" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="tw-overseas-income">
       <h3>Taiwan tax: the NT$1,000,000 overseas-income threshold, plus the treaty timing gap</h3>
       <p class="val">Once your filing household's combined overseas income reaches <span class="m">NT$1,000,000</span> (NT$100 萬) in a year, the full amount counts toward basic income (AMT), with an exemption of <span class="m">NT$7,500,000</span> (NT$750 萬, applicable for ROC tax years 113–115) and a <span class="m">20%</span> rate. The new Taiwan–Singapore tax agreement <b>only applies from 2027-01-01</b>; until then the 1981 treaty still governs. News that a new treaty is signed does not mean it is in force.</p>
-      <div class="src"><span class="chip tw">TW・MOF／NTBT</span><a href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=G0340115&flno=12" rel="noopener">Statute</a><a href="https://www.ntbt.gov.tw/multiplehtml/d8a7d1c8487443ce94ff0fc798d176c0" rel="noopener">NT$7.5M formula</a><a href="https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=fc1efb8360554ee0b248f688b42766ae" rel="noopener">Treaty announcement</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip tw">TW · MOF/NTBT</span><a href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=G0340115&flno=12" rel="noopener">Statute</a><a href="https://www.ntbt.gov.tw/multiplehtml/d8a7d1c8487443ce94ff0fc798d176c0" rel="noopener">NT$7.5M formula</a><a href="https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=fc1efb8360554ee0b248f688b42766ae" rel="noopener">Treaty announcement</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card risk" data-card="rental-rules" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="rental-rules">
       <h3>Renting (HDB): 6-month minimum, plus three checks you run yourself</h3>
@@ -305,28 +305,28 @@
         <li>After approval, use the official e-Service to confirm you are listed as an authorised occupant</li>
       </ol>
       <p class="why">Condos (private housing) follow URA rules instead: each occupant must stay at least <span class="m">3 consecutive months</span>, and homes under 90 sqm are capped at <span class="m">6</span> occupants (90 sqm and above temporarily relaxed to 8 until end-2028); tenants do not register with URA.</p>
-      <div class="src"><span class="chip sg">SG・HDB／URA</span><a href="https://hdb.gov.sg/renting-a-flat/renting-from-open-market/regulations-for-renting-a-flat-or-a-bedroom-from-open-market" rel="noopener">HDB rules</a><a href="https://hdb.gov.sg/renting-a-flat/renting-from-open-market/eligibility-for-renting-a-flat-or-a-bedroom-from-open-market" rel="noopener">Eligibility and self-protection</a><a href="https://www.ura.gov.sg/guidelines/property-and-business-owners/property/renting-property/" rel="noopener">URA private housing</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · HDB/URA</span><a href="https://hdb.gov.sg/renting-a-flat/renting-from-open-market/regulations-for-renting-a-flat-or-a-bedroom-from-open-market" rel="noopener">HDB rules</a><a href="https://hdb.gov.sg/renting-a-flat/renting-from-open-market/eligibility-for-renting-a-flat-or-a-bedroom-from-open-market" rel="noopener">Eligibility and self-protection</a><a href="https://www.ura.gov.sg/guidelines/property-and-business-owners/property/renting-property/" rel="noopener">URA private housing</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card risk" data-card="rental-scam" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="rental-scam">
       <h3>Rental scams: never pay just to view or to reserve a flat</h3>
       <p class="val">January–October 2024: police received <span class="m">430+</span> reports with losses over <span class="m">S$2.7 million</span> (S$270 萬). The standard play: fake listings + a real agent's licence number + WhatsApp pressure for a deposit. Protect yourself: look up the phone number shown on the ad in the CEA public register, view the flat in person and verify the agent's identity, and remember that arranging viewings and securing a tenancy must not be charged to you.</p>
-      <div class="src"><span class="chip sg">SG・SPF／CEA</span><a href="https://www.police.gov.sg/Media-Hub/News/2024/20241121_police_advisory_on_rental_scams_involving_the_impersonation_of_property_agents" rel="noopener">Police advisory</a><a href="https://eservices.cea.gov.sg/aceas/public-register/" rel="noopener">Check an agent</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · SPF/CEA</span><a href="https://www.police.gov.sg/Media-Hub/News/2024/20241121_police_advisory_on_rental_scams_involving_the_impersonation_of_property_agents" rel="noopener">Police advisory</a><a href="https://eservices.cea.gov.sg/aceas/public-register/" rel="noopener">Check an agent</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="rent-median" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="rent-median">
       <h3>Market rent: use official median transacted rents, not an agent's word</h3>
       <p class="val">HDB publishes median rents by town and flat type, and officially says they can serve as a reference benchmark before you sign. Check the numbers before viewing; skip anything priced absurdly above them.</p>
-      <div class="src"><span class="chip sg">SG・HDB</span><a href="https://hdb.gov.sg/renting-a-flat/renting-from-open-market/rental-statistics" rel="noopener">Rental statistics</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · HDB</span><a href="https://hdb.gov.sg/renting-a-flat/renting-from-open-market/rental-statistics" rel="noopener">Rental statistics</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="remit" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="remit">
       <h3>Remitting money back to Taiwan: the quota is huge, the reporting bar is low</h3>
       <p class="val">Taiwan individuals get an annual cumulative FX conversion quota of <span class="m">US$10,000,000</span> (1,000 萬美元, effective 2024-11-01; the old US$5 million cap no longer applies); any single transaction reaching the equivalent of <span class="m">NT$500,000</span> (NT$50 萬) must be declared. Declared, not taxed; do not drift into underground remittance just to skip paperwork.</p>
-      <div class="src"><span class="chip tw">TW・CBC</span><a href="https://www.cbc.gov.tw/tw/cp-302-178539-47467-1.html" rel="noopener">Quota announcement</a><a href="https://www.cbc.gov.tw/tw/cp-2139-101135-49647-1.html" rel="noopener">Declaration FAQ</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip tw">TW · CBC</span><a href="https://www.cbc.gov.tw/tw/cp-302-178539-47467-1.html" rel="noopener">Quota announcement</a><a href="https://www.cbc.gov.tw/tw/cp-2139-101135-49647-1.html" rel="noopener">Declaration FAQ</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="driving" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="partial" id="driving">
       <h3>Driving licence: convert within 12 months; non-English licences need a translation</h3>
       <p class="val">Staying beyond <span class="m">12 months</span> means converting to a Singapore licence: a <span class="m">S$50</span> conversion fee and passing the Basic Theory Test (BTT); per the official document checklist, non-English licences (including Taiwan's) need a translation issued by a <b>Singapore-registered translation company</b>.</p>
       <p class="why">Two details have no official wording and are <b>being verified</b>: when the 12 months starts counting, and whether any theory-test exemption exists. Call the Traffic Police to confirm before you go.</p>
-      <div class="src"><span class="chip sg">SG・SPF</span><a href="https://www.police.gov.sg/Knowledge-Hub/Traffic/Traffic-Matters/Singapore-Driving-Licence" rel="noopener">Conversion rules</a><a href="https://www.police.gov.sg/-/media/SPF/Advisories/Checklist-of-Documents-for-Conversion-of-Other-Foreign-Driving-Licence.pdf" rel="noopener">Document checklist PDF</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · SPF</span><a href="https://www.police.gov.sg/Knowledge-Hub/Traffic/Traffic-Matters/Singapore-Driving-Licence" rel="noopener">Conversion rules</a><a href="https://www.police.gov.sg/-/media/SPF/Advisories/Checklist-of-Documents-for-Conversion-of-Other-Foreign-Driving-Licence.pdf" rel="noopener">Document checklist PDF</a><span class="date">Captured 2026-08-06</span></div>
     </div>
   </div>
 </details>
@@ -338,18 +338,18 @@
       <h3>PR application: official timeline within 6 months; sync it against your EP expiry</h3>
       <p class="val">PR is handled by ICA (apply online via e-PR): with complete documents, processing takes <span class="m">within 6 months</span>, longer for some cases. Fees: <span class="m">S$100</span> to apply; on approval, Entry Permit <span class="m">S$20</span> + 5-year Re-Entry Permit (REP) <span class="m">S$50</span> + identity card <span class="m">S$50</span>. Doing it yourself costs about <span class="m">S$220</span> end to end; agents often charge ten times that, with benefits you cannot verify.</p>
       <p class="why">A pitfall that has actually happened: the EP expiry and the PR decision land days apart, the EP lapses first, and the PR application dies with it. EP renewal and PR are two independent timelines; never bet the PR outcome against your EP expiry date.</p>
-      <div class="src"><span class="chip sg">SG・ICA</span><a href="https://www.ica.gov.sg/reside/PR/apply" rel="noopener">Official application page</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · ICA</span><a href="https://www.ica.gov.sg/reside/PR/apply" rel="noopener">Official application page</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="cpf-pr" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="cpf-pr">
-      <h3>EP／S Pass holders pay no CPF; contributions start the day you become a PR</h3>
+      <h3>EP/S Pass holders pay no CPF; contributions start the day you become a PR</h3>
       <p class="val">CPF contributions apply only to citizens and PRs. The first two years as a PR run on graduated rates (year 1: employer <span class="m">4%</span> + employee <span class="m">5%</span>; year 2: <span class="m">9%＋15%</span>), then the full <span class="m">17%＋20%</span> from year 3 (below age 55, on wages up to <span class="m">S$8,000</span> a month). <b>Model your take-home pay before taking PR.</b></p>
-      <div class="src"><span class="chip sg">SG・CPF</span><a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay" rel="noopener">Employer obligations</a><a href="https://www.cpf.gov.sg/content/dam/web/employer/employer-obligations/documents/CPFcontributionratesfrom1Jan2026.pdf" rel="noopener">2026 rate table</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · CPF</span><a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay" rel="noopener">Employer obligations</a><a href="https://www.cpf.gov.sg/content/dam/web/employer/employer-obligations/documents/CPFcontributionratesfrom1Jan2026.pdf" rel="noopener">2026 rate table</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="srs-exit" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="B" data-status="ok" id="srs-exit">
       <h3>Before using SRS to save tax, learn its exit rules</h3>
-      <p class="val">Foreigners can contribute up to <span class="m">S$35,700</span> a year, tax-deductible; but withdrawing before retirement age means <b>full taxation plus a 5% penalty</b>. If the plan is to quit, cash out and leave, this is the landmine. Foreigners who have held the account for <span class="m">10 years</span> may withdraw in full without penalty (this detail is under review). Accounts: DBS／OCBC／UOB.</p>
+      <p class="val">Foreigners can contribute up to <span class="m">S$35,700</span> a year, tax-deductible; but withdrawing before retirement age means <b>full taxation plus a 5% penalty</b>. If the plan is to quit, cash out and leave, this is the landmine. Foreigners who have held the account for <span class="m">10 years</span> may withdraw in full without penalty (this detail is under review). Accounts: DBS/OCBC/UOB.</p>
       <p class="why">This site gives no investment advice: whether to open an SRS account is your call; this card only makes sure you know the exit rules before you do.</p>
-      <div class="src"><span class="chip sg">SG・MOF</span><a href="https://www.mof.gov.sg/news-resources/supplementary-retirement-scheme/" rel="noopener">Official source</a><span class="chip warn">10-year detail under review</span><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · MOF</span><a href="https://www.mof.gov.sg/news-resources/supplementary-retirement-scheme/" rel="noopener">Official source</a><span class="chip warn">10-year detail under review</span><span class="date">Captured 2026-08-06</span></div>
     </div>
   </div>
 </details>
@@ -362,17 +362,17 @@
     <div class="card risk" data-card="ir21" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="ir21">
       <h3>IR21 tax clearance: your last month's pay gets withheld, by design, not by a difficult employer</h3>
       <p class="val">When a foreign employee resigns, is posted overseas, or leaves Singapore for more than 3 months: the employer must file Form IR21 at least <b><span class="m">1 month</span> in advance</b> and withhold all monies due (salary, bonus, leave encashment) from the day it knows, until IRAS clears you; failing to file without reasonable excuse carries a fine of up to <span class="m">S$5,000</span>. e-Filed cases are processed within <span class="m">7 working days</span>. Budget this into your resignation talks and your cash flow.</p>
-      <div class="src"><span class="chip sg">SG・IRAS</span><a href="https://www.iras.gov.sg/taxes/individual-income-tax/employers/tax-clearance-for-foreign-spr-employees-(ir21)" rel="noopener">Official page</a><a href="https://www.iras.gov.sg/taxes/individual-income-tax/employers/tax-clearance-for-foreign-spr-employees-(ir21)/getting-tax-clearance-a-step-by-step-guide" rel="noopener">Step-by-step guide</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip sg">SG · IRAS</span><a href="https://www.iras.gov.sg/taxes/individual-income-tax/employers/tax-clearance-for-foreign-spr-employees-(ir21)" rel="noopener">Official page</a><a href="https://www.iras.gov.sg/taxes/individual-income-tax/employers/tax-clearance-for-foreign-spr-employees-(ir21)/getting-tax-clearance-a-step-by-step-guide" rel="noopener">Step-by-step guide</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card risk" data-card="nhi-return" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="nhi-return">
       <h3>Rejoining NHI on return: the new rule keys on your disenrolment date, not the old idea of 4 years abroad</h3>
       <p class="val">Restore household registration within <span class="m">2 years</span> of the disenrolment date: coverage resumes the same day. Beyond 2 years: coverage resumes only after <b>6 full months</b> of restored registration (for those employed on return, from the employment start date). The 4-years-abroad framing you see online is the 2021 regime.</p>
-      <div class="src"><span class="chip tw">TW・NHIA</span><a href="https://www.nhi.gov.tw/ch/dl-80326-3e4b2b57624145da8397510cb55ad9c8-1.pdf" rel="noopener">Official Q&A PDF</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip tw">TW · NHIA</span><a href="https://www.nhi.gov.tw/ch/dl-80326-3e4b2b57624145da8397510cb55ad9c8-1.pdf" rel="noopener">Official Q&A PDF</a><span class="date">Captured 2026-08-06</span></div>
     </div>
     <div class="card" data-card="household-restore" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="household-restore">
       <h3>Restoring household registration: doable the day you arrive</h3>
       <p class="val">After entering on your ROC passport, bring your ID card and household certificate (戶口名簿) to the household registration office of the place you are moving into, and the move-in registration is <b>completed the same day</b>. Restored registration is the prerequisite for NHI re-enrolment and most other rights.</p>
-      <div class="src"><span class="chip tw">TW・MOI</span><a href="https://www.moi.gov.tw/News_Content.aspx?n=4&s=276569" rel="noopener">Official explainer</a><span class="date">Captured 2026-08-06</span></div>
+      <div class="src"><span class="chip tw">TW · MOI</span><a href="https://www.moi.gov.tw/News_Content.aspx?n=4&s=276569" rel="noopener">Official explainer</a><span class="date">Captured 2026-08-06</span></div>
     </div>
   </div>
 </details>
@@ -412,7 +412,7 @@
 <footer>
   <p><b>Disclaimer</b>: this is a personally maintained information digest, not an official website, and it is not legal, tax or immigration advice. Content may be outdated or wrong; the official pages of each agency always prevail.</p>
   <p>How this is maintained: built by a Taiwanese professional working in Singapore, with automated link and figure verification; no verification cadence is promised. That is why every card carries a date and auto-flags when stale: you never have to trust the maintainer's diligence, only read the date. Broken links and changed values are only flagged as pending re-verification, never silently rewritten.</p>
-  <p>Content licence: CC BY 4.0・Site-wide last verified 2026-08-06・Page built 2026-08-06.</p>
+  <p>Content licence: CC BY 4.0 · Site-wide last verified 2026-08-06 · Page built 2026-08-06.</p>
 </footer>
 </div>
 
@@ -450,7 +450,7 @@
     if(demo) window.scrollTo({top:0});
   });
 
-  // 全部展開／收合
+  // 全部展開/收合
   const expandBtn = document.getElementById('expandAll');
   expandBtn.addEventListener('click', () => {
     const all = [...document.querySelectorAll('details.station')];
