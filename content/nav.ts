@@ -48,6 +48,7 @@ const zh: NavCopy = {
     { label: '我想補上缺的那一塊', hint: '免費 12 題判斷練習', href: '/judgment' },
     { label: '我正在看職缺', hint: '本週精選＋JD 判讀', href: '/jobs' },
     { label: '我在比薪資或 offer', hint: '亞太綠領薪資帶', href: '/salary-report' },
+    { label: '我要去新加坡了', hint: '官方流程中文導覽', href: '/singapore' },
   ],
   services: '服務與定價',
   footerTitle: '站內索引',
@@ -68,6 +69,7 @@ const zh: NavCopy = {
         { label: '綠領晉級地圖', href: '/levelup' },
         { label: '綠領職缺雷達（週更）', href: '/jobs' },
         { label: '異地生活成本', href: '/cost-of-living' },
+        { label: '台灣人赴新加坡指南', href: '/singapore' },
       ],
     },
     {
@@ -105,6 +107,7 @@ const en: NavCopy = {
     { label: 'I want to close the gap', hint: 'Free, 12 judgement exercises', href: '/judgment' },
     { label: 'I’m looking at roles', hint: 'Weekly picks + JD read', href: '/jobs' },
     { label: 'I’m comparing an offer', hint: 'APAC green-collar bands', href: '/salary-report' },
+    { label: 'I’m moving to Singapore', hint: 'Relocation guide (中文)', href: '/singapore' },
   ],
   services: 'Services & pricing',
   footerTitle: 'Everything on this site',
@@ -125,6 +128,7 @@ const en: NavCopy = {
         { label: 'Green career level-up map', href: '/levelup' },
         { label: 'Green jobs radar (weekly)', href: '/jobs' },
         { label: 'Cost of living', href: '/cost-of-living' },
+        { label: 'Taiwan → Singapore guide (中文)', href: '/singapore' },
       ],
     },
     {
