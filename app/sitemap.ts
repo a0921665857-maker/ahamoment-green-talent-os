@@ -13,6 +13,8 @@ const STATIC_PATHS = [
   '/levelup',
   '/judgment',
   '/cost-of-living',
+  // Was a sitemap orphan since launch; added when the en edition became real content.
+  '/singapore',
   '/jd',
   '/mba-roi',
   '/jobs',
