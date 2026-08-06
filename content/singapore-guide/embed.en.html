@@ -6,6 +6,7 @@
     --risk:#B45309; --risk-soft:#FBF0E1; --warn-ink:#8A4204; --pending:#8A928D;
     --line:#D8DDD9; --rail:#00703C;
     --mono:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,Menlo,monospace;
+    /* --sans 與 MRI 站 globals.css --font-sans 完全同值（設計品味籃裁決 1）：兩個語言版同一套 stack */
     --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   }
   
@@ -24,10 +25,10 @@
   .tw2sg-root header{padding:26px 0 0}
   .brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
   .brand .logo{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.06em;color:#fff;background:var(--sg);padding:4px 10px;border-radius:4px}
-  .tw2sg-root h1{font-size:clamp(23px,5.6vw,30px);font-weight:800;margin:12px 0 6px}
+  .tw2sg-root h1{font-size:clamp(23px,5.6vw,30px);font-weight:700;margin:12px 0 6px}
   .sub{color:var(--ink2);margin:0 0 12px;max-width:36em}
 
-  .stamp{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
+  .stamp{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px}
   .stamp .row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
   .stamp .m{font-size:13.5px}
   .stamp .ok{color:var(--sg);font-weight:700}
@@ -35,21 +36,21 @@
 
   .grid3{display:grid;gap:8px;margin:12px 0}
   @media(min-width:640px){.grid3{grid-template-columns:1fr 1fr 1fr}}
-  .qa{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
   .qa b{display:block;font-size:12.5px;letter-spacing:.12em;color:var(--ink2);margin-bottom:3px}
   .qa p{margin:0;font-size:14px}
 
   .triage{display:flex;gap:8px;margin:12px 0;flex-wrap:nowrap}
-  .triage a{flex:1 1 0;display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid var(--sg);border-radius:10px;color:var(--sg);font-weight:700;text-decoration:none;text-align:center;font-size:14px;padding:4px 2px}
+  .triage a{flex:1 1 0;display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid var(--sg);border-radius:12px;color:var(--sg);font-weight:700;text-decoration:none;text-align:center;font-size:14px;padding:4px 2px}
   .triage a:hover{background:var(--sg-soft)}
   @media(min-width:640px){.triage a{font-size:15px}}
 
-  .coverage{font-size:14px;background:var(--sg-soft);border-radius:10px;padding:12px 14px;margin:0 0 6px}
+  .coverage{font-size:14px;background:var(--sg-soft);border-radius:12px;padding:12px 14px;margin:0 0 6px}
   .coverage .no{color:var(--ink2)}
 
   .stagenav{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px;margin:16px -16px 0;scrollbar-width:none}
   .stagenav::-webkit-scrollbar{display:none}
-  .stagenav a{flex:1 0 auto;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px}
+  .stagenav a{flex:1 0 auto;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:12.5px}
   .stagenav a:hover{border-color:var(--sg);color:var(--sg)}
   .stagenav a.active{background:var(--sg);border-color:var(--sg);color:#fff}
 
@@ -73,7 +74,7 @@
   .station[open]>summary h2::after{content:"－"}
 
   .cards{display:grid;gap:10px;margin:14px 0 0}
-  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 14px;font-size:14.5px;scroll-margin-top:70px}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:14.5px;scroll-margin-top:70px}
   .card h3{font-size:14.5px;font-weight:700;margin:0 0 4px;padding-right:40px;line-height:1.5}
   .card .val{margin:0 0 8px}
   .card .val .m{font-size:15px}
@@ -116,7 +117,7 @@
   .bridge .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink2);display:block;margin-bottom:6px}
   .bridge h2{font-size:17px;font-weight:700;margin:0 0 8px}
   .bridge p{margin:0 0 10px;font-size:14.5px}
-  .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:10px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
+  .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:12px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
   .bridgebtn:hover{opacity:.9}
   .bridge .disclose{font-size:12.5px;color:var(--ink2);margin:10px 0 0}
 
@@ -124,6 +125,16 @@
   .tw2sg-root footer p{margin:0 0 8px}
 
   @media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+
+  /* 列印低配版（設計品味籃裁決 7）：藏互動件、正文黑字白底、連結回一般文字色。
+     details 無法用 CSS 強制展開，列印前先按「全部展開」（鈕上 title 有提示）。 */
+  @media print{
+    .stagenav,.copy,.triage,#expandAll,#staleBanner,#staleBtn{display:none !important}
+    .tw2sg-root{background:#fff;color:#000}
+    .tw2sg-root .card,.tw2sg-root .stamp,.tw2sg-root .qa,.tw2sg-root .coverage,
+    .tw2sg-root .riskzone,.tw2sg-root .risk4 div{background:#fff}
+    .tw2sg-root a{color:inherit}
+  }
 </style>
 
 <div id="staleBanner"></div>
@@ -150,10 +161,10 @@
 </div>
 
 <nav class="triage" aria-label="Quick triage">
-  <a href="#s1">Still deciding</a>
+  <a href="#s1">Deciding</a>
   <a href="#s2">Applying</a>
-  <a href="#s3">Just landed</a>
-  <a href="#return">Moving back</a>
+  <a href="#s3">Landed</a>
+  <a href="#return">Returning</a>
 </nav>
 
 <p class="coverage">Covers: <b>EP, S Pass, DP/LTVP</b> (salaried professionals and their families). Not sure which pass you fall under? Rough guide: a fixed monthly salary of S$5,600 or above usually means EP, S$3,300 or above means S Pass (financial-sector thresholds are higher; see Station 01). <span class="no">Not covered: WP (the rank-and-file route, see the <a href="https://www.mom.gov.sg/passes-and-permits/work-permit-for-foreign-worker" rel="noopener">official MOM page</a>), student passes, entrepreneur passes; nor job hunting and CVs. This guide starts the moment you have an offer.</span></p>
@@ -164,7 +175,7 @@
 
 <div class="railhead">
   <h2>The journey map</h2>
-  <button id="expandAll" type="button">Expand all</button>
+  <button id="expandAll" type="button" title="Printing or saving as PDF? Expand all stations here first">Expand all</button>
 </div>
 
 <div class="rail">

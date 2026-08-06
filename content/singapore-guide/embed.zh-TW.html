@@ -6,7 +6,8 @@
     --risk:#B45309; --risk-soft:#FBF0E1; --warn-ink:#8A4204; --pending:#8A928D;
     --line:#D8DDD9; --rail:#00703C;
     --mono:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,Menlo,monospace;
-    --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    /* --sans 與 MRI 站 globals.css --font-sans 完全同值（設計品味籃裁決 1）：兩個語言版同一套 stack */
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   }
   
 
@@ -24,10 +25,10 @@
   .tw2sg-root header{padding:26px 0 0}
   .brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
   .brand .logo{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.06em;color:#fff;background:var(--sg);padding:4px 10px;border-radius:4px}
-  .tw2sg-root h1{font-size:clamp(23px,5.6vw,30px);font-weight:800;margin:12px 0 6px}
+  .tw2sg-root h1{font-size:clamp(23px,5.6vw,30px);font-weight:700;margin:12px 0 6px}
   .sub{color:var(--ink2);margin:0 0 12px;max-width:36em}
 
-  .stamp{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
+  .stamp{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px}
   .stamp .row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
   .stamp .m{font-size:13.5px}
   .stamp .ok{color:var(--sg);font-weight:700}
@@ -35,21 +36,21 @@
 
   .grid3{display:grid;gap:8px;margin:12px 0}
   @media(min-width:640px){.grid3{grid-template-columns:1fr 1fr 1fr}}
-  .qa{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
   .qa b{display:block;font-size:12.5px;letter-spacing:.12em;color:var(--ink2);margin-bottom:3px}
   .qa p{margin:0;font-size:14px}
 
   .triage{display:flex;gap:8px;margin:12px 0;flex-wrap:nowrap}
-  .triage a{flex:1 1 0;display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid var(--sg);border-radius:10px;color:var(--sg);font-weight:700;text-decoration:none;text-align:center;font-size:14px;padding:4px 2px}
+  .triage a{flex:1 1 0;display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid var(--sg);border-radius:12px;color:var(--sg);font-weight:700;text-decoration:none;text-align:center;font-size:14px;padding:4px 2px}
   .triage a:hover{background:var(--sg-soft)}
   @media(min-width:640px){.triage a{font-size:15px}}
 
-  .coverage{font-size:14px;background:var(--sg-soft);border-radius:10px;padding:12px 14px;margin:0 0 6px}
+  .coverage{font-size:14px;background:var(--sg-soft);border-radius:12px;padding:12px 14px;margin:0 0 6px}
   .coverage .no{color:var(--ink2)}
 
   .stagenav{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 12px;margin:16px -16px 0;scrollbar-width:none}
   .stagenav::-webkit-scrollbar{display:none}
-  .stagenav a{flex:1 0 auto;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px}
+  .stagenav a{flex:1 0 auto;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:12.5px}
   .stagenav a:hover{border-color:var(--sg);color:var(--sg)}
   .stagenav a.active{background:var(--sg);border-color:var(--sg);color:#fff}
 
@@ -73,7 +74,7 @@
   .station[open]>summary h2::after{content:"－"}
 
   .cards{display:grid;gap:10px;margin:14px 0 0}
-  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 14px;font-size:14.5px;scroll-margin-top:70px}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:14.5px;scroll-margin-top:70px}
   .card h3{font-size:14.5px;font-weight:700;margin:0 0 4px;padding-right:40px;line-height:1.5}
   .card .val{margin:0 0 8px}
   .card .val .m{font-size:15px}
@@ -116,7 +117,7 @@
   .bridge .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink2);display:block;margin-bottom:6px}
   .bridge h2{font-size:17px;font-weight:700;margin:0 0 8px}
   .bridge p{margin:0 0 10px;font-size:14.5px}
-  .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:10px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
+  .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:12px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
   .bridgebtn:hover{opacity:.9}
   .bridge .disclose{font-size:12.5px;color:var(--ink2);margin:10px 0 0}
 
@@ -124,6 +125,16 @@
   .tw2sg-root footer p{margin:0 0 8px}
 
   @media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+
+  /* 列印低配版（設計品味籃裁決 7）：藏互動件、正文黑字白底、連結回一般文字色。
+     details 無法用 CSS 強制展開，列印前先按「全部展開」（鈕上 title 有提示）。 */
+  @media print{
+    .stagenav,.copy,.triage,#expandAll,#staleBanner,#staleBtn{display:none !important}
+    .tw2sg-root{background:#fff;color:#000}
+    .tw2sg-root .card,.tw2sg-root .stamp,.tw2sg-root .qa,.tw2sg-root .coverage,
+    .tw2sg-root .riskzone,.tw2sg-root .risk4 div{background:#fff}
+    .tw2sg-root a{color:inherit}
+  }
 </style>
 
 <div id="staleBanner"></div>
@@ -156,7 +167,7 @@
   <a href="#return">要回台</a>
 </nav>
 
-<p class="coverage">涵蓋：<b>EP、S Pass、DP／LTVP</b>（受僱白領與其家庭）。還不知道自己是哪張？粗略對照：固定月薪 S$5,600 以上多半走 EP、S$3,300 以上走 S Pass（金融業門檻更高，見第一站）。<span class="no">不涵蓋：WP（基層職缺路徑，見 <a href="https://www.mom.gov.sg/passes-and-permits/work-permit-for-foreign-worker" rel="noopener">MOM 官方頁</a>）、學生簽證、創業准證；也不處理求職與履歷——本站從你拿到 offer 那一刻開始。</span></p>
+<p class="coverage">涵蓋：<b>EP、S Pass、DP／LTVP</b>（受僱白領與其家庭）。還不知道自己是哪張？粗略對照：固定月薪 S$5,600 以上多半走 EP、S$3,300 以上走 S Pass（金融業門檻更高，見第一站）。<span class="no">不涵蓋：WP（基層職缺路徑，見 <a href="https://www.mom.gov.sg/passes-and-permits/work-permit-for-foreign-worker" rel="noopener">MOM 官方頁</a>）、學生簽證、創業准證；也不處理求職與履歷：本站從你拿到 offer 那一刻開始。</span></p>
 
 <nav class="stagenav" aria-label="階段導覽">
   <a href="#s1">評估</a><a href="#s2">申請</a><a href="#s3">落地</a><a href="#s4">首年</a><a href="#s5">長期</a><a href="#return">回台</a><a href="#risk">風險</a>
@@ -164,7 +175,7 @@
 
 <div class="railhead">
   <h2>旅程路線圖</h2>
-  <button id="expandAll" type="button">全部展開</button>
+  <button id="expandAll" type="button" title="要列印或存 PDF 的話，先按這裡把全部站點展開">全部展開</button>
 </div>
 
 <div class="rail">
@@ -194,18 +205,18 @@
         <tr><td>C5 短缺職業</td><td>職位在短缺清單（加分）</td><td class="m">＋20</td></tr>
         <tr><td>C6 策略計畫</td><td>公司參與指定經濟計畫（加分）</td><td class="m">＋10</td></tr>
       </table>
-      <p class="why">C3、C4 是公司屬性，你改不了——同一個人換一家公司申請，結果可能完全不同。官方預檢工具 SAT 由雇主端（HR）用 EP eService 執行，面試時可以直接問對方「跑過 SAT 了嗎」。</p>
+      <p class="why">C3、C4 是公司屬性，你改不了：同一個人換一家公司申請，結果可能完全不同。官方預檢工具 SAT 由雇主端（HR）用 EP eService 執行，面試時可以直接問對方「跑過 SAT 了嗎」。</p>
       <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/compass" rel="noopener">配分</a><a href="https://www.mom.gov.sg/eservices/services/employment-s-pass-self-assessment-tool" rel="noopener">SAT 工具</a><span class="date">抓取 2026-08-06</span></div>
     </div>
     <div class="card" data-card="spass-salary" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="spass-salary">
       <h3>S Pass：你的門檻，跟雇主的成本</h3>
       <p class="val">新申請最低固定月薪 <span class="m">S$3,300</span>（金融 <span class="m">S$3,800</span>）；2027-01-01 起調高為 <span class="m">S$3,600／S$4,000</span>。</p>
-      <p class="why">雇主端另有配額（服務業全公司 10%）與每月 levy（2025-09-01 起統一 <span class="m">S$650</span>，舊的 Tier 分級已廢）——這是對方猶豫要不要用 S Pass 聘你時的真實成本結構，談 offer 時知道這個有用。</p>
+      <p class="why">雇主端另有配額（服務業全公司 10%）與每月 levy（2025-09-01 起統一 <span class="m">S$650</span>，舊的 Tier 分級已廢）。這是對方猶豫要不要用 S Pass 聘你時的真實成本結構，談 offer 時知道這個有用。</p>
       <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/s-pass/eligibility" rel="noopener">門檻</a><a href="https://www.mom.gov.sg/passes-and-permits/s-pass/quota-and-levy/levy-and-quota-requirements" rel="noopener">levy</a><span class="date">抓取 2026-08-06</span></div>
     </div>
     <div class="card" data-card="family-dp-ltvp" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="family-dp-ltvp">
       <h3>家人帶不帶得走：兩道薪資門檻</h3>
-      <p class="val">配偶與 21 歲以下未婚子女（DP）：主申請人固定月薪 <span class="m">S$6,000</span>。父母（LTVP）：固定月薪 <span class="m">S$12,000</span>。看個人「固定」月薪——年終與變動獎金不計，也不看家庭合計。</p>
+      <p class="val">配偶與 21 歲以下未婚子女（DP）：主申請人固定月薪 <span class="m">S$6,000</span>。父母（LTVP）：固定月薪 <span class="m">S$12,000</span>。看個人「固定」月薪：年終與變動獎金不計，也不看家庭合計。</p>
       <p class="why">DP <b>沒有自動工作權</b>：配偶要在星工作，須由雇主另外申請 EP／S Pass 或 DP 專用工作准證；自行開業才走 LOC。全家雙薪的財務假設，先過這一關再算。</p>
       <div class="src"><span class="chip sg">SG・MOM</span><a href="https://www.mom.gov.sg/passes-and-permits/dependants-pass/eligibility" rel="noopener">DP</a><a href="https://www.mom.gov.sg/passes-and-permits/long-term-visit-pass/eligibility" rel="noopener">LTVP</a><a href="https://www.mom.gov.sg/passes-and-permits/dependants-pass/working-in-singapore" rel="noopener">DP 工作</a><span class="date">抓取 2026-08-06</span></div>
     </div>
@@ -244,7 +255,7 @@
   <div class="cards">
     <div class="card" data-card="sgac" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="sgac">
       <h3>SG Arrival Card：入境前 3 天內、免費</h3>
-      <p class="val">含入境當天的 <span class="m">3 天</span>內線上提交。<b>免費</b>，唯一官方入口是 <span class="m">eservices.ica.gov.sg</span>——搜尋引擎上大量收費代辦網站都是仿站。</p>
+      <p class="val">含入境當天的 <span class="m">3 天</span>內線上提交。<b>免費</b>，唯一官方入口是 <span class="m">eservices.ica.gov.sg</span>。搜尋引擎上大量收費代辦網站都是仿站。</p>
       <div class="src"><span class="chip sg">SG・ICA</span><a href="https://www.ica.gov.sg/enter-transit-depart/entering-singapore/sg-arrival-card" rel="noopener">官方原文</a><span class="date">抓取 2026-08-06</span></div>
     </div>
     <div class="card" data-card="card-collection" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="card-collection">
@@ -293,7 +304,7 @@
     </div>
     <div class="card risk" data-card="tw-overseas-income" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="tw-overseas-income">
       <h3>台灣稅：海外所得 100 萬門檻＋台星租稅協定的時間差</h3>
-      <p class="val">同申報戶海外所得合計 <span class="m">≥NT$100 萬</span>全數計入基本所得額，免稅額 <span class="m">NT$750 萬</span>（113–115 年度均適用）、稅率 <span class="m">20%</span>。台星新租稅協定 <b>2027-01-01 才開始適用</b>，現在仍是 1981 年舊約——看到「已簽新約」的新聞別以為已生效。</p>
+      <p class="val">同申報戶海外所得合計 <span class="m">≥NT$100 萬</span>全數計入基本所得額，免稅額 <span class="m">NT$750 萬</span>（113–115 年度均適用）、稅率 <span class="m">20%</span>。台星新租稅協定 <b>2027-01-01 才開始適用</b>，現在仍是 1981 年舊約。看到「已簽新約」的新聞別以為已生效。</p>
       <div class="src"><span class="chip tw">TW・財政部／國稅局</span><a href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=G0340115&flno=12" rel="noopener">條文</a><a href="https://www.ntbt.gov.tw/multiplehtml/d8a7d1c8487443ce94ff0fc798d176c0" rel="noopener">750 萬公式</a><a href="https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=fc1efb8360554ee0b248f688b42766ae" rel="noopener">新約公告</a><span class="date">抓取 2026-08-06</span></div>
     </div>
     <div class="card risk" data-card="rental-rules" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="rental-rules">
@@ -319,7 +330,7 @@
     </div>
     <div class="card" data-card="remit" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="remit">
       <h3>匯款回台：額度很大，申報門檻很低</h3>
-      <p class="val">台灣個人每年累積結匯額度 <span class="m">1,000 萬美元</span>（2024-11-01 起，舊制 500 萬已失效）；單筆達等值 <span class="m">NT$50 萬</span>就要辦申報——是「申報」不是「課稅」，別因為怕麻煩走地下匯兌。</p>
+      <p class="val">台灣個人每年累積結匯額度 <span class="m">1,000 萬美元</span>（2024-11-01 起，舊制 500 萬已失效）；單筆達等值 <span class="m">NT$50 萬</span>就要辦申報：是「申報」不是「課稅」，別因為怕麻煩走地下匯兌。</p>
       <div class="src"><span class="chip tw">TW・央行</span><a href="https://www.cbc.gov.tw/tw/cp-302-178539-47467-1.html" rel="noopener">額度公告</a><a href="https://www.cbc.gov.tw/tw/cp-2139-101135-49647-1.html" rel="noopener">申報 FAQ</a><span class="date">抓取 2026-08-06</span></div>
     </div>
     <div class="card" data-card="driving" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="partial" id="driving">
@@ -336,7 +347,7 @@
   <div class="cards">
     <div class="card" data-card="pr-apply" data-verified="2026-08-06" data-first-seen="2026-08-06" data-grade="A" data-status="ok" id="pr-apply">
       <h3>PR 申請：官方時程 6 個月內，跟 EP 到期日對錶</h3>
-      <p class="val">PR 由 ICA 受理（e-PR 線上申請）：文件齊備下 <span class="m">6 個月內</span>處理完畢、部分案件更久。費用：申請 <span class="m">S$100</span>；獲批後 Entry Permit <span class="m">S$20</span>＋5 年 REP <span class="m">S$50</span>＋身分證 <span class="m">S$50</span>——自辦全程約 <span class="m">S$220</span>，代辦收費常是十倍以上且效益無從驗證。</p>
+      <p class="val">PR 由 ICA 受理（e-PR 線上申請）：文件齊備下 <span class="m">6 個月內</span>處理完畢、部分案件更久。費用：申請 <span class="m">S$100</span>；獲批後 Entry Permit <span class="m">S$20</span>＋5 年 REP <span class="m">S$50</span>＋身分證 <span class="m">S$50</span>。自辦全程約 <span class="m">S$220</span>，代辦收費常是十倍以上且效益無從驗證。</p>
       <p class="why">實際發生過的坑：EP 到期與 PR 結果只差幾天，EP 先失效、PR 前功盡棄。EP 續簽與 PR 申請是兩條獨立時間線，不要拿 PR 賭 EP 的到期日。</p>
       <div class="src"><span class="chip sg">SG・ICA</span><a href="https://www.ica.gov.sg/reside/PR/apply" rel="noopener">官方申請頁</a><span class="date">抓取 2026-08-06</span></div>
     </div>
@@ -400,7 +411,7 @@
 <section class="honest">
   <h2>本站不做什麼</h2>
   <ul>
-    <li>不做個案建議、不回答「我這樣會不會過」——判斷請依官方原文或洽合格專業人士。</li>
+    <li>不做個案建議、不回答「我這樣會不會過」：判斷請依官方原文或洽合格專業人士。</li>
     <li>不代辦、不推薦仲介或代辦業者、不收轉介費。</li>
     <li>本指南不收 email、不設帳號；整個網站的資料處理方式見<a href="/privacy">隱私與資料</a>。</li>
     <li>不承諾更新頻率。每張卡都標抓取日期；超過 90 天未驗證的卡片會「個別」自動掛上警示，不需要任何人手動維護。<button id="staleBtn" type="button">看逾期長什麼樣</button></li>
@@ -411,7 +422,7 @@
 
 <footer>
   <p><b>免責聲明</b>：本站為個人維護的資訊整理，非官方網站，不構成法律、稅務或移民建議。內容可能過時或有誤，一切以各機關官方頁面為準。</p>
-  <p>維護方式：本站由一位在新加坡工作的台灣人建立，以自動化工具驗證連結與數值；驗證頻率不作承諾——所以每張卡標日期、逾期自動警示，你不用信任站長的勤勞，只需要看日期。斷鏈與變動只標「失效待驗」，不自動改寫內容。</p>
+  <p>維護方式：本站由一位在新加坡工作的台灣人建立，以自動化工具驗證連結與數值；驗證頻率不作承諾。所以每張卡標日期、逾期自動警示，你不用信任站長的勤勞，只需要看日期。斷鏈與變動只標「失效待驗」，不自動改寫內容。</p>
   <p>內容授權：CC BY 4.0・全站最後驗證 2026-08-06・本頁建置於 2026-08-06。</p>
 </footer>
 </div>
@@ -434,7 +445,7 @@
     ROOT.classList.toggle('has-stale', any);
     if(any){
       banner.textContent = offsetDays
-        ? '⚠ 逾期預覽（示範＋100 天）：驗證超過 90 天的卡片會像下方紅框卡片一樣「個別」標示，提醒你以官方連結為準——不需要任何人手動維護。'
+        ? '⚠ 逾期預覽（示範＋100 天）：驗證超過 90 天的卡片會像下方紅框卡片一樣「個別」標示，提醒你以官方連結為準，不需要任何人手動維護。'
         : '⚠ 本頁部分卡片已超過 90 天未驗證（紅框標示），數值可能已變，請一律以卡片上的官方連結為準。';
     }
     return any;
