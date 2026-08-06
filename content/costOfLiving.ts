@@ -65,7 +65,7 @@ const zhTW: CostOfLiving = {
   title: '薪水多兩三倍，那一個月到底要花多少？',
   lede: '我在薪資報告裡說，同職能同資歷，新加坡的名目薪水大約是台灣的 2 到 3 倍。這是真的。但每次有人看到那個數字就想訂機票，我都想補一句：先算算一個月要花多少。這頁就是把房租、水電、交通、伙食一項一項扣掉，看真正剩下多少。',
   byline:
-    '二手估計資料時點 2026 年 7 月，官方數據 2026 年 8 月 6 日抓取，各自期別標於數字旁 · 匯率 1 SGD ≈ 25 TWD · 每個數字都附來源',
+    '二手估計資料時點 2026 年 2 至 7 月，官方數據 2026 年 8 月 6 日抓取，各自期別標於數字旁 · 匯率 1 SGD ≈ 25 TWD · 每個數字都附來源',
   backToMri: '← 回到免費 MRI',
   hook: '先講結論，因為它跟大部分人想的不一樣：新加坡的生活成本，幾乎把「入門段」的薪資優勢吃光；但資歷一上去，那個倍數才真的落到你口袋。下面是算式。',
   sgTitle: '新加坡：一個月要花多少',
@@ -82,7 +82,7 @@ const zhTW: CostOfLiving = {
     ],
   },
   sgAfter:
-    'Numbeo 給的單身總計是每月 S$4,894（其中市中心一房租金 S$3,429），對照上表的「市中心」欄大致吻合。這裡我要老實說一件事：新加坡的租金區間拉得非常開，合租一個房間和市中心一房的差距可以到三倍，所以「新加坡生活費多少」這個問題沒有單一答案，取決於你願意住成什麼樣。',
+    '我查到的市場估計，單身連房租每月大約 S$4,894，其中市中心一房租金 S$3,429、區間 S$2,277–5,000（uhomes 2026 年 2 月整理），對照上表的「市中心」欄大致吻合。順帶把口徑說清楚：Numbeo 頁面上那個「單身每月 S$1,507」是明文不含房租的（2026 年 8 月 6 日查），跟上面這個含租金的總計不是同一件事，不能直接比。這裡我要老實說一件事：新加坡的租金區間拉得非常開，合租一個房間和市中心一房的差距可以到三倍，所以「新加坡生活費多少」這個問題沒有單一答案，取決於你願意住成什麼樣。',
   twTitle: '台北：一個月要花多少',
   twNote: '新台幣 / 月 · 兩種生活方式',
   twTable: {
@@ -130,7 +130,8 @@ const zhTW: CostOfLiving = {
   method:
     '2026 年 7 月以公開來源交叉查證。所有數字一律給區間，不做假精確。匯率用 1 SGD ≈ 25 TWD（與本站薪資報告一致）。薪資帶取自本站的《2026 亞太綠領薪資報告》。可支配倍數是我用上面的開銷與粗估稅負算出來的，屬於推估，換一種生活方式數字就會變。2026 年 8 月另補上 data.gov.sg 的官方數據（HDB、SingStat、MOM）。官方一手數字與二手估計在頁面上分區呈現，沒有混合計算，也沒有互相取代；官方數字全部是新加坡幣原值，沒有換算成新台幣。',
   sources: [
-    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: '新加坡租金、水電、伙食、單身月開銷（二手估計）' },
+    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: '新加坡租金、水電、伙食；其「單身每月開銷」為不含房租口徑（二手估計）' },
+    { label: 'uhomes · 新加坡生活成本', url: 'https://en.uhomes.com/blog/cost-of-living-in-singapore', note: '單身含租金月開銷 S$4,894、市中心一房 S$3,429 與區間 S$2,277–5,000（2026 年 2 月更新，二手估計）' },
     { label: 'Wise · Taipei', url: 'https://wise.com/us/cost-of-living/taiwan/taipei', note: '台北生活成本對照（二手估計）' },
     { label: '台北租金行情 2026', url: 'https://www.inn-taipei.com/rental-fee-2026/', note: '各行政區套房租金中位數（二手估計）' },
     { label: '風傳媒引主計處', url: 'https://www.storm.mg/lifestyle/11049312', note: '北部單身基本開銷約 NT$32,000–35,000（二手整理）' },
@@ -156,7 +157,7 @@ const en: CostOfLiving = {
   title: 'The pay is 2–3× higher. So what does a month actually cost?',
   lede: 'In the salary report I said that for the same role and seniority, Singapore’s nominal pay is roughly 2 to 3× Taiwan’s. That’s true. But every time someone sees that number and starts pricing flights, I want to add one line: first work out what a month costs. This page subtracts rent, utilities, transport and food, item by item, to see what’s left.',
   byline:
-    'Second-hand estimates as of July 2026; official data retrieved 2026-08-06, each with its own reporting period · FX 1 SGD ≈ 25 TWD · Every figure cites a source',
+    'Second-hand estimates from February–July 2026; official data retrieved 2026-08-06, each with its own reporting period · FX 1 SGD ≈ 25 TWD · Every figure cites a source',
   backToMri: '← Back to the free MRI',
   hook: 'The conclusion first, because it isn’t what most people expect: Singapore’s cost of living all but eats the entry-level pay advantage. Only once you have seniority does that multiple actually land in your pocket. Here’s the maths.',
   sgTitle: 'Singapore: what a month costs',
@@ -173,7 +174,7 @@ const en: CostOfLiving = {
     ],
   },
   sgAfter:
-    'Numbeo puts a single person at S$4,894/month (including S$3,429 for a city-centre one-bed), which lines up with the city-centre column. One honest note: Singapore rent spreads enormously. A room in a shared flat versus a city-centre one-bed can differ threefold, so “what does Singapore cost” has no single answer. It depends on how you’re willing to live.',
+    'The market estimates I found put a single person at about S$4,894/month including rent, of which S$3,429 is a city-centre one-bed (range S$2,277–5,000, from uhomes’ February 2026 compilation), which lines up with the city-centre column. A word on units while I’m here: the “S$1,507/month” on Numbeo’s Singapore page is explicitly excluding rent (retrieved 6 Aug 2026), so it is not the same thing as the rent-inclusive total above and the two do not compare directly. One honest note: Singapore rent spreads enormously. A room in a shared flat versus a city-centre one-bed can differ threefold, so “what does Singapore cost” has no single answer. It depends on how you’re willing to live.',
   twTitle: 'Taipei: what a month costs',
   twNote: 'TWD / month · two ways to live',
   twTable: {
@@ -221,7 +222,8 @@ const en: CostOfLiving = {
   method:
     'Cross-checked against public sources in July 2026. Every figure is a range, with no false precision. FX: 1 SGD ≈ 25 TWD (consistent with the salary report on this site). Salary bands come from the 2026 APAC Green-Collar Salary Report here. The disposable multiples are my own estimate from the costs above plus a rough tax assumption; change how you live and the numbers move. In August 2026 I added official data from data.gov.sg (HDB, SingStat, MOM). Official first-hand figures and second-hand estimates are presented in separate sections; they are never merged into one calculation and never substituted for one another, and the official figures stay in SGD with no conversion to TWD.',
   sources: [
-    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: 'SG rent, utilities, food, single-person monthly (second-hand estimate)' },
+    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: 'SG rent, utilities, food; its single-person monthly figure is the excluding-rent measure (second-hand estimate)' },
+    { label: 'uhomes · Cost of living in Singapore', url: 'https://en.uhomes.com/blog/cost-of-living-in-singapore', note: 'Single person S$4,894/mo including rent, city-centre 1BR S$3,429, range S$2,277–5,000 (updated Feb 2026, second-hand estimate)' },
     { label: 'Wise · Taipei', url: 'https://wise.com/us/cost-of-living/taiwan/taipei', note: 'Taipei cost-of-living comparison (second-hand estimate)' },
     { label: 'Taipei rent guide 2026', url: 'https://www.inn-taipei.com/rental-fee-2026/', note: 'Median studio rent by district (second-hand estimate)' },
     { label: 'Storm Media citing DGBAS', url: 'https://www.storm.mg/lifestyle/11049312', note: 'Single-person baseline ~NT$32,000–35,000/mo in northern Taiwan (second-hand compilation)' },

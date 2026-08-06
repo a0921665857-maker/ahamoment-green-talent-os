@@ -1,5 +1,6 @@
 import type { Locale } from '@/lib/constants';
 import { SG_OFFICIAL_STALE_DAYS, sgOfficial } from '@/content/sgOfficial';
+import { costOfLiving } from '@/content/costOfLiving';
 
 /**
  * 官方數據區塊的雙語文案 — hand-written. The companion generated file is
@@ -25,11 +26,22 @@ import { SG_OFFICIAL_STALE_DAYS, sgOfficial } from '@/content/sgOfficial';
  *      statement of non-affiliation. `licenceNote` carries both and is rendered
  *      unconditionally. Do not make it collapsible and do not delete it.
  *
- * ONE FIGURE HERE IS NOT FROM THESE DATASETS: the S$5,600 Employment Pass salary
- * threshold in the income card. It is a rule, not a statistic, and it is quoted
- * from this site's own salary report where the reader can check it. The copy
- * attributes it there explicitly rather than letting it read as a data.gov.sg
- * number. Nothing else in this file comes from outside the snapshot.
+ * TWO FIGURES HERE ARE NOT FROM THESE DATASETS, and both say so on the page:
+ *   - The S$5,600 Employment Pass salary threshold in the income card. It is a
+ *     rule, not a statistic, quoted from this site's own salary report where the
+ *     reader can check it, and attributed there explicitly rather than left to
+ *     read as a data.gov.sg number.
+ *   - The S$3,429 city-centre one-bed in the comparison card. That is the
+ *     second-hand estimate this section is contrasting itself against, it comes
+ *     from the estimate layer in costOfLiving.ts, and it is labelled
+ *     "second-hand estimate" rather than named after any one aggregator.
+ *     tests/costOfLiving.test.ts fails if costOfLiving's own copy stops stating
+ *     it, so the two files cannot drift apart.
+ * Nothing else in this file comes from outside the snapshot.
+ *
+ * WHERE THIS FILE QUOTES THE ESTIMATE TABLE (the `reconcile` paragraph), it
+ * reads the cell and the column heading out of costOfLiving.ts through tokens
+ * instead of retyping them. Editing that table therefore edits this sentence.
  *
  * PUNCTUATION: zh-TW uses full-width marks throughout and no em dash「——」.
  * The English copy avoids the em dash too and uses curly apostrophes, matching
@@ -141,6 +153,19 @@ export function sgOfficialVars(locale: Locale): Record<string, string> {
     halfMedian: num(Math.round(rent.medianOfTowns / 2)),
     halfHighest: num(Math.round(rent.highest / 2)),
 
+    // The six-year rent range, min and max of the very series trendNote prints
+    // town by town below. Written as tokens because a typed-in range is how the
+    // CPI card ended up claiming a ceiling the paragraph above it had already
+    // exceeded. Rounding is monotonic, so these always match the t{i}Pct rows.
+    trendMinPct: String(Math.round(Math.min(...t.map((row) => row.changePct)))),
+    trendMaxPct: String(Math.round(Math.max(...t.map((row) => row.changePct)))),
+
+    // Quoted out of the estimate table on the same page rather than retyped, so
+    // the reconciliation sentence cannot go on describing a column that has been
+    // renamed or a range that has been repriced. rows[0] is the rent row.
+    leanColumn: costOfLiving[locale].sgTable.head[1],
+    leanRent: costOfLiving[locale].sgTable.rows[0][1],
+
     cpiMonth: month(cpi.month, locale),
     cpiAll: one(cpi.yoyAllItems),
     cpiFood: one(cpi.yoyFood),
@@ -198,8 +223,8 @@ const zhTW: SgOfficialCopy = {
   intro:
     '上面那句「沒有單一答案」，其實官方資料可以回答一半。這一區跟上面那兩張表不一樣：上面是我從 Numbeo、Wise 這類公開估計整理出來的，這裡的每個數字都是新加坡政府自己發布的，你可以點連結去原始資料集核對。新加坡建屋發展局（HDB）每季公布各鎮、各房型的整戶租金中位數，是依實際登記的租約算出來的，不是估計值。我把 {quarter}的{flatTypeLabel}整戶月租，{townCount} 個鎮全部列在下面。要先說明的是，這份資料只涵蓋組屋，私人公寓與有地住宅完全不在裡面。',
   caliberWarning:
-    '在看數字之前，先講清楚這張表跟上面那張表的差別，因為兩者不能互相取代，也不能相加。上面 Numbeo 的「市中心一房 S$3,429」是私人公寓、一房一廳，通常一個人住；這裡的「{highestTown} S${highest}」是整戶{flatTypeLabel}組屋、三房一廳，通常兩三個人分住。產權不同、房型不同、分攤的人數也不同。把這兩個數字擺在一起比大小，會得到剛好相反的結論：S${highest} 兩個人分，一個人約 S${halfHighest}，其實比那間一房一廳還便宜。所以官方那張表是整戶的價錢，不是一個人一個房間的價錢，兩張表要分開讀。',
-  compareEstimateLabel: 'Numbeo 估計 · 市中心一房',
+    '在看數字之前，先講清楚這張表跟上面那張表的差別，因為兩者不能互相取代，也不能相加。上面二手估計的「市中心一房 S$3,429」是私人公寓、一房一廳，通常一個人住；這裡的「{highestTown} S${highest}」是整戶{flatTypeLabel}組屋、三房一廳，通常兩三個人分住。產權不同、房型不同、分攤的人數也不同。把這兩個數字擺在一起比大小，會得到剛好相反的結論：S${highest} 兩個人分，一個人約 S${halfHighest}，其實比那間一房一廳還便宜。所以官方那張表是整戶的價錢，不是一個人一個房間的價錢，兩張表要分開讀。',
+  compareEstimateLabel: '二手估計 · 市中心一房',
   compareEstimateValue: 'S$3,429',
   compareEstimateDetail: '私人公寓 · 一房一廳 · 通常一個人住',
   compareOfficialLabel: 'HDB 官方 · {highestTown}',
@@ -212,7 +237,7 @@ const zhTW: SgOfficialCopy = {
   expandLabel: '看完整 {townCount} 鎮',
   derivedTag: '我算的',
   reconcile:
-    '真正可以對照的是這個。{townCount} 個鎮的中位數是 S${medianOfTowns}，第一四分位到第三四分位是 S${p25} 到 S${p75}，兩個人分攤大約每人 S${halfMedian}，正好落在我上面那張表「省一點（合租）」的 S$1,200 到 S$1,800 區間裡。這個除法和這個中位數都是我自己從官方資料算的，不是官方發布的數字，但它至少說明上面那張表沒有離譜。要注意官方中位數是已登記租約的成交價，不含仲介費、押金、家具與水電，中位數也不等於平均數，更不等於你會付的價。',
+    '真正可以對照的是這個。{townCount} 個鎮的中位數是 S${medianOfTowns}，第一四分位到第三四分位是 S${p25} 到 S${p75}，兩個人分攤大約每人 S${halfMedian}，正好落在我上面那張表「{leanColumn}」的 {leanRent} 區間裡。這個除法和這個中位數都是我自己從官方資料算的，不是官方發布的數字，但它至少說明上面那張表沒有離譜。要注意官方中位數是已登記租約的成交價，不含仲介費、押金、家具與水電，中位數也不等於平均數，更不等於你會付的價。',
   trendNote:
     '另一組官方數字更值得看。同樣是{flatTypeLabel}整戶，{t0Town}在 {trendFrom}的中位數是 S${t0From}，到 {quarter}變成 S${t0To}，六年漲了約 {t0Pct}%。同期{t1Town}漲約 {t1Pct}%、{t2Town}約 {t2Pct}%、{t3Town}約 {t3Pct}%、{t4Town}約 {t4Pct}%。這些漲幅是我從官方季度序列算的。這是租金自己的漲幅，跟下面那個通膨數字完全是兩回事，我下一段就講為什麼。',
   statsTitle: '另外三個官方數字，決定你這筆帳會不會愈算愈薄',
@@ -222,7 +247,7 @@ const zhTW: SgOfficialCopy = {
       label: '整體消費者物價年增率',
       value: '+{cpiAll}%',
       reading:
-        '新加坡整體物價比去年同月高 {cpiAll}%。分項裡食物 +{cpiFood}%、交通 +{cpiTransport}%、住房與水電 +{cpiHousing}%。這個 +{cpiHousing}% 要特別小心：官方的住房分項涵蓋自住者的設算租金與政府水電回扣，不等於新租客實際要付的租金，上面那組六年漲五成到七成的官方租金數字才是。另外，CPI 是全國家庭的籃子，不是外派單身租客的籃子。對照一下高低點：{cpiPeakMonth}的高峰是 +{cpiPeak}%，近五年累計漲了約 {cpiCum5}%。',
+        '新加坡整體物價比去年同月高 {cpiAll}%。分項裡食物 +{cpiFood}%、交通 +{cpiTransport}%、住房與水電 +{cpiHousing}%。這個 +{cpiHousing}% 要特別小心：官方的住房分項涵蓋自住者的設算租金與政府水電回扣，不等於新租客實際要付的租金，上面那組六年漲 {trendMinPct}% 到 {trendMaxPct}% 的官方租金數字才是。另外，CPI 是全國家庭的籃子，不是外派單身租客的籃子。對照一下高低點：{cpiPeakMonth}的高峰是 +{cpiPeak}%，近五年累計漲了約 {cpiCum5}%。',
     },
     {
       key: 'income',
@@ -257,8 +282,8 @@ const en: SgOfficialCopy = {
   intro:
     'That line about there being no single answer, official data can answer half of it. This section is not like the two tables above: those I assembled from public estimates such as Numbeo and Wise, while every figure here is published by the Singapore government and you can follow the link to check it in the original dataset. The Housing & Development Board (HDB) publishes a median whole-flat rent for each town and flat type every quarter, computed from actual registered tenancies rather than estimated. Below are all {townCount} towns at the {quarter} median for a {flatTypeLabel} whole flat. One thing to say first: this dataset covers public housing only, so private condominiums and landed housing are not in it at all.',
   caliberWarning:
-    'Before the numbers, the difference between this and the table above, because the two cannot replace each other and cannot be added together. Numbeo’s “city-centre one-bed at S$3,429” is a private condominium, one bedroom, usually one person. The “{highestTown} at S${highest}” here is a whole {flatTypeLabel} HDB flat, three bedrooms, usually shared by two or three people. Different tenure, different flat, different number of people splitting it. Line the two up and you get the opposite conclusion: split S${highest} between two people and it is about S${halfHighest} each, which is cheaper than that one-bed. So the official table is the price of a whole flat, not the price of one person’s room, and the two tables have to be read separately.',
-  compareEstimateLabel: 'Numbeo estimate · city-centre 1BR',
+    'Before the numbers, the difference between this and the table above, because the two cannot replace each other and cannot be added together. The second-hand “city-centre one-bed at S$3,429” above is a private condominium, one bedroom, usually one person. The “{highestTown} at S${highest}” here is a whole {flatTypeLabel} HDB flat, three bedrooms, usually shared by two or three people. Different tenure, different flat, different number of people splitting it. Line the two up and you get the opposite conclusion: split S${highest} between two people and it is about S${halfHighest} each, which is cheaper than that one-bed. So the official table is the price of a whole flat, not the price of one person’s room, and the two tables have to be read separately.',
+  compareEstimateLabel: 'Second-hand estimate · city-centre 1BR',
   compareEstimateValue: 'S$3,429',
   compareEstimateDetail: 'Private condo · one bedroom · usually one person',
   compareOfficialLabel: 'HDB official · {highestTown}',
@@ -271,7 +296,7 @@ const en: SgOfficialCopy = {
   expandLabel: 'Show all {townCount} towns',
   derivedTag: 'my calculation',
   reconcile:
-    'Here is what can actually be compared. The median across the {townCount} towns is S${medianOfTowns}, with a P25 to P75 range of S${p25} to S${p75}. Split between two people that is roughly S${halfMedian} each, which lands inside the S$1,200 to S$1,800 rent range in the “lean, shared” column of my table above. That division and that median are both mine, computed from the official series rather than published by the agency, but it does suggest the table above is not wildly off. Note that the official median is what registered tenancies transacted at, excluding agent fees, deposits, furniture and utilities, and that a median is neither an average nor the price you will personally pay.',
+    'Here is what can actually be compared. The median across the {townCount} towns is S${medianOfTowns}, with a P25 to P75 range of S${p25} to S${p75}. Split between two people that is roughly S${halfMedian} each, which lands inside the {leanRent} rent range in the “{leanColumn}” column of my table above. That division and that median are both mine, computed from the official series rather than published by the agency, but it does suggest the table above is not wildly off. Note that the official median is what registered tenancies transacted at, excluding agent fees, deposits, furniture and utilities, and that a median is neither an average nor the price you will personally pay.',
   trendNote:
     'Another set of official numbers is worth more of your attention. For the same whole {flatTypeLabel} flat, {t0Town} had a median of S${t0From} in {trendFrom} and S${t0To} by {quarter}, up about {t0Pct}% in six years. Over the same period {t1Town} rose about {t1Pct}%, {t2Town} about {t2Pct}%, {t3Town} about {t3Pct}% and {t4Town} about {t4Pct}%. Those changes are mine, computed from the official quarterly series. This is what rent itself did, which is a completely different thing from the inflation figure below, and the next paragraph explains why.',
   statsTitle: 'Three more official numbers that decide whether this sum keeps shrinking',
@@ -281,7 +306,7 @@ const en: SgOfficialCopy = {
       label: 'All-items consumer price inflation, year on year',
       value: '+{cpiAll}%',
       reading:
-        'Overall prices are {cpiAll}% higher than the same month a year earlier. Within that, food is +{cpiFood}%, transport +{cpiTransport}% and housing & utilities +{cpiHousing}%. That +{cpiHousing}% needs care: the official housing component includes owner-occupied imputed rent and government utility rebates, so it is not what a new tenant actually pays. The official rents above, up roughly 50% to 75% over six years, are that. Also, the CPI basket is the national household basket, not a single expat tenant’s basket. For scale, the peak was +{cpiPeak}% in {cpiPeakMonth}, and the cumulative five-year rise is about {cpiCum5}%.',
+        'Overall prices are {cpiAll}% higher than the same month a year earlier. Within that, food is +{cpiFood}%, transport +{cpiTransport}% and housing & utilities +{cpiHousing}%. That +{cpiHousing}% needs care: the official housing component includes owner-occupied imputed rent and government utility rebates, so it is not what a new tenant actually pays. The official rents above, up roughly {trendMinPct}% to {trendMaxPct}% over six years, are that. Also, the CPI basket is the national household basket, not a single expat tenant’s basket. For scale, the peak was +{cpiPeak}% in {cpiPeakMonth}, and the cumulative five-year rise is about {cpiCum5}%.',
     },
     {
       key: 'income',

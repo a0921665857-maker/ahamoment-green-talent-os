@@ -282,6 +282,50 @@ describe('official-section copy', () => {
     }
   });
 
+  /**
+   * The CPI card points at the rent trend to say "that is the number you feel".
+   * It used to state the range in prose: "五成到七成" in zh and "50% to 75%" in
+   * en. Both were wrong (the series runs 59% to 75%), they disagreed with each
+   * other, and the zh ceiling contradicted the paragraph directly above it,
+   * which had already printed a 75% town. A range quoted from a series has to
+   * be computed from that series.
+   */
+  it('quotes the six-year rent range off the series, agreeing with the trend paragraph', () => {
+    const rounded = sgOfficial.rent.trend.map((t) => Math.round(t.changePct));
+    const low = String(Math.min(...rounded));
+    const high = String(Math.max(...rounded));
+
+    for (const locale of LOCALES) {
+      const vars = sgOfficialVars(locale);
+      expect(vars.trendMinPct, locale).toBe(low);
+      expect(vars.trendMaxPct, locale).toBe(high);
+
+      const cpiReading = sgOfficialCopy[locale].stats[0].reading;
+      // The range must be generated, not typed, in both locales.
+      expect(cpiReading, `${locale}: CPI card stopped deriving the rent range`)
+        .toContain('{trendMinPct}');
+      expect(cpiReading, `${locale}: CPI card stopped deriving the rent range`)
+        .toContain('{trendMaxPct}');
+
+      const filled = fillSgOfficial(cpiReading, vars);
+      expect(filled, `${locale}: CPI card lost the low end of the rent range`).toContain(low);
+      expect(filled, `${locale}: CPI card lost the high end of the rent range`).toContain(high);
+
+      // The ceiling the CPI card claims is the same one the trend paragraph
+      // above it has already printed for its fastest-rising town.
+      const trendNote = fillSgOfficial(sgOfficialCopy[locale].trendNote, vars);
+      expect(trendNote, `${locale}: CPI ceiling ${high}% is not in the trend paragraph`)
+        .toContain(high);
+      const townPcts = sgOfficial.rent.trend.map((_, i) => Number(vars[`t${i}Pct`]));
+      expect(Math.max(...townPcts), locale).toBe(Number(high));
+      expect(Math.min(...townPcts), locale).toBe(Number(low));
+    }
+
+    // Both locales say the same thing, because both read the same two tokens.
+    expect(sgOfficialVars('zh-TW').trendMinPct).toBe(sgOfficialVars('en').trendMinPct);
+    expect(sgOfficialVars('zh-TW').trendMaxPct).toBe(sgOfficialVars('en').trendMaxPct);
+  });
+
   it('states the unit, the provenance split, the licence and the ageing rule', () => {
     const fill = (locale: (typeof LOCALES)[number]) => {
       const vars = sgOfficialVars(locale);

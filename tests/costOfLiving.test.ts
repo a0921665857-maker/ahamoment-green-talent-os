@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { costOfLiving, type CostOfLiving } from '@/content/costOfLiving';
 import { sgOfficial } from '@/content/sgOfficial';
+import { fillSgOfficial, sgOfficialCopy, sgOfficialVars } from '@/content/sgOfficialCopy';
 import { LOCALES } from '@/lib/constants';
 
 /**
@@ -174,6 +175,99 @@ describe('the first-hand / second-hand wall', () => {
 
   it('never claims a tenancy count the rent dataset does not publish', () => {
     expect(JSON.stringify(costOfLiving)).not.toContain('13,305');
+  });
+});
+
+/**
+ * The wall above keeps official figures out of the estimate tables. This block
+ * does the opposite job: where the official section deliberately QUOTES the
+ * estimate layer, the quote has to stay true. Both files describe the same page,
+ * so a sentence in one that retypes a value from the other is a fact with a
+ * half-life. These tests make the two files impossible to move apart silently.
+ */
+describe('the official section quotes the estimate layer, so the two move together', () => {
+  const leanRentRange = /S\$([\d,]+)–([\d,]+)/;
+  const toNumber = (s: string) => Number(s.replace(/,/g, ''));
+
+  it('assumes the rent row is still the first row of the estimate table', () => {
+    expect(costOfLiving['zh-TW'].sgTable.rows[0][0]).toBe('房租');
+    expect(costOfLiving.en.sgTable.rows[0][0]).toBe('Rent');
+  });
+
+  /**
+   * The reconciliation paragraph used to retype "S$1,200 到 S$1,800" and the
+   * column name. Repricing the table then turned that sentence into a confident
+   * lie with nothing to catch it. It now renders both from the table itself.
+   */
+  it('renders the reconciliation range and column name from the table, not from memory', () => {
+    for (const locale of LOCALES) {
+      const table = costOfLiving[locale].sgTable;
+      const reconcile = fillSgOfficial(sgOfficialCopy[locale].reconcile, sgOfficialVars(locale));
+      expect(reconcile, `${locale}: reconciliation stopped quoting the lean rent cell`)
+        .toContain(table.rows[0][1]);
+      expect(reconcile, `${locale}: reconciliation stopped quoting the lean column heading`)
+        .toContain(table.head[1]);
+    }
+  });
+
+  /** And the claim that paragraph makes about the range has to be arithmetically true. */
+  it('the half-a-flat figure really does land inside the lean column', () => {
+    const half = Math.round(sgOfficial.rent.medianOfTowns / 2);
+    for (const locale of LOCALES) {
+      const cell = costOfLiving[locale].sgTable.rows[0][1];
+      const match = leanRentRange.exec(cell);
+      expect(match, `${locale}: cannot parse the lean rent cell "${cell}"`).not.toBeNull();
+      const [, low, high] = match as RegExpExecArray;
+      expect(half, `${locale}: half a median flat no longer falls inside ${cell}`)
+        .toBeGreaterThanOrEqual(toNumber(low));
+      expect(half, `${locale}: half a median flat no longer falls inside ${cell}`)
+        .toBeLessThanOrEqual(toNumber(high));
+    }
+  });
+
+  /**
+   * The comparison card holds one figure that is not from data.gov.sg: the
+   * second-hand city-centre one-bed. It is only defensible while the estimate
+   * copy on the same page actually states it.
+   */
+  it('the comparison card quotes a figure the estimate copy still states', () => {
+    for (const locale of LOCALES) {
+      expect(costOfLiving[locale].sgAfter, `${locale}: sgAfter no longer states the compared figure`)
+        .toContain(sgOfficialCopy[locale].compareEstimateValue);
+    }
+  });
+
+  /**
+   * S$4,894 / S$3,429 / S$2,277–5,000 were all attributed to Numbeo and none of
+   * them are Numbeo's: they come from uhomes' February 2026 compilation, while
+   * Numbeo's own single-person monthly figure is an excluding-rent measure. The
+   * figures were right and the byline was wrong, which is the harder error to
+   * see. Cite the publisher that published them, and never re-badge the compare
+   * card with an aggregator's name.
+   */
+  it('attributes the second-hand figures to the source that actually published them', () => {
+    const uhomes = 'https://en.uhomes.com/blog/cost-of-living-in-singapore';
+    for (const locale of LOCALES) {
+      expect(costOfLiving[locale].sources.map((s) => s.url), `${locale} is missing the uhomes cite`)
+        .toContain(uhomes);
+      expect(costOfLiving[locale].sgAfter, `${locale}: sgAfter dropped the uhomes attribution`)
+        .toMatch(/uhomes/i);
+      expect(sgOfficialCopy[locale].compareEstimateLabel, `${locale}: compare card re-badged Numbeo`)
+        .not.toContain('Numbeo');
+      expect(sgOfficialCopy[locale].caliberWarning, `${locale}: caliber warning re-badged Numbeo`)
+        .not.toContain('Numbeo');
+    }
+  });
+
+  /** Numbeo is still cited, and now says which measure of its own it is cited for. */
+  it('keeps Numbeo cited with its unit spelled out', () => {
+    const numbeo = 'https://www.numbeo.com/cost-of-living/in/Singapore';
+    for (const locale of LOCALES) {
+      const cite = costOfLiving[locale].sources.find((s) => s.url === numbeo);
+      expect(cite, `${locale} dropped the Numbeo cite`).toBeDefined();
+      expect(cite?.note, `${locale}: Numbeo cite no longer states its excluding-rent unit`)
+        .toMatch(/不含房租|excluding-rent/);
+    }
   });
 });
 
