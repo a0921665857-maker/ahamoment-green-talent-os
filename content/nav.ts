@@ -16,6 +16,9 @@ import type { Locale } from '@/lib/constants';
 export interface NavCopy {
   /** Skip-to-content label (accessibility). */
   skipToContent: string;
+  /** Accessible name for the mobile menu toggle — its glyph (≡ / ×) is decorative. */
+  menuOpen: string;
+  menuClose: string;
   home: string;
   /**
    * Stages of a single journey, in order, phrased as the reader's own situation:
@@ -42,6 +45,8 @@ export interface NavCopy {
 
 const zh: NavCopy = {
   skipToContent: '跳到主要內容',
+  menuOpen: '開啟選單',
+  menuClose: '關閉選單',
   home: '首頁',
   doors: [
     { label: '我不知道我缺什麼', hint: '五分鐘免費診斷', href: '/mri' },
@@ -101,6 +106,8 @@ const zh: NavCopy = {
 
 const en: NavCopy = {
   skipToContent: 'Skip to content',
+  menuOpen: 'Open menu',
+  menuClose: 'Close menu',
   home: 'Home',
   doors: [
     { label: 'I don’t know what I’m missing', hint: 'Free 5-minute diagnostic', href: '/mri' },

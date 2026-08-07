@@ -36,7 +36,9 @@ export const flow: FlowContent = {
     remove: '移除',
   },
   submit: '開始 MRI',
-  submitHint: '貼上一些內容、並勾選下方的資料處理同意，就能開始。',
+  // 「上方」：同意區實測在送出鈕之上，errors.consentRequired 也說上方。這條原本指相反方向，
+  // 而它擋的正是整條漏斗的必勾項。
+  submitHint: '貼上一些內容、並勾選上方的資料處理同意，就能開始。',
   charCount: '{count} 字元',
   charCountNeed: '{count} 字元，還差 {need} 字就能開始',
   progress: {
@@ -63,8 +65,8 @@ export const flow: FlowContent = {
     noCvBody: '先把這頁傳到你的 LINE，晚點在電腦上慢慢做；或加 Michael 的 LINE，直接把履歷丟給他，他本人回。',
     saveCta: '傳到我的 LINE 存起來',
     addCta: '加 Michael 的 LINE',
-    shareTextMri: '綠領職涯 MRI 免費測評，之後從這裡開始：',
-    shareTextReport: '我的綠領職涯 MRI 報告，等等從這裡看：',
+    shareTextMri: '綠色職涯 MRI 免費測評，之後從這裡開始：',
+    shareTextReport: '我的綠色職涯 MRI 報告，等等從這裡看：',
     generatingHint: '怕被打斷？先把報告連結傳到你的 LINE，好了直接點開。',
     resultTitle: '把這份報告存進你的 LINE',
     resultBody: '連結永久有效。傳給自己存起來；想聊報告裡的下一步，加 Michael 的 LINE，他本人回。',
@@ -135,7 +137,7 @@ export const flow: FlowContent = {
       ],
     },
     showResult: '拿我的速讀卡',
-    resultEyebrow: '綠領職涯速讀卡',
+    resultEyebrow: '綠色職涯速讀卡',
     resultNote: '這是零打字的粗判。完整版會讀你的真實經歷，給 12 段個人化判讀：你的優勢、缺口、按真實年資與賽道校準的身價、下一步怎麼走。',
     fullCta: '做完整版（約 3 分鐘）',
     typeDetailCta: '看這一型的完整說明',
@@ -148,7 +150,7 @@ export const flow: FlowContent = {
       salaryLabelMultiple: '名目差',
       salaryDisposableSuffix: '；扣除生活成本後約 ',
       salarySource: '數據：2026 亞太綠領薪資報告（1 SGD ≈ 25 TWD）',
-      brandFooter: 'AhaMoment 綠領職涯 MRI・60 秒速讀',
+      brandFooter: 'AhaMoment 綠色職涯 MRI・60 秒速讀',
     },
     misread: {
       ready_for_mba_story_sprint:

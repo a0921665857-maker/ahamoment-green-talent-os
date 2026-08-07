@@ -50,7 +50,7 @@ export const paymentCopy: Record<Locale, PaymentCopy> = {
     },
     cancelled: {
       title: '付款沒有完成。',
-      body: '沒關係，你的卡沒有被扣款，也沒有留下任何紀錄。如果只是想再想一下、或想先確認這個服務適不適合你，先聊 30 分鐘是完全正常的順序——那一場免費。',
+      body: '沒關係，你的卡沒有被扣款，也沒有留下任何紀錄。如果只是想再想一下、或想先確認這個服務適不適合你，先聊 30 分鐘是完全正常的順序，那一場免費。',
       servicesCta: '再看一次服務內容',
       lineCta: '加 LINE 問我一個問題',
       homeCta: '回首頁',

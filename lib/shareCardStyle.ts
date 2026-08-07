@@ -22,15 +22,22 @@ export const TYPE_STYLE: Record<ResultCategory, { accent: string; tint: string; 
   cv_strong_narrative_weak: { accent: '#46566b', tint: '#dfe3ea', emoji: '📄' },
 };
 
-/** The band-scale signature colours (constant on every card — the brand "gradient"). */
-export const BAND_COLORS = { emerging: '#b9cdc0', developing: '#5d8a73', strong: '#1e4d3b' };
+/** The band-scale signature colours (constant on every card — the brand "gradient").
+ *  Kept byte-identical to --color-band-* in app/globals.css: the on-screen glyph and
+ *  the generated OG image are the same mark and must not drift. */
+export const BAND_COLORS = { emerging: '#b9cdc0', developing: '#527965', strong: '#1e4d3b' };
 
 /**
- * The shareLine is "…類型是「LABEL」——<quotable>"; the label is already the hero,
- * so cards/posts show only the quotable half after the em-dash.
+ * The shareLine names the type and then says one quotable thing about it. The
+ * label is already the hero of every card, so we show only the quotable half.
+ *
+ * Two separators, because the two locales punctuate differently: English uses an
+ * em dash, and zh-TW closes the quoted label with 」， (voice-canon bans the em
+ * dash in Chinese prose). Matching only the dash silently fell through to the
+ * `?? shareLine` fallback on every zh card, printing the type name twice.
  */
 export function cardLineOf(shareLine: string): string {
-  const line = (shareLine.split(/——|—/)[1] ?? shareLine).trim();
+  const line = (shareLine.split(/——|—|」，/)[1] ?? shareLine).trim();
   // Capitalise the first letter — a no-op for CJK, fixes the lowercase EN half.
   return line.charAt(0).toUpperCase() + line.slice(1);
 }

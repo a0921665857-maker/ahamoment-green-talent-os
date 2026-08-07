@@ -36,7 +36,9 @@ export const flow: FlowContent = {
     remove: 'Remove',
   },
   submit: 'Run the MRI',
-  submitHint: 'Paste a little content and tick the processing consent below to start.',
+  // "above": the consent box sits above the submit button, and errors.ts already
+  // says above. This line pointed the other way, at the one required tick.
+  submitHint: 'Paste a little content and tick the processing consent above to start.',
   charCount: '{count} characters',
   charCountNeed: '{count} characters — {need} more to start',
   progress: {

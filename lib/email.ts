@@ -69,12 +69,12 @@ export async function sendSaveForLaterEmail(opts: {
   if (!apiKey || !from) return;
 
   const isZh = opts.locale === 'zh-TW';
-  const subject = isZh ? '你的綠領職涯 MRI 連結' : 'Your Green Career MRI link';
+  const subject = isZh ? '你的綠色職涯 MRI 連結' : 'Your Green Career MRI link';
   const body = isZh
     ? [
         '嗨，',
         '',
-        '這是你剛剛在通勤時點開的綠領職涯 MRI。等你有空、手邊有履歷或想法時，從這個連結接著做就好：',
+        '這是你剛剛在通勤時點開的綠色職涯 MRI。等你有空、手邊有履歷或想法時，從這個連結接著做就好：',
         opts.mriUrl,
         '',
         '大概三分鐘，做完我親手幫你看你現在被市場讀成哪一種人。',

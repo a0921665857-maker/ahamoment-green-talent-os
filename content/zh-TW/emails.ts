@@ -3,7 +3,7 @@ import type { EmailsContent } from '../schema';
 /** 追蹤信範本（V1 由真人手動寄出）。可替換欄位：{{name}} {{report_url}} {{personal_line}} {{category_note}} */
 export const emails: EmailsContent = {
   d0: {
-    subject: '你的綠領職涯 MRI 報告寫好了',
+    subject: '你的綠色職涯 MRI 報告寫好了',
     body: `{{name}} 你好，
 
 報告寫好了。{{personal_line}}
