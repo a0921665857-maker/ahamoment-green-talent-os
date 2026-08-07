@@ -11,6 +11,7 @@ import {
 } from '@/content/greenJobs';
 import { newsletterCopy } from '@/content/newsletter';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 const REGION_FLAG: Record<MarketKey, string> = { SG: '🇸🇬', TW: '🇹🇼', HK: '🇭🇰', UK: '🇬🇧' };
 
@@ -105,7 +106,11 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = greenJobsCopy[locale as Locale];
-  return { title: t.title, description: t.intro };
+  return {
+    title: t.title,
+    description: t.intro,
+    alternates: alternatesFor(locale as Locale, '/jobs'),
+  };
 }
 
 export default async function JobsPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -120,7 +125,7 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
 
       <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{t.title}</h1>
         <p className="mt-4 text-lg text-ink-soft">{t.intro}</p>
 
         {/* weekly picks */}
@@ -178,7 +183,7 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
                     href={b.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg border border-pine/40 px-3 py-1.5 text-sm text-pine transition hover:border-pine hover:bg-mist/40"
+                    className="inline-flex min-h-[44px] items-center rounded-lg border border-pine/40 px-3 py-1.5 text-sm text-pine transition hover:border-pine hover:bg-mist/40"
                   >
                     {b.label} ↗
                   </a>

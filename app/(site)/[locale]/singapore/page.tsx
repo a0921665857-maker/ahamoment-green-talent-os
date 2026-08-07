@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { singaporeGuideCopy } from '@/content/singaporeGuide';
 import type { Locale } from '@/lib/constants';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 /**
  * The Taiwan → Singapore relocation guide.
@@ -23,7 +24,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const c = singaporeGuideCopy[locale as Locale];
-  return { title: c.title, description: c.description };
+  return {
+    title: c.title,
+    description: c.description,
+    alternates: alternatesFor(locale as Locale, '/singapore'),
+  };
 }
 
 export default async function SingaporeGuidePage({ params }: { params: Promise<{ locale: string }> }) {

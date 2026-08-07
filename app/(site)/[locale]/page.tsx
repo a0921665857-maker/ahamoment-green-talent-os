@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
+import { alternatesFor } from '@/lib/seoAlternates';
 import { REPORT_SECTION_KEYS, type Locale } from '@/lib/constants';
 import { displayPrice, FREE_OFFER_ID, PUBLIC_PAID_OFFER_IDS } from '@/lib/services';
 import { LatestContent } from '@/components/LatestContent';
@@ -9,6 +11,18 @@ import { LineActions } from '@/components/LineActions';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 import { newsletterCopy } from '@/content/newsletter';
 import { navCopy } from '@/content/nav';
+
+/** Title and description are inherited from the layout defaults; this exists so
+ *  the home page can declare its own canonical and hreflang pair. */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return { alternates: alternatesFor(locale as Locale, '') };
+}
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -63,7 +77,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   ];
 
   return (
-    <div className="min-h-screen">
+    // <main>, not <div>: the header's skip link points at #main, and without a
+    // sectioning ancestor the hero <header> and the page-local <footer> below
+    // were promoted to a SECOND banner and contentinfo alongside the site chrome.
+    <main id="main" className="min-h-screen">
 
       {/*
         FIRST SCREEN — one sentence, one button (founder decision, 2026-07-30).
@@ -76,7 +93,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       */}
       <header className="mx-auto max-w-3xl px-6 pb-14 pt-12 sm:pb-20 sm:pt-16">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{c.landing.hero.eyebrow}</p>
-        <h1 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">{c.landing.hero.title}</h1>
+        {/* text-balance: without it the zh h1 broke the compound 「定位」 across
+            lines and orphaned one character on a 22%-filled last line at 375px.
+            Block height is identical either way, so nothing below shifts. */}
+        <h1 className="mt-4 text-4xl font-semibold leading-tight text-balance sm:text-5xl">
+          {c.landing.hero.title}
+        </h1>
         <a
           href={`/${L}/mri?utm_source=home&utm_medium=hero`}
           className="mt-10 inline-block w-full rounded-lg bg-pine px-7 py-3.5 text-center text-paper sm:w-auto"
@@ -93,9 +115,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       <section className="border-y border-line bg-mist/20">
         <div className="mx-auto max-w-3xl px-6 py-12">
           <p className="max-w-2xl text-lg text-ink-soft">{c.landing.hero.subtitle}</p>
-          <p className="mt-10 text-xs uppercase tracking-eyebrow text-pine">
+          {/* an <h2>, not a <p>: the whole doors screen was invisible to heading
+              navigation. Renders identically — house precedent is SiteFooter's
+              eyebrow-styled <h2>站內索引</h2>. */}
+          <h2 className="mt-10 text-xs uppercase tracking-eyebrow text-pine">
             {L === 'zh-TW' ? '你現在在哪一格' : 'Where you are right now'}
-          </p>
+          </h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             {navCopy[L].doors.map((d) => (
               <a
@@ -112,7 +137,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a
               href={`/${L}/sample`}
-              className="rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
+              className="inline-flex min-h-[44px] items-center rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
             >
               {c.landing.hero.secondaryCta}
             </a>
@@ -142,11 +167,13 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           <p className="text-xs uppercase tracking-eyebrow text-sage-soft">
             {L === 'zh-TW' ? '免費 · 不用留 email' : 'Free · no email'}
           </p>
-          <p className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">
+          {/* an <h2>: the declared flagship had no heading at all. font-semibold
+              stays explicit because Preflight sets h2 font-weight:inherit. */}
+          <h2 className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">
             {L === 'zh-TW'
               ? '綠領判斷力：知識查得到，判斷你得自己練'
               : 'Green-Collar Judgment: knowledge you can look up. Judgment you practise.'}
-          </p>
+          </h2>
           <p className="mt-2 text-sm leading-relaxed text-sage-soft">
             {L === 'zh-TW'
               ? '12 題判斷練習，先作答才看得到解答。每個錯的選項都會告訴你它為什麼誘人。'
@@ -373,6 +400,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
         <p className="mx-auto max-w-3xl px-6 pb-8 text-xs text-ink-soft">{c.landing.footer.deleteLine}</p>
       </footer>
-    </div>
+    </main>
   );
 }

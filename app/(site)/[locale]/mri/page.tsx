@@ -4,12 +4,17 @@ import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
 import { MriIntakeFlow } from '@/components/MriIntakeFlow';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const seo = getContent(locale).seo;
-  return { title: seo.titles.mri, description: seo.descriptions.mri };
+  return {
+    title: seo.titles.mri,
+    description: seo.descriptions.mri,
+    alternates: alternatesFor(locale as Locale, '/mri'),
+  };
 }
 
 export default async function MriPage({ params }: { params: Promise<{ locale: string }> }) {

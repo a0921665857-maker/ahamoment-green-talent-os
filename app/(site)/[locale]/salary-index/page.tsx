@@ -15,6 +15,7 @@ import {
 import { salaryIndexCopy } from '@/content/salaryIndexCopy';
 import { PageViewPing } from '@/components/PageViewPing';
 import { ScrollDepth } from '@/components/ScrollDepth';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -28,7 +29,11 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = salaryIndexCopy[locale];
-  return { title: t.title, description: t.intro.slice(0, 155) };
+  return {
+    title: t.title,
+    description: t.intro.slice(0, 155),
+    alternates: alternatesFor(locale as Locale, '/salary-index'),
+  };
 }
 
 function money(n: number, currency: string): string {
@@ -177,7 +182,7 @@ export default async function SalaryIndexPage({
             href={LINE_OA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
+            className="mt-4 inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
           >
             {t.contributeCta}
           </a>
@@ -188,7 +193,7 @@ export default async function SalaryIndexPage({
           <p className="mt-2 max-w-2xl text-sm text-ink-soft">{t.taiwanBody}</p>
           <a
             href={`/${L}/mri?utm_source=salary_index&utm_medium=footer`}
-            className="mt-4 inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
+            className="mt-4 inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
           >
             {L === 'zh-TW' ? '做一次免費 MRI' : 'Run the free MRI'}
           </a>

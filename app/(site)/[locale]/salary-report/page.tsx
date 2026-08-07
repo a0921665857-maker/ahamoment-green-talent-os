@@ -5,6 +5,7 @@ import { isLocale } from '@/content/locales';
 import { salaryReports } from '@/content/salaryReport';
 import { newsletterCopy } from '@/content/newsletter';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -18,7 +19,11 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const r = salaryReports[locale as Locale];
-  return { title: r.meta.title, description: r.meta.description };
+  return {
+    title: r.meta.title,
+    description: r.meta.description,
+    alternates: alternatesFor(locale as Locale, '/salary-report'),
+  };
 }
 
 export default async function SalaryReportPage({
@@ -36,10 +41,10 @@ export default async function SalaryReportPage({
   return (
     <div className="min-h-screen">
 
-      <article className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         {/* header */}
         <p className="text-xs uppercase tracking-eyebrow text-pine">{r.eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{r.title}</h1>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{r.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
         <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
@@ -53,9 +58,9 @@ export default async function SalaryReportPage({
         <div className="mt-10 grid gap-3 sm:grid-cols-3">
           {r.stats.map((s, i) => (
             <div key={i} className="rounded-xl bg-mist/50 px-5 py-5">
-              <div
-                className={`text-3xl font-semibold tabular-nums ${s.gold ? 'text-band-emerging' : 'text-pine'}`}
-              >
+              {/* band-emerging (#b9cdc0) is a band *fill* token; as a text colour it
+                  measured 1.48:1 on this card — below WCAG AA even for large text. */}
+              <div className="text-3xl font-semibold tabular-nums text-pine">
                 {s.fig}
               </div>
               <div className="mt-2 text-sm text-ink-soft">{s.cap}</div>
@@ -144,7 +149,9 @@ export default async function SalaryReportPage({
 
         {/* Japan */}
         <h2 className="mt-14 text-2xl font-semibold">{r.jpTitle}</h2>
-        <p className="mt-2 text-xs uppercase tracking-eyebrow text-pine">{r.jpNote}</p>
+        {/* jpNote is a 79-character sentence, not a label: the eyebrow combo
+            (12px + uppercase + 0.14em tracking) is for 2–11 char labels. */}
+        <p className="mt-2 text-sm text-ink-soft">{r.jpNote}</p>
         <div className="mt-4 overflow-x-auto rounded-xl border border-line">
           <table className="w-full min-w-[620px] text-sm">
             <thead>
@@ -240,7 +247,7 @@ export default async function SalaryReportPage({
 
         {/* sources */}
         <details className="mt-12 border-t border-line pt-6">
-          <summary className="cursor-pointer text-xs uppercase tracking-eyebrow text-pine">
+          <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
             {r.sourcesLabel}
           </summary>
           <p className="mt-4 text-sm text-ink-soft">{r.method}</p>
@@ -260,7 +267,7 @@ export default async function SalaryReportPage({
         </details>
 
         <p className="mt-10 border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
-      </article>
+      </main>
     </div>
   );
 }

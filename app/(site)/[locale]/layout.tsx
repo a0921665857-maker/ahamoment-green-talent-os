@@ -21,8 +21,22 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
   const seo = getContent(locale).seo;
   return {
+    // Without this Next warns at build time and resolves og/twitter image URLs
+    // against a guessed origin. Same env var and fallback as sitemap.ts/robots.ts.
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ahamoment-green-talent-os.vercel.app',
+    ),
     title: { default: seo.titles.home, template: `%s · ${seo.siteName}` },
     description: seo.descriptions.home,
+    // og:locale and og:site_name were declared in content and never emitted.
+    // canonical/hreflang deliberately do NOT live here: layout alternates are
+    // inherited, which would point every route at the locale root. Pages call
+    // lib/seoAlternates.ts with their own path instead.
+    openGraph: {
+      type: 'website',
+      siteName: seo.siteName,
+      locale: seo.ogLocale,
+    },
   };
 }
 

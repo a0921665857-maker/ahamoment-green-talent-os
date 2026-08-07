@@ -6,6 +6,7 @@ import type { Locale, OfferId } from '@/lib/constants';
 import { FREE_OFFER_ID, PUBLIC_PAID_OFFER_IDS, priceFor } from '@/lib/services';
 import { ServiceCtas } from '@/components/ServiceCtas';
 import { PageViewPing } from '@/components/PageViewPing';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 /** Scope boundary block — "what this service does not do". Declared at module
  * scope: a component defined inside the page body is re-created every render. */
@@ -28,7 +29,10 @@ function Scope({ label, items }: { label: string; items?: string[] }) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: getContent(locale).paidOffers.title };
+  return {
+    title: getContent(locale).paidOffers.title,
+    alternates: alternatesFor(locale as Locale, '/services'),
+  };
 }
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -1,8 +1,42 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { RESULT_CATEGORIES, type Locale } from '@/lib/constants';
 import { TYPE_STYLE, cardLineOf } from '@/lib/shareCardStyle';
+import { alternatesFor } from '@/lib/seoAlternates';
+
+/** Page copy, hoisted out of the component so generateMetadata can reuse it —
+ *  this page was the only indexable route with no metadata of its own, so both
+ *  /types URLs shipped the home page's title and description verbatim. */
+function typesCopy(isZh: boolean) {
+  return {
+    eyebrow: isZh ? '綠領人才類型' : 'Green career types',
+    title: isZh ? '8 種綠領人才，你是哪一種？' : 'Eight green-career types. Which one are you?',
+    subtitle: isZh
+      ? '每一種，都是市場現在讀你的一種方式。花 5 分鐘，看看你被讀成哪一種，以及怎麼往上一格。'
+      : 'Each one is a way the market reads you right now. Take 5 minutes to see which you are — and how to move up a band.',
+    cta: isZh ? '免費測我的類型' : 'Test my type — free',
+    footnote: isZh
+      ? '分析你貼上的資料，不猜、不評分你這個人。'
+      : 'Based on the material you paste — no guessing, no scoring you as a person.',
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const t = typesCopy(locale === 'zh-TW');
+  return {
+    title: t.title,
+    description: t.subtitle,
+    alternates: alternatesFor(locale as Locale, '/types'),
+  };
+}
 
 /**
  * Public "which type are you?" gallery — a discovery/curiosity surface for the 8
@@ -16,24 +50,16 @@ export default async function TypesPage({ params }: { params: Promise<{ locale: 
   const c = getContent(L);
   const isZh = L === 'zh-TW';
 
-  const t = {
-    eyebrow: isZh ? '綠領人才類型' : 'Green career types',
-    title: isZh ? '8 種綠領人才，你是哪一種？' : 'Eight green-career types. Which one are you?',
-    subtitle: isZh
-      ? '每一種，都是市場現在讀你的一種方式。花 5 分鐘，看看你被讀成哪一種——以及怎麼往上一格。'
-      : 'Each one is a way the market reads you right now. Take 5 minutes to see which you are — and how to move up a band.',
-    cta: isZh ? '免費測我的類型' : 'Test my type — free',
-    footnote: isZh
-      ? '分析你貼上的資料，不猜、不評分你這個人。'
-      : 'Based on the material you paste — no guessing, no scoring you as a person.',
-  };
+  const t = typesCopy(isZh);
 
   return (
-    <div className="min-h-screen">
+    // <main>, so the header's skip link has a target and the page's own <header>
+    // stops competing with the site header for the banner landmark.
+    <main id="main" className="min-h-screen">
 
       <header className="mx-auto max-w-3xl px-6 pb-10 pt-8">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{t.title}</h1>
         <p className="mt-4 max-w-2xl text-lg text-ink-soft">{t.subtitle}</p>
         <a href={`/${L}/mri`} className="mt-7 inline-block rounded-lg bg-pine px-6 py-3 text-paper">
           {t.cta}
@@ -57,7 +83,10 @@ export default async function TypesPage({ params }: { params: Promise<{ locale: 
                     className="flex h-14 w-14 items-center justify-center rounded-2xl"
                     style={{ background: style.tint }}
                   >
-                    <span style={{ fontSize: 30, lineHeight: 1 }}>{style.emoji}</span>
+                    {/* decorative motif — kept out of the link's accessible name */}
+                    <span aria-hidden="true" style={{ fontSize: 30, lineHeight: 1 }}>
+                      {style.emoji}
+                    </span>
                   </div>
                   <h2 className="mt-4 text-lg font-bold leading-snug" style={{ color: style.accent }}>
                     {type.label}
@@ -73,6 +102,6 @@ export default async function TypesPage({ params }: { params: Promise<{ locale: 
         </div>
         <p className="mt-6 text-sm text-ink-soft">{t.footnote}</p>
       </section>
-    </div>
+    </main>
   );
 }

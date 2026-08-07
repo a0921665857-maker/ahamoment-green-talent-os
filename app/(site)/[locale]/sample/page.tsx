@@ -10,11 +10,15 @@ import { MarketPulseCard } from '@/components/MarketPulseCard';
 import { MriLiteReport } from '@/components/MriLiteReport';
 import { PaidOfferCta } from '@/components/PaidOfferCta';
 import { ShareableTypeCard } from '@/components/ShareableTypeCard';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return { title: getContent(locale).sample.pageTitle };
+  return {
+    title: getContent(locale).sample.pageTitle,
+    alternates: alternatesFor(locale as Locale, '/sample'),
+  };
 }
 
 export default async function SamplePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -36,7 +40,10 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
       <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
         <div className="mb-8 rounded-lg border border-line bg-mist/40 px-5 py-5">
           <p className="text-xs uppercase tracking-eyebrow text-pine">{c.sample.pageEyebrow}</p>
-          <h1 className="mt-2 text-2xl font-semibold">{c.sample.pageTitle}</h1>
+          {/* a <p>: MriLiteReport below owns this page's h1 (and it is the larger
+              of the two). Size and weight come from the utilities, so this is a
+              tag change only. */}
+          <p className="mt-2 text-2xl font-semibold">{c.sample.pageTitle}</p>
           <p className="mt-2 text-sm text-ink-soft">{c.sample.pageIntro}</p>
           <a
             href={`/${L}/mri`}

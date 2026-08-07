@@ -45,7 +45,7 @@ export default async function TwinHubPage({
     return (
       <div className="min-h-screen">
         <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
-          <h1 className="text-3xl font-semibold">{t.expiredTitle}</h1>
+          <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{t.expiredTitle}</h1>
           <p className="mt-3 max-w-2xl text-ink-soft">{t.expiredBody}</p>
           <a
             href={`/${L}/twin`}
@@ -71,8 +71,10 @@ export default async function TwinHubPage({
 
   return (
     <div className="min-h-screen">
-      <main className="mx-auto max-w-3xl px-6 pb-24 pt-6">
-        <h1 className="text-3xl font-semibold">{t.title}</h1>
+      {/* id="main" so the skip link works on the signed-in hub too — it only
+          resolved on the expired branch above, i.e. on the page with nothing on it. */}
+      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+        <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{t.title}</h1>
         <p className="mt-3 max-w-2xl text-ink-soft">{t.intro}</p>
 
         {deltas ? (
@@ -83,17 +85,23 @@ export default async function TwinHubPage({
               {moved.map((d) => (
                 <li key={d.key} className="flex items-baseline justify-between gap-4 text-sm">
                   <span>{c.twin.bandNames[d.key]}</span>
-                  <span className={d.direction === 'up' ? 'font-medium text-band-strong' : 'font-medium text-band-emerging'}>
+                  {/* `down` was text-band-emerging: a band FILL token used as text,
+                      1.54:1 on paper. Spacing is a class now, not a U+3000 — the
+                      ideographic space was emitted in the English build too. */}
+                  <span className={d.direction === 'up' ? 'font-medium text-band-strong' : 'font-medium text-ink'}>
                     {d.from ? bandLabels[d.from] : t.unknownWord} → {d.to ? bandLabels[d.to] : t.unknownWord}
-                    {'　'}
-                    {d.direction === 'up' ? `↑ ${t.upWord}` : `↓ ${t.downWord}`}
+                    <span className="ml-3">
+                      {d.direction === 'up' ? `↑ ${t.upWord}` : `↓ ${t.downWord}`}
+                    </span>
                   </span>
                 </li>
               ))}
             </ul>
             <p className="mt-4 text-sm text-ink-soft">
               {t.sameSummary.replace('{n}', String(sameCount))}
-              {unknown.length > 0 ? `　·　${t.unknownWord} ×${unknown.length}` : ''}
+              {unknown.length > 0 && (
+                <span className="ml-2">· {`${t.unknownWord} ×${unknown.length}`}</span>
+              )}
             </p>
           </section>
         ) : (

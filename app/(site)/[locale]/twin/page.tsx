@@ -22,7 +22,7 @@ export default async function TwinRequestPage({ params }: { params: Promise<{ lo
   return (
     <div className="min-h-screen">
       <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
-        <h1 className="text-3xl font-semibold">{t.title}</h1>
+        <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{t.title}</h1>
         <p className="mt-3 max-w-2xl text-ink-soft">{t.intro}</p>
         <TwinRequestForm locale={L} content={t} />
         <p className="mt-6 max-w-xl text-sm text-ink-soft">{t.inviteNote}</p>

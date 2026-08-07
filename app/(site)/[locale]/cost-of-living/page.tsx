@@ -4,6 +4,7 @@ import { LOCALES, type Locale } from '@/lib/constants';
 import { isLocale } from '@/content/locales';
 import { costOfLiving } from '@/content/costOfLiving';
 import { SgOfficialDataSection } from '@/components/SgOfficialDataSection';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -25,7 +26,11 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const r = costOfLiving[locale as Locale];
-  return { title: r.meta.title, description: r.meta.description };
+  return {
+    title: r.meta.title,
+    description: r.meta.description,
+    alternates: alternatesFor(locale as Locale, '/cost-of-living'),
+  };
 }
 
 export default async function CostOfLivingPage({
@@ -43,9 +48,9 @@ export default async function CostOfLivingPage({
   return (
     <div className="min-h-screen">
 
-      <article className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{r.eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{r.title}</h1>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{r.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
         <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
@@ -183,7 +188,7 @@ export default async function CostOfLivingPage({
 
         {/* sources */}
         <details className="mt-12 border-t border-line pt-6">
-          <summary className="cursor-pointer text-xs uppercase tracking-eyebrow text-pine">
+          <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
             {r.sourcesLabel}
           </summary>
           <p className="mt-4 text-sm text-ink-soft">{r.method}</p>
@@ -205,7 +210,7 @@ export default async function CostOfLivingPage({
         </details>
 
         <p className="mt-10 border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
-      </article>
+      </main>
     </div>
   );
 }

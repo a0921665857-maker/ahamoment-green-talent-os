@@ -74,12 +74,15 @@ export default async function ResultPage({
       );
     }
     return (
-      <div className="mx-auto max-w-2xl px-6 py-24">
-        <p className="text-ink">{c.errors.notFound}</p>
+      // The one branch of this route with no <main> and no h1 at all: the skip
+      // link died and a screen reader landed on an unheaded page. Preflight
+      // neutralises h1 sizing, so this is a landmark/outline fix, not a restyle.
+      <main id="main" className="mx-auto max-w-2xl px-6 py-24">
+        <h1 className="text-ink">{c.errors.notFound}</h1>
         <a href={`/${L}/mri`} className="mt-4 inline-block text-pine hover:underline">
           {c.landing.hero.cta}
         </a>
-      </div>
+      </main>
     );
   }
 
@@ -101,7 +104,7 @@ export default async function ResultPage({
   return (
     <div className="min-h-screen">
       <ScrollDepth surface="report" extra={{ category: report.category, locale: L }} />
-      <main className="mx-auto max-w-2xl px-6 pb-28 pt-6 sm:pb-24">
+      <main id="main" className="mx-auto max-w-2xl px-6 pb-28 pt-6 sm:pb-24">
         {report.degraded && (
           <p className="mb-6 rounded border border-line bg-mist px-4 py-3 text-sm text-ink-soft">
             {c.errors.reportDegraded}

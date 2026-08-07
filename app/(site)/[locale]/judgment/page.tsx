@@ -8,6 +8,7 @@ import { judgmentData } from '@/lib/judgment';
 import { JudgmentApp } from '@/components/JudgmentApp';
 import { PageViewPing } from '@/components/PageViewPing';
 import { ScrollDepth } from '@/components/ScrollDepth';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 /**
  * 綠領判斷力 — on-site, in the site's own design system.
@@ -32,7 +33,11 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = getContent(locale as Locale).judgment;
-  return { title: t.meta.title, description: t.meta.description };
+  return {
+    title: t.meta.title,
+    description: t.meta.description,
+    alternates: alternatesFor(locale as Locale, '/judgment'),
+  };
 }
 
 export default async function JudgmentPage({
@@ -58,12 +63,12 @@ export default async function JudgmentPage({
       <PageViewPing name="judgment_page_viewed" props={{ locale: L }} />
       <ScrollDepth surface="judgment" extra={{ locale: L }} />
 
-      <article className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <a href={mriHref} className="text-sm text-pine underline-offset-2 hover:underline">
           {t.backLink}
         </a>
         <p className="mt-6 text-xs uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{t.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{t.lede}</p>
 
         {/* Bilingual parity, not translation (rule 10): the module is written in
@@ -101,7 +106,7 @@ export default async function JudgmentPage({
         </div>
 
         <details className="mt-16 border-t border-line pt-6">
-          <summary className="cursor-pointer text-xs uppercase tracking-eyebrow text-pine">
+          <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
             {t.about.summary}
           </summary>
           <h2 className="mt-5 text-xl font-semibold">{t.about.title}</h2>
@@ -145,11 +150,13 @@ export default async function JudgmentPage({
           </div>
         </details>
 
-        <footer className="mt-12 border-t border-line pt-6">
+        {/* a plain div, not <footer>: SiteFooter already provides the page's one
+            contentinfo landmark, and a second one made the site index ambiguous. */}
+        <div className="mt-12 border-t border-line pt-6">
           <p className="text-xs text-ink-soft">{t.footer.origin}</p>
           <p className="mt-2 text-xs text-ink-soft">{t.footer.disclaimer}</p>
-        </footer>
-      </article>
+        </div>
+      </main>
     </div>
   );
 }

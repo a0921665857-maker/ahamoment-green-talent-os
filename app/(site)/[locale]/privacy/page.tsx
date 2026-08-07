@@ -3,12 +3,17 @@ import { notFound } from 'next/navigation';
 import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import type { Locale } from '@/lib/constants';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const seo = getContent(locale).seo;
-  return { title: seo.titles.privacy, description: seo.descriptions.privacy };
+  return {
+    title: seo.titles.privacy,
+    description: seo.descriptions.privacy,
+    alternates: alternatesFor(locale as Locale, '/privacy'),
+  };
 }
 
 export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -32,8 +37,25 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
           ))}
         </div>
+        {/* The one page whose whole job is trust had zero links inside <main>:
+            the deletion-request address was plain text you had to select and
+            copy. Same mailto pattern SiteFooter already uses. */}
         <p className="mt-10 border-t border-line pt-6 text-sm text-ink-soft">
-          {p.contactLine.replace('{{email}}', email)}
+          {(() => {
+            const [before, after = ''] = p.contactLine.split('{{email}}');
+            return (
+              <>
+                {before}
+                <a
+                  href={`mailto:${email}`}
+                  className="text-pine underline-offset-2 hover:underline"
+                >
+                  {email}
+                </a>
+                {after}
+              </>
+            );
+          })()}
         </p>
       </main>
     </div>

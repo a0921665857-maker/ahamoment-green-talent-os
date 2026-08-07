@@ -4,6 +4,7 @@ import { LOCALES, type Locale } from '@/lib/constants';
 import { isLocale } from '@/content/locales';
 import { jdTranslatorCopy } from '@/content/jdTranslator';
 import { JdTranslator } from '@/components/JdTranslator';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -17,7 +18,11 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = jdTranslatorCopy[locale as Locale];
-  return { title: t.meta.title, description: t.meta.description };
+  return {
+    title: t.meta.title,
+    description: t.meta.description,
+    alternates: alternatesFor(locale as Locale, '/jd'),
+  };
 }
 
 export default async function JdTranslatorPage({
@@ -36,7 +41,7 @@ export default async function JdTranslatorPage({
 
       <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{t.title}</h1>
         <p className="mt-4 text-lg text-ink-soft">{t.intro}</p>
 
         <JdTranslator locale={L} copy={t} mriHref={mriHref} />

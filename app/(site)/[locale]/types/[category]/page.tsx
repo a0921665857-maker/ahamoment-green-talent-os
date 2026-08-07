@@ -4,6 +4,7 @@ import { isLocale } from '@/content/locales';
 import { getContent } from '@/content';
 import { RESULT_CATEGORIES, type Locale, type ResultCategory } from '@/lib/constants';
 import { TYPE_STYLE, cardLineOf } from '@/lib/shareCardStyle';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 function isCategory(x: string): x is ResultCategory {
   return (RESULT_CATEGORIES as readonly string[]).includes(x);
@@ -26,16 +27,26 @@ export async function generateMetadata({
   const line = cardLineOf(type.shareLine);
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? '';
   const image = `${base}/og/share/${category}?locale=${L}`;
-  const title = `${type.label}｜${c.seo.siteName}`;
+  // <title> gets the bare label: the layout's `%s · ${siteName}` template appends
+  // the brand. Hardcoding it here printed the site name twice, and pushed the zh
+  // title to 34 full-width characters so the duplicate tail was what SERP cut.
+  // Social cards do not go through the template, so they compose it explicitly —
+  // with the same `·` the template uses, which also gets the full-width ｜ out of
+  // the English titles.
+  const socialTitle = `${type.label} · ${c.seo.siteName}`;
   return {
-    title,
+    title: type.label,
     description: line,
+    alternates: alternatesFor(L, `/types/${category}`),
     openGraph: {
-      title,
+      type: 'website',
+      siteName: c.seo.siteName,
+      locale: c.seo.ogLocale,
+      title: socialTitle,
       description: line,
       images: [{ url: image, width: 1080, height: 1080 }],
     },
-    twitter: { card: 'summary_large_image', title, description: line, images: [image] },
+    twitter: { card: 'summary_large_image', title: socialTitle, description: line, images: [image] },
   };
 }
 
@@ -61,7 +72,7 @@ export default async function TypePage({
 
   const t = {
     means: isZh
-      ? '這是「市場現在怎麼讀你」的其中一種樣子——不是對你這個人的最終評價。同一個人，把定位講清楚，就可能往右移一格。'
+      ? '這是「市場現在怎麼讀你」的其中一種樣子，不是對你這個人的最終評價。同一個人，把定位講清楚，就可能往右移一格。'
       : "This is one way the market reads you right now — not a verdict on who you are. The same person can move up a band once the positioning is clear.",
     bandNote: isZh
       ? '潛力 → 成形 → 到位：三格說的是「被讀懂的程度」，不是能力高低。'
@@ -84,7 +95,10 @@ export default async function TypePage({
               className="mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-3xl"
               style={{ background: style.tint }}
             >
-              <span style={{ fontSize: 44, lineHeight: 1 }}>{style.emoji}</span>
+              {/* decorative motif — kept out of the heading's accessible name */}
+              <span aria-hidden="true" style={{ fontSize: 44, lineHeight: 1 }}>
+                {style.emoji}
+              </span>
             </div>
             <h1 className="mt-5 text-2xl font-bold leading-tight" style={{ color: style.accent }}>
               {type.label}

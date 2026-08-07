@@ -5,6 +5,7 @@ import { isLocale } from '@/content/locales';
 import { levelupReports } from '@/content/levelup';
 import { newsletterCopy } from '@/content/newsletter';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
+import { alternatesFor } from '@/lib/seoAlternates';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -18,7 +19,11 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const r = levelupReports[locale as Locale];
-  return { title: r.meta.title, description: r.meta.description };
+  return {
+    title: r.meta.title,
+    description: r.meta.description,
+    alternates: alternatesFor(locale as Locale, '/levelup'),
+  };
 }
 
 export default async function LevelupPage({
@@ -37,10 +42,10 @@ export default async function LevelupPage({
   return (
     <div className="min-h-screen">
 
-      <article className="mx-auto max-w-3xl px-6 pb-24 pt-6">
+      <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
         {/* header */}
         <p className="text-xs uppercase tracking-eyebrow text-pine">{r.eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{r.title}</h1>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{r.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
         <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
@@ -74,7 +79,8 @@ export default async function LevelupPage({
 
         {/* headline stat */}
         <div className="mt-10 rounded-xl border border-band-emerging/50 bg-mist/50 px-6 py-6">
-          <div className="text-4xl font-semibold tabular-nums text-band-emerging">{r.bigstat.fig}</div>
+          {/* band-emerging is a band *fill* token; as text it measured 1.48:1 here. */}
+          <div className="text-4xl font-semibold tabular-nums text-pine">{r.bigstat.fig}</div>
           <p className="mt-3">{r.bigstat.cap}</p>
           <p className="mt-2 text-xs text-ink-soft">{r.bigstat.src}</p>
         </div>
@@ -89,7 +95,7 @@ export default async function LevelupPage({
                 <span className="font-semibold">{rung.name}</span>
                 <span
                   className={`whitespace-nowrap text-sm font-semibold tabular-nums ${
-                    rung.width ? 'text-band-emerging' : 'text-ink-soft'
+                    rung.width ? 'text-pine' : 'text-ink-soft'
                   }`}
                 >
                   {rung.val}
@@ -127,7 +133,9 @@ export default async function LevelupPage({
           ))}
         </div>
         <p className="mt-5 text-ink-soft">{r.s2Body}</p>
-        <p className="mt-2 text-xs uppercase tracking-eyebrow text-ink-soft">{r.s2Src}</p>
+        {/* match the page's other two source lines (bigstat.src, rung.src), which
+            are plain text-xs — this one was the only source line in eyebrow style. */}
+        <p className="mt-2 text-xs text-ink-soft">{r.s2Src}</p>
 
         {/* 03 certificates */}
         <h2 className="mt-14 text-2xl font-semibold">{r.s3Title}</h2>
@@ -149,7 +157,7 @@ export default async function LevelupPage({
                   {row.map((cell, j) => (
                     <td
                       key={j}
-                      className={`px-4 py-3 ${j === 0 ? 'font-medium' : j === 1 ? 'tabular-nums text-band-emerging' : 'text-ink-soft'}`}
+                      className={`px-4 py-3 ${j === 0 ? 'font-medium' : j === 1 ? 'tabular-nums text-pine' : 'text-ink-soft'}`}
                     >
                       {cell}
                     </td>
@@ -228,7 +236,7 @@ export default async function LevelupPage({
 
         {/* sources */}
         <details className="mt-12 border-t border-line pt-6">
-          <summary className="cursor-pointer text-xs uppercase tracking-eyebrow text-pine">
+          <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
             {r.sourcesLabel}
           </summary>
           <p className="mt-4 text-sm text-ink-soft">{r.method}</p>
@@ -251,7 +259,7 @@ export default async function LevelupPage({
         </details>
 
         <p className="mt-10 border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
-      </article>
+      </main>
     </div>
   );
 }
