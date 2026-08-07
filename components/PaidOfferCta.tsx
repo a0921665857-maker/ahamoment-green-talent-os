@@ -176,8 +176,8 @@ export function PaidOfferCta(props: {
                     onClick={() => track('booking_clicked', { offer: s.offer })}
                     className={
                       isPrimary
-                        ? 'inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper'
-                        : 'inline-block rounded-lg border border-pine px-5 py-2.5 text-sm text-pine'
+                        ? 'inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper'
+                        : 'inline-flex min-h-[44px] items-center rounded-lg border border-pine px-5 py-2.5 text-sm text-pine'
                     }
                   >
                     {content.bookCta}
@@ -194,7 +194,7 @@ export function PaidOfferCta(props: {
                         currency: price?.currency ?? 'unknown',
                       })
                     }
-                    className="inline-block rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
+                    className="inline-flex min-h-[44px] items-center rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
                   >
                     {content.payCta ?? content.bookCta}
                   </a>

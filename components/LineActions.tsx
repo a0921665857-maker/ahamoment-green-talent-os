@@ -40,7 +40,7 @@ export function LineActions(props: {
           <button
             type="button"
             onClick={openShare}
-            className="rounded-lg border border-pine px-4 py-2 text-sm text-pine"
+            className="inline-flex min-h-[44px] items-center rounded-lg border border-pine px-4 py-2 text-sm text-pine"
           >
             {props.saveLabel}
           </button>
@@ -51,7 +51,7 @@ export function LineActions(props: {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => phCapture('line_add_clicked', { context: props.context })}
-            className="rounded-lg border border-line px-4 py-2 text-sm text-ink-soft hover:border-pine"
+            className="inline-flex min-h-[44px] items-center rounded-lg border border-line px-4 py-2 text-sm text-ink-soft hover:border-pine"
           >
             {props.addLabel}
           </a>

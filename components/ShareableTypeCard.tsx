@@ -8,7 +8,7 @@ import { TYPE_STYLE, cardLineOf } from '@/lib/shareCardStyle';
 /** Ready-to-post copy (Threads/LinkedIn) — turns the result into a shareable post, not just a link. */
 const POST_TEMPLATE: Record<Locale, (label: string, line: string, url: string) => string> = {
   'zh-TW': (label, line, url) =>
-    `我用「綠領職涯 MRI」測了自己的定位，結果是：${label}\n\n${line}\n\n如果你也在往氣候 / 永續 / 綠領轉，值得花 5 分鐘看看你現在被市場讀成哪一種人 👇\n${url}`,
+    `我用「綠色職涯 MRI」測了自己的定位，結果是：${label}\n\n${line}\n\n如果你也在往氣候 / 永續 / 綠領轉，值得花 5 分鐘看看你現在被市場讀成哪一種人 👇\n${url}`,
   en: (label, line, url) =>
     `I ran my positioning through the Green Career MRI. Result: ${label}\n\n${line}\n\nIf you're moving into climate / sustainability, it's worth 5 minutes to see how the market actually reads you 👇\n${url}`,
 };
@@ -121,8 +121,11 @@ export function ShareableTypeCard(props: {
             <span className="text-sm font-semibold" style={{ color: style.accent }}>
               {viewerHook}
             </span>
-            <span className="flex flex-col text-right text-[10px] uppercase leading-tight tracking-eyebrow text-pine/70">
-              <span className="font-semibold text-pine">AhaMoment</span>
+            {/* one lockup, one contrast: the second line was text-pine/70 at 10px
+                (4.06:1, and the smallest type on the site) directly under a line
+                at 8.89:1. Both lines are now full-strength pine at 11px. */}
+            <span className="flex flex-col text-right text-[11px] uppercase leading-tight tracking-eyebrow text-pine">
+              <span className="font-semibold">AhaMoment</span>
               <span>Green Career MRI</span>
             </span>
           </div>
@@ -134,14 +137,14 @@ export function ShareableTypeCard(props: {
         <button
           type="button"
           onClick={onShareImage}
-          className="rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
+          className="inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
         >
           {imageCta}
         </button>
         <button
           type="button"
           onClick={onCopyText}
-          className="rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
+          className="inline-flex min-h-[44px] items-center rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
         >
           {copied ? props.content.copied : props.content.shareButton}
         </button>

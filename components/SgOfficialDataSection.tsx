@@ -154,7 +154,7 @@ export function SgOfficialDataSection({ locale }: { locale: Locale }) {
       <p className="mt-1 text-xs text-ink-soft">{f(t.rentUnit)}</p>
       <ol className="mt-3">{top.map((town, i) => row(town, i + 1))}</ol>
       <details className="border-t border-line">
-        <summary className="cursor-pointer py-2.5 text-xs uppercase tracking-eyebrow text-pine">
+        <summary className="inline-flex min-h-[44px] cursor-pointer items-center py-2.5 text-xs uppercase tracking-eyebrow text-pine">
           {f(t.expandLabel)}
         </summary>
         <ol>{rest.map((town, i) => row(town, i + 1 + RENT_ROWS_VISIBLE))}</ol>

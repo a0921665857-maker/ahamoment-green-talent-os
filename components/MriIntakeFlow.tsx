@@ -437,7 +437,9 @@ function StepIndicator({ flow, phase }: { flow: FlowContent; phase: Phase }) {
             className={
               i <= activeIdx
                 ? 'flex h-6 w-6 items-center justify-center rounded-full bg-pine text-paper text-xs'
-                : 'flex h-6 w-6 items-center justify-center rounded-full border border-line text-line text-xs'
+                : // was text-line/border-line: 1.26:1, so on the funnel's first screen
+                  // the "there are two more steps" signal was invisible.
+                  'flex h-6 w-6 items-center justify-center rounded-full border border-ink-soft/40 text-ink-soft text-xs'
             }
           >
             {i + 1}
@@ -475,7 +477,7 @@ function InputStep(p: {
   const tab = p.flow.inputTabs[p.inputType];
   return (
     <div className="mt-8">
-      <h1 className="text-2xl font-semibold">{p.flow.intro.title}</h1>
+      <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{p.flow.intro.title}</h1>
       <p className="mt-2 text-ink-soft">{p.flow.intro.body}</p>
       <p className="mt-3 text-sm text-ink-soft">{p.flow.intro.reassure}</p>
       <a
@@ -496,7 +498,7 @@ function InputStep(p: {
         <button
           type="button"
           onClick={p.onQuick}
-          className="mt-3 inline-block rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
+          className="mt-3 inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
         >
           {p.flow.quick.entryButton}
         </button>
@@ -549,6 +551,9 @@ function InputStep(p: {
         <div className="mt-4">
           <textarea
             id="material-input"
+            // the only name this field had was its placeholder, which disappears
+            // the moment anything is typed into it
+            aria-label={tab.tab}
             value={p.text}
             onChange={(e) => p.setText(e.target.value)}
             placeholder={tab.placeholder}
@@ -594,7 +599,10 @@ function InputStep(p: {
             {p.consent.privacyLinkLabel}
           </a>
         </p>
-        <label className="mt-4 flex items-start gap-3 text-sm">
+        {/* leading-relaxed: globals.css only gives zh-Hant 1.85 line-height to
+            p/li/dd/blockquote, so the consent sentence (a <span> in a <label>) was
+            set TIGHTER than the small print directly beneath it. */}
+        <label className="mt-4 flex items-start gap-3 text-sm leading-relaxed">
           <input
             type="checkbox"
             checked={p.consentProcessing}
@@ -604,7 +612,7 @@ function InputStep(p: {
           <span>{p.consent.processing.label}</span>
         </label>
         <p className="ml-7 mt-1 text-xs text-ink-soft">{p.consent.processing.detail}</p>
-        <label className="mt-3 flex items-start gap-3 text-sm">
+        <label className="mt-3 flex items-start gap-3 text-sm leading-relaxed">
           <input
             type="checkbox"
             checked={p.consentAggregate}
@@ -656,20 +664,20 @@ function ConfirmStep(p: {
 
   return (
     <div className="mt-8">
-      <h1 className="text-2xl font-semibold">{c.title}</h1>
+      <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{c.title}</h1>
       <p className="mt-2 text-ink-soft">{c.intro}</p>
 
       <div className="mt-6 space-y-5">
         <Field label={c.identityLabel}>
           <div className="grid gap-2 sm:grid-cols-2">
             <input
-              className="rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+              className="rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
               value={p.edits.current_role ?? ''}
               placeholder={c.notDetected}
               onChange={(e) => set({ current_role: e.target.value })}
             />
             <input
-              className="rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+              className="rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
               value={p.edits.current_org ?? ''}
               placeholder={c.notDetected}
               onChange={(e) => set({ current_org: e.target.value })}
@@ -687,7 +695,7 @@ function ConfirmStep(p: {
           )}
           <textarea
             rows={2}
-            className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+            className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
             value={p.edits.career_summary ?? ''}
             placeholder={c.careerEditPlaceholder}
             onChange={(e) => set({ career_summary: e.target.value })}
@@ -707,7 +715,7 @@ function ConfirmStep(p: {
           )}
           <textarea
             rows={2}
-            className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+            className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
             value={p.edits.sectors_note ?? ''}
             placeholder={c.sectorsEditPlaceholder}
             onChange={(e) => set({ sectors_note: e.target.value })}
@@ -717,7 +725,7 @@ function ConfirmStep(p: {
         <Field label={c.intentLabel}>
           <textarea
             rows={2}
-            className="w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+            className="w-full rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
             value={p.edits.intent_note ?? prof.intent.target_move ?? ''}
             placeholder={c.notDetected}
             onChange={(e) => set({ intent_note: e.target.value })}
@@ -759,19 +767,31 @@ function QuestionsStep(p: {
   const intro = p.qs.length === 0 ? p.questions.introComplete : p.questions.intro;
   return (
     <div className="mt-8">
-      <h1 className="text-2xl font-semibold">{intro.title}</h1>
+      <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{intro.title}</h1>
       <p className="mt-2 text-ink-soft">{intro.body}</p>
 
       <div className="mt-6 space-y-6">
         {p.qs.map((q) => (
           <div key={q.id}>
-            <label className="block text-sm font-medium">{q.label}</label>
+            {/* a <p>, not a <label>: a select question's control is a group of
+                buttons, which a <label> cannot be associated with. The group
+                below points back at it with aria-labelledby instead. */}
+            <p id={`q-${q.id}-label`} className="block text-sm font-medium">
+              {q.label}
+            </p>
             {q.type === 'select' && q.options ? (
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div
+                role="group"
+                aria-labelledby={`q-${q.id}-label`}
+                className="mt-2 flex flex-wrap gap-2"
+              >
                 {q.options.map((o) => (
                   <button
                     key={o.value}
                     type="button"
+                    // aria-pressed to match the identical pills in the quick read —
+                    // the same control was announced two different ways
+                    aria-pressed={p.answers[q.id] === o.value}
                     onClick={() => setA(q.id, o.value)}
                     className={
                       p.answers[q.id] === o.value
@@ -786,10 +806,11 @@ function QuestionsStep(p: {
             ) : (
               <textarea
                 rows={2}
+                aria-labelledby={`q-${q.id}-label`}
                 value={p.answers[q.id] ?? ''}
                 placeholder={q.placeholder}
                 onChange={(e) => setA(q.id, e.target.value)}
-                className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+                className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
               />
             )}
           </div>
@@ -820,7 +841,7 @@ function QuestionsStep(p: {
               value={p.email}
               placeholder={p.questions.emailGate.emailPlaceholder}
               onChange={(e) => p.setEmail(e.target.value)}
-              className="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+              className="mt-1 w-full rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
             />
           </div>
           <div>
@@ -829,7 +850,7 @@ function QuestionsStep(p: {
               value={p.name}
               placeholder={p.questions.emailGate.namePlaceholder}
               onChange={(e) => p.setName(e.target.value)}
-              className="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm focus:border-pine outline-none"
+              className="mt-1 w-full rounded-lg border border-line bg-paper px-4 py-3 text-sm focus:border-pine outline-none"
             />
           </div>
         </div>
@@ -965,13 +986,20 @@ function QuickRead(p: {
 
   return (
     <div className="mt-8">
-      <h1 className="text-2xl font-semibold">{q.title}</h1>
+      <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{q.title}</h1>
       <p className="mt-2 text-ink-soft">{q.intro}</p>
       <div className="mt-6 space-y-6">
         {qs.map((x) => (
           <div key={x.id}>
-            <label className="block text-sm font-medium">{x.label}</label>
-            <div className="mt-2 flex flex-wrap gap-2">
+            {/* same shape as QuestionsStep: a heading-ish <p> plus a labelled group */}
+            <p id={`quick-${x.id}-label`} className="block text-sm font-medium">
+              {x.label}
+            </p>
+            <div
+              role="group"
+              aria-labelledby={`quick-${x.id}-label`}
+              className="mt-2 flex flex-wrap gap-2"
+            >
               {x.options.map((o) => (
                 <button
                   key={o.value}

@@ -176,7 +176,9 @@ export function MbaRoiCalculator({
           <button
             type="button"
             onClick={reset}
-            className="text-xs text-ink-soft underline-offset-2 hover:text-pine hover:underline"
+            /* the label stays 16px so it keeps its baseline with the h2 beside it;
+               the ::after pad lifts the tap target to 44px without moving anything */
+            className="relative text-xs text-ink-soft underline-offset-2 after:absolute after:inset-x-0 after:-inset-y-3.5 after:content-[''] hover:text-pine hover:underline"
           >
             {t.resetLabel}
           </button>
@@ -267,7 +269,9 @@ export function MbaRoiCalculator({
             {r.status === 'never' ? t.paybackNever : `${paybackText} ${t.paybackUnit}`}
           </p>
           <p className="mt-4 max-w-2xl leading-relaxed text-paper/90">{verdict}</p>
-          <p className="mt-3 text-xs text-paper/60">{t.results.payback.help}</p>
+          {/* /60 on bg-pine measured 4.34:1 at 12px, just under AA; /70 is 5.28:1
+              and is already the value used by the sibling 12px labels here. */}
+          <p className="mt-3 text-xs text-paper/70">{t.results.payback.help}</p>
         </div>
 
         {/* the working */}

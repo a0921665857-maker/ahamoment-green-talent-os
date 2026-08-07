@@ -49,6 +49,8 @@ export function TwinRequestForm(props: { locale: Locale; content: TwinContent['r
             if (state === 'invalid') setState('idle');
           }}
           placeholder={t.emailPlaceholder}
+          aria-invalid={state === 'invalid'}
+          aria-describedby={state === 'invalid' ? 'twin-email-error' : undefined}
           className="w-full rounded-lg border border-line bg-paper px-4 py-3 text-sm"
         />
         <button
@@ -59,7 +61,14 @@ export function TwinRequestForm(props: { locale: Locale; content: TwinContent['r
           {t.submitCta}
         </button>
       </div>
-      {state === 'invalid' && <p className="mt-2 text-sm text-band-emerging">{t.invalidEmail}</p>}
+      {/* was text-band-emerging: a band FILL token used as an error colour, 1.54:1
+          on paper — the site's least visible text, on a validation message. Same
+          shape as the error line in MriIntakeFlow. */}
+      {state === 'invalid' && (
+        <p id="twin-email-error" role="alert" className="mt-2 text-sm text-ink">
+          {t.invalidEmail}
+        </p>
+      )}
     </form>
   );
 }

@@ -74,7 +74,9 @@ export function SiteHeader({
               className="group whitespace-nowrap text-sm text-ink-soft transition-colors hover:text-pine"
             >
               <span className="block leading-tight">{d.label}</span>
-              <span className="block text-xs text-ink-soft/70 group-hover:text-pine/70">{d.hint}</span>
+              {/* full-strength ink-soft: the /70 flattened to 3.50:1 on paper, and
+                  this is the persistent header, so it failed AA on every page. */}
+              <span className="block text-xs text-ink-soft group-hover:text-pine">{d.hint}</span>
             </a>
           ))}
           <a
@@ -96,9 +98,12 @@ export function SiteHeader({
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-nav-mobile"
-            className="rounded-lg border border-line px-3 py-1.5 text-sm"
+            aria-label={open ? n.menuClose : n.menuOpen}
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-line px-3 py-1.5 text-sm"
           >
-            {open ? '×' : '≡'}
+            {/* the glyph was the button's whole accessible name: a screen reader
+                announced "identical to" for the site's only mobile nav control. */}
+            <span aria-hidden="true">{open ? '×' : '≡'}</span>
           </button>
         </div>
       </div>

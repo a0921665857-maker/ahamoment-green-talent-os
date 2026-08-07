@@ -57,13 +57,13 @@ export function SaveForLater(p: { locale: Locale; copy: FlowContent['saveLater']
             setEmail(e.target.value);
             if (state === 'error') setState('idle');
           }}
-          className="min-w-0 flex-1 rounded border border-line bg-paper px-3 py-2 text-sm outline-none focus:border-pine"
+          className="min-h-[44px] min-w-0 flex-1 rounded-lg border border-line bg-paper px-4 py-3 text-sm outline-none focus:border-pine"
         />
         <button
           type="button"
           disabled={state === 'busy'}
           onClick={submit}
-          className="rounded-lg border border-pine px-4 py-2 text-sm text-pine disabled:opacity-40"
+          className="inline-flex min-h-[44px] items-center rounded-lg border border-pine px-4 py-2 text-sm text-pine disabled:opacity-40"
         >
           {p.copy.cta}
         </button>

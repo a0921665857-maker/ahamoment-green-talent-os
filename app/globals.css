@@ -12,9 +12,15 @@
   --color-sage: #7fa98f;
   --color-sage-soft: #dde8e0;
 
-  /* Bands use a single green ramp — never traffic lights */
+  /* Bands use a single green ramp — never traffic lights.
+     `developing` carries text (the 發展中 pill on every report), so it is the one
+     band value pinned by contrast rather than by taste: paper on #527965 is
+     4.52:1, just over AA; the previous #5d8a73 was 3.62:1 and no foreground in
+     the palette could rescue it. The ramp still reads as one green — developing
+     vs strong 1.96:1, developing vs emerging 2.93:1.
+     Mirrored in lib/shareCardStyle.ts BAND_COLORS for the OG image. */
   --color-band-emerging: #b9cdc0;
-  --color-band-developing: #5d8a73;
+  --color-band-developing: #527965;
   --color-band-strong: #1e4d3b;
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
@@ -49,11 +55,18 @@ body {
   font-weight: 600;
 }
 
-/* Visible keyboard focus, quality floor */
+/* Visible keyboard focus, quality floor.
+   No `border-radius` here: this block is unlayered and Tailwind's `rounded-*`
+   live in @layer utilities, so setting a radius on the focused ELEMENT won the
+   cascade and squared off every pill and card the moment it was tabbed to.
+   Browsers already draw the outline along the element's own radius.
+   The 2px paper ring fills the outline-offset gap, so the pine outline stays
+   visible on the reverse CTAs that sit on bg-pine (where ring-on-ground was
+   1.00:1). On a paper ground the ring is the background colour, i.e. invisible. */
 :focus-visible {
   outline: 2px solid var(--color-pine);
   outline-offset: 2px;
-  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--color-paper);
 }
 
 ::selection {
