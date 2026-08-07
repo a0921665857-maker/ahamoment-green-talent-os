@@ -117,8 +117,12 @@
   .bridge .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink2);display:block;margin-bottom:6px}
   .bridge h2{font-size:17px;font-weight:700;margin:0 0 8px}
   .bridge p{margin:0 0 10px;font-size:14.5px}
-  .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:12px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
-  .bridgebtn:hover{opacity:.9}
+  /* 選擇器必須是 .tw2sg-root .bridgebtn（0,2,0）才壓得過上面的 .tw2sg-root a（0,1,1）。
+     寫成裸 .bridgebtn（0,1,0）時 color:#fff 會被連結色 var(--sg) 蓋掉，
+     文字與底色同為 #00703C，對比 1.00:1＝按鈕字隱形（2026-08-07 審計實測）。
+     同理不改用 !important——這是層級問題，用層級解。 */
+  .tw2sg-root .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:12px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
+  .tw2sg-root .bridgebtn:hover{opacity:.9}
   .bridge .disclose{font-size:12.5px;color:var(--ink2);margin:10px 0 0}
 
   .tw2sg-root footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--ink2)}
@@ -423,7 +427,7 @@
 <footer>
   <p><b>免責聲明</b>：本站為個人維護的資訊整理，非官方網站，不構成法律、稅務或移民建議。內容可能過時或有誤，一切以各機關官方頁面為準。</p>
   <p>維護方式：本站由一位在新加坡工作的台灣人建立，以自動化工具驗證連結與數值；驗證頻率不作承諾。所以每張卡標日期、逾期自動警示，你不用信任站長的勤勞，只需要看日期。斷鏈與變動只標「失效待驗」，不自動改寫內容。</p>
-  <p>內容授權：CC BY 4.0・全站最後驗證 2026-08-06・本頁建置於 2026-08-06。</p>
+  <p>內容授權：CC BY 4.0・全站最後驗證 2026-08-06・本頁建置於 2026-08-07。</p>
 </footer>
 </div>
 

@@ -62,11 +62,25 @@ body {
    Browsers already draw the outline along the element's own radius.
    The 2px paper ring fills the outline-offset gap, so the pine outline stays
    visible on the reverse CTAs that sit on bg-pine (where ring-on-ground was
-   1.00:1). On a paper ground the ring is the background colour, i.e. invisible. */
+   1.00:1). On a paper ground the ring is the background colour, i.e. invisible.
+   A pure `outline` cannot draw that second ring — an element gets one outline —
+   so the ring has to be a box-shadow. But a flat `box-shadow: <ring>` REPLACES
+   the property, and this block is unlayered, so it beat Tailwind's `shadow-*`
+   utilities and every card's lift vanished the moment it was tabbed to.
+   Fix: rebuild the shadow the way Tailwind v4 itself does, out of its own slot
+   variables, and drop the ring into the slot reserved for rings. The element's
+   own `--tw-shadow` (shadow-sm, or shadow-md while hovered) survives untouched;
+   elements with no shadow utility resolve the slots to transparent and get the
+   ring alone. Keep the slot order identical to Tailwind's or the ring paints
+   under the drop shadow. */
 :focus-visible {
   outline: 2px solid var(--color-pine);
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px var(--color-paper);
+  --tw-ring-shadow: 0 0 0 2px var(--color-paper);
+  box-shadow:
+    var(--tw-inset-shadow, 0 0 #0000), var(--tw-inset-ring-shadow, 0 0 #0000),
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
 }
 
 ::selection {

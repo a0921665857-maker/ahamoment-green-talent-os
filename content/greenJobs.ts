@@ -156,7 +156,7 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '這個缺表面是數據分析師，但 JD 明寫要 support「sector-specific 與 ESG analytics」的開發與交付、跟 ESG stakeholders 一起釐清分析需求，還要試 GenAI 驅動的分析自動化。這讀起來像批發銀行把 ESG 數據從人工整理，推進到工程化、可重複產出的階段——ESG 是它幾條 sector analytics 之一，不是全部，但已經被寫進核心職責而不是點綴。訊號是銀行端的 ESG 工作正在「資料工程化」，需要的是會寫 code 的人，不只是懂框架的人。',
+        '這個缺表面是數據分析師，但 JD 明寫要 support「sector-specific 與 ESG analytics」的開發與交付、跟 ESG stakeholders 一起釐清分析需求，還要試 GenAI 驅動的分析自動化。這讀起來像批發銀行把 ESG 數據從人工整理，推進到工程化、可重複產出的階段：ESG 是它幾條 sector analytics 之一，不是全部，但已經被寫進核心職責而不是點綴。訊號是銀行端的 ESG 工作正在「資料工程化」，需要的是會寫 code 的人，不只是懂框架的人。',
         '適合會 Python、SQL、又聽得懂 ESG 語彙的資料人：JD 要 3 到 5 年資料分析經驗、偏好銀行或受監管環境。面試別強調你懂 ESG 框架，帶一個你把某類分析從人工變成自動 pipeline 的實例，講清楚 ETL 怎麼設計。誠實代價：ESG 只是這個 wholesale banking 分析職能的一塊，想做純永續的人會覺得比重不夠；掛出沒多久已 200 人以上申請；薪資未揭露、MCF 查無同職缺。',
       ],
       takeEn: [
@@ -197,7 +197,7 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        '這是一家上市地產集團把 ESG 治理與揭露當成 senior manager 級的常設專職：JD 要 lead 年度永續報告與 Board、管理層揭露、管 GRESB、MSCI、DJSI 這些 ESG 評級與投資人揭露、還要 oversee 永續資料系統的持續改善。這讀起來像公司在回應投資人與評級機構的壓力——ESG 評分直接影響它在資本市場被怎麼看，所以要一個能同時搞定報告品質與資料系統的人。訊號是 ESG 揭露在上市公司這端，已經從「合規任務」變成「投資人關係的一部分」。',
+        '這是一家上市地產集團把 ESG 治理與揭露當成 senior manager 級的常設專職：JD 要 lead 年度永續報告與 Board、管理層揭露、管 GRESB、MSCI、DJSI 這些 ESG 評級與投資人揭露、還要 oversee 永續資料系統的持續改善。這讀起來像公司在回應投資人與評級機構的壓力：ESG 評分直接影響它在資本市場被怎麼看，所以要一個能同時搞定報告品質與資料系統的人。訊號是 ESG 揭露在上市公司這端，已經從「合規任務」變成「投資人關係的一部分」。',
         '適合真的 lead 過上市公司永續報告全流程的人：JD 要 10 年以上、且點名要有帶上市跨國公司永續報告的實績，資淺的人接不住這個 governance 層級。面試帶你經手過的一份完整永續報告、或你把某個 ESG 評級分數拉上去的具體做法。代價：這是報告與治理職，不是策略或投資職，天花板在「把數字管好」；薪資未揭露；需要英文加粵語與普通話。',
       ],
       takeEn: [
@@ -217,7 +217,7 @@ export const greenJobs: GreenJobsData = {
       salaryEn: 'Not disclosed — ask directly at interview',
       salarySources: [],
       takeZh: [
-        'Big 4 的氣候與永續服務開 senior 缺，是這個行業需求的溫度計：JD 要幫客戶編 ESG 報告並給對齊資本市場期待的管理建議、協助制定 ESG 策略與碳目標、還要做 ESG 風險管理含供應鏈與 EHS。這讀起來是標準的 ESG 顧問配置——技術要夠、又要能面對客戶。訊號是香港企業的 ESG 合規需求還在擴，撐得起 Big 4 持續補顧問人力。',
+        'Big 4 的氣候與永續服務開 senior 缺，是這個行業需求的溫度計：JD 要幫客戶編 ESG 報告並給對齊資本市場期待的管理建議、協助制定 ESG 策略與碳目標、還要做 ESG 風險管理含供應鏈與 EHS。這讀起來是標準的 ESG 顧問配置：技術要夠、又要能面對客戶。訊號是香港企業的 ESG 合規需求還在擴，撐得起 Big 4 持續補顧問人力。',
         '適合在企業或顧問端做過 ESG、想要顧問槓桿的人：JD 要 4 年以上顧問或商業經驗、且要有 ESG、CSR、碳管理、EHS 或再生能源其中的實戰底。面試帶一個你實際做過的碳盤查或 ESG 策略案，講你怎麼跟客戶把方法學口徑講定。代價是顧問業老三樣：工時、專案壓力，以及 senior 這層要同時 delivery 又開始帶人；薪資未揭露。',
       ],
       takeEn: [

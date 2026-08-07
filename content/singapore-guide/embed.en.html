@@ -117,8 +117,12 @@
   .bridge .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--ink2);display:block;margin-bottom:6px}
   .bridge h2{font-size:17px;font-weight:700;margin:0 0 8px}
   .bridge p{margin:0 0 10px;font-size:14.5px}
-  .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:12px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
-  .bridgebtn:hover{opacity:.9}
+  /* 選擇器必須是 .tw2sg-root .bridgebtn（0,2,0）才壓得過上面的 .tw2sg-root a（0,1,1）。
+     寫成裸 .bridgebtn（0,1,0）時 color:#fff 會被連結色 var(--sg) 蓋掉，
+     文字與底色同為 #00703C，對比 1.00:1＝按鈕字隱形（2026-08-07 審計實測）。
+     同理不改用 !important——這是層級問題，用層級解。 */
+  .tw2sg-root .bridgebtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:12px;background:var(--sg);color:#fff;font-weight:700;text-decoration:none}
+  .tw2sg-root .bridgebtn:hover{opacity:.9}
   .bridge .disclose{font-size:12.5px;color:var(--ink2);margin:10px 0 0}
 
   .tw2sg-root footer{margin-top:36px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--ink2)}
@@ -423,7 +427,7 @@
 <footer>
   <p><b>Disclaimer</b>: this is a personally maintained information digest, not an official website, and it is not legal, tax or immigration advice. Content may be outdated or wrong; the official pages of each agency always prevail.</p>
   <p>How this is maintained: built by a Taiwanese professional working in Singapore, with automated link and figure verification; no verification cadence is promised. That is why every card carries a date and auto-flags when stale: you never have to trust the maintainer's diligence, only read the date. Broken links and changed values are only flagged as pending re-verification, never silently rewritten.</p>
-  <p>Content licence: CC BY 4.0 · Site-wide last verified 2026-08-06 · Page built 2026-08-06.</p>
+  <p>Content licence: CC BY 4.0 · Site-wide last verified 2026-08-06 · Page built 2026-08-07.</p>
 </footer>
 </div>
 

@@ -34,7 +34,11 @@ export function ProgressStages({
         {stages.map((s, idx) => (
           <li
             key={idx}
-            className={idx <= i ? 'text-ink transition-colors' : 'text-line transition-colors'}
+            // Pending stages are dimmer, not unreadable: `line` is the hairline
+            // token (#d9ded5 on paper = 1.26:1) and these are real words the user
+            // reads while waiting. `ink-soft` is 7.17:1 and still clearly recedes
+            // from `ink` — the same pair the MRI step indicator already uses.
+            className={idx <= i ? 'text-ink transition-colors' : 'text-ink-soft transition-colors'}
           >
             {s}
             {idx === i && <span className="text-pine">{' ' + '·'.repeat(dots)}</span>}
