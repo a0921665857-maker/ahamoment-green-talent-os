@@ -1,8 +1,23 @@
 import type { Locale } from '@/lib/constants';
+import { salaryIndexMeta } from '@/content/salaryIndex';
 
-/** Copy for /salary-index. Stand-alone, like nav and payment. */
+/**
+ * Copy for /salary-index. Stand-alone, like nav and payment.
+ *
+ * NO COUNT AND NO CADENCE IS TYPED INTO A SENTENCE (2026-08-08 freshness audit).
+ * The eyebrow used to read 「一手資料 · 每週更新」 and the method list used to say
+ * 「目前庫裡的 98 筆全部是 2026-07-21 到 07-28 之間入庫的」. Both were true when
+ * written and both rotted: the export stopped running for a week while the page
+ * kept promising weekly, and the ledger reached 113 rows while the page kept
+ * saying 98. Anything that is a fact about the snapshot is now read out of
+ * `salaryIndexMeta`, which the exporter rewrites, so a sentence here cannot fall
+ * behind the table beneath it. `updatedLine` carries the last export date, which
+ * is the claim that can always be checked; the cadence is stated only next to it.
+ */
 export interface SalaryIndexCopy {
   eyebrow: string;
+  /** Last-export disclosure. Contains {date}. Rendered beside the coverage span. */
+  updatedLine: string;
   title: string;
   intro: string;
   methodTitle: string;
@@ -32,17 +47,18 @@ export interface SalaryIndexCopy {
 
 export const salaryIndexCopy: Record<Locale, SalaryIndexCopy> = {
   'zh-TW': {
-    eyebrow: '一手資料 · 每週更新',
+    eyebrow: '一手資料 · 逐筆來自職缺頁',
+    updatedLine: '最後更新於 {date}（排程每週日重跑一次；沒有新觀測的那一週，這個日期就不會動）',
     title: '綠領揭薪指數',
     intro:
       '這裡的每一個數字，都來自一則真的把薪水寫出來的職缺。沒有推估、沒有自報、沒有從獵頭報告轉抄。代價是它很稀疏：多數格子還不能公布，而那些空格會照原樣留在頁面上。',
     methodTitle: '這份資料怎麼來的',
     method: [
       '只收職缺頁上逐字寫出來的薪資（posted）。模型推估與自報薪資一律不進資料庫。',
-      '職缺頁沒寫清楚年資的，那一筆不進任何格子。目前有 26 筆是這種狀況，它們只計入總數，不影響任何區間。',
+      `職缺頁沒寫清楚年資的，那一筆不進任何格子。目前有 ${salaryIndexMeta.excludedUnknownSeniority} 筆是這種狀況，它們只計入總數，不影響任何區間。`,
       '一個格子要累積到 5 則不同的職缺才公布區間。不到 5 筆的格子照樣顯示，只是不給數字，並寫出目前有幾筆。',
-      '公布的是中位數與 P25–P75（第 25 到第 75 百分位），不是最低到最高。第一版曾經發過最低到最高，結果一則月薪 SGD 1,000 的實習職缺就把新加坡入門的下限拉到 1,000。那個數字誤導，2026-07-30 已修正。實習職缺現在直接排除，重複抓到的同一則職缺也排除（有 12 筆）。',
-      '誰在收、收多久：一個排程每週日自動掃三個市場的職缺板，不是人工逐筆輸入。目前庫裡的 98 筆全部是 2026-07-21 到 07-28 之間入庫的。這本帳只有幾天大，不是幾個月。下面標的 2025-11 到 2026-07 是「職缺被刊登／被看到的日期」，不是收集期間。',
+      `公布的是中位數與 P25–P75（第 25 到第 75 百分位），不是最低到最高。第一版曾經發過最低到最高，結果一則月薪 SGD 1,000 的實習職缺就把新加坡入門的下限拉到 1,000。那個數字誤導，2026-07-30 已修正。實習職缺現在直接排除，重複抓到的同一則職缺也排除（有 ${salaryIndexMeta.excludedDuplicate} 筆）。`,
+      `誰在收、收多久：一個排程每週日自動掃三個市場的職缺板，不是人工逐筆輸入。這本帳從 ${salaryIndexMeta.ledgerOpenedOn} 才開始記，目前庫裡 ${salaryIndexMeta.totalObservations} 筆，最後一次重新匯出是 ${salaryIndexMeta.exportedOn}。它只有幾週大，不是幾年。下面標的 ${salaryIndexMeta.firstSeen} 到 ${salaryIndexMeta.lastSeen} 是「職缺被刊登／被看到的日期」，不是收集期間。`,
     ],
     methodExtra:
       '狀態誠實揭露：每一筆都是當時從職缺頁讀到的，但尚未逐筆重新開頁核對，所以整份標為「來源可查、未逐筆複驗」。在完成抽查之前，我們不會說它「經過稽核」。',
@@ -71,17 +87,19 @@ export const salaryIndexCopy: Record<Locale, SalaryIndexCopy> = {
     nextCta: '看 Offer 與路徑判讀',
   },
   en: {
-    eyebrow: 'First-hand data · updated weekly',
+    eyebrow: 'First-hand data · straight off the postings',
+    updatedLine:
+      'Last updated {date} (the sweep re-runs every Sunday; in a week with no new observations this date does not move)',
     title: 'Green-Collar Posted-Salary Index',
     intro:
       'Every number here comes from a job posting that actually printed a salary. Nothing is modelled, self-reported, or copied from a recruiter’s guide. The cost of that rule is sparseness — most cells cannot be published yet, and those empty cells stay on the page exactly as they are.',
     methodTitle: 'How this data is collected',
     method: [
       'Only salaries printed verbatim on the posting are recorded. Model estimates and self-reported figures never enter the database.',
-      'If a posting does not make seniority readable, that row enters no cell — 26 rows are currently in that state. They count towards the total and affect no range.',
+      `If a posting does not make seniority readable, that row enters no cell — ${salaryIndexMeta.excludedUnknownSeniority} rows are currently in that state. They count towards the total and affect no range.`,
       'A cell publishes a range only once it holds 5 distinct postings. Below that the cell still appears, without numbers, showing how many it has.',
-      'What is published is the median and the P25–P75 range, not the lowest-to-highest. The first version published lowest-to-highest, and a single SGD 1,000/month internship posting dragged Singapore’s entry floor down to 1,000 — that number was misleading and was corrected on 2026-07-30. Internships are now excluded outright, as are the 12 rows that turned out to be the same posting captured twice.',
-      'Who collects it, and for how long: a scheduled job sweeps three markets’ job boards every Sunday. Nothing is hand-entered. All 98 rows currently in the ledger were inserted between 2026-07-21 and 07-28 — this ledger is days old, not months. The 2025-11 to 2026-07 span below is when the POSTINGS were seen, not how long collection has run.',
+      `What is published is the median and the P25–P75 range, not the lowest-to-highest. The first version published lowest-to-highest, and a single SGD 1,000/month internship posting dragged Singapore’s entry floor down to 1,000 — that number was misleading and was corrected on 2026-07-30. Internships are now excluded outright, as are the ${salaryIndexMeta.excludedDuplicate} rows that turned out to be the same posting captured twice.`,
+      `Who collects it, and for how long: a scheduled job sweeps three markets’ job boards every Sunday. Nothing is hand-entered. The ledger only opened on ${salaryIndexMeta.ledgerOpenedOn}, holds ${salaryIndexMeta.totalObservations} rows today, and was last re-exported on ${salaryIndexMeta.exportedOn} — weeks old, not years. The ${salaryIndexMeta.firstSeen} to ${salaryIndexMeta.lastSeen} span below is when the POSTINGS were seen, not how long collection has run.`,
     ],
     methodExtra:
       'Status, honestly: every row was read off the posting at capture time, and none has been re-opened since, so the whole snapshot is marked "source available, not individually re-verified". Until a spot-check is recorded we will not call it audited.',

@@ -5,6 +5,25 @@ import { isLocale } from '@/content/locales';
 import { costOfLiving } from '@/content/costOfLiving';
 import { SgOfficialDataSection } from '@/components/SgOfficialDataSection';
 import { alternatesFor } from '@/lib/seoAlternates';
+import { fillYear } from '@/lib/siteMeta';
+
+/**
+ * Period + check date under an estimate table, deliberately built to look like
+ * the `SourceLine` inside SgOfficialDataSection: same size, same colour, same
+ * measure. The two layers should read as equally documented, because the whole
+ * point of the page is that only one of them is official — the reader has to be
+ * able to see which, and how old each one is, without leaving the table.
+ */
+function EstimateSourceLine({ badge, text }: { badge: string; text: string }) {
+  return (
+    <p className="mt-2 max-w-[35rem] text-xs leading-relaxed text-ink-soft">
+      <span className="mr-2 rounded bg-mist px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-eyebrow text-ink-soft">
+        {badge}
+      </span>
+      {text}
+    </p>
+  );
+}
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -91,6 +110,7 @@ export default async function CostOfLivingPage({
             </tbody>
           </table>
         </div>
+        <EstimateSourceLine badge={r.estimateBadge} text={r.sgTableSource} />
         <p className="mt-4 text-ink-soft">{r.sgAfter}</p>
 
         {/* Official data.gov.sg figures. Separate section, never merged with the estimates above. */}
@@ -129,6 +149,7 @@ export default async function CostOfLivingPage({
             </tbody>
           </table>
         </div>
+        <EstimateSourceLine badge={r.estimateBadge} text={r.twTableSource} />
         <p className="mt-4 text-ink-soft">{r.twAfter}</p>
 
         {/* the verdict */}
@@ -157,6 +178,10 @@ export default async function CostOfLivingPage({
             </tbody>
           </table>
         </div>
+        <EstimateSourceLine
+          badge={L === 'zh-TW' ? '我的推估' : 'My estimate'}
+          text={r.verdictSource}
+        />
 
         {/* the insight */}
         <div className="mt-8 rounded-xl border border-pine/30 bg-mist/50 px-6 py-6">
@@ -211,7 +236,9 @@ export default async function CostOfLivingPage({
           </ul>
         </details>
 
-        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
+        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">
+          {fillYear(r.footer)}
+        </p>
       </main>
     </div>
   );

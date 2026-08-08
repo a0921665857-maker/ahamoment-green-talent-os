@@ -12,6 +12,16 @@ import type { Locale } from '@/lib/constants';
  * the site name and a language switcher, so anyone arriving from search on
  * /salary-report had no way to reach anything else — the site was a star of
  * dead ends around the home page.
+ *
+ * NO UPDATE CADENCE IN THE NAV (2026-08-08 freshness audit). Two of these links
+ * used to read 「綠領揭薪指數（週更）」 and 「綠領職缺雷達（週更）」, which put a
+ * frequency promise onto 20-plus pages while nothing on any of those pages could
+ * tell the reader whether the promise was still being kept — and for a stretch it
+ * was not: the index page said "updated weekly" while its numbers had been frozen
+ * since 07-30. A rail is the worst place for a claim with an expiry date, because
+ * it is the one surface that cannot show the evidence next to it. The cadence now
+ * lives only on the two pages themselves, beside the date of the last real update,
+ * where a reader can check it in one glance.
  */
 export interface NavCopy {
   /** Skip-to-content label (accessibility). */
@@ -51,7 +61,7 @@ const zh: NavCopy = {
   doors: [
     { label: '我不知道我缺什麼', hint: '五分鐘免費診斷', href: '/mri' },
     { label: '我想補上缺的那一塊', hint: '免費 12 題判斷練習', href: '/judgment' },
-    { label: '我正在看職缺', hint: '本週精選＋JD 判讀', href: '/jobs' },
+    { label: '我正在看職缺', hint: '精選職缺＋JD 判讀', href: '/jobs' },
     { label: '我在比薪資或 offer', hint: '亞太綠領薪資帶', href: '/salary-report' },
     { label: '我要去新加坡了', hint: '官方流程中文導覽', href: '/singapore' },
   ],
@@ -69,10 +79,10 @@ const zh: NavCopy = {
     {
       title: '資料與情報',
       links: [
-        { label: '綠領揭薪指數（週更）', href: '/salary-index' },
+        { label: '綠領揭薪指數', href: '/salary-index' },
         { label: '2026 亞太綠領薪資報告', href: '/salary-report' },
         { label: '綠領晉級地圖', href: '/levelup' },
-        { label: '綠領職缺雷達（週更）', href: '/jobs' },
+        { label: '綠領職缺雷達', href: '/jobs' },
         { label: '異地生活成本', href: '/cost-of-living' },
         { label: '台灣人赴新加坡指南', href: '/singapore' },
       ],
@@ -112,7 +122,7 @@ const en: NavCopy = {
   doors: [
     { label: 'I don’t know what I’m missing', hint: 'Free 5-minute diagnostic', href: '/mri' },
     { label: 'I want to close the gap', hint: 'Free, 12 judgement exercises', href: '/judgment' },
-    { label: 'I’m looking at roles', hint: 'Weekly picks + JD read', href: '/jobs' },
+    { label: 'I’m looking at roles', hint: 'Curated picks + JD read', href: '/jobs' },
     { label: 'I’m comparing an offer', hint: 'APAC green-collar bands', href: '/salary-report' },
     { label: 'I’m moving to Singapore', hint: 'Relocation guide', href: '/singapore' },
   ],
@@ -130,10 +140,10 @@ const en: NavCopy = {
     {
       title: 'Data & intelligence',
       links: [
-        { label: 'Posted-salary index (weekly)', href: '/salary-index' },
+        { label: 'Posted-salary index', href: '/salary-index' },
         { label: '2026 APAC green salary report', href: '/salary-report' },
         { label: 'Green career level-up map', href: '/levelup' },
-        { label: 'Green jobs radar (weekly)', href: '/jobs' },
+        { label: 'Green jobs radar', href: '/jobs' },
         { label: 'Cost of living', href: '/cost-of-living' },
         { label: 'Taiwan → Singapore guide', href: '/singapore' },
       ],

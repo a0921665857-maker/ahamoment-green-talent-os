@@ -82,9 +82,15 @@ export default async function SalaryIndexPage({
             </div>
           ))}
         </dl>
-        <p className="mt-3 text-xs text-ink-soft">
-          {salaryIndexMeta.firstSeen} → {salaryIndexMeta.lastSeen} ·{' '}
-          {L === 'zh-TW' ? '匯出日' : 'exported'} {salaryIndexMeta.exportedOn}
+        {/* The freshness claim and the date that proves it, in one line. The
+            eyebrow used to promise 「每週更新」 with nothing beside it to check
+            the promise against, and the promise outlived the fact by a week. */}
+        <p className="mt-3 max-w-[35rem] text-xs text-ink-soft">
+          {t.updatedLine.replace('{date}', salaryIndexMeta.exportedOn)}
+        </p>
+        <p className="mt-1 text-xs text-ink-soft">
+          {L === 'zh-TW' ? '職缺刊登日期範圍' : 'Postings seen between'} {salaryIndexMeta.firstSeen} →{' '}
+          {salaryIndexMeta.lastSeen}
         </p>
 
         <section className="mt-12">

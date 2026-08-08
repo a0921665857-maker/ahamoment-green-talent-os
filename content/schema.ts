@@ -416,6 +416,21 @@ export interface JudgmentContent {
     timeLabel: string;
     explainerSummary: string;
     explainerPending: string;
+    /**
+     * When the regulations and figures in a three-minute explainer were last
+     * checked. Contains {date}, filled from `explainers[id].meta.as_of`.
+     *
+     * The data has carried this date since the corpus was written and the UI
+     * never rendered it, so 26 explainers full of hard regulatory detail (金管會
+     * 公告日, 第一階段 170 家, 每年 8/31 前申報) read as permanently correct. A
+     * reader acting on a superseded rule had no way to know it was superseded.
+     */
+    explainerAsOf: string;
+    /**
+     * Shown on competencies the corpus itself marks `volatile`. Contains {date}
+     * from the competency's own `as_of`, which can be newer than its explainer's.
+     */
+    volatileAsOf: string;
     repsAttached: string; // contains {n}
     moreLabel: string; // contains {n}
     cta: string;
@@ -423,6 +438,12 @@ export interface JudgmentContent {
   reps: {
     title: string;
     rule: string;
+    /**
+     * Freshness of the regulations and figures a drill is built on, shown with
+     * the question rather than buried in the sources at the end. Contains {date},
+     * derived from the OLDEST `as_of` across the drill's own sources.
+     */
+    asOf: string;
     stateTitle: string;
     /** Local-only storage disclosure — shown wherever progress is written. */
     storageNote: string;

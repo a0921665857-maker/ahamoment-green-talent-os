@@ -14,7 +14,11 @@ type Status = 'idle' | 'submitting' | 'success' | 'error';
 const NEWSLETTER_ENABLED = false;
 
 /**
- * Newsletter (《綠領情報》週刊) email capture. Posts to /api/newsletter/subscribe.
+ * Newsletter (《綠領情報》) email capture. Posts to /api/newsletter/subscribe.
+ *
+ * The copy it renders promises no send frequency, and must not start promising
+ * one when the flag above flips: there is still no send pipeline. See the header
+ * comment in content/newsletter.ts.
  */
 export function NewsletterSignup({
   locale,

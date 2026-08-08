@@ -140,6 +140,22 @@ export function competency(id: string): JudgmentCompetency | undefined {
   return judgmentData.graph.competencies.find((c) => c.id === id);
 }
 
+/**
+ * When a drill's underlying regulations were last checked.
+ *
+ * The OLDEST source date, not the newest: a drill is only as current as its
+ * weakest citation, and quoting the newest would let one freshly re-checked link
+ * vouch for five that were not. Returns null when nothing carries a date, and
+ * the caller then shows no claim at all rather than an invented one.
+ */
+export function repAsOf(rep: JudgmentRep): string | null {
+  const dates = (rep.sources ?? [])
+    .map((s) => s.as_of)
+    .filter((d): d is string => Boolean(d))
+    .sort();
+  return dates[0] ?? null;
+}
+
 export function familyName(id: string): string {
   return judgmentData.graph.job_families.find((f) => f.id === id)?.name_zh ?? id;
 }

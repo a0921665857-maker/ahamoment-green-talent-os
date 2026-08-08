@@ -6,10 +6,14 @@ import { salaryReports } from '@/content/salaryReport';
 import { newsletterCopy } from '@/content/newsletter';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 import { alternatesFor } from '@/lib/seoAlternates';
+import { fillYear } from '@/lib/siteMeta';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
+
+/** Same reason as /levelup: the footer's © year is rendered, not baked. */
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,
@@ -269,7 +273,9 @@ export default async function SalaryReportPage({
           </div>
         </details>
 
-        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
+        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">
+          {fillYear(r.footer)}
+        </p>
       </main>
     </div>
   );

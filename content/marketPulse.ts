@@ -2,6 +2,11 @@
 // 資料紀律與 salaryBands 同級:人工策展、來源可指、絕不 LLM 生成;
 // 每週日由 green-jobs-weekly 管線更新本檔(與職缺頁同一次獨立稽核、同一次放行)。
 // updatedAt 超過 STALE_DAYS 未更新時區塊整個不渲染,寧可消失不可過期。
+//
+// 文案不寫「本週」(2026-08-08 內容鮮度盤點)。這張卡最長可以活 21 天,所以
+// 「本週抓到的」在第 20 天就是假話;而且它的 CTA 原本叫「本週完整精選」,指向的
+// /jobs 已經改叫「精選職缺」,連名字都對不上。現在一律寫「最近一次掃描」,那句話
+// 在整個 21 天視窗內都為真,而卡片自己就印著 updatedAt 讓讀者自己判斷有多新。
 
 export const MARKET_PULSE_STALE_DAYS = 21;
 
@@ -49,17 +54,17 @@ export const marketPulse = {
   ] satisfies MarketPulseItem[],
   zh: {
     eyebrow: '市場脈搏',
-    intro: '你的診斷不是對著真空講的。這份報告產出的當週,新加坡綠領市場真實掛出的含薪職缺:',
-    reading: '本週抓到的含薪新掛集中在碳市場與 ESG 轉型顧問兩條線,職缺頁自己揭露的月薪帶如上。',
+    intro: '你的診斷不是對著真空講的。這是最近一次掃描時，新加坡綠領市場真實掛出的含薪職缺：',
+    reading: '這一批含薪新掛集中在碳市場與 ESG 轉型顧問兩條線，職缺頁自己揭露的月薪帶如上。',
     sourceNote: '來源:MyCareersFuture(新加坡政府職缺庫,法規要求揭薪)。連結入檔當日逐一驗證,職缺隨時可能關閉。',
-    jobsCta: '本週完整精選與點評 →',
+    jobsCta: '完整精選與點評 →',
   } satisfies MarketPulseCopy,
   en: {
     eyebrow: 'Market pulse',
-    intro: 'Your diagnosis is not made in a vacuum. Salary-disclosed green roles posted in Singapore the week this report was generated:',
-    reading: 'This week’s salary-disclosed postings cluster in carbon markets and ESG transition consulting; monthly bands above are disclosed by the postings themselves.',
+    intro: 'Your diagnosis is not made in a vacuum. These are salary-disclosed green roles that were live in Singapore as of the last sweep:',
+    reading: 'This batch of salary-disclosed postings clusters in carbon markets and ESG transition consulting; monthly bands above are disclosed by the postings themselves.',
     sourceNote: 'Source: MyCareersFuture (Singapore government job portal; salary disclosure required by regulation). Links verified the day of entry; postings can close at any time.',
-    jobsCta: 'Full weekly picks and commentary →',
+    jobsCta: 'Full picks and commentary →',
   } satisfies MarketPulseCopy,
 };
 

@@ -4,9 +4,17 @@ import type { Locale } from '@/lib/constants';
  * 綠領職缺雷達 (Green-Collar Jobs Radar) — a curated launchpad, NOT a scraped feed.
  * We never re-host or resell listings: every link points to an employer's own
  * page or a public job board's search. `weeklyPicks` is a small, human-approved
- * shortlist refreshed weekly (empty is fine — the page then nudges the newsletter).
+ * shortlist (empty is fine — the page then nudges the newsletter).
  *
  * Data is language-neutral (orgs, URLs); chrome/labels live in `greenJobsCopy`.
+ *
+ * THE FIELD IS STILL CALLED `weeklyPicks`, THE COPY NO LONGER IS (2026-08-08
+ * freshness audit). The reader-facing strings used to say 「本週精選」 and "Picks
+ * refresh weekly" while the pick set had not moved since 07-28, so the page was
+ * dating itself wrong on its own front. What the page now shows is `updatedAt`
+ * plus 「最後更新於」, which is true at whatever cadence the sweep actually runs.
+ * The field name is left alone on purpose: renaming it would touch the scheduled
+ * pipeline that writes this file, for no reader-visible gain.
  */
 export type MarketKey = 'SG' | 'TW' | 'HK' | 'UK';
 
@@ -321,10 +329,10 @@ export const greenJobsCopy: Record<Locale, GreenJobsCopy> = {
     eyebrow: '綠領職缺雷達',
     title: '亞太綠領職缺，一頁看清該去哪裡找。',
     intro:
-      '我們不轉存、也不販售職缺。這頁把最值得盯的雇主和求職平台整理好，連結一律導向官方原始頁面，每週更新精選。',
-    updatedPrefix: '更新於',
-    weeklyTitle: '本週精選',
-    weeklyEmpty: '本週精選整理中。訂閱《綠領情報》週刊，每週一收到當週 Top 10。',
+      '我們不轉存、也不販售職缺。這頁把最值得盯的雇主和求職平台整理好，連結一律導向官方原始頁面。精選由排程掃描後更新，最後一次更新的日期就標在下面。',
+    updatedPrefix: '最後更新於',
+    weeklyTitle: '精選職缺',
+    weeklyEmpty: '精選整理中。留個 email 給《綠領情報》，下一批出來的時候我寄給你。',
     mbaTitle: 'MBA / 策略職',
     mbaNote: 'MBA 關鍵字掃到的策略、成長、政策職，跟綠領分開放。',
     boardsLabel: '精選搜尋入口',
@@ -339,10 +347,10 @@ export const greenJobsCopy: Record<Locale, GreenJobsCopy> = {
     eyebrow: 'Green-Collar Jobs Radar',
     title: 'APAC green-collar jobs — one page for where to actually look.',
     intro:
-      'We don’t re-host or resell listings — this page curates the employers and job boards worth watching, and every link points to the original source. Picks refresh weekly.',
-    updatedPrefix: 'Updated',
-    weeklyTitle: 'This week’s picks',
-    weeklyEmpty: 'This week’s picks are being curated. Subscribe to Green-Collar Intel Weekly to get the Top 10 every Monday.',
+      'We don’t re-host or resell listings — this page curates the employers and job boards worth watching, and every link points to the original source. Picks are refreshed by a scheduled sweep; the date of the last refresh is printed below.',
+    updatedPrefix: 'Last updated',
+    weeklyTitle: 'Curated picks',
+    weeklyEmpty: 'Picks are being curated. Leave an email for Green-Collar Intel and I’ll send the next batch when it goes out.',
     mbaTitle: 'MBA / strategy track',
     mbaNote: 'Strategy, growth and policy roles from the MBA keyword, kept separate from green-collar.',
     boardsLabel: 'Curated search entry points',

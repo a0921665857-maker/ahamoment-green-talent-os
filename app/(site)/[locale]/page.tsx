@@ -12,6 +12,7 @@ import { NewsletterSignup } from '@/components/NewsletterSignup';
 import { LandingAnalytics } from '@/components/LandingAnalytics';
 import { MobileStickyCta } from '@/components/MobileStickyCta';
 import { newsletterCopy } from '@/content/newsletter';
+import { levelupName } from '@/content/levelup';
 import { navCopy, doorHref } from '@/content/nav';
 
 /** Title and description are inherited from the layout defaults; this exists so
@@ -53,8 +54,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       href: `/${L}/jobs`,
       title: zh ? '綠領職缺雷達' : 'Green-Collar Jobs Radar',
       desc: zh
-        ? '四區真職缺、薪資帶，還有我們的點評，每週更新。'
-        : 'Real openings across four markets, salary bands and our take, refreshed weekly.',
+        ? '四區真職缺、薪資帶，還有我們的點評。每一批精選都標更新日期。'
+        : 'Real openings across four markets, salary bands and our take. Every batch of picks carries its update date.',
     },
     {
       href: `/${L}/jd`,
@@ -455,10 +456,13 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           data-placement="free_tools"
           className="mt-3 block rounded-xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
         >
+          {/* The edition comes from content/levelup.ts, never from this file:
+              it used to be typed here as well, so cutting a new edition meant
+              the front door could advertise one and the report be another. */}
           <h2 className="text-xl font-semibold leading-snug">
             {zh
-              ? '《綠領晉級地圖 2026 H2》：哪個技能、哪張證照後面真的有錢？'
-              : 'Green-Collar Level-Up Map 2026 H2: which skills and certificates actually pay?'}
+              ? `《${levelupName['zh-TW']}》：哪個技能、哪張證照後面真的有錢？`
+              : `${levelupName.en}: which skills and certificates actually pay?`}
           </h2>
           <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">
             {zh

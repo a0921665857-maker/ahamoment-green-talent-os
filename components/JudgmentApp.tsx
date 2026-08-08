@@ -17,6 +17,7 @@ import {
   judgmentData,
   orderGaps,
   practiceBand,
+  repAsOf,
   type BackgroundKey,
   type JudgmentCompetency,
   type JudgmentRep,
@@ -143,6 +144,23 @@ function ExitCard({ t, where }: { t: JudgmentContent; where: string }) {
         </a>
       </p>
     </div>
+  );
+}
+
+/**
+ * When this material was last checked against the rules it describes.
+ *
+ * Every explainer in the corpus has carried `meta.as_of` since it was written and
+ * nothing rendered it, so 26 pieces of hard regulatory teaching (金管會 announcement
+ * dates, the 170-company first phase, the 8/31 filing deadline) read as timeless
+ * fact. This is the smallest honest fix: the date the author checked, next to what
+ * they checked. It renders nothing at all when there is no date, because a missing
+ * date must never be filled in with today's.
+ */
+function AsOfNote({ template, date, className = '' }: { template: string; date?: string; className?: string }) {
+  if (!date) return null;
+  return (
+    <p className={`text-xs text-ink-soft ${className}`}>{fill(template, { date })}</p>
   );
 }
 
@@ -634,12 +652,21 @@ function GapCard({ id, t }: { id: string; t: JudgmentContent }) {
         {t.gaps.whyPaysLabel}
         {c.why_it_pays}
       </p>
+      {/* The corpus marks its own moving parts. Say so on the card, before the
+          reader opens anything, because the volatile ones are exactly the ones
+          somebody might act on. */}
+      {c.volatile && <AsOfNote template={t.gaps.volatileAsOf} date={c.as_of} className="mt-2" />}
       {ex ? (
         <details className="mt-4 border-t border-line pt-4">
           <summary className="cursor-pointer text-sm font-medium text-pine">
             {t.gaps.explainerSummary}
           </summary>
           <div className="mt-4">
+            <AsOfNote
+              template={t.gaps.explainerAsOf}
+              date={ex.meta.as_of}
+              className="mb-4 border-l-2 border-line pl-3"
+            />
             {ex.sections.map((s, i) => (
               <div key={i} className="mt-6 first:mt-0">
                 {s.h && <h5 className="font-semibold text-pine-deep">{s.h}</h5>}
@@ -709,6 +736,10 @@ function RepDetail({
         {names.join('・')}
         {rep.minutes ? ` · ${fill(t.reps.minutes, { n: rep.minutes })}` : ''}
       </p>
+      {/* Above the scenario, not down in the sources: a drill built on a rule that
+          has since changed is misleading from the first sentence, and the reader
+          decides how much to trust the numbers before they answer, not after. */}
+      <AsOfNote template={t.reps.asOf} date={repAsOf(rep) ?? undefined} className="mt-1.5" />
 
       <JudgmentMarkdown text={rep.scenario} className="mt-4" />
 
@@ -938,6 +969,7 @@ function MapCardActions({
             {t.gaps.explainerSummary}
           </summary>
           <div className="mt-3 border-t border-line pt-3">
+            <AsOfNote template={t.gaps.explainerAsOf} date={ex.meta.as_of} className="mb-3" />
             {ex.sections.map((sec, i) => (
               <div key={i} className="mt-4 first:mt-0">
                 {sec.h && <h5 className="text-sm font-semibold text-pine-deep">{sec.h}</h5>}

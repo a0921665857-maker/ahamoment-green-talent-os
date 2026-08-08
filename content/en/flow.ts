@@ -1,4 +1,5 @@
 import type { FlowContent } from '../schema';
+import { FX_LINE } from '@/lib/fx';
 
 export const flow: FlowContent = {
   stepIndicator: { input: 'Your material', confirm: 'Confirm', questions: 'A few questions' },
@@ -150,7 +151,7 @@ export const flow: FlowContent = {
       salaryLabelSg: 'Singapore',
       salaryLabelMultiple: 'Nominal gap',
       salaryDisposableSuffix: '; roughly ', // followed by the disposable multiple
-      salarySource: 'Data: 2026 APAC green-collar salary report (1 SGD ≈ 25 TWD)',
+      salarySource: `Data: 2026 APAC green-collar salary report (${FX_LINE.en})`,
       brandFooter: 'AhaMoment Green Career MRI · 60-second quick read',
     },
     misread: {

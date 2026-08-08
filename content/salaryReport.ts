@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/constants';
+import { FX_LINE, FX_LINE_FULL } from '@/lib/fx';
 
 /**
  * 《2026 亞太綠領薪資報告》— a public lead-magnet article rendered on-site
@@ -6,8 +7,12 @@ import type { Locale } from '@/lib/constants';
  * sampleReports pattern) so it stays out of the getContent schema.
  *
  * Style: zh-TW uses full-width punctuation（，。：；？「」）, no em-dash「——」,
- * written in Michael's own voice. FX: 1 SGD ≈ 25 TWD (all conversions follow).
+ * written in Michael's own voice.
  * All figures carry a source code; weak data is flagged 推估 / 樣本不足.
+ *
+ * FX comes from lib/fx.ts, with its date attached. Both the band note above the
+ * Singapore table and the methodology appendix used to print a bare rate, so the
+ * TWD equivalent a reader worked out from this page had no vintage at all.
  */
 export interface SalaryTable {
   head: string[];
@@ -97,7 +102,7 @@ const zhTW: SalaryReport = {
     },
   ],
   sgTitle: '新加坡薪資帶（主場）',
-  sgNote: '年薪 · 新加坡幣 · 1 SGD ≈ 25 TWD',
+  sgNote: `年薪 · 新加坡幣 · ${FX_LINE['zh-TW']}`,
   sgTable: {
     head: ['職能', '0–3 年', '4–8 年', '8 年以上'],
     rows: [
@@ -201,8 +206,7 @@ const zhTW: SalaryReport = {
   ctaButton: '做一次綠領 MRI（免費）→',
   ctaSub: '全程約 5 分鐘 · 免費 · 免註冊',
   sourcesLabel: '方法論與來源附錄',
-  method:
-    '2026 年 7 月，以公開網路來源交叉查證。每個數字都保留原始區間，不做假精確；單一來源、自報樣本、模型推估都會標註；查不到可靠數據的地方（台灣 4 到 8 年中段、日本保險業 ESG 職、多數城市的氣候新創薪資帶），我就直接說樣本不足。日本節在 2026 年 7 月以獵頭指南、專業轉職站、現役求人票、官方統計四層來源交叉查證，信心標記見該節。匯率用 1 SGD ≈ 25 TWD，1 USD ≈ 1.35 SGD ≈ 33.75 TWD；日圓數字保留原幣別，不做二次換算，避免堆疊誤差。開場那個場景是我根據薪資數據拼出來的典型情境，不是特定某個人。',
+  method: `2026 年 7 月，以公開網路來源交叉查證。每個數字都保留原始區間，不做假精確；單一來源、自報樣本、模型推估都會標註；查不到可靠數據的地方（台灣 4 到 8 年中段、日本保險業 ESG 職、多數城市的氣候新創薪資帶），我就直接說樣本不足。日本節在 2026 年 7 月以獵頭指南、專業轉職站、現役求人票、官方統計四層來源交叉查證，信心標記見該節。匯率用 ${FX_LINE_FULL['zh-TW']}；日圓數字保留原幣別，不做二次換算，避免堆疊誤差。開場那個場景是我根據薪資數據拼出來的典型情境，不是特定某個人。`,
   sources: [
     { code: 'MOE', name: '環境部×104《2025 下半年綠領人才就業趨勢報告》', note: '台灣官方主來源' },
     { code: 'MP', name: 'Michael Page《Singapore Salary Guide 2026》', note: '招聘顧問指南' },
@@ -228,7 +232,7 @@ const zhTW: SalaryReport = {
     { code: 'RC', name: 'Recruit 新聞稿《GX人材の転職市場動向》（2023-08 發布）', note: 'GX 求人成長倍率調查，涵蓋 2016–2022' },
   ],
   footer:
-    '© 2026 AhaMoment 綠領情報 · 本報告是市場資訊彙整，不是個人投資、法律或移民建議 · 數字都附來源、保留區間，弱數據已標註。',
+    '© {year} AhaMoment 綠領情報 · 本報告是市場資訊彙整，不是個人投資、法律或移民建議 · 數字都附來源、保留區間，弱數據已標註。',
 };
 
 const en: SalaryReport = {
@@ -269,7 +273,7 @@ const en: SalaryReport = {
     },
   ],
   sgTitle: 'Singapore salary bands (home turf)',
-  sgNote: 'Annual · SGD · 1 SGD ≈ 25 TWD',
+  sgNote: `Annual · SGD · ${FX_LINE.en}`,
   sgTable: {
     head: ['Function', '0–3 yrs', '4–8 yrs', '8+ yrs'],
     rows: [
@@ -374,8 +378,7 @@ const en: SalaryReport = {
   ctaButton: 'Take the green-collar MRI (free) →',
   ctaSub: 'About 5 min end to end · Free · No signup',
   sourcesLabel: 'Methodology & sources',
-  method:
-    'Cross-checked against public online sources in July 2026. Every figure keeps its original range with no false precision; single-source, self-reported and model-estimated numbers are flagged; where the data simply isn’t reliable (Taiwan’s 4–8-year mid-band, Japan’s insurance-sector ESG roles, most cities’ climate-tech startup bands) I say so directly. The Japan section was cross-checked in July 2026 across four source layers — headhunter guides, specialist job sites, live postings, official statistics — see that section for confidence flags. FX: 1 SGD ≈ 25 TWD, 1 USD ≈ 1.35 SGD ≈ 33.75 TWD; yen figures keep their original currency, no secondary conversion, to avoid stacking errors. The opening scene is a composite I built from salary data, not a specific person.',
+  method: `Cross-checked against public online sources in July 2026. Every figure keeps its original range with no false precision; single-source, self-reported and model-estimated numbers are flagged; where the data simply isn’t reliable (Taiwan’s 4–8-year mid-band, Japan’s insurance-sector ESG roles, most cities’ climate-tech startup bands) I say so directly. The Japan section was cross-checked in July 2026 across four source layers — headhunter guides, specialist job sites, live postings, official statistics — see that section for confidence flags. FX: ${FX_LINE_FULL.en}; yen figures keep their original currency, no secondary conversion, to avoid stacking errors. The opening scene is a composite I built from salary data, not a specific person.`,
   sources: [
     { code: 'MOE', name: 'MoENV × 104, “H2-2025 Green-Collar Talent Employment Trends”', note: 'Taiwan official primary source' },
     { code: 'MP', name: 'Michael Page, Singapore Salary Guide 2026', note: 'Recruiter guide' },
@@ -401,7 +404,7 @@ const en: SalaryReport = {
     { code: 'RC', name: 'Recruit press release, “GX Talent Job-Market Trends” (published Aug 2023)', note: 'GX job-growth multiple survey, covers 2016–2022' },
   ],
   footer:
-    '© 2026 AhaMoment Green-Collar Intel · Market information, not personal investment, legal or immigration advice · Figures cite sources and keep ranges; weak data is flagged.',
+    '© {year} AhaMoment Green-Collar Intel · Market information, not personal investment, legal or immigration advice · Figures cite sources and keep ranges; weak data is flagged.',
 };
 
 export const salaryReports: Record<Locale, SalaryReport> = {

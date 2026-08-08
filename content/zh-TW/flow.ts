@@ -1,4 +1,5 @@
 import type { FlowContent } from '../schema';
+import { FX_LINE } from '@/lib/fx';
 
 export const flow: FlowContent = {
   stepIndicator: { input: '你的資料', confirm: '確認理解', questions: '幾個問題' },
@@ -149,7 +150,7 @@ export const flow: FlowContent = {
       salaryLabelSg: '新加坡',
       salaryLabelMultiple: '名目差',
       salaryDisposableSuffix: '；扣除生活成本後約 ',
-      salarySource: '數據：2026 亞太綠領薪資報告（1 SGD ≈ 25 TWD）',
+      salarySource: `數據：2026 亞太綠領薪資報告（${FX_LINE['zh-TW']}）`,
       brandFooter: 'AhaMoment 綠色職涯 MRI・60 秒速讀',
     },
     misread: {

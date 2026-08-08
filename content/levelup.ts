@@ -1,7 +1,7 @@
 import type { Locale } from '@/lib/constants';
 
 /**
- * 《綠領晉級地圖 2026 H2》— the salary report's sequel, rendered on-site at
+ * 《綠領晉級地圖》— the salary report's sequel, rendered on-site at
  * /[locale]/levelup. Standalone locale-keyed content (mirrors salaryReport.ts)
  * so it stays out of the getContent schema.
  *
@@ -10,6 +10,24 @@ import type { Locale } from '@/lib/constants';
  * Skills with no clean public premium stay explicitly unmeasured — never
  * estimated. zh-TW: full-width punctuation, no em-dash, Michael's voice.
  */
+
+/**
+ * The edition, in one place.
+ *
+ * WHY (2026-08-08 freshness audit). 「2026 H2」 was typed into four strings across
+ * this file and a fifth straight into the home page's JSX. Cutting the 2027 H1
+ * edition would have meant finding all five, and the home page one is the easiest
+ * to miss and the most visible — the site would have advertised one edition on the
+ * front door and shipped another behind it. Change the constant, and the report
+ * title, both bylines and the home-page card all move together.
+ */
+export const LEVELUP_EDITION = '2026 H2';
+
+/** The report's name without brackets. zh-TW surfaces wrap it in 《》 themselves. */
+export const levelupName: Record<Locale, string> = {
+  'zh-TW': `綠領晉級地圖 ${LEVELUP_EDITION}`,
+  en: `Green-Collar Level-Up Map ${LEVELUP_EDITION}`,
+};
 
 export interface LevelupRung {
   name: string;
@@ -80,14 +98,14 @@ export interface LevelupReport {
 
 const zhTW: LevelupReport = {
   meta: {
-    title: '綠領晉級地圖 2026 H2：哪個技能、哪張證照後面真的有錢',
+    title: `${levelupName['zh-TW']}：哪個技能、哪張證照後面真的有錢`,
     description:
       '薪資報告講完你值多少，這份講怎麼變更值錢。查遍公開調查，只有碳核算 × Scope 3 有乾淨的薪資溢價數字（+12 到 18%）；證照買到的是門不是加薪；三種人各自的兩年路線。每個數字都逐字查證原始出處。',
   },
   eyebrow: '綠領情報 · 薪資報告第二話',
   title: '你值多少講完了。這份講：怎麼變更值錢。',
   lede: '上一份報告把星台綠領的薪資帶攤開，結論是「頭銜不值錢，技能組合才值錢」。那接下來每個人都問同一句：那我到底該把時間押在哪個技能、哪張證照上？這份地圖就是回答這一題，而且只放我親手打開原始頁、逐字確認過的數字。',
-  byline: '《綠領晉級地圖 2026 H2》· 資料截至 2026 年 7 月 · 每個數字附出處',
+  byline: `《${levelupName['zh-TW']}》· 資料截至 2026 年 7 月 · 每個數字附出處`,
   backToMri: '← 回到免費 MRI',
   verdict:
     '一句話結論：在所有綠色技能裡，只有一個有乾淨、跨來源、查得到出處的薪資溢價：碳核算 × Scope 3，比同儕多領 12 到 18%。其他技能市場都說「更值錢」，卻沒人給得出一個乾淨數字。這件事本身，就是這份報告最重要的情報。',
@@ -263,19 +281,19 @@ const zhTW: LevelupReport = {
     },
   ],
   footer:
-    '© 2026 AhaMoment 綠領情報 · 本報告是市場資訊彙整，不是個人職涯、投資或移民建議 · 數字皆附來源、保留區間，查不到乾淨數字的技能一律標明「無公開數字」而非推估。溢價數字反映調查當下，證照費用與考程以各機構官方公告為準。',
+    '© {year} AhaMoment 綠領情報 · 本報告是市場資訊彙整，不是個人職涯、投資或移民建議 · 數字皆附來源、保留區間，查不到乾淨數字的技能一律標明「無公開數字」而非推估。溢價數字反映調查當下，證照費用與考程以各機構官方公告為準。',
 };
 
 const en: LevelupReport = {
   meta: {
-    title: 'Green-Collar Level-Up Map 2026 H2: which skills and certificates actually pay',
+    title: `${levelupName.en}: which skills and certificates actually pay`,
     description:
       'The salary report covered what you are worth; this one covers how to become worth more. Across public surveys only carbon accounting × Scope 3 carries a clean, verifiable premium (+12–18%). Certificates buy the door, not the raise. Two-year routes for three profiles. Every figure verified against its original source.',
   },
   eyebrow: 'Green-collar intelligence · Salary report, part two',
   title: 'The salary report told you what you are worth. This one: how to become worth more.',
   lede: 'The last report laid out the Singapore and Taiwan pay bands and landed on one conclusion: titles are cheap, skill combinations are not. The next question everyone asks is the same: which skill, which certificate, actually deserves my next two years? This map answers that, and it only carries numbers I opened the original source page and verified word for word.',
-  byline: 'Green-Collar Level-Up Map 2026 H2 · data as of July 2026 · every figure carries a source',
+  byline: `${levelupName.en} · data as of July 2026 · every figure carries a source`,
   backToMri: '← Back to the free MRI',
   verdict:
     'One-line verdict: across every green skill, exactly one carries a clean, cross-source, traceable salary premium: carbon accounting × Scope 3, at 12–18% over peers. For everything else the market says "worth more" without ever publishing a clean number. That fact is itself the most important intelligence in this report.',
@@ -454,7 +472,7 @@ const en: LevelupReport = {
     },
   ],
   footer:
-    '© 2026 AhaMoment green-collar intelligence · This report is a synthesis of market information, not personal career, investment or migration advice · Every figure carries its source and keeps its range; skills without a clean number are marked "no public number" rather than estimated. Premiums reflect the survey moment; certificate fees and exam schedules follow official announcements.',
+    '© {year} AhaMoment green-collar intelligence · This report is a synthesis of market information, not personal career, investment or migration advice · Every figure carries its source and keeps its range; skills without a clean number are marked "no public number" rather than estimated. Premiums reflect the survey moment; certificate fees and exam schedules follow official announcements.',
 };
 
 export const levelupReports: Record<Locale, LevelupReport> = { 'zh-TW': zhTW, en };

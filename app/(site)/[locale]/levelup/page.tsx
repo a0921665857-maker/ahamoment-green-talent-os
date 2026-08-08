@@ -6,10 +6,20 @@ import { levelupReports } from '@/content/levelup';
 import { newsletterCopy } from '@/content/newsletter';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 import { alternatesFor } from '@/lib/seoAlternates';
+import { fillYear } from '@/lib/siteMeta';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
+
+/**
+ * The footer's © year is filled at render time (lib/siteMeta.ts). Without a
+ * revalidate this page is frozen at build time and the year would only move on
+ * the next deploy — which on a site that ships in bursts means a report whose
+ * whole promise is "every figure carries a date" could sit there stamped with
+ * last year. One re-render a day is free for static content.
+ */
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,
@@ -266,7 +276,9 @@ export default async function LevelupPage({
           </div>
         </details>
 
-        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
+        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">
+          {fillYear(r.footer)}
+        </p>
       </main>
     </div>
   );

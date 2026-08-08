@@ -63,6 +63,8 @@ export const judgment: JudgmentContent = {
     timeLabel: '從零到入門：',
     explainerSummary: '三分鐘搞懂',
     explainerPending: '這一則的說明還在撰寫中。',
+    explainerAsOf: '本篇引用的法規、期限與數字查證於 {date}。法規會改，看到日期比較久的，請回官方公告確認。',
+    volatileAsOf: '這一項的內容跟著法規走，查證於 {date}',
     repsAttached: '有 {n} 題判斷練習練這個能力',
     moreLabel: '其餘 {n} 個能力',
     cta: '去做判斷練習',
@@ -70,6 +72,7 @@ export const judgment: JudgmentContent = {
   reps: {
     title: '判斷練習',
     rule: '規則只有一條：先選，才看得到任何推理。看著答案讀沒有用，你必須先押一個，錯誤才會被你記住。每題五到十分鐘。',
+    asOf: '本題引用的法規與數字查證於 {date}',
     stateTitle: '你的練習狀態',
     storageNote:
       '你的選擇與作答只存在你自己這台裝置的瀏覽器裡，不會上傳到任何地方，換一台裝置就不見了。',

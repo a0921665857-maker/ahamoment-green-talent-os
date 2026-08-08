@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/constants';
+import { FX, FX_LINE, FX_PAIR } from '@/lib/fx';
 
 /**
  * 異地生活成本指南 — a public lead-magnet article at /[locale]/cost-of-living.
@@ -6,8 +7,22 @@ import type { Locale } from '@/lib/constants';
  * subtracts the cost of living and shows what actually reaches your pocket.
  *
  * Style: zh-TW full-width punctuation（，。：；？「」（）), no em-dash「——」,
- * Michael's own first-person voice. FX: 1 SGD ≈ 25 TWD (site-wide).
- * Every figure carries a source; ranges only, no false precision.
+ * Michael's own first-person voice. Every figure carries a source; ranges only,
+ * no false precision.
+ *
+ * FX comes from lib/fx.ts and always arrives with its own date attached. It used
+ * to be typed here as a bare 「1 SGD ≈ 25 TWD」 in two places, with no indication
+ * of when it was taken, which quietly undated every conclusion built on it —
+ * including the disposable multiples in `verdictRows`.
+ *
+ * EVERY ESTIMATE TABLE CARRIES ITS OWN PERIOD AND CHECK DATE (2026-08-08 freshness
+ * audit). The official data.gov.sg block below these tables prints 「資料期別 ·
+ * 抓取日期」 next to every dataset, while the second-hand tables above it carried
+ * one date in the byline and nothing else — so the oldest figure on the page (a
+ * February compilation) sat directly above August government data looking exactly
+ * as fresh. `sgTableSource` / `twTableSource` / `verdictSource` close that gap at
+ * the same granularity, and `estimateBadge` labels the layer the way the official
+ * section labels its own.
  */
 export interface CostTable {
   head: string[];
@@ -29,18 +44,26 @@ export interface CostOfLiving {
   byline: string;
   backToMri: string;
   hook: string;
+  /** Layer label, mirroring the official block's own badge. */
+  estimateBadge: string;
   sgTitle: string;
   sgNote: string;
   sgTable: CostTable;
+  /** Period + check date for the SG estimate table, at official-block granularity. */
+  sgTableSource: string;
   sgAfter: string;
   twTitle: string;
   twNote: string;
   twTable: CostTable;
+  /** Period + check date for the Taipei estimate table. */
+  twTableSource: string;
   twAfter: string;
   verdictTitle: string;
   verdictIntro: string;
   verdictHead: string[];
   verdictRows: VerdictRow[];
+  /** What the multiples are derived from, and as of when. */
+  verdictSource: string;
   insightLabel: string;
   insight: string;
   caveat: string;
@@ -64,10 +87,10 @@ const zhTW: CostOfLiving = {
   eyebrow: '綠領情報 · 異地生活成本',
   title: '薪水多兩三倍，那一個月到底要花多少？',
   lede: '我在薪資報告裡說，同職能同資歷，新加坡的名目薪水大約是台灣的 2 到 3 倍。這是真的。但每次有人看到那個數字就想訂機票，我都想補一句：先算算一個月要花多少。這頁就是把房租、水電、交通、伙食一項一項扣掉，看真正剩下多少。',
-  byline:
-    '二手估計資料時點 2026 年 2 至 7 月，官方數據 2026 年 8 月 6 日抓取，各自期別標於數字旁 · 匯率 1 SGD ≈ 25 TWD · 每個數字都附來源',
+  byline: `二手估計資料時點 2026 年 2 至 8 月，官方數據 2026 年 8 月 6 日抓取，各自期別標在各張表旁 · 匯率 ${FX_LINE['zh-TW']} · 每個數字都附來源`,
   backToMri: '← 回到免費 MRI',
   hook: '先講結論，因為它跟大部分人想的不一樣：新加坡的生活成本，幾乎把「入門段」的薪資優勢吃光；但資歷一上去，那個倍數才真的落到你口袋。下面是算式。',
+  estimateBadge: '二手估計',
   sgTitle: '新加坡：一個月要花多少',
   sgNote: '新加坡幣 / 月 · 三種生活方式',
   sgTable: {
@@ -81,6 +104,8 @@ const zhTW: CostOfLiving = {
       ['一個月大約', 'S$2,100–3,100', 'S$2,700–5,400', 'S$3,700–7,200'],
     ],
   },
+  sgTableSource:
+    '資料期別 2026 年 2 月至 8 月 · 查證於 2026-08-06 · 來源：uhomes（2026-02 整理）、Numbeo（2026-08-06 查，不含房租口徑）· 這是二手估計，不是官方統計；本頁下半的 data.gov.sg 區塊才是一手數字',
   sgAfter:
     '我查到的市場估計，單身連房租每月大約 S$4,894，其中市中心一房租金 S$3,429、區間 S$2,277–5,000（uhomes 2026 年 2 月整理），對照上表的「市中心」欄大致吻合。順帶把口徑說清楚：Numbeo 頁面上那個「單身每月 S$1,507」是明文不含房租的（2026 年 8 月 6 日查），跟上面這個含租金的總計不是同一件事，不能直接比。這裡我要老實說一件事：新加坡的租金區間拉得非常開，合租一個房間和市中心一房的差距可以到三倍，所以「新加坡生活費多少」這個問題沒有單一答案，取決於你願意住成什麼樣。',
   twTitle: '台北：一個月要花多少',
@@ -95,6 +120,8 @@ const zhTW: CostOfLiving = {
       ['一個月大約', 'NT$21,000–27,000', 'NT$31,000–37,000'],
     ],
   },
+  twTableSource:
+    '資料期別 2026 年 · 查證於 2026 年 7 月 · 來源：台北租金行情 2026、Wise、風傳媒引主計處、2026 台灣生活費計算器 · 全部是二手估計，台灣這一側沒有對應的官方一手區塊',
   twAfter:
     '主計處口徑與媒體整理的「北部單身基本開銷」大約落在每月 NT$32,000 到 35,000，跟上表的「一般」欄對得起來。房租的差距一樣很大：南港、大同的套房九千到一萬五就有，大安、中山的獨立套房中位數要一萬七到兩萬。',
   verdictTitle: '真正的倍數：扣掉生活成本之後',
@@ -115,6 +142,7 @@ const zhTW: CostOfLiving = {
       note: '薪水漲了，生活成本沒等比例漲，被吃掉的比例就變小。',
     },
   ],
+  verdictSource: `我的推估，不是任何機構的公布值 · 由上面兩張表的開銷加粗估稅負算出 · 薪資帶取自本站《2026 亞太綠領薪資報告》（資料截至 2026 年 7 月）· 匯率 ${FX_LINE['zh-TW']}`,
   insightLabel: '這頁最重要的一句話',
   insight:
     '如果你 0 到 3 年就跳過去，帳面很香，口袋其實沒差多少。等到 4 年以上再跳，那個倍數才真的落到你手上。這跟薪資報告裡講的「EP 月薪門檻 S$5,600，4 年以上勝率才明顯提高」，其實是同一件事的兩面：市場和你的錢包，都在告訴你不要太早跳。',
@@ -127,15 +155,14 @@ const zhTW: CostOfLiving = {
   ctaButton: '做一次綠領 MRI（免費）→',
   ctaSub: '全程約 5 分鐘 · 免費 · 免註冊',
   sourcesLabel: '來源與方法',
-  method:
-    '2026 年 7 月以公開來源交叉查證。所有數字一律給區間，不做假精確。匯率用 1 SGD ≈ 25 TWD（與本站薪資報告一致）。薪資帶取自本站的《2026 亞太綠領薪資報告》。可支配倍數是我用上面的開銷與粗估稅負算出來的，屬於推估，換一種生活方式數字就會變。2026 年 8 月另補上 data.gov.sg 的官方數據（HDB、SingStat、MOM）。官方一手數字與二手估計在頁面上分區呈現，沒有混合計算，也沒有互相取代；官方數字全部是新加坡幣原值，沒有換算成新台幣。',
+  method: `2026 年 7 月以公開來源交叉查證。所有數字一律給區間，不做假精確。匯率用 ${FX_PAIR}，以 ${FX.asOf} 為準，與本站薪資報告一致。薪資帶取自本站的《2026 亞太綠領薪資報告》。可支配倍數是我用上面的開銷與粗估稅負算出來的，屬於推估，換一種生活方式數字就會變。2026 年 8 月另補上 data.gov.sg 的官方數據（HDB、SingStat、MOM）。官方一手數字與二手估計在頁面上分區呈現，沒有混合計算，也沒有互相取代；官方數字全部是新加坡幣原值，沒有換算成新台幣。`,
   sources: [
-    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: '新加坡租金、水電、伙食；其「單身每月開銷」為不含房租口徑（二手估計）' },
-    { label: 'uhomes · 新加坡生活成本', url: 'https://en.uhomes.com/blog/cost-of-living-in-singapore', note: '單身含租金月開銷 S$4,894、市中心一房 S$3,429 與區間 S$2,277–5,000（2026 年 2 月更新，二手估計）' },
-    { label: 'Wise · Taipei', url: 'https://wise.com/us/cost-of-living/taiwan/taipei', note: '台北生活成本對照（二手估計）' },
-    { label: '台北租金行情 2026', url: 'https://www.inn-taipei.com/rental-fee-2026/', note: '各行政區套房租金中位數（二手估計）' },
-    { label: '風傳媒引主計處', url: 'https://www.storm.mg/lifestyle/11049312', note: '北部單身基本開銷約 NT$32,000–35,000（二手整理）' },
-    { label: '2026 台灣生活費計算器', url: 'https://taiwanhousing.tw/tw/cost-of-living/taiwan', note: '台灣生活費分項（二手估計）' },
+    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: '新加坡租金、水電、伙食；其「單身每月開銷」為不含房租口徑（二手估計 · 2026-08-06 查）' },
+    { label: 'uhomes · 新加坡生活成本', url: 'https://en.uhomes.com/blog/cost-of-living-in-singapore', note: '單身含租金月開銷 S$4,894、市中心一房 S$3,429 與區間 S$2,277–5,000（二手估計 · 資料期別 2026-02 · 2026-08-06 查）' },
+    { label: 'Wise · Taipei', url: 'https://wise.com/us/cost-of-living/taiwan/taipei', note: '台北生活成本對照（二手估計 · 2026 年 7 月查）' },
+    { label: '台北租金行情 2026', url: 'https://www.inn-taipei.com/rental-fee-2026/', note: '各行政區套房租金中位數（二手估計 · 資料期別 2026 · 2026 年 7 月查）' },
+    { label: '風傳媒引主計處', url: 'https://www.storm.mg/lifestyle/11049312', note: '北部單身基本開銷約 NT$32,000–35,000（二手整理 · 2026 年 7 月查）' },
+    { label: '2026 台灣生活費計算器', url: 'https://taiwanhousing.tw/tw/cost-of-living/taiwan', note: '台灣生活費分項（二手估計 · 資料期別 2026 · 2026 年 7 月查）' },
     { label: '本站薪資報告', url: '/zh-TW/salary-report', note: '名目薪資帶與 2 到 3 倍的來源' },
     { label: 'HDB · Median Rent by Town and Flat Type', url: 'https://data.gov.sg/datasets/d_23000a00c52996c55106084ed0339566/view', note: '各鎮四房式整戶租金中位數，2026 年第 2 季（官方一手）' },
     { label: 'SingStat · Consumer Price Index', url: 'https://data.gov.sg/datasets/d_bdaff844e3ef89d39fceb962ff8f0791/view', note: '物價年增率與分項，2026 年 6 月（官方一手）' },
@@ -144,7 +171,7 @@ const zhTW: CostOfLiving = {
     { label: 'Singapore Open Data Licence v1.0', url: 'https://data.gov.sg/open-data-licence', note: '以上四筆官方資料的授權條款，允許再散布衍生分析，須標示來源' },
   ],
   footer:
-    '© 2026 AhaMoment 綠領情報 · 本頁是市場資訊彙整，不是個人財務或移民建議 · 數字都附來源、保留區間，推估已標註。',
+    '© {year} AhaMoment 綠領情報 · 本頁是市場資訊彙整，不是個人財務或移民建議 · 數字都附來源、保留區間，推估已標註。',
 };
 
 const en: CostOfLiving = {
@@ -156,10 +183,10 @@ const en: CostOfLiving = {
   eyebrow: 'Green-Collar Intel · Cost of Living',
   title: 'The pay is 2–3× higher. So what does a month actually cost?',
   lede: 'In the salary report I said that for the same role and seniority, Singapore’s nominal pay is roughly 2 to 3× Taiwan’s. That’s true. But every time someone sees that number and starts pricing flights, I want to add one line: first work out what a month costs. This page subtracts rent, utilities, transport and food, item by item, to see what’s left.',
-  byline:
-    'Second-hand estimates from February–July 2026; official data retrieved 2026-08-06, each with its own reporting period · FX 1 SGD ≈ 25 TWD · Every figure cites a source',
+  byline: `Second-hand estimates from February–August 2026; official data retrieved 2026-08-06, each table carrying its own reporting period · ${FX_LINE.en} · Every figure cites a source`,
   backToMri: '← Back to the free MRI',
   hook: 'The conclusion first, because it isn’t what most people expect: Singapore’s cost of living all but eats the entry-level pay advantage. Only once you have seniority does that multiple actually land in your pocket. Here’s the maths.',
+  estimateBadge: 'Second-hand estimate',
   sgTitle: 'Singapore: what a month costs',
   sgNote: 'SGD / month · three ways to live',
   sgTable: {
@@ -173,6 +200,8 @@ const en: CostOfLiving = {
       ['Roughly per month', 'S$2,100–3,100', 'S$2,700–5,400', 'S$3,700–7,200'],
     ],
   },
+  sgTableSource:
+    'Reporting period Feb–Aug 2026 · checked 2026-08-06 · sources: uhomes (compiled Feb 2026), Numbeo (retrieved 2026-08-06, excluding-rent measure) · these are second-hand estimates, not official statistics; the data.gov.sg block further down this page is the first-hand layer',
   sgAfter:
     'The market estimates I found put a single person at about S$4,894/month including rent, of which S$3,429 is a city-centre one-bed (range S$2,277–5,000, from uhomes’ February 2026 compilation), which lines up with the city-centre column. A word on units while I’m here: the “S$1,507/month” on Numbeo’s Singapore page is explicitly excluding rent (retrieved 6 Aug 2026), so it is not the same thing as the rent-inclusive total above and the two do not compare directly. One honest note: Singapore rent spreads enormously. A room in a shared flat versus a city-centre one-bed can differ threefold, so “what does Singapore cost” has no single answer. It depends on how you’re willing to live.',
   twTitle: 'Taipei: what a month costs',
@@ -187,6 +216,8 @@ const en: CostOfLiving = {
       ['Roughly per month', 'NT$21,000–27,000', 'NT$31,000–37,000'],
     ],
   },
+  twTableSource:
+    'Reporting period 2026 · checked July 2026 · sources: Taipei rent guide 2026, Wise, Storm Media citing DGBAS, 2026 Taiwan cost calculator · all second-hand estimates; there is no first-hand official block on the Taiwan side',
   twAfter:
     'Official and media figures for a single person’s baseline cost in northern Taiwan land around NT$32,000–35,000/month, matching the “normal” column. Rent spreads here too: a studio in Nangang or Datong runs NT$9,000–15,000, while an independent studio in Daan or Zhongshan sits at a NT$17,000–20,000 median.',
   verdictTitle: 'The real multiple, net of living costs',
@@ -207,6 +238,7 @@ const en: CostOfLiving = {
       note: 'Pay rises while living costs don’t rise proportionally, so the share they eat shrinks.',
     },
   ],
+  verdictSource: `My own estimate, not anyone’s published figure · derived from the two tables above plus a rough tax assumption · bands from the 2026 APAC Green-Collar Salary Report on this site (data as of July 2026) · ${FX_LINE.en}`,
   insightLabel: 'The one line that matters',
   insight:
     'Move across at 0–3 years and the headline looks great while your pocket barely notices. Move at 4+ years and the multiple actually lands on you. This is the same thing the salary report says from another angle: the EP salary threshold is S$5,600, and your odds improve markedly at 4+ years. The market and your wallet are both telling you not to jump too early.',
@@ -219,15 +251,14 @@ const en: CostOfLiving = {
   ctaButton: 'Take the green-collar MRI (free) →',
   ctaSub: 'About 5 min end to end · Free · No signup',
   sourcesLabel: 'Sources & method',
-  method:
-    'Cross-checked against public sources in July 2026. Every figure is a range, with no false precision. FX: 1 SGD ≈ 25 TWD (consistent with the salary report on this site). Salary bands come from the 2026 APAC Green-Collar Salary Report here. The disposable multiples are my own estimate from the costs above plus a rough tax assumption; change how you live and the numbers move. In August 2026 I added official data from data.gov.sg (HDB, SingStat, MOM). Official first-hand figures and second-hand estimates are presented in separate sections; they are never merged into one calculation and never substituted for one another, and the official figures stay in SGD with no conversion to TWD.',
+  method: `Cross-checked against public sources in July 2026. Every figure is a range, with no false precision. Exchange rate: ${FX_PAIR}, as of ${FX.asOf}, consistent with the salary report on this site. Salary bands come from the 2026 APAC Green-Collar Salary Report here. The disposable multiples are my own estimate from the costs above plus a rough tax assumption; change how you live and the numbers move. In August 2026 I added official data from data.gov.sg (HDB, SingStat, MOM). Official first-hand figures and second-hand estimates are presented in separate sections; they are never merged into one calculation and never substituted for one another, and the official figures stay in SGD with no conversion to TWD.`,
   sources: [
-    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: 'SG rent, utilities, food; its single-person monthly figure is the excluding-rent measure (second-hand estimate)' },
-    { label: 'uhomes · Cost of living in Singapore', url: 'https://en.uhomes.com/blog/cost-of-living-in-singapore', note: 'Single person S$4,894/mo including rent, city-centre 1BR S$3,429, range S$2,277–5,000 (updated Feb 2026, second-hand estimate)' },
-    { label: 'Wise · Taipei', url: 'https://wise.com/us/cost-of-living/taiwan/taipei', note: 'Taipei cost-of-living comparison (second-hand estimate)' },
-    { label: 'Taipei rent guide 2026', url: 'https://www.inn-taipei.com/rental-fee-2026/', note: 'Median studio rent by district (second-hand estimate)' },
-    { label: 'Storm Media citing DGBAS', url: 'https://www.storm.mg/lifestyle/11049312', note: 'Single-person baseline ~NT$32,000–35,000/mo in northern Taiwan (second-hand compilation)' },
-    { label: '2026 Taiwan cost calculator', url: 'https://taiwanhousing.tw/tw/cost-of-living/taiwan', note: 'Taiwan cost breakdown (second-hand estimate)' },
+    { label: 'Numbeo · Singapore', url: 'https://www.numbeo.com/cost-of-living/in/Singapore', note: 'SG rent, utilities, food; its single-person monthly figure is the excluding-rent measure (second-hand estimate · retrieved 2026-08-06)' },
+    { label: 'uhomes · Cost of living in Singapore', url: 'https://en.uhomes.com/blog/cost-of-living-in-singapore', note: 'Single person S$4,894/mo including rent, city-centre 1BR S$3,429, range S$2,277–5,000 (second-hand estimate · reporting period 2026-02 · retrieved 2026-08-06)' },
+    { label: 'Wise · Taipei', url: 'https://wise.com/us/cost-of-living/taiwan/taipei', note: 'Taipei cost-of-living comparison (second-hand estimate · retrieved July 2026)' },
+    { label: 'Taipei rent guide 2026', url: 'https://www.inn-taipei.com/rental-fee-2026/', note: 'Median studio rent by district (second-hand estimate · reporting period 2026 · retrieved July 2026)' },
+    { label: 'Storm Media citing DGBAS', url: 'https://www.storm.mg/lifestyle/11049312', note: 'Single-person baseline ~NT$32,000–35,000/mo in northern Taiwan (second-hand compilation · retrieved July 2026)' },
+    { label: '2026 Taiwan cost calculator', url: 'https://taiwanhousing.tw/tw/cost-of-living/taiwan', note: 'Taiwan cost breakdown (second-hand estimate · reporting period 2026 · retrieved July 2026)' },
     { label: 'Salary report (this site)', url: '/en/salary-report', note: 'Nominal bands and the source of the 2–3×' },
     { label: 'HDB · Median Rent by Town and Flat Type', url: 'https://data.gov.sg/datasets/d_23000a00c52996c55106084ed0339566/view', note: 'Median whole-flat 4-room rent by town, 2026 Q2 (official, first-hand)' },
     { label: 'SingStat · Consumer Price Index', url: 'https://data.gov.sg/datasets/d_bdaff844e3ef89d39fceb962ff8f0791/view', note: 'All-items and sub-index inflation, June 2026 (official, first-hand)' },
@@ -236,7 +267,7 @@ const en: CostOfLiving = {
     { label: 'Singapore Open Data Licence v1.0', url: 'https://data.gov.sg/open-data-licence', note: 'Licence for the four official datasets above; permits redistribution of derived analysis with attribution' },
   ],
   footer:
-    '© 2026 AhaMoment Green-Collar Intel · Market information, not personal financial or immigration advice · Figures cite sources and keep ranges; estimates are flagged.',
+    '© {year} AhaMoment Green-Collar Intel · Market information, not personal financial or immigration advice · Figures cite sources and keep ranges; estimates are flagged.',
 };
 
 export const costOfLiving: Record<Locale, CostOfLiving> = {

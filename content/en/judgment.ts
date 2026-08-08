@@ -80,6 +80,9 @@ export const judgment: JudgmentContent = {
     timeLabel: 'Zero to entry level: ',
     explainerSummary: 'Three-minute explainer',
     explainerPending: 'This explainer is still being written.',
+    explainerAsOf:
+      'Rules, deadlines and figures in this explainer were checked on {date}. Regulations move: if that date looks old, confirm against the official notice.',
+    volatileAsOf: 'This one tracks the regulations. Checked {date}',
     repsAttached: '{n} judgement reps train this competency',
     moreLabel: 'The remaining {n} competencies',
     cta: 'Go to the judgement reps',
@@ -87,6 +90,7 @@ export const judgment: JudgmentContent = {
   reps: {
     title: 'Judgement reps',
     rule: 'One rule: you commit before you see any reasoning. Reading the answer does nothing. You have to bet on one first, or the mistake will not stick. Five to ten minutes each.',
+    asOf: 'Regulations and figures in this exercise were checked on {date}',
     stateTitle: 'Your practice state',
     storageNote:
       'Your selections and answers stay in this browser on this device. Nothing is uploaded, and they disappear if you switch device.',
