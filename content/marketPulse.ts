@@ -31,38 +31,40 @@ export interface MarketPulseCopy {
 }
 
 export const marketPulse = {
-  updatedAt: '2026-07-28',
+  updatedAt: '2026-08-09',
   items: [
     {
-      posted: '2026-07-21',
-      roleZh: '氣候政策與碳市場專員(約聘)',
-      roleEn: 'Climate Policy & Carbon Markets Specialist (Contract)',
-      org: 'Manpower 代招/agency posting',
-      salary: 'S$7,000–8,800/月',
-      url: 'https://www.mycareersfuture.gov.sg/job/environment/climate-policy-carbon-markets-specialist-contract-manpower-staffing-services-b93d37281635c02717b3f44838661abd',
+      posted: '2026-08-07',
+      roleZh: '永續溝通經理／主管',
+      roleEn: 'Sustainability Communications Manager / Lead',
+      org: 'Michael Page 代招／agency posting（金融業）',
+      salary: 'S$12,500–14,000/月',
+      url: 'https://www.mycareersfuture.gov.sg/job/banking-finance/sustainability-communications-manager-lead-michael-page-7d128c9695745f03700e8c77051a569c',
     },
     {
-      posted: '2026-07-21',
-      roleZh: 'ESG 顧問副總監(轉型與變革)',
-      roleEn: 'Associate Director, ESG Consulting (Transition & Transformation)',
-      org: 'KPMG',
-      salary: 'S$9,000–17,000/月',
-      url: 'https://www.mycareersfuture.gov.sg/job/consulting/associate-director-esg-consulting-kpmg-services-6b1d7a5f5b63f669d73518837aa0589d',
+      posted: '2026-08-05',
+      roleZh: '策略永續經理（永續天然橡膠）',
+      roleEn: 'Strategic Sustainability Manager — Sustainable Natural Rubber',
+      org: 'Continental Tires',
+      salary: 'S$7,500–12,000/月',
+      url: 'https://www.mycareersfuture.gov.sg/job/others/strategic-sustainability-manager-sustainable-natural-rubber-continental-tires-holding-singapore-fb03e232c74f3a2c57ce5779333c9b69',
     },
-    // 129 Knots「碳交易台計畫總監」於 2026-07-28 移除:posted 07-14 已滿 14 天
-    // 新鮮度上限,且該缺 07-28 關單(2026-07-26 週報預警「週三後上架要移除」)。
+    // 2026-08-09 換批。上一批兩則的下場正好說明這張卡為什麼要有保存期限：
+    // KPMG 那則 08-04 已 Closed（讀者當天點進去就撲空），Manpower 那則 08-11 到期。
+    // 本批兩則於 2026-08-09 在 MCF 頁面上逐字驗過薪資與未關閉狀態，
+    // closing date 分別是 09-06 與 08-19（MCF 頁面自己印出來的，不用猜 30 天）。
   ] satisfies MarketPulseItem[],
   zh: {
     eyebrow: '市場脈搏',
     intro: '你的診斷不是對著真空講的。這是最近一次掃描時，新加坡綠領市場真實掛出的含薪職缺：',
-    reading: '這一批含薪新掛集中在碳市場與 ESG 轉型顧問兩條線，職缺頁自己揭露的月薪帶如上。',
+    reading: '這一批含薪新掛落在企業永續與永續溝通兩條線，經理級起跳，職缺頁自己揭露的月薪帶如上。',
     sourceNote: '來源:MyCareersFuture(新加坡政府職缺庫,法規要求揭薪)。連結入檔當日逐一驗證,職缺隨時可能關閉。',
     jobsCta: '完整精選與點評 →',
   } satisfies MarketPulseCopy,
   en: {
     eyebrow: 'Market pulse',
     intro: 'Your diagnosis is not made in a vacuum. These are salary-disclosed green roles that were live in Singapore as of the last sweep:',
-    reading: 'This batch of salary-disclosed postings clusters in carbon markets and ESG transition consulting; monthly bands above are disclosed by the postings themselves.',
+    reading: 'This batch of salary-disclosed postings sits in corporate sustainability and sustainability communications, both at manager level and up; the monthly bands above are disclosed by the postings themselves.',
     sourceNote: 'Source: MyCareersFuture (Singapore government job portal; salary disclosure required by regulation). Links verified the day of entry; postings can close at any time.',
     jobsCta: 'Full picks and commentary →',
   } satisfies MarketPulseCopy,
