@@ -13,6 +13,9 @@ export function TwinRequestForm(props: { locale: Locale; content: TwinContent['r
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = email.trim();
+    // Covers both cases the browser used to take from us: empty (native
+    // validation lets an empty non-required type=email through, this does not)
+    // and malformed. Stricter than the native rule, which accepts a@b.
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
       setState('invalid');
       return;
@@ -35,7 +38,11 @@ export function TwinRequestForm(props: { locale: Locale; content: TwinContent['r
   }
 
   return (
-    <form onSubmit={submit} className="mt-6 max-w-xl">
+    // noValidate: without it the browser's own constraint validation fired
+    // first, so a reader typing a bad address got Chrome's English bubble and
+    // the site's bilingual error line below never rendered — including the
+    // contrast fix on it. Our own check (above) is the stricter of the two.
+    <form onSubmit={submit} noValidate className="mt-6 max-w-xl">
       <label htmlFor="twin-email" className="block text-sm font-medium">
         {t.emailLabel}
       </label>

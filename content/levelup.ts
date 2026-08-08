@@ -33,6 +33,14 @@ export interface LevelupReport {
   scene: string;
   scenePunch: string;
   bigstat: { fig: string; cap: string; src: string };
+  /**
+   * Cross-link card to /[locale]/judgment. Lived as hard-coded Traditional
+   * Chinese inside the page component, so an English reader met a Chinese block
+   * three screens into an English report. Counts (26 nodes / 26 explainers / 12
+   * reps) and the "free, no email" promise are frozen: both locales carry the
+   * same numbers as the judgment content files.
+   */
+  judgmentCard: { eyebrow: string; title: string; body: string; cta: string };
   s1Title: string;
   s1Intro: string;
   rungs: LevelupRung[];
@@ -91,6 +99,12 @@ const zhTW: LevelupReport = {
     fig: '12–18%',
     cap: '碳核算 × Scope 3 排放的專長，比同資歷、沒有這技能的同儕多領的幅度。這是我查遍公開調查後，唯一有乾淨數字、還能指回原始頁的綠色技能溢價。',
     src: 'SRC｜OneStop ESG《2026 Sustainability Salary Survey》n=2,147 · 42 國 · 已逐字查證',
+  },
+  judgmentCard: {
+    eyebrow: '免費・不用留 email',
+    title: '綠領判斷力：知識查得到，判斷你得自己練',
+    body: '26 個能力節點、26 篇三分鐘說明、12 題判斷練習。先作答才看得到解答，而且每個錯的選項都會告訴你它為什麼誘人。',
+    cta: '開始 →',
   },
   s1Title: '技能溢價階梯：誰後面真的有數字',
   s1Intro:
@@ -273,6 +287,15 @@ const en: LevelupReport = {
     fig: '12–18%',
     cap: 'What specialists in carbon accounting × Scope 3 emissions earn over peers with the same experience and no such skill. After going through the public surveys, this is the only green-skill premium with a clean number that points back to an original page.',
     src: 'SRC | OneStop ESG, 2026 Sustainability Salary Survey · n=2,147 · 42 countries · verified word for word',
+  },
+  judgmentCard: {
+    // Wording deliberately tracks content/en/judgment.ts (same eyebrow, same
+    // counts, same "written in Traditional Chinese" disclosure) so the card and
+    // the page it opens do not promise two different things.
+    eyebrow: 'Free · no email required',
+    title: 'Green-collar judgement: information you can look up. Judgement you have to practise.',
+    body: '26 competency nodes, 26 three-minute explainers, 12 judgement reps. You commit to an answer before any reasoning appears, and every wrong option tells you why it was tempting. Written in Traditional Chinese.',
+    cta: 'Start →',
   },
   s1Title: 'The premium ladder: which skills have real numbers behind them',
   s1Intro:

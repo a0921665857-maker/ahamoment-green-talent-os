@@ -55,42 +55,47 @@ export function SiteHeader({
           {siteName}
         </a>
 
-        {/* Four doors plus the services button no longer fit between the site
-            name and the language switcher at 768px, so the full rail waits for
-            lg and the disclosure below covers md. Cramming them was the other
-            option and it produced two-line labels in a 44px-tall header. */}
-        {/* flex-wrap because the rail is 976px at 1024px exactly once a returning
-            reader's report link appears — one character more anywhere and it
-            would overflow. Wrapping to a second line is the graceful failure. */}
-        <nav
-          aria-label={n.footerTitle}
-          className="hidden min-w-0 flex-wrap items-center justify-end gap-x-5 gap-y-2 lg:flex"
-        >
-          {n.doors.map((d) => (
-            <a
-              key={d.href}
-              href={`${base}${d.href}`}
-              onClick={() => go(d.href, 'header')}
-              className="group whitespace-nowrap text-sm text-ink-soft transition-colors hover:text-pine"
-            >
-              <span className="block leading-tight">{d.label}</span>
-              {/* full-strength ink-soft: the /70 flattened to 3.50:1 on paper, and
-                  this is the persistent header, so it failed AA on every page. */}
-              <span className="block text-xs text-ink-soft group-hover:text-pine">{d.hint}</span>
-            </a>
-          ))}
-          <a
-            href={`${base}/services`}
-            onClick={() => go('/services', 'header')}
-            className="shrink-0 rounded-lg border border-pine px-4 py-2 text-sm text-pine"
+        {/* One rail, not two. The door list is the only part that changes with
+            width, so it is the only part that gets a breakpoint; the report link,
+            the language switcher and the menu button are mounted once and shared
+            by both layouts. They used to be written twice — once inside the
+            desktop nav, once beside the mobile toggle — which put two live
+            LanguageSwitcher instances in every page's DOM with one hidden by CSS,
+            and shipped a duplicate set of nav controls to assistive tech. */}
+        <div className="flex min-w-0 items-center gap-3 lg:gap-5">
+          {/* Four doors plus the services button no longer fit between the site
+              name and the language switcher at 768px, so the full rail waits for
+              lg and the disclosure below covers md. Cramming them was the other
+              option and it produced two-line labels in a 44px-tall header. */}
+          {/* flex-wrap because the rail is 976px at 1024px exactly once a returning
+              reader's report link appears — one character more anywhere and it
+              would overflow. Wrapping to a second line is the graceful failure. */}
+          <nav
+            aria-label={n.footerTitle}
+            className="hidden min-w-0 flex-wrap items-center justify-end gap-x-5 gap-y-2 lg:flex"
           >
-            {n.services}
-          </a>
-          <ReturnReportLink locale={locale} label={returnReportLabel} />
-          <LanguageSwitcher current={locale} />
-        </nav>
+            {n.doors.map((d) => (
+              <a
+                key={d.href}
+                href={`${base}${d.href}`}
+                onClick={() => go(d.href, 'header')}
+                className="group whitespace-nowrap text-sm text-ink-soft transition-colors hover:text-pine"
+              >
+                <span className="block leading-tight">{d.label}</span>
+                {/* full-strength ink-soft: the /70 flattened to 3.50:1 on paper, and
+                    this is the persistent header, so it failed AA on every page. */}
+                <span className="block text-xs text-ink-soft group-hover:text-pine">{d.hint}</span>
+              </a>
+            ))}
+            <a
+              href={`${base}/services`}
+              onClick={() => go('/services', 'header')}
+              className="shrink-0 rounded-lg border border-pine px-4 py-2 text-sm text-pine"
+            >
+              {n.services}
+            </a>
+          </nav>
 
-        <div className="flex items-center gap-3 lg:hidden">
           <ReturnReportLink locale={locale} label={returnReportLabel} />
           <LanguageSwitcher current={locale} />
           <button
@@ -99,7 +104,7 @@ export function SiteHeader({
             aria-expanded={open}
             aria-controls="site-nav-mobile"
             aria-label={open ? n.menuClose : n.menuOpen}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-line px-3 py-1.5 text-sm"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-line px-3 py-1.5 text-sm lg:hidden"
           >
             {/* the glyph was the button's whole accessible name: a screen reader
                 announced "identical to" for the site's only mobile nav control. */}

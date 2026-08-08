@@ -49,20 +49,20 @@ export default async function LevelupPage({
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
         <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
-        {/* 綠領判斷力：26 個能力節點 + 12 題判斷練習。站內頁 /[locale]/judgment。
-            擺在 verdict 之前，因為讀到這裡的人剛看完 lede、還沒開始滑長文，
-            是唯一一個「他還有精神點別的東西」的位置。 */}
+        {/* Cross-link to the judgement module (/[locale]/judgment): 26 competency
+            nodes + 12 reps. It sits before the verdict because a reader here has
+            just finished the lede and has not started scrolling the long form —
+            the one moment they still have appetite for a second thing.
+            The copy was hard-coded Traditional Chinese until it moved into
+            content/levelup.ts; an English reader used to hit a Chinese block here. */}
         <a
           href={`/${L}/judgment?utm_source=levelup&utm_medium=cross_link`}
           className="mt-8 block rounded-xl border border-pine/40 bg-sage-soft/30 px-6 py-5 transition hover:border-pine"
         >
-          <p className="text-xs uppercase tracking-eyebrow text-pine">免費・不用留 email</p>
-          <p className="mt-2 text-lg font-semibold leading-snug">綠領判斷力：知識查得到，判斷你得自己練</p>
-          <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-            26 個能力節點、26 篇三分鐘說明、12 題判斷練習。先作答才看得到解答，
-            而且每個錯的選項都會告訴你它為什麼誘人。
-          </p>
-          <p className="mt-3 text-sm font-medium text-pine">開始 →</p>
+          <p className="text-xs uppercase tracking-eyebrow text-pine">{r.judgmentCard.eyebrow}</p>
+          <p className="mt-2 text-lg font-semibold leading-snug">{r.judgmentCard.title}</p>
+          <p className="mt-2 text-sm leading-relaxed text-ink-soft">{r.judgmentCard.body}</p>
+          <p className="mt-3 text-sm font-medium text-pine">{r.judgmentCard.cta}</p>
         </a>
 
         {/* one-line verdict */}
