@@ -3,7 +3,7 @@ import type { LandingContent } from '../schema';
 export const landing: LandingContent = {
   hero: {
     eyebrow: 'For green-economy professionals in APAC',
-    title: 'You’re not short on experience — you’re short on positioning people read instantly.',
+    title: 'You’re not short on experience — you’re short on positioning people read at a glance.',
     credibilityLine:
       'Built by an INSEAD MBA and Big-4 ESG advisor, purpose-made for green-career and MBA positioning.',
     subtitle:
@@ -58,7 +58,7 @@ export const landing: LandingContent = {
   offersTeaser: {
     title: 'If you want to go deeper',
     intro:
-      'The MRI is free and complete on its own. For people who want a human in the loop, there is a small set of paid services — from a 90-minute story teardown to a full positioning package. The report will recommend at most one path; the rest stay out of your way.',
+      'The MRI is free and complete on its own. For people who want a human in the loop, there is a small set of paid services, and every one of them starts with a single 30-minute positioning call. The report will recommend at most one path; the rest stay out of your way.',
     allServicesCta: 'See all services & pricing',
     honestUrgency:
       'An honest nudge: whether you are switching roles, landing your next green-collar job, or applying to an MBA, the opportunity windows have real deadlines. The earlier your positioning is clear, the more options you keep — not manufactured urgency, just the calendar.',

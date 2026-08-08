@@ -3,13 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { phCapture, phDistinctId } from '@/components/PostHogProvider';
-import type { Locale, ResultCategory } from '@/lib/constants';
+import type { Locale } from '@/lib/constants';
 import { INPUT_LIMITS, type InputType, type QuestionId } from '@/lib/constants';
 
 /** Draft autosave key — survives an interrupted commute (mobile audit). */
 const DRAFT_KEY = 'gtos_material_draft';
 import { labelFor } from '@/lib/taxonomy';
-import { getQuickBand } from '@/lib/salaryBands';
 import type {
   ConsentContent,
   ErrorsContent,
@@ -21,51 +20,52 @@ import type { ExtractedProfile, UserEdits } from '@/lib/types';
 import { ProgressStages } from './ProgressStages';
 import { LineActions } from './LineActions';
 import { SaveForLater } from './SaveForLater';
-import { ShareableTypeCard } from './ShareableTypeCard';
+import { QuickRead, mapQuick } from './QuickRead';
 
 type Phase = 'input' | 'extracting' | 'confirm' | 'questions' | 'generating' | 'quick' | 'quick_result';
-
-/** Deterministic four-answer → category read. Rough by design — the quick read
- * trades precision for zero typing; the full pipeline stays the honest one. */
-function mapQuick(a: Record<string, string>): ResultCategory {
-  const senior = a.q2 === 'y3' || a.q2 === 'y6' || a.q2 === 'y8';
-  if (a.q3 === 'mba_q' || a.q1 === 'mba')
-    return senior ? 'ready_for_mba_story_sprint' : 'career_positioning_before_mba';
-  if (a.q1 === 'student' || a.q2 === 'y0') return 'profile_building_needed';
-  if (a.q1 === 'non_sus')
-    return senior ? 'high_potential_low_commercial_clarity' : 'profile_building_needed';
-  if (a.q3 === 'interview') return 'interview_ready_positioning_weak';
-  if (a.q3 === 'no_reply')
-    return a.q2 === 'y6' ? 'cv_strong_narrative_weak' : 'strong_profile_weak_story';
-  if (a.q3 === 'abroad') return 'climate_career_builder';
-  if (a.q3 === 'value')
-    return senior ? 'high_potential_low_commercial_clarity' : 'strong_profile_weak_story';
-  return 'strong_profile_weak_story';
-}
 
 /** Tab display order — lowest-friction paste first; CV-PDF (biggest drop-off) last. */
 const TAB_ORDER: InputType[] = ['notes_paste', 'linkedin_paste', 'cv_pdf', 'voice_transcript'];
 
 /**
- * Quick-read wayfinding strings: how far along you are, and the way out.
+ * Material-step chrome that the content contract has no keys for yet.
  *
- * These live here rather than in `content/` only because `FlowContent.quick`
- * has no keys for them yet; they are chrome, not claims, and none of them
- * touches a number, a promise or a price. Move them into the schema the next
- * time the content contract is opened.
+ * Same rule as `QUICK_UI` in `QuickRead.tsx`: wayfinding and privacy-fact
+ * strings live here only until `FlowContent` is next opened. None of them
+ * carries a price, a number we do not own, or a promise about what a human
+ * does with the material — `privacyAccess` is deliberately a statement about
+ * *permissions*, not about reading.
  */
-const QUICK_UI: Record<Locale, { progress: string; back: string; edit: string; needMore: string }> = {
+const MATERIAL_UI: Record<
+  Locale,
+  {
+    privacyAccess: string;
+    privacyRetention: string;
+    privacyMore: string;
+    thresholdHint: string;
+    countEmpty: string;
+    countReady: string;
+    dataDetails: string;
+  }
+> = {
   'zh-TW': {
-    progress: '已完成 {done}／{total} 題',
-    back: '回上一步',
-    edit: '回上一步改答案',
-    needMore: '還有 {left} 題沒選，{total} 題都選完就能拿速讀卡。',
+    privacyAccess: '只有 Michael 本人有權限查看你貼上的內容。',
+    privacyRetention: '原始素材 90 天後自動刪除。',
+    privacyMore: '完整說明',
+    thresholdHint: '兩三句話就夠：你現在做什麼、想去哪裡、卡在哪一步。最少 {min} 字。',
+    countEmpty: '0 / {min} 字・大約三到四句話就夠',
+    countReady: '・已達門檻，可以送出',
+    dataDetails: '你的資料會怎麼被處理',
   },
   en: {
-    progress: '{done} of {total} answered',
-    back: 'Back',
-    edit: 'Back to change an answer',
-    needMore: '{left} of {total} still to answer before your card unlocks.',
+    privacyAccess: 'Only Michael has access to what you paste.',
+    privacyRetention: 'Raw material is deleted automatically after 90 days.',
+    privacyMore: 'Full details',
+    thresholdHint:
+      'Two or three sentences is enough: what you do now, where you want to go, and where you are stuck. {min} characters minimum.',
+    countEmpty: '0 / {min} characters — about two or three sentences',
+    countReady: ' — long enough, you can submit',
+    dataDetails: 'How your material is handled',
   },
 };
 
@@ -90,15 +90,28 @@ export interface IntakeFlowProps {
 }
 
 /**
- * The input step's error lives beside the submit button, two screens below the
- * fold. That is the right home for it (the copy points at the consent box from
- * there), but a request that fails mid-extraction drops you back at the top of
- * a long page with the explanation out of sight. The timeout lets React commit
- * the phase change before we look for the node.
+ * Put the user on the thing that stopped the submit.
+ *
+ * A failed click used to be almost silent: the page did not move, focus stayed
+ * on the button, the button's own appearance did not change, and on the CV tab
+ * nothing scrolled at all — the error rendered 441px above the fold on a 375px
+ * screen. Every failure path now ends here, so the blocking control is both
+ * scrolled into view and focused (keyboard and screen-reader users land on it
+ * too, not just the sighted thumb).
+ *
+ * Order matters and is not obvious: measured in Chrome, a `focus()` that lands
+ * *after* `scrollIntoView({behavior:'smooth'})` aborts the animation, even with
+ * `preventScroll: true` — the caret moved and the page did not, which is the
+ * exact bug this function exists to fix. Focus first (silently), then scroll.
+ * The timeout lets React commit the error node, which shifts layout, before we
+ * measure against it.
  */
-function revealInputError() {
+function moveToBlocker(id: string) {
   setTimeout(() => {
-    document.getElementById('input-error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const el = document.getElementById(id);
+    if (!(el instanceof HTMLElement)) return;
+    el.focus({ preventScroll: true });
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 0);
 }
 
@@ -188,16 +201,17 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
       // Walkthrough F3: the button used to be disabled in this state, so these
       // errors were unreachable and a not-ready click gave zero feedback (the
       // /mri rageclick hotspot). The click now names the blocker and moves you to it.
-      if (!consentProcessing) {
-        setError(errors.consentRequired);
-        document.getElementById('consent-box')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else if (inputType === 'cv_pdf') {
-        setError(errors.fileMissing);
+      //
+      // Order follows the page, not the old code: the material field is the
+      // first control on the step, the consent tick sits under it. When both
+      // are unmet we send you to the first one, never past it.
+      const materialMissing = inputType === 'cv_pdf' ? !file : !textOk;
+      if (materialMissing) {
+        setError(inputType === 'cv_pdf' ? errors.fileMissing : errors.tooShort);
+        moveToBlocker(inputType === 'cv_pdf' ? 'cv-picker' : 'material-input');
       } else {
-        setError(errors.tooShort);
-        const ta = document.getElementById('material-input');
-        ta?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        if (ta instanceof HTMLTextAreaElement) ta.focus({ preventScroll: true });
+        setError(errors.consentRequired);
+        moveToBlocker('consent-processing');
       }
       return;
     }
@@ -231,7 +245,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
         const body = await res.json().catch(() => ({}));
         setError(body.detail ?? errors.extractionFailed);
         setPhase('input');
-        revealInputError();
+        moveToBlocker('input-error');
         return;
       }
       const data = (await res.json()) as { session_token: string; profile: ExtractedProfile };
@@ -251,7 +265,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
     } catch {
       setError(errors.generic);
       setPhase('input');
-      revealInputError();
+      moveToBlocker('input-error');
     } finally {
       setBusy(false);
     }
@@ -529,6 +543,20 @@ function InputStep(p: {
   onQuick: () => void;
 }) {
   const tab = p.flow.inputTabs[p.inputType];
+  const ui = MATERIAL_UI[p.locale];
+  const min = p.locale === 'zh-TW' ? INPUT_LIMITS.minCharsZh : INPUT_LIMITS.minCharsEn;
+  const len = p.text.trim().length;
+  const isPdf = p.inputType === 'cv_pdf';
+  /**
+   * `SaveForLater` posts an email address and nothing else — not the draft, not
+   * the file. Rendering it beside a textarea someone has already filled in is a
+   * lie by placement: it answers "sent, you can close this page" while their
+   * 83 pasted characters go nowhere. It belongs to the empty state only, where
+   * it is exactly what it claims: a way out for people with nothing on hand.
+   */
+  const nothingEntered = len === 0 && !p.file;
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
   return (
     <div className="mt-8">
       <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{p.flow.intro.title}</h1>
@@ -577,115 +605,192 @@ function InputStep(p: {
 
       <p className="mt-3 max-w-[35rem] text-sm text-ink-soft">{tab.hint}</p>
 
-      {p.inputType === 'cv_pdf' ? (
-        <div className="mt-4 rounded-xl border border-dashed border-line bg-mist/40 px-5 py-8 text-center">
+      {/* The 80-character floor is the single most reassuring fact on the page —
+          two or three sentences clears it — and it used to exist only inside a
+          failure message. It is now stated before anyone types, outside the
+          field: a placeholder would vanish on the first keystroke, exactly when
+          the person is still deciding whether they have enough to say. */}
+      {!isPdf && (
+        <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">
+          {ui.thresholdHint.replace('{min}', String(min))}
+        </p>
+      )}
+
+      {/* Pre-upload privacy, permanently visible and never inside the fold-away
+          block below: who has access, and how long the raw material lives.
+          Both are statements of fact about permission and retention — not a
+          claim about what any human reads. */}
+      <div className="mt-4 max-w-[35rem] space-y-1 text-sm text-ink-soft">
+        <p>{ui.privacyAccess}</p>
+        <p>
+          {ui.privacyRetention}{' '}
+          <a
+            href={p.privacyHref}
+            className="text-pine underline underline-offset-2 hover:text-pine-deep"
+          >
+            {ui.privacyMore}
+          </a>
+        </p>
+      </div>
+
+      {isPdf ? (
+        <div className="mt-3">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/pdf"
+            className="hidden"
+            onChange={(e) => p.setFile(e.target.files?.[0] ?? null)}
+          />
           {p.file ? (
-            <div className="flex items-center justify-center gap-3 text-sm">
-              <span>
+            <div className="rounded-xl border border-dashed border-line bg-mist/40 px-5 py-6 text-center">
+              <p className="text-sm">
                 {p.flow.pdf.selected} {p.file.name}
-              </span>
-              <button type="button" className="text-pine hover:underline" onClick={() => p.setFile(null)}>
-                {p.flow.pdf.remove}
-              </button>
+              </p>
+              <div className="mt-3 flex flex-wrap justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="inline-flex min-h-[44px] items-center rounded-lg border border-pine px-4 py-2 text-sm text-pine"
+                >
+                  {p.flow.pdf.chooseFile}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    p.setFile(null);
+                    if (fileInputRef.current) fileInputRef.current.value = '';
+                  }}
+                  className="inline-flex min-h-[44px] items-center rounded-lg border border-line px-4 py-2 text-sm text-ink-soft hover:border-pine"
+                >
+                  {p.flow.pdf.remove}
+                </button>
+              </div>
             </div>
           ) : (
-            <label className="cursor-pointer text-sm text-ink-soft">
-              {p.flow.pdf.dropLabel}{' '}
-              <span className="text-pine underline">{p.flow.pdf.chooseFile}</span>
-              <input
-                type="file"
-                accept="application/pdf"
-                className="sr-only"
-                onChange={(e) => p.setFile(e.target.files?.[0] ?? null)}
-              />
-            </label>
+            /* The dashed box was a plain <div>. The only clickable thing inside
+               it was a 229x19px run of grey text, the same colour as body copy,
+               no underline, nothing button-shaped — and phones cannot drag, so
+               the entire CV path hung off those 19 vertical pixels. The box
+               itself is now the control, with a real button inside it, and the
+               drop target is real too: the old copy promised drag-and-drop that
+               no handler implemented, so a dropped file navigated the browser
+               away from the page. "Drop it here" is hidden on narrow screens
+               where it can never be true. */
+            <button
+              type="button"
+              id="cv-picker"
+              onClick={() => fileInputRef.current?.click()}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragging(true);
+              }}
+              // dragleave bubbles, so crossing from the box onto the button
+              // inside it would otherwise strobe the highlight off and on
+              onDragLeave={(e) => {
+                if (e.currentTarget.contains(e.relatedTarget as Node | null)) return;
+                setDragging(false);
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                setDragging(false);
+                const dropped = e.dataTransfer.files?.[0];
+                if (dropped) p.setFile(dropped);
+              }}
+              className={
+                dragging
+                  ? 'flex w-full cursor-pointer flex-col items-center gap-3 rounded-xl border border-dashed border-pine bg-sage-soft/40 px-5 py-8 text-center transition-colors'
+                  : 'flex w-full cursor-pointer flex-col items-center gap-3 rounded-xl border border-dashed border-line bg-mist/40 px-5 py-8 text-center transition-colors hover:border-pine hover:bg-mist/60'
+              }
+            >
+              <span className="hidden text-sm text-ink-soft sm:block">{p.flow.pdf.dropLabel}</span>
+              <span className="inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper">
+                {p.flow.pdf.chooseFile}
+              </span>
+            </button>
           )}
         </div>
       ) : (
-        <div className="mt-4">
+        <div className="mt-3">
           <textarea
             id="material-input"
             // the only name this field had was its placeholder, which disappears
             // the moment anything is typed into it
             aria-label={tab.tab}
+            aria-describedby="material-count"
             value={p.text}
             onChange={(e) => p.setText(e.target.value)}
             placeholder={tab.placeholder}
-            rows={10}
+            // was 10: on a 375px screen those extra rows pushed the submit
+            // button off the bottom of a second screen. 7 still shows a pasted
+            // CV back to the person who pasted it.
+            rows={7}
             className="w-full resize-y rounded-lg border border-line bg-paper px-4 py-3 text-ink outline-none focus:border-pine"
           />
-          {(() => {
-            const min = p.locale === 'zh-TW' ? INPUT_LIMITS.minCharsZh : INPUT_LIMITS.minCharsEn;
-            const len = p.text.trim().length;
-            const short = len > 0 && len < min;
-            return (
-              <p className={short ? 'mt-1 text-right text-xs font-medium text-pine' : 'mt-1 text-right text-xs text-ink-soft'}>
-                {short
-                  ? p.flow.charCountNeed.replace('{count}', String(len)).replace('{need}', String(min - len))
-                  : p.flow.charCount.replace('{count}', String(len))}
-              </p>
-            );
-          })()}
+          {/* Described-by, not a live region: the counter's text changes on
+              every keystroke, so announcing it politely would narrate each
+              character typed. The threshold is read once when the field takes
+              focus; only crossing it announces, from the quiet status below. */}
+          <p
+            id="material-count"
+            className={
+              len === 0
+                ? 'mt-1 text-right text-xs text-ink-soft'
+                : 'mt-1 text-right text-xs font-medium text-pine'
+            }
+          >
+            {len === 0
+              ? ui.countEmpty.replace('{min}', String(min))
+              : len < min
+                ? p.flow.charCountNeed
+                    .replace('{count}', String(len))
+                    .replace('{need}', String(min - len))
+                : `${p.flow.charCount.replace('{count}', String(len))}${ui.countReady}`}
+          </p>
+          <span role="status" className="sr-only">
+            {len >= min ? ui.countReady : ''}
+          </span>
         </div>
       )}
 
-      {/* no-CV escape hatch — the 78% material-step drop is mostly "wrong moment",
-          not "no intent"; give the commuter a way to come back or hand over via LINE */}
-      <LineActions
-        title={p.flow.line.noCvTitle}
-        body={p.flow.line.noCvBody}
-        saveLabel={p.flow.line.saveCta}
-        addLabel={p.flow.line.addCta}
-        shareText={p.flow.line.shareTextMri}
-        sharePath={`/${p.locale}/mri?utm_source=line_self&utm_medium=save`}
-        context="material_step"
-      />
+      {/* The one required tick, directly under the field it applies to.
+          Everything it used to sit inside — the detail line, the optional
+          aggregate opt-in, the retention, access and redaction notes, plus the
+          LINE and email escape hatches — is intact one block down, behind a
+          summary. Nothing was cut. The commit path simply stopped running
+          through 1,100px of ways to leave.
 
-      {/* email capture out — the reachable-lead version of the escape hatch */}
-      <SaveForLater locale={p.locale} copy={p.flow.saveLater} />
-
-      {/* consent — inline, required before submit */}
-      <div id="consent-box" className="mt-6 rounded-xl border border-line bg-mist/30 px-5 py-4">
-        <p className="max-w-[35rem] text-sm text-ink-soft">{p.consent.redactHint}</p>
-        <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">
-          {p.consent.retentionSummary}{' '}
-          <a href={p.privacyHref} className="text-pine hover:underline">
-            {p.consent.privacyLinkLabel}
-          </a>
-        </p>
-        {/* leading-relaxed: globals.css only gives zh-Hant 1.85 line-height to
-            p/li/dd/blockquote, so the consent sentence (a <span> in a <label>) was
-            set TIGHTER than the small print directly beneath it. */}
-        <label className="mt-4 flex items-start gap-3 text-sm leading-relaxed">
+          leading-relaxed: globals.css only gives zh-Hant 1.85 line-height to
+          p/li/dd/blockquote, so this sentence (a <span> in a <label>) was set
+          TIGHTER than the small print that used to follow it. */}
+      <label
+        htmlFor="consent-processing"
+        className="-ml-2.5 mt-3 flex max-w-[37rem] cursor-pointer items-start gap-1 text-sm leading-relaxed"
+      >
+        {/* 20x20 was under half the 44px minimum target. The box stays visually
+            calm at 24px; the 44x44 wrapper inside the label is the thing a
+            thumb actually has to hit. */}
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center">
           <input
+            id="consent-processing"
             type="checkbox"
             checked={p.consentProcessing}
             onChange={(e) => p.setConsentProcessing(e.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 accent-pine"
+            className="h-6 w-6 shrink-0 cursor-pointer accent-pine"
           />
-          <span>{p.consent.processing.label}</span>
-        </label>
-        <p className="ml-7 mt-1 max-w-[30rem] text-xs text-ink-soft">{p.consent.processing.detail}</p>
-        <label className="mt-3 flex items-start gap-3 text-sm leading-relaxed">
-          <input
-            type="checkbox"
-            checked={p.consentAggregate}
-            onChange={(e) => p.setConsentAggregate(e.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 accent-pine"
-          />
-          <span>{p.consent.aggregate.label}</span>
-        </label>
-        <p className="ml-7 mt-2 max-w-[30rem] text-xs text-ink-soft">{p.consent.whoSeesIt}</p>
-        <p className="ml-7 mt-2 max-w-[30rem] text-xs text-ink-soft">{p.consent.noAccessNote}</p>
-      </div>
+        </span>
+        <span className="py-[11px]">{p.consent.processing.label}</span>
+      </label>
 
       {/* The blocker, named at the point of action — the top-of-page error is two
-          screens away from this button (walkthrough F3). */}
+          screens away from this button (walkthrough F3). tabIndex lets
+          moveToBlocker() park focus here when a request fails server-side. */}
       {p.error && (
         <p
           id="input-error"
           role="alert"
-          className="mt-6 max-w-[37rem] rounded-xl border border-line bg-mist px-4 py-3 text-sm text-ink"
+          tabIndex={-1}
+          className="mt-4 max-w-[37rem] rounded-xl border border-line bg-mist px-4 py-3 text-sm text-ink outline-none"
         >
           {p.error}
         </p>
@@ -699,6 +804,59 @@ function InputStep(p: {
         {p.flow.submit}
       </button>
       {!p.inputReady && <p className="mt-2 text-xs text-ink-soft">{p.flow.submitHint}</p>}
+
+      {/* Everything that used to stand between the field and this button. Same
+          words, same order, one fold down — reachable for the person who wants
+          it, out of the way of the person who has already decided. */}
+      <details className="mt-8 max-w-[37rem] rounded-xl border border-line bg-mist/30">
+        <summary className="cursor-pointer px-5 py-3.5 text-sm font-medium">
+          {ui.dataDetails}
+        </summary>
+        <div className="border-t border-line px-5 py-4">
+          <p className="max-w-[35rem] text-sm text-ink-soft">{p.consent.redactHint}</p>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">
+            {p.consent.retentionSummary}{' '}
+            <a href={p.privacyHref} className="text-pine hover:underline">
+              {p.consent.privacyLinkLabel}
+            </a>
+          </p>
+          <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">{p.consent.processing.detail}</p>
+          <label
+            htmlFor="consent-aggregate"
+            className="-ml-2.5 mt-3 flex max-w-[37rem] cursor-pointer items-start gap-1 text-sm leading-relaxed"
+          >
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center">
+              <input
+                id="consent-aggregate"
+                type="checkbox"
+                checked={p.consentAggregate}
+                onChange={(e) => p.setConsentAggregate(e.target.checked)}
+                className="h-6 w-6 shrink-0 cursor-pointer accent-pine"
+              />
+            </span>
+            <span className="py-[11px]">{p.consent.aggregate.label}</span>
+          </label>
+          <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">{p.consent.whoSeesIt}</p>
+          <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">{p.consent.noAccessNote}</p>
+
+          {/* no-CV escape hatch — the 78% material-step drop is mostly "wrong
+              moment", not "no intent"; give the commuter a way to come back or
+              hand over via LINE */}
+          <LineActions
+            title={p.flow.line.noCvTitle}
+            body={p.flow.line.noCvBody}
+            saveLabel={p.flow.line.saveCta}
+            addLabel={p.flow.line.addCta}
+            shareText={p.flow.line.shareTextMri}
+            sharePath={`/${p.locale}/mri?utm_source=line_self&utm_medium=save`}
+            context="material_step"
+          />
+
+          {/* email capture out — the reachable-lead version of the escape hatch,
+              and only while there is nothing to lose by taking it */}
+          {nothingEntered && <SaveForLater locale={p.locale} copy={p.flow.saveLater} />}
+        </div>
+      </details>
     </div>
   );
 }
@@ -922,215 +1080,6 @@ function QuestionsStep(p: {
       >
         {p.questions.submit}
       </button>
-    </div>
-  );
-}
-
-function QuickRead(p: {
-  locale: Locale;
-  flow: FlowContent;
-  share: ShareContent;
-  answers: Record<string, string>;
-  setAnswers: (a: Record<string, string>) => void;
-  showResult: boolean;
-  onShowResult: () => void;
-  onFull: () => void;
-  onBack: () => void;
-  onEditAnswers: () => void;
-}) {
-  const q = p.flow.quick;
-  const ui = QUICK_UI[p.locale];
-  const qs = [
-    { id: 'q1', ...q.q1 },
-    { id: 'q2', ...q.q2 },
-    { id: 'q3', ...q.q3 },
-    { id: 'q4', ...q.q4 },
-    { id: 'q5', ...q.q5 },
-  ];
-  const answered = qs.filter((x) => p.answers[x.id]).length; // derived, not state
-  const allAnswered = answered === qs.length;
-
-  if (p.showResult) {
-    const category = mapQuick(p.answers);
-    const type = p.share.types[category];
-    const qb = getQuickBand(p.answers.q5 ?? '', p.answers.q2 ?? '', p.locale);
-    const stuckLine = (q.stuck as Record<string, string>)[p.answers.q3 ?? ''];
-    return (
-      <div className="mt-8">
-        {/* Screenshot-worthy mini report card — the quick read's actual value.
-            Every claim echoes results.ts; every number comes from the
-            drift-guarded salary dataset. No LLM, fully deterministic. */}
-        <div className="rounded-xl border-2 border-pine bg-paper p-6 sm:p-7">
-          <p className="text-xs uppercase tracking-eyebrow text-pine">{q.resultEyebrow}</p>
-          <h1 className="mt-2 text-3xl font-semibold">{type.label}</h1>
-
-          <p className="mt-5 text-xs uppercase tracking-eyebrow text-ink-soft">
-            {q.card.misreadLabel}
-          </p>
-          <p className="mt-1.5 text-sm leading-relaxed">{q.misread[category]}</p>
-
-          {stuckLine && (
-            <>
-              <p className="mt-4 text-xs uppercase tracking-eyebrow text-ink-soft">
-                {q.card.stuckLabel}
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed">{stuckLine}</p>
-            </>
-          )}
-
-          <div className="mt-4 border-l-2 border-pine pl-4">
-            <p className="text-xs uppercase tracking-eyebrow text-ink-soft">
-              {q.card.verdictLabel}
-            </p>
-            <p className="mt-1.5 text-sm font-medium leading-relaxed">{q.verdict[category]}</p>
-          </div>
-
-          {qb && (
-            <div className="mt-5 rounded-xl bg-mist/40 px-4 py-3.5">
-              <p className="text-xs uppercase tracking-eyebrow text-ink-soft">
-                {q.card.salaryLabel}
-              </p>
-              {qb.band && (
-                <p className="mt-1.5 text-sm">
-                  {q.card.salaryLabelSg}
-                  {qb.band.functionLabel}・{qb.band.expLabel}：
-                  <span className="font-semibold">{qb.band.sgBand}</span>
-                </p>
-              )}
-              <p className="mt-1 text-sm">{qb.twAnchor}</p>
-              <p className="mt-1 text-sm">
-                {q.card.salaryLabelMultiple} {qb.nominal}
-                {qb.disposable ? `${q.card.salaryDisposableSuffix}${qb.disposable}` : ''}
-              </p>
-              <p className="mt-2 text-xs text-ink-soft">{q.card.salarySource}</p>
-            </div>
-          )}
-
-          <p className="mt-5 text-right text-xs text-ink-soft">{q.card.brandFooter}</p>
-        </div>
-
-        <p className="mt-5 max-w-[37rem] rounded-xl border border-line bg-mist/30 px-5 py-4 text-sm text-ink-soft">
-          {q.resultNote}
-        </p>
-        <div className="mt-6 flex flex-wrap items-center gap-4">
-          <button
-            type="button"
-            onClick={p.onFull}
-            className="rounded-lg bg-pine px-6 py-3 text-paper"
-          >
-            {q.fullCta}
-          </button>
-          <a
-            href={`/${p.locale}/types/${category}?utm_source=quick_read`}
-            className="text-sm font-medium text-pine underline-offset-2 hover:underline"
-          >
-            {q.typeDetailCta} →
-          </a>
-          {/* The card is a read of five taps, so mistyping one used to mean
-              reloading the page. The answers are still in state; go change one. */}
-          <button
-            type="button"
-            onClick={p.onEditAnswers}
-            className="text-sm text-ink-soft underline-offset-2 hover:text-pine hover:underline"
-          >
-            ← {ui.edit}
-          </button>
-        </div>
-        {/* email unlock — capture the quick-read taker as a reachable lead */}
-        <SaveForLater locale={p.locale} copy={p.flow.saveLater} />
-        <LineActions
-          title={p.flow.line.endTitle}
-          body={p.flow.line.endBody}
-          addLabel={p.flow.line.addCta}
-          context="quick_result"
-        />
-        {/* viral loop — the quick result is itself shareable back to Threads */}
-        <ShareableTypeCard
-          locale={p.locale}
-          category={category}
-          content={p.share}
-          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/${p.locale}/types/${category}`}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div className="mt-8">
-      {/* The quick read used to be a one-way door with no odometer: five
-          questions, no sense of how far along you were, and no way back out to
-          the full MRI once you had tapped in. Both are pure reads of the
-          answers already in state. */}
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <button
-          type="button"
-          onClick={p.onBack}
-          className="-ml-2 inline-flex min-h-[44px] items-center rounded-lg px-2 text-sm text-ink-soft underline-offset-2 hover:text-pine hover:underline"
-        >
-          ← {ui.back}
-        </button>
-        <p aria-live="polite" className="text-sm text-ink-soft">
-          {ui.progress.replace('{done}', String(answered)).replace('{total}', String(qs.length))}
-        </p>
-      </div>
-      <div className="mt-2 h-1 w-full overflow-hidden rounded-lg bg-mist" aria-hidden="true">
-        <div
-          className="h-full rounded-lg bg-pine transition-[width] duration-300"
-          style={{ width: `${(answered / qs.length) * 100}%` }}
-        />
-      </div>
-
-      <h1 className="mt-6 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{q.title}</h1>
-      <p className="mt-2 text-ink-soft">{q.intro}</p>
-      <div className="mt-6 space-y-6">
-        {qs.map((x) => (
-          <div key={x.id}>
-            {/* same shape as QuestionsStep: a heading-ish <p> plus a labelled group */}
-            <p id={`quick-${x.id}-label`} className="block text-sm font-medium">
-              {x.label}
-            </p>
-            <div
-              role="group"
-              aria-labelledby={`quick-${x.id}-label`}
-              className="mt-2 flex flex-wrap gap-2"
-            >
-              {x.options.map((o) => (
-                <button
-                  key={o.value}
-                  type="button"
-                  aria-pressed={p.answers[x.id] === o.value}
-                  onClick={() => p.setAnswers({ ...p.answers, [x.id]: o.value })}
-                  className={
-                    p.answers[x.id] === o.value
-                      ? 'inline-flex min-h-[44px] items-center rounded-full bg-pine px-4 py-2.5 text-sm text-paper'
-                      : 'inline-flex min-h-[44px] items-center rounded-full border border-line px-4 py-2.5 text-sm text-ink-soft hover:border-pine'
-                  }
-                >
-                  {o.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      <button
-        type="button"
-        disabled={!allAnswered}
-        onClick={p.onShowResult}
-        className="mt-8 rounded-lg bg-pine px-6 py-3 text-paper disabled:opacity-40"
-      >
-        {q.showResult}
-      </button>
-      {/* Same fix the full material step already carries (`flow.submitHint`): a
-          dimmed button that says nothing is the rageclick pattern. Name the
-          blocker under the button. */}
-      {!allAnswered && (
-        <p className="mt-2 text-xs text-ink-soft">
-          {ui.needMore
-            .replace('{left}', String(qs.length - answered))
-            .replace('{total}', String(qs.length))}
-        </p>
-      )}
     </div>
   );
 }

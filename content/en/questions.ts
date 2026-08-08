@@ -10,9 +10,12 @@ export const questions: QuestionsContent = {
     body: 'We only ask when something cannot be read from your material, and this time nothing is missing. Leave an email and your report starts generating right away, saved to a link you can return to.',
   },
   emailGate: {
-    // Report-delivery framing; adjusted to honest copy 2026-06-15 with founder approval (email sending not yet enabled).
-    title: 'Your report is ready — enter your email',
-    body: "Enter your email and we'll generate your personal report right away. It appears on screen immediately and is saved to this link so you can return anytime.",
+    // Report-delivery framing; adjusted to honest copy 2026-06-15 with founder approval.
+    // 2026-08-08 UX audit: the old line promised the report "appears on screen
+    // immediately" while generation actually takes 3–5 minutes — a breach of
+    // UX_PRINCIPLES #5 (honest progress). Now it forecasts honestly instead.
+    title: 'Leave your email and the report comes to you',
+    body: 'The report is not instant — it usually takes three to five minutes to write. When it is done we email it to you, and it stays saved at this link so you can come back to it anytime.',
     emailLabel: 'Email',
     emailPlaceholder: 'you@example.com',
     nameLabel: 'Name (optional)',

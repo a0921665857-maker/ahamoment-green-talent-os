@@ -3,7 +3,9 @@ import type { ShareContent } from '../schema';
 export const share: ShareContent = {
   heading: 'Your green career type',
   shareButton: 'Copy my type to share',
-  copied: 'Copied! Paste it anywhere',
+  // 2026-08-08 constitution lint: the exclamation mark breaks UX_PRINCIPLES #7
+  // (calm premium, not motivational).
+  copied: 'Copied. Paste it anywhere',
   softCta: 'Find your own',
   screenshotHint: 'Tap "Share my card" to save it as an image, or screenshot this card.',
   types: {

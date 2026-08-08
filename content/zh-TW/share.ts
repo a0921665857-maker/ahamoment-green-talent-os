@@ -3,7 +3,8 @@ import type { ShareContent } from '../schema';
 export const share: ShareContent = {
   heading: '你的綠色職涯類型',
   shareButton: '複製我的類型，貼到 Threads',
-  copied: '已複製！可貼到 Threads',
+  // 2026-08-08 constitution lint：驚嘆號違反 UX_PRINCIPLES #7（冷靜，不勵志）。
+  copied: '已複製，可以貼到 Threads 了',
   softCta: '來測你自己的',
   screenshotHint: '點「分享我的圖卡」存成圖片發文，或截圖這張卡片。',
   types: {

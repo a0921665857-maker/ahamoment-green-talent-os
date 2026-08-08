@@ -84,81 +84,22 @@ export function displayPrice(id: OfferId, locale: Locale): string | null {
   return isPublicPaidOffer(id) ? priceFor(id, locale).display : null;
 }
 
-/* ------------------------------- payment links ------------------------------ */
+/* ------------------------------ how money moves ----------------------------- */
 
 /**
- * Stripe Payment Links, one per service × market. Hosted checkout — no `stripe`
- * SDK, no server-side session creation, no webhook secret required for the
- * happy path. Unset env = the pay button is simply not rendered (the booking
- * path still works), never a dead `#`.
+ * There is no self-serve checkout, by founder decision (business-model constant,
+ * restated in the 2026-08 UX audit): nobody pays this site. The path is fixed —
+ * add on LINE → book the free 30-minute positioning call → Michael says the price
+ * and the scope out loud on that call → the person decides → payment is arranged
+ * personally afterwards.
  *
- * Naming: NEXT_PUBLIC_STRIPE_LINK_<OFFER>_<MARKET>, e.g.
- *   NEXT_PUBLIC_STRIPE_LINK_OFFER_PATH_READ_TW
- *   NEXT_PUBLIC_STRIPE_LINK_OFFER_PATH_READ_INTL
- *   NEXT_PUBLIC_STRIPE_LINK_MBA_STORY_TEARDOWN_TW
- *   NEXT_PUBLIC_STRIPE_LINK_MBA_STORY_TEARDOWN_INTL
+ * The Stripe Payment Link rail that used to live here (`paymentLinkFor`,
+ * `isUsablePaymentLink`, `paymentLinkWithContext`, the NEXT_PUBLIC_STRIPE_LINK_*
+ * reads and the /payment/{success,cancelled} pages) was removed on 2026-08-08:
+ * it contradicted that decision, and a "Pay now" button sitting next to the
+ * booking button taught readers the price was something you click past rather
+ * than something a person tells you.
  *
- * NEXT_PUBLIC_* is inlined at build time, so these must be read as static
- * property accesses — a computed `process.env[key]` returns undefined in the
- * browser bundle.
+ * Prices above stay — they are public business information the services page and
+ * the report both display. Displaying a price is not the same as taking money.
  */
-export function paymentLinkFor(id: PublicPaidOfferId, locale: Locale): string | null {
-  const market = marketForLocale(locale);
-  const raw =
-    id === 'offer_path_read'
-      ? market === 'tw'
-        ? process.env.NEXT_PUBLIC_STRIPE_LINK_OFFER_PATH_READ_TW
-        : process.env.NEXT_PUBLIC_STRIPE_LINK_OFFER_PATH_READ_INTL
-      : market === 'tw'
-        ? process.env.NEXT_PUBLIC_STRIPE_LINK_MBA_STORY_TEARDOWN_TW
-        : process.env.NEXT_PUBLIC_STRIPE_LINK_MBA_STORY_TEARDOWN_INTL;
-  return isUsablePaymentLink(raw) ? raw.trim() : null;
-}
-
-/**
- * Guards against the two ways this has actually gone wrong before: an unset
- * variable that stringifies to "undefined", and the `https://stripe.com/placeholder`
- * value that shipped in `.env.example`. A link must be an https Stripe URL.
- */
-export function isUsablePaymentLink(raw: string | undefined | null): raw is string {
-  if (!raw) return false;
-  const v = raw.trim();
-  if (v === '' || v === 'undefined' || v === 'null') return false;
-  if (v.includes('placeholder')) return false;
-  let url: URL;
-  try {
-    url = new URL(v);
-  } catch {
-    return false;
-  }
-  if (url.protocol !== 'https:') return false;
-  return url.hostname === 'buy.stripe.com' || url.hostname.endsWith('.stripe.com');
-}
-
-/**
- * Attaches the report token so a payment can be traced back to a report.
- * `client_reference_id` is a Stripe-supported query parameter on Payment Links
- * and carries an opaque string through to the checkout session; we pass the
- * report token, which is already a bearer key the buyer holds. No PII, no card
- * data — those never touch this app.
- *
- * NOTE on the post-payment redirect: a Payment Link's confirmation behaviour is
- * configured in the Stripe Dashboard ("After payment" → "Redirect to your
- * website"), NOT via a query parameter. The dashboard redirect must be set to
- * the locale's success page; the manual step is written up in
- * docs/execution/STRIPE_SETUP.md. This function deliberately does not invent a
- * URL parameter for it.
- */
-export function paymentLinkWithContext(
-  link: string,
-  ctx: { token?: string | null; offer: PublicPaidOfferId; locale: Locale },
-): string {
-  let url: URL;
-  try {
-    url = new URL(link);
-  } catch {
-    return link;
-  }
-  if (ctx.token && ctx.token !== 'sample') url.searchParams.set('client_reference_id', ctx.token);
-  return url.toString();
-}

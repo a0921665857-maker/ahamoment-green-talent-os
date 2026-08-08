@@ -17,6 +17,10 @@ export interface ReportView {
   createdAt: string;
   /** For the personalised salary band (deterministic lookup; block hides when absent). */
   sectors: string[];
+  /** Taxonomy domain slugs (GRI, SBTi, CBAM…) — the framework half of the
+   *  first-screen fact line. Same rule as sectors: unmapped slugs are dropped
+   *  at render time, never approximated. */
+  domains: string[];
   yearsExperience: number | null;
   profileConfidence: number;
 }
@@ -73,6 +77,10 @@ export async function getReportByToken(token: string): Promise<ReportView | null
   const sectors: string[] = Array.isArray(rawSectors)
     ? rawSectors.filter((s: unknown): s is string => typeof s === 'string')
     : [];
+  const rawDomains = profileRow?.payload?.green_economy?.domains;
+  const domains: string[] = Array.isArray(rawDomains)
+    ? rawDomains.filter((d: unknown): d is string => typeof d === 'string')
+    : [];
   const rawYears = profileRow?.payload?.identity?.years_experience;
   const yearsExperience = typeof rawYears === 'number' && Number.isFinite(rawYears) ? rawYears : null;
   const profileConfidence =
@@ -98,6 +106,7 @@ export async function getReportByToken(token: string): Promise<ReportView | null
     mbaIntent,
     createdAt: report.created_at,
     sectors,
+    domains,
     yearsExperience,
     profileConfidence,
   };

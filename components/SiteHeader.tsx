@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import type { Locale } from '@/lib/constants';
-import { navCopy } from '@/content/nav';
+import { navCopy, doorHref, type DoorPlacement } from '@/content/nav';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ReturnReportLink } from '@/components/ReturnReportLink';
 import { phCapture } from '@/components/PostHogProvider';
@@ -37,8 +37,14 @@ export function SiteHeader({
   const [open, setOpen] = useState(false);
   const base = `/${locale}`;
 
-  function go(href: string, where: 'header' | 'header_mobile') {
-    phCapture('nav_clicked', { href, where, locale });
+  /**
+   * `where` keeps its two historical values so the existing nav_clicked series
+   * stays readable. `placement` is the new, additive property, and it carries
+   * the SAME token as the link's utm_content — that is the join that lets a
+   * click and the landing pageview it produced be reconciled per surface.
+   */
+  function go(href: string, where: 'header' | 'header_mobile', placement?: DoorPlacement) {
+    phCapture('nav_clicked', { href, where, locale, ...(placement ? { placement } : {}) });
   }
 
   return (
@@ -97,8 +103,8 @@ export function SiteHeader({
             {n.doors.map((d) => (
               <a
                 key={d.href}
-                href={`${base}${d.href}`}
-                onClick={() => go(d.href, 'header')}
+                href={doorHref(locale, d.href, 'door-desktop')}
+                onClick={() => go(d.href, 'header', 'door-desktop')}
                 className="group whitespace-nowrap text-sm text-ink-soft transition-colors hover:text-pine"
               >
                 <span className="block leading-tight">{d.label}</span>
@@ -139,8 +145,8 @@ export function SiteHeader({
             {n.doors.map((d) => (
               <li key={d.href} className="border-b border-line/60 last:border-0">
                 <a
-                  href={`${base}${d.href}`}
-                  onClick={() => go(d.href, 'header_mobile')}
+                  href={doorHref(locale, d.href, 'door-menu')}
+                  onClick={() => go(d.href, 'header_mobile', 'door-menu')}
                   className="block py-3 text-sm"
                 >
                   <span className="block font-medium">{d.label}</span>

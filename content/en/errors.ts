@@ -11,7 +11,11 @@ export const errors: ErrorsContent = {
   extractionFailed: 'We could not read your material this time. Nothing was lost — your input is saved. Please try once more, or try a paste instead of a PDF.',
   reportDegraded: 'Parts of this report used fallback wording because generation was interrupted. The bands and category are still based on your material.',
   rateLimited: 'You have reached the hourly limit for new submissions from this connection. Please try again in a little while.',
-  dailyCapReached: "Today's MRI slots are full — we cap volume on purpose to keep quality high. Come back tomorrow, or watch for our next opening.",
+  // 2026-08-08: the old line ("we cap volume on purpose to keep quality high")
+  // manufactured scarcity (banned by UX_PRINCIPLES #5), was untrue — it is a daily
+  // AI processing cost ceiling, not a quality choice — and promised a "next opening"
+  // notification that does not exist.
+  dailyCapReached: "Today's processing budget is used up. That is a daily cost ceiling, not a limit on places. Come back to this page tomorrow and you will be able to submit.",
   notFound: 'We could not find that report. Check the link, or run a new MRI.',
   generic: 'Something went wrong on our side. Your input is saved — please try again.',
   retry: 'Try again',

@@ -6,9 +6,20 @@ import type { Locale } from '@/lib/constants';
 import type { FlowContent } from '@/content/schema';
 
 /**
- * Email capture on the material step — the audit's answer to the 78% drop: many
- * who leave have intent but no CV on hand right now. Get an email, send the link,
- * and they (and the concierge) can pick it up later. Records the lead server-side.
+ * Email capture — the audit's answer to the 78% drop: many who leave have
+ * intent but no CV on hand right now. Get an email, send the link, and they
+ * (and the concierge) can pick it up later. Records the lead server-side.
+ *
+ * IMPORTANT for anyone placing this component: the request body is
+ * `{ email, locale }` and nothing else. No draft text, no file, no session.
+ * It sends the person a link back to a blank `/mri`. The 2026-08 conversion
+ * audit found it rendering next to a textarea with 83 characters already in
+ * it, where `copy.done` ("sent — you can close this page") reads as a promise
+ * that their material was saved, which it was not. On the material step it is
+ * therefore mounted only while the field is empty and no file is chosen; on the
+ * quick-read result there is nothing to lose, so it renders unconditionally.
+ * If you ever need it beside real content, send the draft too — do not just
+ * change the placement.
  */
 export function SaveForLater(p: { locale: Locale; copy: FlowContent['saveLater'] }) {
   const [email, setEmail] = useState('');
@@ -37,7 +48,9 @@ export function SaveForLater(p: { locale: Locale; copy: FlowContent['saveLater']
   if (state === 'done') {
     return (
       <div className="mt-4 rounded-lg border border-pine/40 bg-sage-soft/20 px-5 py-4">
-        <p className="text-sm text-ink">{p.copy.done}</p>
+        <p role="status" className="text-sm text-ink">
+          {p.copy.done}
+        </p>
       </div>
     );
   }
@@ -52,6 +65,9 @@ export function SaveForLater(p: { locale: Locale; copy: FlowContent['saveLater']
           inputMode="email"
           autoComplete="email"
           value={email}
+          // the field's only name was its placeholder, which disappears on the
+          // first keystroke — same defect the material textarea carried
+          aria-label={p.copy.placeholder}
           placeholder={p.copy.placeholder}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -68,7 +84,11 @@ export function SaveForLater(p: { locale: Locale; copy: FlowContent['saveLater']
           {p.copy.cta}
         </button>
       </div>
-      {state === 'error' && <p className="mt-2 text-xs text-ink-soft">{p.copy.invalid}</p>}
+      {state === 'error' && (
+        <p role="alert" className="mt-2 text-xs text-ink-soft">
+          {p.copy.invalid}
+        </p>
+      )}
     </div>
   );
 }

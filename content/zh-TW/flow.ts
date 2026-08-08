@@ -30,7 +30,7 @@ export const flow: FlowContent = {
     },
   },
   pdf: {
-    dropLabel: '把 CV 拖曳到這裡，或',
+    dropLabel: '也可以把 CV 直接拖曳到這個框裡。',
     chooseFile: '選擇 PDF 檔案',
     selected: '已選擇：',
     remove: '移除',
@@ -84,7 +84,7 @@ export const flow: FlowContent = {
     invalid: '這個 email 看起來怪怪的，再檢查一下。',
   },
   quick: {
-    entryTitle: '手邊沒資料？先拿 60 秒速讀卡',
+    entryTitle: '先花 60 秒，看市場現在怎麼讀你',
     entryBody: '五題全用點的，不用貼任何東西：你的類型、市場怎麼誤讀你、你這段年資的真實行情。',
     entryButton: '開始 60 秒速讀',
     title: '60 秒速讀版',

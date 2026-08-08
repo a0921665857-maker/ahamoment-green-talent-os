@@ -1,6 +1,5 @@
 'use client';
 import type { Locale } from '@/lib/constants';
-import { LINE_OA_URL } from '@/lib/constants';
 import type { PaidOffersContent } from '@/content/schema';
 import { phCapture } from '@/components/PostHogProvider';
 import { calendlyWithContext } from '@/lib/bookingUrl';
@@ -10,6 +9,13 @@ import { calendlyWithContext } from '@/lib/bookingUrl';
  * Placement experiment: 30 days of data showed 0 booking clicks and only 2
  * reply-email users on the bottom-of-page CTA, so this tests "earlier + lighter".
  * Events carry placement:'inline' so the two positions stay comparable.
+ *
+ * The third link here used to be "add LINE" (context: report_mid). Removed
+ * 2026-08-08: the report page carried three separate LINE entrances, which is
+ * three ways to leave a page whose only job at this point is the booking
+ * decision. The LINE ask now lives in exactly one place — the soft close at the
+ * foot of the report (plus the mobile sticky bar). `paidOffers.inlineCta.lineCta`
+ * is consequently unused copy; retiring the string belongs to the content owner.
  */
 export function InlineCtaCard(props: {
   locale: Locale;
@@ -71,15 +77,6 @@ export function InlineCtaCard(props: {
           className="text-sm font-medium text-pine underline-offset-2 hover:underline"
         >
           {t.bookCta} →
-        </a>
-        <a
-          href={LINE_OA_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => phCapture('line_add_clicked', { context: 'report_mid' })}
-          className="text-sm font-medium text-pine underline-offset-2 hover:underline"
-        >
-          {t.lineCta} →
         </a>
       </div>
     </aside>

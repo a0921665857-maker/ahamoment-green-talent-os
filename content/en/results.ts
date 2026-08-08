@@ -1,5 +1,15 @@
 import type { ResultsContent } from '../schema';
 
+/**
+ * 2026-08-08 UX audit fix: all eight offerLines used to name the One-School MBA
+ * Story Sprint (mba_story_sprint), the 90-Minute Story Teardown (teardown_90) and
+ * the Climate Career Positioning Sprint (climate_positioning_sprint) — every one of
+ * them sits in ARCHIVED_OFFER_IDS in lib/services.ts and cannot be bought. This copy
+ * is also fed into the report-generation prompt (lib/prompts/mri_report.ts), so every
+ * report was recommending a product that no longer exists. It now names no product at
+ * all and points at the one door open to everyone: the free 30-minute positioning call.
+ */
+
 export const results: ResultsContent = {
   ready_for_mba_story_sprint: {
     name: 'Ready for the MBA story sprint',
@@ -12,8 +22,8 @@ export const results: ResultsContent = {
     nextMove:
       'Lock one target school and build the full story arc for it before touching another application.',
     offerLine:
-      'The One-School MBA Story Sprint takes your strongest target and builds the complete narrative — positioning, essays direction, interview spine — in four weeks.',
-    cta: 'Book the story sprint',
+      'If you want to test whether that arc holds before you start writing, book a 30-minute positioning call. I ask three questions and then say plainly which part of the story to write first.',
+    cta: 'Book a 30-minute positioning call',
   },
   strong_profile_weak_story: {
     name: 'Strong profile, weak story',
@@ -26,8 +36,8 @@ export const results: ResultsContent = {
     nextMove:
       'Before changing anything on paper, articulate the one-sentence version of your trajectory — out loud, to someone who will push back.',
     offerLine:
-      'The 90-Minute Story Teardown does exactly that: one focused session plus a written memo naming your through-line and the three changes that surface it.',
-    cta: 'Book a teardown',
+      'If you want someone to hear it once and tell you what a reader actually hears, book a 30-minute positioning call. I will say out loud what your through-line currently reads as.',
+    cta: 'Book a 30-minute positioning call',
   },
   climate_career_builder: {
     name: 'Climate career first, MBA later',
@@ -40,8 +50,8 @@ export const results: ResultsContent = {
     nextMove:
       'Choose your target lane in the green economy and make one visible move toward it within the next quarter.',
     offerLine:
-      'The Climate Career Positioning Sprint maps your lane, your gap, and your next two moves across three working sessions.',
-    cta: 'Book the positioning sprint',
+      'If you are not sure which climate lane to build toward, book a 30-minute positioning call. We put the options side by side and see which one your existing evidence actually reaches.',
+    cta: 'Book a 30-minute positioning call',
   },
   career_positioning_before_mba: {
     name: 'Positioning before MBA',
@@ -54,8 +64,8 @@ export const results: ResultsContent = {
     nextMove:
       'Settle the direction question first, on paper, before any application work begins.',
     offerLine:
-      'The Climate Career Positioning Sprint settles direction first; everything you build there feeds straight into a stronger application later.',
-    cta: 'Book the positioning sprint',
+      'Direction is worth saying out loud before it goes on paper. A 30-minute positioning call is enough to start: three questions, and you will know whether you are stuck on direction or on narrative.',
+    cta: 'Book a 30-minute positioning call',
   },
   profile_building_needed: {
     name: 'Profile building needed',
@@ -68,8 +78,8 @@ export const results: ResultsContent = {
     nextMove:
       'Pick one project, one number, or one visible responsibility you can own in the next two quarters, and document it as you go.',
     offerLine:
-      'If you want a second pair of eyes on which proof points to build first, a single teardown session can set the plan — but building comes before polishing, and the free report above is honestly most of what you need today.',
-    cta: 'Book an optional teardown',
+      'If you want a second pair of eyes on which proof points to build first, a 30-minute positioning call can set that list — but building comes before polishing, and the free report above is honestly most of what you need today.',
+    cta: 'Book an optional 30-minute call',
   },
   high_potential_low_commercial_clarity: {
     name: 'High potential, low commercial clarity',
@@ -82,8 +92,8 @@ export const results: ResultsContent = {
     nextMove:
       'Take your three best projects and restate each outcome in money, risk, or scale terms — even approximately.',
     offerLine:
-      'The Climate Career Positioning Sprint includes exactly this translation work: turning your technical record into a commercial narrative employers can price.',
-    cta: 'Book the positioning sprint',
+      'That translation goes faster spoken than written. Book a 30-minute positioning call and we will rewrite one of your projects into commercial language on the spot, so you can see the difference.',
+    cta: 'Book a 30-minute positioning call',
   },
   interview_ready_positioning_weak: {
     name: 'Interview-ready, positioning weak',
@@ -96,8 +106,8 @@ export const results: ResultsContent = {
     nextMove:
       'Write the one-line positioning statement you want every interviewer to repeat after you leave the room — then test whether your materials deliver it.',
     offerLine:
-      'A 90-Minute Story Teardown will pressure-test that positioning line against your actual evidence and tell you where it bends.',
-    cta: 'Book a teardown',
+      'The fastest test of a positioning line is saying it to someone who pushes back. Book a 30-minute positioning call and I will pressure-test it against your actual evidence and tell you where it bends.',
+    cta: 'Book a 30-minute positioning call',
   },
   cv_strong_narrative_weak: {
     name: 'Polished CV, missing through-line',
@@ -110,7 +120,7 @@ export const results: ResultsContent = {
     nextMove:
       'Write the through-line first — one paragraph connecting your past to one specific future — then re-cut the CV to serve it.',
     offerLine:
-      'The 90-Minute Story Teardown names your through-line with you and leaves you a memo on how every section should serve it.',
-    cta: 'Book a teardown',
+      'A through-line is easier to say than to write. Book a 30-minute positioning call, settle it there, then re-cut the CV to serve it.',
+    cta: 'Book a 30-minute positioning call',
   },
 };

@@ -8,6 +8,8 @@ const LOCALES = ['zh-TW', 'en'] as const;
 const STATIC_PATHS = [
   '',
   '/mri',
+  // Standalone landing surface for LINE broadcasts and Threads posts.
+  '/quick',
   '/salary-report',
   '/salary-index',
   '/levelup',

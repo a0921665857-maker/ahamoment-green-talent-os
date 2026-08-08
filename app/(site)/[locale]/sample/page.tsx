@@ -66,6 +66,17 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
           templates={c.reportTemplates}
           dateLabel={c.sample.pageEyebrow}
           mbaIntent={s.mbaIntent}
+          /* Same first-screen answer as a real report. The sample has no
+             extracted profile, so the fact line is written into the fixture
+             rather than derived — profileFactLine() would have nothing to read. */
+          typeSummary={{
+            eyebrow: c.reportTemplates.categoryLabel,
+            label: c.share.types[s.category].label,
+            fact:
+              L === 'zh-TW'
+                ? '這份範例依據的是：ESG 顧問、碳市場，6 年資歷，主力在 GRI 永續報告與 SBTi 目標設定。'
+                : 'This sample is based on: ESG consulting and carbon markets, 6 years, mainly GRI reporting and SBTi target setting.',
+          }}
           inlineCta={
             <InlineCtaCard locale={L} content={c.paidOffers} calendlyUrl={calendlyUrl} sessionToken={null} />
           }

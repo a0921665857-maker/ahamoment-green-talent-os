@@ -4,12 +4,7 @@ import type { PaidOffersContent } from '@/content/schema';
 import { FounderAvatar } from '@/components/FounderAvatar';
 import { phCapture } from '@/components/PostHogProvider';
 import { calendlyWithContext } from '@/lib/bookingUrl';
-import {
-  isPublicPaidOffer,
-  paymentLinkFor,
-  paymentLinkWithContext,
-  priceFor,
-} from '@/lib/services';
+import { isPublicPaidOffer, priceFor } from '@/lib/services';
 
 interface Slot {
   offer: OfferId;
@@ -47,10 +42,7 @@ export function PaidOfferCta(props: {
     ? calendlyWithContext(props.calendlyUrl, { token: props.sessionToken, category: props.category })
     : '';
 
-  function track(
-    name: 'booking_clicked' | 'cta_clicked' | 'checkout_started',
-    extra: Record<string, string>,
-  ) {
+  function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
     // Deliberately dual-sinked (see PostHogProvider note): the first-party events
     // table is canonical, but PostHog funnels were blind to the last mile — a
     // booking_clicked=0 misread of this exact gap drove a wrong product verdict.
@@ -113,6 +105,19 @@ export function PaidOfferCta(props: {
           </a>
         )}
         <p className="mt-2 text-xs text-ink-soft">{content.freeReassure}</p>
+
+        {/* How money actually moves, said on the page where the decision is made.
+            This string already existed but only rendered on the home page and
+            /services — i.e. everywhere except the one screen where someone is
+            deciding whether to book. Readers were clicking the booking CTA with no
+            idea money would ever come up, which is the likeliest reason ten free
+            calls produced zero quotes: the founder had to raise price cold.
+            Expect booking_clicked to fall after this ships — the people who still
+            click arrive already knowing a price gets said out loud. The metric that
+            matters now is "calls where a price was quoted", not click rate. */}
+        <p className="mt-4 max-w-[35rem] border-t border-pine/20 pt-4 text-sm text-ink-soft">
+          {content.bookingNote}
+        </p>
       </div>
 
       {/* Even lower friction: reply with one question, no scheduling. */}
@@ -135,20 +140,9 @@ export function PaidOfferCta(props: {
           const isPrimary = s.role === 'primary';
           const paidId = isPublicPaidOffer(s.offer) ? s.offer : null;
           // Price comes from lib/services (single source), never from content —
-          // a stale string in a locale file must not be able to disagree with
-          // what the payment link actually charges.
+          // a stale string in a locale file must not be able to disagree with the
+          // price the founder quotes on the call.
           const price = paidId ? priceFor(paidId, props.locale) : null;
-          // Carry the session token into Stripe as client_reference_id so every
-          // payment maps back to a report (no anonymous money, per the funnel rule).
-          const rawLink = paidId ? paymentLinkFor(paidId, props.locale) : null;
-          const payHref =
-            rawLink && paidId
-              ? paymentLinkWithContext(rawLink, {
-                  token: props.sessionToken,
-                  offer: paidId,
-                  locale: props.locale,
-                })
-              : undefined;
           return (
             <div
               key={s.offer}
@@ -181,22 +175,6 @@ export function PaidOfferCta(props: {
                     }
                   >
                     {content.bookCta}
-                  </a>
-                )}
-                {payHref && (
-                  <a
-                    href={payHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() =>
-                      track('checkout_started', {
-                        offer: s.offer,
-                        currency: price?.currency ?? 'unknown',
-                      })
-                    }
-                    className="inline-flex min-h-[44px] items-center rounded-lg border border-pine px-5 py-2.5 text-sm text-pine"
-                  >
-                    {content.payCta ?? content.bookCta}
                   </a>
                 )}
               </div>

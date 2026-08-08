@@ -58,7 +58,10 @@ export const reportTemplates: ReportTemplatesContent = {
     },
     suggested_paid_next_step: {
       title: '如果你想加上真人判讀',
-      fallback: '當你想在這份掃描之上加一層真人判讀，「90 分鐘故事拆解」是通用的入口。',
+      // 2026-08-08：舊 fallback 指名「90 分鐘故事拆解」(teardown_90)，該服務在
+      // lib/services.ts 的 ARCHIVED_OFFER_IDS 裡，早已下架、買不到。改成不指名產品，
+      // 指向所有人都能約的免費入口。（同一輪已修掉 results.ts 八條 offerLine。）
+      fallback: '當你想在這份掃描之上加一層真人判讀，入口是一次 30 分鐘的定位對談：我問三個問題，直接說我認為你現在最該做的那一件事。',
     },
   },
   footer: {

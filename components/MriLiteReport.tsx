@@ -31,6 +31,18 @@ export function MriLiteReport(props: {
   mbaIntent?: MbaIntent;
   /** Optional CTA card injected after the second section (placement experiment). */
   inlineCta?: ReactNode;
+  /**
+   * The answer, on screen one (UX audit 2026-08-08). The result type used to
+   * appear for the first time on screen 10.4 of 13.3 — after the conversion
+   * zone — so readers were asked to decide before they had been told anything
+   * about themselves. `fact` is a deterministic restatement of the reader's own
+   * material (see profileFacts.ts); it is deliberately NOT the share-card line,
+   * which is identical for everyone with the same type.
+   */
+  typeSummary?: { eyebrow: string; label: string; fact: string | null };
+  /** Slot after the first section — used for the mobile save-this-link rail, so
+   * it stops occupying the first screen above the report's own title. */
+  afterFirstSection?: ReactNode;
 }) {
   const t = props.templates;
   const nonApplicant = isNonApplicantIntent(props.mbaIntent);
@@ -46,6 +58,22 @@ export function MriLiteReport(props: {
           {props.name ? `${t.preparedFor.replace('{name}', props.name)} · ` : ''}
           {t.generatedOn.replace('{date}', props.dateLabel)}
         </p>
+        {props.typeSummary && (
+          /* No emoji here on purpose: UX_PRINCIPLES #7 bans emoji in product UI.
+             The motif on the shareable card at the foot of the page is the one
+             exception (it is a screenshot leaving the site), not a precedent. */
+          <div className="mt-5 rounded-xl border border-pine/40 bg-sage-soft/25 px-5 py-5">
+            <p className="text-xs font-semibold uppercase tracking-eyebrow text-pine">
+              {props.typeSummary.eyebrow}
+            </p>
+            <p className="mt-2 text-2xl font-semibold leading-snug">{props.typeSummary.label}</p>
+            {props.typeSummary.fact && (
+              <p className="mt-3 max-w-[35rem] text-[15px] leading-relaxed text-ink">
+                {props.typeSummary.fact}
+              </p>
+            )}
+          </div>
+        )}
         {props.limitedData && (
           <p className="mt-5 rounded border border-line bg-mist px-4 py-3 text-sm text-ink-soft">
             {t.limitedDataNote}
@@ -82,6 +110,7 @@ export function MriLiteReport(props: {
                   ))}
               </div>
               <p className="mt-3 leading-relaxed text-ink">{section.body}</p>
+              {i === 0 && props.afterFirstSection}
               {i === 1 && props.inlineCta}
             </section>
           );

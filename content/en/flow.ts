@@ -30,8 +30,8 @@ export const flow: FlowContent = {
     },
   },
   pdf: {
-    dropLabel: 'Drop your CV here, or',
-    chooseFile: 'choose a PDF',
+    dropLabel: 'Or drop your CV anywhere in this box.',
+    chooseFile: 'Choose a PDF file',
     selected: 'Selected:',
     remove: 'Remove',
   },
@@ -84,7 +84,7 @@ export const flow: FlowContent = {
     invalid: 'That email looks off — mind checking it?',
   },
   quick: {
-    entryTitle: 'Nothing to paste on hand? Take the 60-second quick read',
+    entryTitle: 'Take 60 seconds to see how the market reads you',
     entryBody: 'Five tap-only questions, nothing to paste: your type, how the market misreads you, and the real salary band for your experience.',
     entryButton: 'Start the 60-second read',
     title: '60-second quick read',

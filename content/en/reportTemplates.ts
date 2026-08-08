@@ -63,8 +63,12 @@ export const reportTemplates: ReportTemplatesContent = {
     },
     suggested_paid_next_step: {
       title: 'If you want a human in the loop',
+      // 2026-08-08: the old fallback named the 90-Minute Story Teardown (teardown_90),
+      // which sits in ARCHIVED_OFFER_IDS in lib/services.ts and cannot be bought.
+      // Now it names no product and points at the door open to everyone.
+      // (Same round fixed the eight offerLines in results.ts.)
       fallback:
-        'When you want a human read on top of this scan, the 90-Minute Story Teardown is the universal entry point.',
+        'When you want a human read on top of this scan, the entry point is a 30-minute positioning call: I ask three questions and tell you plainly what I think you should do next.',
     },
   },
   footer: {

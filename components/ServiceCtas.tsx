@@ -1,17 +1,14 @@
 'use client';
 import { LINE_OA_URL, type Locale, type OfferId } from '@/lib/constants';
 import { phCapture } from '@/components/PostHogProvider';
-import {
-  isPublicPaidOffer,
-  paymentLinkFor,
-  paymentLinkWithContext,
-  priceFor,
-} from '@/lib/services';
 
 /**
  * The action row on a service card. Client-side so every CTA is measured — the
  * services page shipped with zero instrumentation, which is why "how many people
  * looked at pricing" has never been answerable.
+ *
+ * Two controls only, by design: book the call, or add on LINE. There is no pay
+ * button — the price is quoted by a person on the call (see lib/services.ts).
  *
  * Never renders a dead control: if the booking URL is unset the button is not
  * drawn at all, and the LINE rail (a hardcoded constant, always present) is the
@@ -22,31 +19,17 @@ export function ServiceCtas(props: {
   locale: Locale;
   bookingUrl: string;
   bookLabel: string;
-  payLabel: string;
   lineLabel: string;
-  /** Report token when this is rendered off a report; omitted on the services page. */
-  sessionToken?: string;
   variant?: 'primary' | 'secondary';
 }) {
   const { offer, locale, bookingUrl } = props;
-  const paidId = isPublicPaidOffer(offer) ? offer : null;
-  const rawPayLink = paidId ? paymentLinkFor(paidId, locale) : null;
-  const payHref =
-    rawPayLink && paidId
-      ? paymentLinkWithContext(rawPayLink, {
-          token: props.sessionToken ?? null,
-          offer: paidId,
-          locale,
-        })
-      : null;
-  const currency = paidId ? priceFor(paidId, locale).currency : null;
 
-  function track(name: 'booking_clicked' | 'checkout_started' | 'cta_clicked', extra: Record<string, string>) {
+  function track(name: 'booking_clicked' | 'cta_clicked', extra: Record<string, string>) {
     phCapture(name, { ...extra, offer, locale });
   }
 
-  // min-h-[44px]: py-2.5 rendered these at 40px, and the booking button is the
-  // one control on the site where money changes hands.
+  // min-h-[44px]: py-2.5 rendered these at 40px, and booking the call is the one
+  // control on the site that starts a conversation about money.
   const solid =
     'inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper';
   const outline =
@@ -63,20 +46,6 @@ export function ServiceCtas(props: {
           className={props.variant === 'secondary' ? outline : solid}
         >
           {props.bookLabel}
-        </a>
-      ) : null}
-
-      {payHref ? (
-        <a
-          href={payHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() =>
-            track('checkout_started', { surface: 'services', currency: currency ?? 'unknown' })
-          }
-          className={outline}
-        >
-          {props.payLabel}
         </a>
       ) : null}
 

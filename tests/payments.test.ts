@@ -5,12 +5,7 @@ import {
   paymentAnalyticsProps,
   verifyStripeSignature,
 } from '@/lib/stripeWebhook';
-import {
-  isUsablePaymentLink,
-  paymentLinkWithContext,
-  priceFor,
-  PUBLIC_PAID_OFFER_IDS,
-} from '@/lib/services';
+import { priceFor, PUBLIC_PAID_OFFER_IDS } from '@/lib/services';
 
 const SECRET = 'whsec_test_secret';
 const NOW = 1_780_000_000;
@@ -117,48 +112,10 @@ describe('Stripe event parsing', () => {
   });
 });
 
-describe('payment link guards', () => {
-  it('rejects unset, placeholder and non-Stripe links', () => {
-    for (const bad of [
-      undefined,
-      null,
-      '',
-      '   ',
-      'undefined',
-      'null',
-      'https://stripe.com/placeholder',
-      'http://buy.stripe.com/abc',
-      'https://evil.example.com/buy.stripe.com',
-      'not a url',
-    ]) {
-      expect(isUsablePaymentLink(bad as string | undefined)).toBe(false);
-    }
-  });
-
-  it('accepts a real Stripe payment link', () => {
-    expect(isUsablePaymentLink('https://buy.stripe.com/test_abc123')).toBe(true);
-  });
-
-  it('carries the report token through as client_reference_id', () => {
-    const out = paymentLinkWithContext('https://buy.stripe.com/x', {
-      token: 'tok-123',
-      offer: 'offer_path_read',
-      locale: 'zh-TW',
-    });
-    expect(new URL(out).searchParams.get('client_reference_id')).toBe('tok-123');
-  });
-
-  it('does not attach the sample token or a null token', () => {
-    for (const token of ['sample', null]) {
-      const out = paymentLinkWithContext('https://buy.stripe.com/x', {
-        token,
-        offer: 'offer_path_read',
-        locale: 'en',
-      });
-      expect(new URL(out).searchParams.has('client_reference_id')).toBe(false);
-    }
-  });
-});
+// The `payment link guards` suite was removed on 2026-08-08 together with the
+// Stripe Payment Link rail it covered (lib/services.ts). The webhook suites above
+// stay: app/api/webhooks/stripe still exists and any live route must keep proving
+// it rejects forged signatures and never leaks amounts into analytics.
 
 describe('price ↔ market consistency', () => {
   it('minor units match the displayed amount in both markets', () => {

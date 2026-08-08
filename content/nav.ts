@@ -167,5 +167,36 @@ const en: NavCopy = {
 
 export const navCopy: Record<Locale, NavCopy> = { 'zh-TW': zh, en };
 
+/**
+ * The three surfaces that render the five doors, in the auditor's names.
+ *
+ *   door-mobile   the in-page grid on the home page. Named for how it is met,
+ *                 not for a breakpoint: it renders at every width, but below
+ *                 `lg` the header rail is hidden, so on a phone this grid IS
+ *                 the doors.
+ *   door-desktop  the header rail. `hidden lg:contents` — desktop only.
+ *   door-menu     the header's hamburger disclosure. `lg:hidden`.
+ *
+ * Only the first one carried utm parameters, so two of the three door surfaces
+ * arrived at /mri, /jobs and the rest indistinguishable from direct traffic and
+ * every door's real pull read low. Sum a door with `utm_medium = 'door'`; split
+ * it by surface with `utm_content`.
+ */
+export type DoorPlacement = 'door-mobile' | 'door-desktop' | 'door-menu';
+
+/**
+ * The one place a door link is built. Three call sites share it so the
+ * parameters cannot drift apart again.
+ *
+ * `utm_source` stays honest rather than uniform: the in-page grid only exists
+ * on the home page and keeps the `home` source it has been reporting for
+ * months (so the 14-day baseline stays comparable), while the header ships on
+ * every route and would be lying if it claimed the same origin.
+ */
+export function doorHref(locale: Locale, href: string, placement: DoorPlacement): string {
+  const source = placement === 'door-mobile' ? 'home' : 'site_nav';
+  return `/${locale}${href}?utm_source=${source}&utm_medium=door&utm_content=${placement}`;
+}
+
 /** The LINE Official Account handle, for the desktop search path. */
 export const LINE_OA_ID = '@051mtbjb';

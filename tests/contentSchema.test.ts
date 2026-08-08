@@ -41,16 +41,43 @@ describe('question bank parity (deterministic selection depends on this)', () =>
   });
 });
 
-describe('email-gate copy reads as report delivery (O1; honest revision 2026-06-15)', () => {
-  it('English copy is verbatim', () => {
-    expect(en.questions.emailGate.body).toBe(
-      "Enter your email and we'll generate your personal report right away. It appears on screen immediately and is saved to this link so you can return anytime.",
-    );
+/**
+ * O1 (2026-06-15): the email gate must read as report delivery, not as a
+ * newsletter signup — that framing is what the whole "effort after value"
+ * sequence is paying for.
+ *
+ * It used to be locked verbatim. That was the wrong instrument: on 2026-08-08
+ * the UX audit found the locked sentence itself was dishonest ("appears on
+ * screen immediately" / 「報告會即時顯示」, while generation takes three to five
+ * minutes), and the lock did nothing to catch it — a verbatim assertion only
+ * proves a string has not changed, never that it is true. It also meant every
+ * honest rewrite had to defeat a test first.
+ *
+ * So the intent is asserted instead: what the gate must promise, and what it
+ * must never claim. Tone rules (no exclamation, no scarcity, no hype) are
+ * enforced across every string by tests/constitutionLint.test.ts.
+ */
+describe('email-gate copy reads as report delivery, not a subscription (O1)', () => {
+  it('promises the report and a link the reader can come back to', () => {
+    expect(zh.questions.emailGate.body).toMatch(/報告/);
+    expect(zh.questions.emailGate.body).toMatch(/連結|回來/);
+    expect(en.questions.emailGate.body).toMatch(/report/i);
+    expect(en.questions.emailGate.body).toMatch(/link|come back|return/i);
   });
-  it('Traditional Chinese copy is verbatim', () => {
-    expect(zh.questions.emailGate.body).toBe(
-      '輸入 email，我們會立即為你產出個人化報告。報告會即時顯示，並用這個連結為你保存，隨時可回來查看。',
-    );
+
+  it('does not sell a subscription or a mailing list', () => {
+    expect(zh.questions.emailGate.body).not.toMatch(/訂閱|電子報|週刊/);
+    expect(en.questions.emailGate.body).not.toMatch(/subscribe|newsletter|mailing list/i);
+  });
+
+  it('claims no instant delivery the pipeline cannot honour', () => {
+    // Generation is a 3–5 minute LLM job (docs/UX_PRINCIPLES.md #5, honest
+    // progress). Anything that says "immediately" here is a promise the report
+    // page then breaks in front of the reader.
+    expect(zh.questions.emailGate.body).not.toMatch(/立即|馬上|即時顯示|瞬間|一秒/);
+    expect(en.questions.emailGate.body).not.toMatch(/\b(?:immediately|right away|instantly)\b/i);
+    // "not instant" is the honest form and stays legal; a bare "is instant" does not.
+    expect(en.questions.emailGate.body).not.toMatch(/(?<!\bnot\s)(?<!n['’]t\s)\bis instant\b/i);
   });
 });
 

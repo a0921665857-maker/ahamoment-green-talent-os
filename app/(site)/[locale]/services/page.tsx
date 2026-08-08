@@ -77,7 +77,6 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             locale={L}
             bookingUrl={bookingUrl}
             bookLabel={o.bookCta}
-            payLabel={o.payCta ?? ''}
             lineLabel={o.stickyLine}
           />
         </section>
@@ -113,7 +112,6 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   locale={L}
                   bookingUrl={bookingUrl}
                   bookLabel={o.bookCta}
-                  payLabel={o.payCta ?? ''}
                   lineLabel={o.stickyLine}
                 />
               </section>

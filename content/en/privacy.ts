@@ -27,16 +27,17 @@ export const privacyPage: PrivacyPageContent = {
     },
     {
       heading: 'Who processes your data (and where)',
-      body: 'This site is run by one person, but it runs on other people’s infrastructure and you are entitled to know whose: Vercel (hosting), Supabase (the database your data actually lives in), Anthropic (the AI read — it receives the material you paste), Resend (email), PostHog (anonymous product analytics), Cal.com or Calendly (booking), Stripe (payments). Their data centres are not necessarily in your country, so your data is processed across borders. Nobody outside that list touches it.',
+      body: 'This site is run by one person, but it runs on other people’s infrastructure and you are entitled to know whose: Vercel (hosting), Supabase (the database your data actually lives in), Anthropic (the AI read — it receives the material you paste), Resend (email), PostHog (anonymous product analytics), Cal.com or Calendly (booking). Their data centres are not necessarily in your country, so your data is processed across borders. Nobody outside that list touches it.',
     },
     {
       heading: 'Cookies and analytics',
       body: 'PostHog records anonymous usage (which pages open, where people drop out) and sets a cookie and localStorage entries in your browser. Those records contain no name, no email, no CV content and nothing that points back to you personally. Session recording is off by default. Private browsing or a cookie blocker avoids it entirely and every feature still works.',
     },
-    {
-      heading: 'Payment data',
-      body: 'Payments are handled entirely by Stripe. This site cannot see your full card number, expiry or security code — those fields never appear on our pages. We keep only a record that a payment succeeded (Stripe’s transaction id, currency and amount) for reconciliation. Receipts and refunds happen on Stripe’s side.',
-    },
+    // 2026-08-08 UX audit removed the "Payment data" section and Stripe from the
+    // processor list: this site takes no online payment and has no checkout. Money
+    // changes hands after a call, paid to Michael personally. A privacy page that
+    // describes card processing only confirms a sceptic's suspicion that there is a
+    // hidden paywall somewhere on the site.
   ],
   contactLine: 'Deletion requests and any questions: {{email}}',
 };

@@ -17,8 +17,24 @@ import { LineActions } from '@/components/LineActions';
 import { MobileStickyCta } from '@/components/MobileStickyCta';
 import { MarketPulseCard } from '@/components/MarketPulseCard';
 import { calendlyWithContext } from '@/lib/bookingUrl';
+import { profileFactLine } from './profileFacts';
 
 export const dynamic = 'force-dynamic';
+
+/**
+ * Page-local UI strings (same precedent as MATERIAL_UI in MriIntakeFlow): one
+ * new line, added with the layout change it belongs to. Move into the content
+ * contract next time content/schema.ts is opened.
+ *
+ * `bookmarkNote` is the desktop replacement for the LINE save rail. The rail
+ * exists because the Threads in-app browser has no tabs and no history — a
+ * mobile-only problem that was nevertheless rendering 228px of non-report
+ * content above the report title on desktop too.
+ */
+const RESULT_UI: Record<Locale, { bookmarkNote: string }> = {
+  'zh-TW': { bookmarkNote: '這個連結永久有效，可以直接加入書籤，之後隨時回來看。' },
+  en: { bookmarkNote: 'This link stays live. Bookmark it and come back whenever you want.' },
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -101,6 +117,18 @@ export default async function ResultPage({
   // Payment links are resolved per service × market inside lib/services.ts —
   // the old single `deep_read` link is gone with the offer it belonged to.
 
+  // Personalised salary band: a deterministic lookup against the human-curated
+  // salary-report dataset (lib/salaryBands.ts). Never guessed, never LLM. When the
+  // person's sectors/years don't map cleanly this is null and the block is simply
+  // absent — the generic card that used to take its place said nothing about the
+  // reader and spent a screen of attention on the way to the CTA (MarketPulseCard
+  // has the same rule: disappear rather than go stale).
+  const band =
+    report.profileConfidence >= 0.4
+      ? getPersonalBand(report.sectors, report.yearsExperience, L)
+      : null;
+  const marketUtm = `utm_source=mri_report&utm_medium=pricing_block&utm_content=${band ? 'personal_band' : 'generic'}`;
+
   return (
     <div className="min-h-screen">
       <ScrollDepth surface="report" extra={{ category: report.category, locale: L }} />
@@ -110,19 +138,6 @@ export default async function ResultPage({
             {c.errors.reportDegraded}
           </p>
         )}
-        {/* Save-for-later rail before the 13-screen report: the Threads in-app
-            browser has no tabs or history — LINE is the reader's way back. */}
-        <div className="mb-8">
-          <LineActions
-            title={c.flow.line.resultTitle}
-            body={c.flow.line.resultBody}
-            saveLabel={c.flow.line.saveCta}
-            addLabel={c.flow.line.addCta}
-            shareText={c.flow.line.shareTextReport}
-            sharePath={`/${L}/result/${token}?utm_source=line_self&utm_medium=save`}
-            context="report"
-          />
-        </div>
         <MriLiteReport
           locale={L}
           name={report.name}
@@ -132,6 +147,43 @@ export default async function ResultPage({
           templates={c.reportTemplates}
           dateLabel={formatDate(report.createdAt, L)}
           mbaIntent={report.mbaIntent}
+          /* The answer, first screen. The type name previously debuted on screen
+             10.4 of 13.3, below the conversion zone. The fact line is a
+             deterministic restatement of the reader's own extracted profile —
+             never the share-card line, which is identical for every reader of
+             the same type ("specific beats flattering"). */
+          typeSummary={{
+            eyebrow: c.reportTemplates.categoryLabel,
+            label: c.share.types[report.category].label,
+            fact: profileFactLine({
+              locale: L,
+              sectors: report.sectors,
+              domains: report.domains,
+              yearsExperience: report.yearsExperience,
+              profileConfidence: report.profileConfidence,
+            }),
+          }}
+          /* Was a 228px block above the report title, on every device. Its reason
+             for existing is mobile-only (the Threads in-app browser has no tabs
+             or history), so on mobile it moves below the first section and keeps
+             only the save action; on desktop it becomes one quiet line. This is
+             also the LINE convergence: one add-LINE ask on the page, at the foot. */
+          afterFirstSection={
+            <>
+              <div className="sm:hidden">
+                <LineActions
+                  title={c.flow.line.resultTitle}
+                  saveLabel={c.flow.line.saveCta}
+                  shareText={c.flow.line.shareTextReport}
+                  sharePath={`/${L}/result/${token}?utm_source=line_self&utm_medium=save`}
+                  context="report"
+                />
+              </div>
+              <p className="mt-6 hidden max-w-[35rem] text-sm text-ink-soft sm:block">
+                {RESULT_UI[L].bookmarkNote}
+              </p>
+            </>
+          }
           inlineCta={
             <InlineCtaCard
               locale={L}
@@ -143,77 +195,42 @@ export default async function ResultPage({
             />
           }
         />
-        {/* Close the loop the report opens: the diagnosis names a lane; these blocks
-            put real market numbers on it. Personalised band is a deterministic lookup
-            against the human-curated salary-report dataset (lib/salaryBands.ts) — when
-            the person's sectors/years don't map cleanly it hides and the generic
-            pointer renders instead. Never guessed, never LLM-generated. */}
-        {(() => {
-          const band =
-            report.profileConfidence >= 0.4
-              ? getPersonalBand(report.sectors, report.yearsExperience, L)
-              : null;
-          const salaryHref = `/${L}/salary-report?utm_source=mri_report&utm_medium=pricing_block&utm_content=${band ? 'personal_band' : 'generic'}`;
-          const colHref = `/${L}/cost-of-living?utm_source=mri_report&utm_medium=pricing_block&utm_content=${band ? 'personal_band' : 'generic'}`;
-          const links = (
-            <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
-              <a href={salaryHref} className="font-medium text-pine underline-offset-2 hover:underline">
-                {L === 'zh-TW' ? '完整薪資帶與來源 →' : 'Full bands and sources →'}
-              </a>
-              <a href={colHref} className="font-medium text-pine underline-offset-2 hover:underline">
-                {L === 'zh-TW' ? '生活成本怎麼算 →' : 'How living costs change it →'}
-              </a>
+        {/* Stays where it is, deliberately. The personalised band is the most
+            differentiated thing on the page for the reader who is comparing
+            offers, so it belongs BEFORE the decision, not after it — moving it
+            below the CTA would contradict the whole reason the type summary was
+            moved to screen one. What left this block are its two outbound links:
+            they were exits standing on the motivation peak, and they now sit
+            below the conversion zone with the rest of the traffic-drivers. */}
+        {band && (
+          <aside className="mt-10 rounded-xl border border-pine/40 bg-mist/40 px-5 py-5">
+            <p className="text-xs font-semibold uppercase tracking-eyebrow text-pine">
+              {L === 'zh-TW' ? '你的薪資帶（估算）' : 'Your salary band (estimate)'}
             </p>
-          );
-          if (!band) {
-            return (
-              <aside className="mt-10 rounded-xl border border-line bg-mist/30 px-5 py-4">
-                <p className="text-sm font-medium">
-                  {L === 'zh-TW' ? '賽道有了，接下來是價格。' : 'You have the lane. Now put a price on it.'}
-                </p>
-                <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">
-                  {L === 'zh-TW'
-                    ? '用真實的市場數據，看你的組合在台灣與新加坡各值多少，以及跨過去之後實際剩多少。'
-                    : 'See what your combination pays in Taiwan versus Singapore, and what actually survives the move.'}
-                </p>
-                {links}
-              </aside>
-            );
-          }
-          return (
-            <aside className="mt-10 rounded-xl border border-pine/40 bg-mist/40 px-5 py-5">
-              <p className="text-xs font-semibold uppercase tracking-eyebrow text-pine">
-                {L === 'zh-TW' ? '你的薪資帶（估算）' : 'Your salary band (estimate)'}
-              </p>
-              <p className="mt-2 text-[15px] leading-relaxed">
-                {L === 'zh-TW' ? (
-                  <>
-                    以你的組合（{band.functionLabel} × {band.expLabel}），新加坡帶約{' '}
-                    <span className="font-semibold tabular-nums">{band.sgBand}</span>
-                    ／年。{band.twAnchor}。名目差距約 {band.nominal}
-                    {band.disposable ? `，扣掉生活成本後實際約 ${band.disposable}` : ''}。
-                  </>
-                ) : (
-                  <>
-                    For your combination ({band.functionLabel} × {band.expLabel}), the Singapore band is
-                    roughly <span className="font-semibold tabular-nums">{band.sgBand}</span>
-                    /yr. {band.twAnchor}. Nominal gap about {band.nominal}
-                    {band.disposable ? `, roughly ${band.disposable} after living costs` : ''}.
-                  </>
-                )}
-              </p>
-              <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">
-                {L === 'zh-TW'
-                  ? '這是市場的帶寬，不是你的定價；你的位置由證據決定。推估區間、資料截至 2026 年 7 月，以來源原始頁為準。'
-                  : 'This is the market band, not your price; your position is set by your evidence. Estimated ranges, data as of July 2026 — the source pages govern.'}
-              </p>
-              {links}
-            </aside>
-          );
-        })()}
-        {/* 市場脈搏:診斷對應的當週真實市場(content/marketPulse.ts,週日管線更新;
-            過期自動隱藏)。與上方薪資帶同一資料紀律:人工策展,絕不 LLM 生成。 */}
-        <MarketPulseCard locale={L} utmContent="report" />
+            <p className="mt-2 text-[15px] leading-relaxed">
+              {L === 'zh-TW' ? (
+                <>
+                  以你的組合（{band.functionLabel} × {band.expLabel}），新加坡帶約{' '}
+                  <span className="font-semibold tabular-nums">{band.sgBand}</span>
+                  ／年。{band.twAnchor}。名目差距約 {band.nominal}
+                  {band.disposable ? `，扣掉生活成本後實際約 ${band.disposable}` : ''}。
+                </>
+              ) : (
+                <>
+                  For your combination ({band.functionLabel} × {band.expLabel}), the Singapore band is
+                  roughly <span className="font-semibold tabular-nums">{band.sgBand}</span>
+                  /yr. {band.twAnchor}. Nominal gap about {band.nominal}
+                  {band.disposable ? `, roughly ${band.disposable} after living costs` : ''}.
+                </>
+              )}
+            </p>
+            <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">
+              {L === 'zh-TW'
+                ? '這是市場的帶寬，不是你的定價；你的位置由證據決定。推估區間、資料截至 2026 年 7 月，以來源原始頁為準。'
+                : 'This is the market band, not your price; your position is set by your evidence. Estimated ranges, data as of July 2026 — the source pages govern.'}
+            </p>
+          </aside>
+        )}
         <PaidOfferCta
           locale={L}
           category={report.category}
@@ -223,6 +240,29 @@ export default async function ResultPage({
           calendlyUrl={calendlyUrl}
           sessionToken={token}
         />
+        {/* The exits, all five of them, now below the decision. Measured on a
+            375px phone they used to occupy 1,065px between the last line of the
+            report and the conversion zone: full salary bands, cost of living, two
+            MyCareersFuture postings and the weekly picks — five ways out, sitting
+            exactly on the motivation peak. Nothing is lost by reading them after
+            the booking CTA instead of before it.
+            市場脈搏:診斷對應的當週真實市場(content/marketPulse.ts,週日管線更新;
+            過期自動隱藏)。與薪資帶同一資料紀律:人工策展,絕不 LLM 生成。 */}
+        <MarketPulseCard locale={L} utmContent="report" />
+        <p className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+          <a
+            href={`/${L}/salary-report?${marketUtm}`}
+            className="font-medium text-pine underline-offset-2 hover:underline"
+          >
+            {L === 'zh-TW' ? '完整薪資帶與來源 →' : 'Full bands and sources →'}
+          </a>
+          <a
+            href={`/${L}/cost-of-living?${marketUtm}`}
+            className="font-medium text-pine underline-offset-2 hover:underline"
+          >
+            {L === 'zh-TW' ? '生活成本怎麼算 →' : 'How living costs change it →'}
+          </a>
+        </p>
         <ShareableTypeCard
           locale={L}
           category={report.category}

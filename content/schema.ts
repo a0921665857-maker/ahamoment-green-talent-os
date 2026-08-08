@@ -280,6 +280,19 @@ export interface EmailsContent {
    * booked consult. Placeholders: {{name}}, {{focus_area}}, {{unsubscribe_url}}. */
   outcomeD30: EmailTemplate;
   outcomeD90: EmailTemplate;
+  /**
+   * "How the money actually works" note. Written 2026-08-08 after the conversion
+   * audit found that 18 of 18 recommendations pulled on the top of the funnel and
+   * none touched email — while the people who already left an address and read
+   * their report are the highest-intent list the business has.
+   *
+   * DELIVERY IS DELIBERATELY UNWIRED. No scheduler, no send path, no API route
+   * references this template. It is copy on disk until Michael himself decides to
+   * send it. See docs/mechanics-email-2026-08-08.md.
+   *
+   * Placeholders: {{name}}, {{report_url}}, {{booking_url}}.
+   */
+  mechanics: EmailTemplate;
 }
 
 export interface PrivacyPageContent {

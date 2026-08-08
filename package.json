@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint:copy": "tsx scripts/constitution-lint.ts",
     "lint": "eslint",
     "test": "vitest run",
     "seed": "tsx scripts/run-seeds.ts",

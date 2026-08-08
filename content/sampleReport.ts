@@ -85,7 +85,7 @@ export const sampleReports: Record<Locale, SampleReport> = {
         evidence_ref: 'SBTi／CBAM 專案經驗',
       },
       suggested_paid_next_step: {
-        body: '你的情況最適合「先把氣候職涯定位想清楚，MBA 之後再說」。氣候定位衝刺正是為此設計：用你的真實證據定下目標賽道、點名你的差異化、畫出兩步棋，而不是急著申請、把模糊帶進論文。這是這份診斷的自然延伸，不是另一個推銷。',
+        body: '你的情況最適合「先把氣候職涯定位想清楚，MBA 之後再說」。如果想把這件事一次談完，可以約一次 30 分鐘的定位對談：用你的真實證據定下目標賽道、點名你的差異化、畫出兩步棋，而不是急著申請、把模糊帶進論文。這是這份診斷的自然延伸，不是另一個推銷。',
         evidence_ref: '考慮 MBA 但目標賽道未定',
       },
     },
@@ -144,7 +144,7 @@ export const sampleReports: Record<Locale, SampleReport> = {
         evidence_ref: 'SBTi / CBAM project experience',
       },
       suggested_paid_next_step: {
-        body: 'Your situation fits “get the climate-career positioning clear first; MBA later.” The Climate Positioning Sprint is built for exactly this: use your real evidence to settle a target lane, name your differentiation, and map the two moves — instead of rushing an application that carries the fog into the essays. It is the natural continuation of this diagnosis, not a sales pivot.',
+        body: 'Your situation fits “get the climate-career positioning clear first; MBA later.” If you want to settle it in one sitting, book a 30-minute positioning call: use your real evidence to settle a target lane, name your differentiation, and map the two moves, instead of rushing an application that carries the fog into the essays. It is the natural continuation of this diagnosis, not a sales pivot.',
         evidence_ref: 'considering an MBA but target lane undecided',
       },
     },

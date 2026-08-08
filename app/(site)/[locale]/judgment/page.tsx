@@ -53,6 +53,24 @@ export default async function JudgmentPage({
   const counts = judgmentData.counts;
   const identity = judgmentData.identity;
 
+  /**
+   * Does this locale have the module, or only the notice that it does not?
+   *
+   * `zhOnlyNotice` is the existing marker for "written in zh-TW, not translated"
+   * — null on the zh route, set on the en one. Reading the gate off it rather
+   * than off `L === 'en'` means the day the module is translated, clearing that
+   * one content field turns the whole page back on.
+   *
+   * Before this, the en route rendered the notice *and* the full interactive
+   * module underneath it: an English reader was told the module was Chinese and
+   * then handed twenty Chinese checkboxes, a submit button and four tabs. That
+   * reads as an unfinished page rather than a deliberate one, which is the
+   * opposite of what the notice is for. So on a locale without the module, the
+   * page states the position and offers the two doors that actually work: the
+   * module in the language it was written in, and the English product.
+   */
+  const hasModule = !t.zhOnlyNotice;
+
   const mriHref = `/${L}/mri?utm_source=judgment&utm_medium=cross_link`;
   const betaMail = identity.email
     ? `mailto:${identity.email}?subject=${encodeURIComponent(t.beta.mailSubject)}`
@@ -74,14 +92,28 @@ export default async function JudgmentPage({
         {/* Bilingual parity, not translation (rule 10): the module is written in
             zh-TW, so the en route says so rather than shipping a machine version. */}
         {t.zhOnlyNotice && (
-          <div className="mt-6 max-w-[37rem] rounded-xl border border-pine bg-sage-soft/40 px-5 py-4">
+          <div className="mt-6 max-w-[37rem] rounded-xl border border-pine bg-sage-soft/40 px-5 py-5">
             <p className="text-sm leading-relaxed">{t.zhOnlyNotice.body}</p>
-            <Link
-              href="/zh-TW/judgment"
-              className="mt-2 inline-block text-sm font-medium text-pine underline underline-offset-2"
-            >
-              {t.zhOnlyNotice.cta}
-            </Link>
+            {/* The way out, in the reader's own language, is the primary action:
+                this page has nothing else for them to do. The link to the module
+                stays a link — it is the door for the smaller group who read
+                Chinese, and it should not compete with the one that works.
+                Both strings are existing content, so neither locale gains a
+                line that was written for the other. */}
+            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Link
+                href={`/${L}/mri?utm_source=judgment&utm_medium=zh_only_exit`}
+                className="inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 text-sm text-paper"
+              >
+                {c.landing.finalCta.cta}
+              </Link>
+              <Link
+                href="/zh-TW/judgment"
+                className="inline-flex min-h-[44px] items-center text-sm font-medium text-pine underline underline-offset-2"
+              >
+                {t.zhOnlyNotice.cta}
+              </Link>
+            </div>
           </div>
         )}
 
@@ -100,10 +132,15 @@ export default async function JudgmentPage({
           )}
         </div>
 
-        {/* The zh-TW content keeps its typography rules even on the en route. */}
-        <div className="mt-8" lang="zh-Hant-TW">
-          <JudgmentApp t={t} bandLabels={c.reportTemplates.bandLabels} />
-        </div>
+        {/* Rendered only where the module exists. Because this is a conditional
+            in a server component, a locale without it never receives the client
+            reference either — the 390KB of competencies stays off the wire, not
+            just off the screen. */}
+        {hasModule && (
+          <div className="mt-8" lang="zh-Hant-TW">
+            <JudgmentApp t={t} bandLabels={c.reportTemplates.bandLabels} />
+          </div>
+        )}
 
         <details className="mt-16 border-t border-line pt-6">
           <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
@@ -126,7 +163,14 @@ export default async function JudgmentPage({
             <div className="mt-6">
               <h3 className="font-semibold">{t.about.identityTitle}</h3>
               <p className="mt-2 font-medium">{identity.name}</p>
-              {identity.line && <p className="mt-1 text-ink-soft">{identity.line}</p>}
+              {/* `identity.line` comes from the module corpus and exists only in
+                  zh-TW, so on a locale that does not have the module it would
+                  land as a Chinese sentence under an English heading — the same
+                  defect the notice above exists to prevent, one screen lower.
+                  The name and the mail address are language-neutral and stay. */}
+              {identity.line && hasModule && (
+                <p className="mt-1 text-ink-soft">{identity.line}</p>
+              )}
               {identity.email && (
                 <p className="mt-2 text-ink-soft">
                   {t.about.identityMail}{' '}
