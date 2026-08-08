@@ -40,23 +40,28 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         {/* The one page whose whole job is trust had zero links inside <main>:
             the deletion-request address was plain text you had to select and
             copy. Same mailto pattern SiteFooter already uses. */}
-        <p className="mt-10 border-t border-line pt-6 text-sm text-ink-soft">
-          {(() => {
-            const [before, after = ''] = p.contactLine.split('{{email}}');
-            return (
-              <>
-                {before}
-                <a
-                  href={`mailto:${email}`}
-                  className="text-pine underline-offset-2 hover:underline"
-                >
-                  {email}
-                </a>
-                {after}
-              </>
-            );
-          })()}
-        </p>
+        {/* The rule stays full-width; only the TEXT is capped. 14px inside this
+            672px column ran 48 zh characters a line — the small print had the
+            longest lines on the page. 35rem = 560px = 40 characters at 14px. */}
+        <div className="mt-10 border-t border-line pt-6">
+          <p className="max-w-[35rem] text-sm text-ink-soft">
+            {(() => {
+              const [before, after = ''] = p.contactLine.split('{{email}}');
+              return (
+                <>
+                  {before}
+                  <a
+                    href={`mailto:${email}`}
+                    className="text-pine underline-offset-2 hover:underline"
+                  >
+                    {email}
+                  </a>
+                  {after}
+                </>
+              );
+            })()}
+          </p>
+        </div>
       </main>
     </div>
   );

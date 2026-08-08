@@ -38,13 +38,17 @@ export default async function SamplePage({ params }: { params: Promise<{ locale:
   return (
     <div className="min-h-screen">
       <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
-        <div className="mb-8 rounded-lg border border-line bg-mist/40 px-5 py-5">
+        <div className="mb-8 rounded-xl border border-line bg-mist/40 px-5 py-5">
           <p className="text-xs uppercase tracking-eyebrow text-pine">{c.sample.pageEyebrow}</p>
-          {/* a <p>: MriLiteReport below owns this page's h1 (and it is the larger
-              of the two). Size and weight come from the utilities, so this is a
-              tag change only. */}
-          <p className="mt-2 text-2xl font-semibold">{c.sample.pageTitle}</p>
-          <p className="mt-2 text-sm text-ink-soft">{c.sample.pageIntro}</p>
+          {/* Back to an <h1>, at the house size (36px desktop). This page's own
+              title was 24px — the smallest page title on the site, on the page
+              whose whole job is to show what the product looks like. It reads as
+              a caption above the specimen rather than as the page.
+              Two h1s is intentional and valid here: MriLiteReport renders an
+              <article> and the h1 inside it is that ARTICLE's title (the sample
+              report), 30px, deliberately smaller than the page's own. */}
+          <h1 className="mt-2 text-3xl font-semibold leading-tight sm:text-4xl">{c.sample.pageTitle}</h1>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{c.sample.pageIntro}</p>
           <a
             href={`/${L}/mri`}
             className="mt-4 inline-block rounded-lg bg-pine px-6 py-3 text-paper"

@@ -127,7 +127,7 @@ export function JdTranslator({ locale, copy, mriHref }: JdTranslatorProps) {
       </button>
       {!ready && <p className="mt-2 text-xs text-ink-soft">{copy.form.hint}</p>}
 
-      <p className="mt-6 rounded-xl border border-line bg-mist/40 px-5 py-4 text-sm text-ink-soft">
+      <p className="mt-6 max-w-[37rem] rounded-xl border border-line bg-mist/40 px-5 py-4 text-sm text-ink-soft">
         {copy.privacyNote}
       </p>
     </div>
@@ -157,7 +157,7 @@ function Result({
   return (
     <div className="mt-8">
       {/* what this role actually is */}
-      <section className="rounded-2xl border border-line bg-paper p-6 shadow-sm">
+      <section className="rounded-xl border border-line bg-paper p-6 shadow-sm">
         <p className="text-xs uppercase tracking-eyebrow text-pine">{r.roleReadTitle}</p>
         <h2 className="mt-3 text-xl font-semibold leading-snug sm:text-2xl">
           {a.role_read.plain_title}
@@ -254,7 +254,7 @@ function Result({
             {r.confidenceNames[a.salary.confidence]}
           </p>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-ink-soft">{r.salaryDisclaimer}</p>
+        <p className="mt-3 max-w-[30rem] text-xs leading-relaxed text-ink-soft">{r.salaryDisclaimer}</p>
       </Section>
 
       {/* 5. who fits, who misfires */}
@@ -293,7 +293,7 @@ function Result({
       </Section>
 
       {/* the point of the whole tool */}
-      <section className="mt-12 rounded-2xl bg-pine px-7 py-9 text-paper">
+      <section className="mt-12 rounded-xl bg-pine px-7 py-9 text-paper">
         <h2 className="text-2xl font-semibold leading-snug">{r.ctaTitle}</h2>
         <p className="mt-3 max-w-xl text-paper/90">{r.ctaBody}</p>
         <a

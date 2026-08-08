@@ -52,7 +52,7 @@ export default async function CostOfLivingPage({
         <p className="text-xs uppercase tracking-eyebrow text-pine">{r.eyebrow}</p>
         <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{r.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
-        <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
+        <p className="mt-6 max-w-[30rem] border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
         <blockquote className="mt-10 border-l-2 border-pine pl-5 text-lg leading-relaxed">
           {r.hook}
@@ -159,12 +159,14 @@ export default async function CostOfLivingPage({
         </div>
 
         {/* the insight */}
-        <div className="mt-8 rounded-2xl border border-pine/30 bg-mist/50 px-6 py-6">
+        <div className="mt-8 rounded-xl border border-pine/30 bg-mist/50 px-6 py-6">
           <p className="text-xs font-semibold uppercase tracking-eyebrow text-pine">{r.insightLabel}</p>
           <p className="mt-2 text-[15px] leading-[1.8]">{r.insight}</p>
         </div>
 
-        <div className="mt-5 rounded-xl bg-mist/40 px-5 py-5 text-sm text-ink-soft">{r.caveat}</div>
+        {/* max-w-[37rem], not [35rem]: px-5 eats 20px a side, so 592 − 40 = 552px
+            of text column — inside the 560px cap for 14px copy. */}
+        <div className="mt-5 max-w-[37rem] rounded-xl bg-mist/40 px-5 py-5 text-sm text-ink-soft">{r.caveat}</div>
 
         <a
           href={`/${L}/salary-report`}
@@ -174,7 +176,7 @@ export default async function CostOfLivingPage({
         </a>
 
         {/* CTA to free MRI */}
-        <section className="mt-14 rounded-2xl bg-pine px-7 py-9 text-paper">
+        <section className="mt-14 rounded-xl bg-pine px-7 py-9 text-paper">
           <h2 className="text-2xl font-semibold leading-snug">{r.ctaTitle}</h2>
           <p className="mt-3 max-w-xl text-paper/90">{r.ctaBody}</p>
           <a
@@ -191,8 +193,8 @@ export default async function CostOfLivingPage({
           <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
             {r.sourcesLabel}
           </summary>
-          <p className="mt-4 text-sm text-ink-soft">{r.method}</p>
-          <ul className="mt-4 grid gap-2">
+          <p className="mt-4 max-w-[35rem] text-sm text-ink-soft">{r.method}</p>
+          <ul className="mt-4 grid max-w-[35rem] gap-2">
             {r.sources.map((s) => (
               <li key={s.url} className="text-sm">
                 <a
@@ -209,7 +211,7 @@ export default async function CostOfLivingPage({
           </ul>
         </details>
 
-        <p className="mt-10 border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
+        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
       </main>
     </div>
   );

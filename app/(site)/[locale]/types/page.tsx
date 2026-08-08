@@ -17,6 +17,12 @@ function typesCopy(isZh: boolean) {
       ? '每一種，都是市場現在讀你的一種方式。花 5 分鐘，看看你被讀成哪一種，以及怎麼往上一格。'
       : 'Each one is a way the market reads you right now. Take 5 minutes to see which you are — and how to move up a band.',
     cta: isZh ? '免費測我的類型' : 'Test my type — free',
+    /** Secondary, deliberately quiet: the eight /types/[category] pages had zero
+     *  site-internal entry points. Every one of the eight cards pointed at /mri,
+     *  so the SEO landing pages were reachable only from a shared result link or
+     *  from Google. This gives each card one small door to its own page without
+     *  putting a second competing CTA next to the primary one. */
+    detail: isZh ? '看這型的完整說明' : 'Read the full profile',
     footnote: isZh
       ? '分析你貼上的資料，不猜、不評分你這個人。'
       : 'Based on the material you paste — no guessing, no scoring you as a person.',
@@ -72,35 +78,53 @@ export default async function TypesPage({ params }: { params: Promise<{ locale: 
             const type = c.share.types[cat];
             const style = TYPE_STYLE[cat];
             return (
-              <a
+              // A <div>, not an <a>: the card now holds TWO destinations, and an
+              // anchor cannot legally contain another anchor. Whole-card
+              // clickability is preserved by stretching the primary link's
+              // ::after over the card (hence `relative` here); the secondary
+              // link sits above that overlay on z-10.
+              <div
                 key={cat}
-                href={`/${L}/mri`}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-paper shadow-sm transition hover:shadow-md"
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-line bg-paper shadow-sm transition hover:shadow-md"
               >
-                <div style={{ height: 8, background: style.accent }} />
+                {/* The type's identity signal. The emoji tile that used to sit
+                    inside the card is gone: eight cartoon motifs on a paper-and-
+                    pine page were the loudest thing in the gallery and they said
+                    less than this bar does. The accent colour is the same one
+                    the heading and the OG image use, so the set still reads as
+                    one cast. 10px matches the /types/[category] card. */}
+                <div style={{ height: 10, background: style.accent }} />
                 <div className="flex flex-1 flex-col p-5">
-                  <div
-                    className="flex h-14 w-14 items-center justify-center rounded-2xl"
-                    style={{ background: style.tint }}
-                  >
-                    {/* decorative motif — kept out of the link's accessible name */}
-                    <span aria-hidden="true" style={{ fontSize: 30, lineHeight: 1 }}>
-                      {style.emoji}
-                    </span>
-                  </div>
-                  <h2 className="mt-4 text-lg font-bold leading-snug" style={{ color: style.accent }}>
+                  <h2 className="text-lg font-bold leading-snug" style={{ color: style.accent }}>
                     {type.label}
                   </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{cardLineOf(type.shareLine)}</p>
-                  <span className="mt-4 text-sm font-medium text-pine underline-offset-2 group-hover:underline">
+                  <p className="mt-2 max-w-[35rem] text-sm leading-relaxed text-ink-soft">
+                    {cardLineOf(type.shareLine)}
+                  </p>
+                  {/* mt-auto: the CTA pair sits on the card floor, so all eight
+                      cards line up however long the line above runs. */}
+                  <a
+                    href={`/${L}/mri`}
+                    // Eight links reading only 「免費測我的類型」 are eight
+                    // identical accessible names in a screen reader's link list.
+                    aria-label={isZh ? `${t.cta}（${type.label}）` : `${t.cta} (${type.label})`}
+                    className="mt-auto pt-4 text-sm font-medium text-pine underline-offset-2 after:absolute after:inset-0 after:content-[''] group-hover:underline"
+                  >
                     {t.cta} →
-                  </span>
+                  </a>
+                  <a
+                    href={`/${L}/types/${cat}`}
+                    aria-label={isZh ? `${t.detail}（${type.label}）` : `${t.detail} (${type.label})`}
+                    className="relative z-10 inline-flex min-h-11 items-center self-start text-xs text-ink-soft underline-offset-2 hover:text-pine hover:underline"
+                  >
+                    {t.detail} →
+                  </a>
                 </div>
-              </a>
+              </div>
             );
           })}
         </div>
-        <p className="mt-6 text-sm text-ink-soft">{t.footnote}</p>
+        <p className="mt-6 max-w-[35rem] text-sm text-ink-soft">{t.footnote}</p>
       </section>
     </main>
   );

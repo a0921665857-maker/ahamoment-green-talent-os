@@ -46,7 +46,7 @@ export default async function SalaryReportPage({
         <p className="text-xs uppercase tracking-eyebrow text-pine">{r.eyebrow}</p>
         <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{r.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
-        <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
+        <p className="mt-6 max-w-[30rem] border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
         {/* opening scene */}
         <blockquote className="mt-10 border-l-2 border-pine pl-5 text-lg leading-relaxed">
@@ -75,7 +75,7 @@ export default async function SalaryReportPage({
             <div key={i} className="rounded-xl border border-line bg-paper p-6">
               <span className="text-xs font-semibold uppercase tracking-eyebrow text-pine">{f.tag}</span>
               <h3 className="mt-2 text-lg font-semibold leading-snug">{f.head}</h3>
-              <p className="mt-2 text-sm text-ink-soft">{f.body}</p>
+              <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{f.body}</p>
             </div>
           ))}
         </div>
@@ -106,13 +106,15 @@ export default async function SalaryReportPage({
               ))}
               <tr className="border-t border-line">
                 <td colSpan={r.sgTable.head.length} className="px-4 py-3 text-sm text-ink-soft">
-                  {r.sgStartupNote}
+                  {/* Prose in a full-width table row: the ruler goes on an inner
+                      block, not the cell, so the column layout is untouched. */}
+                  <span className="block max-w-[35rem]">{r.sgStartupNote}</span>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p className="mt-4 text-sm text-ink-soft">{r.sgTrend}</p>
+        <p className="mt-4 max-w-[35rem] text-sm text-ink-soft">{r.sgTrend}</p>
 
         {/* Taiwan comparison */}
         <h2 className="mt-14 text-2xl font-semibold">{r.twTitle}</h2>
@@ -141,7 +143,8 @@ export default async function SalaryReportPage({
           </table>
         </div>
         <p className="mt-4 text-ink-soft">{r.multiples}</p>
-        <div className="mt-5 rounded-xl bg-mist/50 px-5 py-5 text-sm text-ink-soft">{r.caveat}</div>
+        {/* max-w-[37rem]: px-5 costs 20px a side, leaving a 552px text column. */}
+        <div className="mt-5 max-w-[37rem] rounded-xl bg-mist/50 px-5 py-5 text-sm text-ink-soft">{r.caveat}</div>
 
         {/* Hong Kong */}
         <h2 className="mt-14 text-2xl font-semibold">{r.hkTitle}</h2>
@@ -151,7 +154,7 @@ export default async function SalaryReportPage({
         <h2 className="mt-14 text-2xl font-semibold">{r.jpTitle}</h2>
         {/* jpNote is a 79-character sentence, not a label: the eyebrow combo
             (12px + uppercase + 0.14em tracking) is for 2–11 char labels. */}
-        <p className="mt-2 text-sm text-ink-soft">{r.jpNote}</p>
+        <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{r.jpNote}</p>
         <div className="mt-4 overflow-x-auto rounded-xl border border-line">
           <table className="w-full min-w-[620px] text-sm">
             <thead>
@@ -176,9 +179,9 @@ export default async function SalaryReportPage({
             </tbody>
           </table>
         </div>
-        <p className="mt-4 text-sm text-ink-soft">{r.jpStartupNote}</p>
+        <p className="mt-4 max-w-[35rem] text-sm text-ink-soft">{r.jpStartupNote}</p>
         <p className="mt-4 text-ink-soft">{r.jpTrend}</p>
-        <div className="mt-5 rounded-xl bg-mist/50 px-5 py-5 text-sm text-ink-soft">{r.jpGap}</div>
+        <div className="mt-5 max-w-[37rem] rounded-xl bg-mist/50 px-5 py-5 text-sm text-ink-soft">{r.jpGap}</div>
 
         {/* skill combos */}
         <h2 className="mt-14 text-2xl font-semibold">{r.skillTitle}</h2>
@@ -188,7 +191,7 @@ export default async function SalaryReportPage({
             <div key={i} className="rounded-xl border border-line bg-paper p-6">
               <span className="text-xs font-semibold uppercase tracking-eyebrow text-pine">{s.tag}</span>
               <h3 className="mt-2 font-semibold">{s.head}</h3>
-              <p className="mt-2 text-sm text-ink-soft">{s.body}</p>
+              <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{s.body}</p>
             </div>
           ))}
         </div>
@@ -201,14 +204,14 @@ export default async function SalaryReportPage({
               <span className="shrink-0 text-2xl font-semibold tabular-nums text-pine">{i + 1}</span>
               <div>
                 <p className="font-semibold">{a.head}</p>
-                <p className="mt-1 text-sm text-ink-soft">{a.body}</p>
+                <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">{a.body}</p>
               </div>
             </li>
           ))}
         </ol>
 
         {/* CTA to free MRI */}
-        <section className="mt-16 rounded-2xl bg-pine px-7 py-9 text-paper">
+        <section className="mt-16 rounded-xl bg-pine px-7 py-9 text-paper">
           <p className="text-xs uppercase tracking-eyebrow text-paper/70">{r.ctaEyebrow}</p>
           <h2 className="mt-2 text-2xl font-semibold leading-snug">{r.ctaTitle}</h2>
           <p className="mt-3 max-w-xl text-paper/90">{r.ctaBody}</p>
@@ -225,7 +228,7 @@ export default async function SalaryReportPage({
             answers "how do I become worth more" */}
         <a
           href={`/${L}/levelup?utm_source=salary_report&utm_medium=cross_link`}
-          className="mt-8 block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-5 transition hover:border-pine"
+          className="mt-8 block rounded-xl border border-pine/30 bg-mist/50 px-6 py-5 transition hover:border-pine"
         >
           <p className="text-xs uppercase tracking-eyebrow text-pine">
             {L === 'zh-TW' ? '第二話' : 'Part two'}
@@ -250,7 +253,7 @@ export default async function SalaryReportPage({
           <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
             {r.sourcesLabel}
           </summary>
-          <p className="mt-4 text-sm text-ink-soft">{r.method}</p>
+          <p className="mt-4 max-w-[35rem] text-sm text-ink-soft">{r.method}</p>
           <div className="mt-4 overflow-x-auto rounded-xl border border-line">
             <table className="w-full min-w-[460px] text-sm">
               <tbody>
@@ -266,7 +269,7 @@ export default async function SalaryReportPage({
           </div>
         </details>
 
-        <p className="mt-10 border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
+        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
       </main>
     </div>
   );

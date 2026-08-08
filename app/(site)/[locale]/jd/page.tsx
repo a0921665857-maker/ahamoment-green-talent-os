@@ -46,12 +46,12 @@ export default async function JdTranslatorPage({
 
         <JdTranslator locale={L} copy={t} mriHref={mriHref} />
 
-        <p className="mt-10 border-t border-line pt-4 text-xs leading-relaxed text-ink-soft">
+        <p className="mt-10 max-w-[30rem] border-t border-line pt-4 text-xs leading-relaxed text-ink-soft">
           {t.footNote}
         </p>
 
         {/* the tool exists to feed the free MRI */}
-        <section className="mt-10 rounded-2xl bg-pine px-7 py-9 text-paper">
+        <section className="mt-10 rounded-xl bg-pine px-7 py-9 text-paper">
           <h2 className="text-2xl font-semibold leading-snug">{t.cta.title}</h2>
           <p className="mt-3 max-w-xl text-paper/90">{t.cta.body}</p>
           <a

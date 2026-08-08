@@ -8,9 +8,9 @@ import { TYPE_STYLE, cardLineOf } from '@/lib/shareCardStyle';
 /** Ready-to-post copy (Threads/LinkedIn) — turns the result into a shareable post, not just a link. */
 const POST_TEMPLATE: Record<Locale, (label: string, line: string, url: string) => string> = {
   'zh-TW': (label, line, url) =>
-    `我用「綠色職涯 MRI」測了自己的定位，結果是：${label}\n\n${line}\n\n如果你也在往氣候 / 永續 / 綠領轉，值得花 5 分鐘看看你現在被市場讀成哪一種人 👇\n${url}`,
+    `我用「綠色職涯 MRI」測了自己的定位，結果是：${label}\n\n${line}\n\n如果你也在往氣候 / 永續 / 綠領轉，全程約 5 分鐘就看得到你現在被市場讀成哪一種人。\n${url}`,
   en: (label, line, url) =>
-    `I ran my positioning through the Green Career MRI. Result: ${label}\n\n${line}\n\nIf you're moving into climate / sustainability, it's worth 5 minutes to see how the market actually reads you 👇\n${url}`,
+    `I ran my positioning through the Green Career MRI. Result: ${label}\n\n${line}\n\nIf you're moving into climate / sustainability, it's worth about 5 minutes end to end to see how the market actually reads you.\n${url}`,
 };
 
 export function ShareableTypeCard(props: {

@@ -75,11 +75,11 @@ export function PaidOfferCta(props: {
       {/* The front door: the free call, as the hero. Lowest-friction, highest-prominence. */}
       <div className="mt-6 rounded-xl border-2 border-pine bg-sage-soft/30 p-6">
         <h3 className="text-lg font-semibold">{free.name}</h3>
-        <p className="mt-2 max-w-2xl text-sm text-ink">{free.blurb}</p>
-        <p className="mt-4 max-w-2xl whitespace-pre-line text-sm text-ink-soft">{content.freeAgenda}</p>
+        <p className="mt-2 max-w-[35rem] text-sm text-ink">{free.blurb}</p>
+        <p className="mt-4 max-w-[35rem] whitespace-pre-line text-sm text-ink-soft">{content.freeAgenda}</p>
         <div className="mt-4 flex items-start gap-3">
           <FounderAvatar className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-line" />
-          <p className="max-w-2xl text-xs text-ink-soft">
+          <p className="max-w-[30rem] text-xs text-ink-soft">
             {content.founderLine}{' '}
             <a
               href="https://www.linkedin.com/in/chao-hsien-wu/"
@@ -116,7 +116,7 @@ export function PaidOfferCta(props: {
       </div>
 
       {/* Even lower friction: reply with one question, no scheduling. */}
-      <p className="mt-4 max-w-2xl text-sm text-ink-soft">
+      <p className="mt-4 max-w-[35rem] text-sm text-ink-soft">
         {content.replyPrompt}{' '}
         <a
           href={mailto}
@@ -128,7 +128,7 @@ export function PaidOfferCta(props: {
       </p>
 
       {/* Paid options — demoted, opt-in for those already sold. */}
-      <p className="mt-10 max-w-2xl text-sm text-ink-soft">{content.paidDivider}</p>
+      <p className="mt-10 max-w-[35rem] text-sm text-ink-soft">{content.paidDivider}</p>
       <div className="mt-4 grid gap-4 md:grid-cols-3">
         {props.slots.map((s) => {
           const o = content.offers[s.offer];
@@ -212,7 +212,7 @@ export function PaidOfferCta(props: {
         {content.allServicesCta} →
       </a>
 
-      <p className="mt-6 text-sm text-ink-soft">{content.confidentiality}</p>
+      <p className="mt-6 max-w-[35rem] text-sm text-ink-soft">{content.confidentiality}</p>
     </section>
   );
 }

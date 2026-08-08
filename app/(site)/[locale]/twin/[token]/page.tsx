@@ -105,7 +105,7 @@ export default async function TwinHubPage({
             </p>
           </section>
         ) : (
-          <p className="mt-10 max-w-2xl rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">
+          <p className="mt-10 max-w-[37rem] rounded-xl border border-line bg-mist/40 px-4 py-3 text-sm text-ink">
             {t.needTwo}
           </p>
         )}
@@ -138,7 +138,7 @@ export default async function TwinHubPage({
 
         <section className="mt-12 rounded-xl border-2 border-pine bg-sage-soft/30 p-6">
           <h2 className="text-lg font-semibold">{t.updateTitle}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-ink">{t.updateBody}</p>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink">{t.updateBody}</p>
           <a
             href={`/${L}/mri`}
             className="mt-4 inline-block rounded-lg bg-pine px-6 py-3 text-sm text-paper"

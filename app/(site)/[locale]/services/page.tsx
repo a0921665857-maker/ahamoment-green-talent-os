@@ -17,7 +17,7 @@ function Scope({ label, items }: { label: string; items?: string[] }) {
       <p className="text-xs uppercase tracking-eyebrow text-ink-soft">{label}</p>
       <ul className="mt-2 space-y-1">
         {items.map((line) => (
-          <li key={line} className="text-sm text-ink-soft">
+          <li key={line} className="max-w-[35rem] text-sm text-ink-soft">
             · {line}
           </li>
         ))}
@@ -50,9 +50,15 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       <PageViewPing name="services_page_viewed" props={{ locale: L }} />
 
       <main id="main" className="mx-auto max-w-3xl px-6 pb-24 pt-6">
-        <h1 className="text-3xl font-semibold">{o.title}</h1>
+        {/* House h1: 36px on desktop, same as the ten content pages. This page
+            was one of only two still at 30px, which quietly told the visitor
+            that the page where the prices live matters less than /jobs. */}
+        <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">{o.title}</h1>
         <p className="mt-3 max-w-2xl text-ink-soft">{o.intro}</p>
-        <p className="mt-4 max-w-2xl rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">
+        {/* 14px prose gets 35rem (= 40 zh characters), not max-w-2xl: 672px is
+            the 16px measure and runs 48 characters a line at this size. The box
+            padding is inside the cap, so the text column is what is bounded. */}
+        <p className="mt-4 max-w-[37rem] rounded-xl border border-line bg-mist/40 px-4 py-3 text-sm text-ink">
           {o.bookingNote}
         </p>
 
@@ -62,9 +68,9 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             <h2 className="text-xl font-semibold">{free.name}</h2>
             <span className="text-sm font-medium text-pine">{free.price}</span>
           </div>
-          <p className="mt-3 text-sm text-ink">{free.blurb}</p>
-          <p className="mt-3 text-xs text-ink-soft">{free.forWhom}</p>
-          <p className="mt-1 text-xs text-ink-soft">{free.delivery}</p>
+          <p className="mt-3 max-w-[35rem] text-sm text-ink">{free.blurb}</p>
+          <p className="mt-3 max-w-[30rem] text-xs text-ink-soft">{free.forWhom}</p>
+          <p className="mt-1 max-w-[30rem] text-xs text-ink-soft">{free.delivery}</p>
           <Scope label={o.notIncludedLabel} items={free.notIncluded} />
           <ServiceCtas
             offer={FREE_OFFER_ID}
@@ -88,7 +94,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                 </div>
 
                 {offer.decisionMoment && (
-                  <p className="mt-4 border-l-2 border-pine pl-4 text-sm text-ink">
+                  <p className="mt-4 max-w-[37rem] border-l-2 border-pine pl-4 text-sm text-ink">
                     <span className="block text-xs uppercase tracking-eyebrow text-ink-soft">
                       {o.decisionMomentLabel}
                     </span>
@@ -96,9 +102,9 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
                   </p>
                 )}
 
-                <p className="mt-4 text-sm">{offer.blurb}</p>
-                <p className="mt-4 text-xs text-ink-soft">{offer.forWhom}</p>
-                <p className="mt-1 text-xs text-ink-soft">{offer.delivery}</p>
+                <p className="mt-4 max-w-[35rem] text-sm">{offer.blurb}</p>
+                <p className="mt-4 max-w-[30rem] text-xs text-ink-soft">{offer.forWhom}</p>
+                <p className="mt-1 max-w-[30rem] text-xs text-ink-soft">{offer.delivery}</p>
 
                 <Scope label={o.notIncludedLabel} items={offer.notIncluded} />
 
@@ -115,7 +121,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           })}
         </div>
 
-        <p className="mt-10 text-sm text-ink-soft">{o.confidentiality}</p>
+        <p className="mt-10 max-w-[35rem] text-sm text-ink-soft">{o.confidentiality}</p>
 
         <div className="mt-12 border-t border-line pt-10 text-center">
           <a href={`/${L}/mri`} className="inline-block rounded-lg bg-pine px-6 py-3 text-paper">

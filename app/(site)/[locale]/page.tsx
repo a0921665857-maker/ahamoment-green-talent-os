@@ -147,7 +147,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
 
           <p className="mt-6 text-base font-medium text-pine">{c.landing.hero.credibilityLine}</p>
-          <p className="mt-3 max-w-2xl text-sm text-ink-soft">{c.landing.hero.privacyLine}</p>
+          <p className="mt-3 max-w-[35rem] text-sm text-ink-soft">{c.landing.hero.privacyLine}</p>
 
           {/* signature: the band scale glyph */}
           <div className="mt-8 flex items-end gap-1.5" aria-hidden>
@@ -162,19 +162,22 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       <section className="mx-auto max-w-3xl px-6 pt-12">
         <a
           href={`/${L}/judgment?utm_source=home&utm_medium=flagship`}
-          className="block rounded-2xl bg-pine px-6 py-5 text-paper transition hover:bg-pine-deep"
+          className="block rounded-xl bg-pine px-6 py-5 text-paper transition hover:bg-pine-deep"
         >
           <p className="text-xs uppercase tracking-eyebrow text-sage-soft">
             {L === 'zh-TW' ? '免費 · 不用留 email' : 'Free · no email'}
           </p>
           {/* an <h2>: the declared flagship had no heading at all. font-semibold
-              stays explicit because Preflight sets h2 font-weight:inherit. */}
-          <h2 className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">
+              stays explicit because Preflight sets h2 font-weight:inherit.
+              20px, not the old sm:text-2xl: 24px is now reserved for SECTION
+              headings, and this is a card title. The flagship keeps its weight
+              from the full pine ground, not from font-size. */}
+          <h2 className="mt-2 text-xl font-semibold leading-snug">
             {L === 'zh-TW'
               ? '綠領判斷力：知識查得到，判斷你得自己練'
               : 'Green-Collar Judgment: knowledge you can look up. Judgment you practise.'}
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-sage-soft">
+          <p className="mt-2 max-w-[35rem] text-sm leading-relaxed text-sage-soft">
             {L === 'zh-TW'
               ? '12 題判斷練習，先作答才看得到解答。每個錯的選項都會告訴你它為什麼誘人。'
               : '12 judgment exercises. You commit before seeing any reasoning, and every wrong option explains why it was tempting.'}
@@ -193,14 +196,14 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
         <a
           href={`/${L}/salary-report`}
-          className="mt-3 block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
+          className="mt-3 block rounded-xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
         >
           <h2 className="text-xl font-semibold leading-snug">
             {L === 'zh-TW'
               ? '《2026 亞太綠領薪資報告》：同一份工作，新加坡薪水是台灣的 2 到 3 倍？'
               : '2026 APAC Green-Collar Salary Report: is Singapore pay really 2–3× Taiwan’s?'}
           </h2>
-          <p className="mt-2 text-sm text-ink-soft">
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">
             {L === 'zh-TW'
               ? '星台薪資帶、綠領溢價 5.3% vs 面試機會 544% 的真相，以及四種拉高議價力的技能組合。'
               : 'Cross-strait bands, the +5.3% pay vs +544% interviews paradox, and four skill combos that lift your leverage.'}
@@ -213,14 +216,14 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         {/* the salary report's sequel — what you're worth → how to become worth more */}
         <a
           href={`/${L}/levelup`}
-          className="mt-3 block rounded-2xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
+          className="mt-3 block rounded-xl border border-pine/30 bg-mist/50 px-6 py-6 transition hover:border-pine"
         >
           <h2 className="text-xl font-semibold leading-snug">
             {L === 'zh-TW'
               ? '《綠領晉級地圖 2026 H2》：哪個技能、哪張證照後面真的有錢？'
               : 'Green-Collar Level-Up Map 2026 H2: which skills and certificates actually pay?'}
           </h2>
-          <p className="mt-2 text-sm text-ink-soft">
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">
             {L === 'zh-TW'
               ? '唯一有乾淨溢價數字的技能（碳核算 × Scope 3 +12 到 18%）、證照買到的是門不是加薪，以及三種人各自的兩年路線。'
               : 'The one skill with a clean premium (carbon accounting × Scope 3, +12–18%), why certificates buy the door and not the raise, and two-year routes for three profiles.'}
@@ -235,7 +238,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             <a
               key={tool.href}
               href={tool.href}
-              className="rounded-2xl border border-line px-5 py-4 transition hover:border-pine"
+              className="rounded-xl border border-line px-5 py-4 transition hover:border-pine"
             >
               <p className="font-semibold">{tool.title}</p>
               <p className="mt-1 text-sm text-ink-soft">{tool.desc}</p>
@@ -248,7 +251,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       {/* differentiator — Blue Ocean category boundary, high on the page */}
       <section className="border-y border-line bg-mist/30">
         <div className="mx-auto max-w-3xl px-6 py-12">
-          <h2 className="text-xl font-semibold">{c.landing.differentiator.title}</h2>
+          {/* 24px is the house SECTION size (cost-of-living, levelup,
+              salary-report, jobs all ship it). The home page was the outlier at
+              20px, which made every section heading the same size as the card
+              titles inside it — so the page read as one flat list of cards with
+              no spine. Card titles stay at 20px; only sections moved. */}
+          <h2 className="text-2xl font-semibold">{c.landing.differentiator.title}</h2>
           <ul className="mt-5 space-y-3">
             {c.landing.differentiator.points.map((p, i) => (
               <li key={i} className="flex items-baseline gap-3 text-ink-soft">
@@ -263,7 +271,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       {/* how it works — a real 3-step sequence */}
       <section className="border-t border-line bg-mist/30">
         <div className="mx-auto max-w-3xl px-6 py-14">
-          <h2 className="text-xl font-semibold">{c.landing.howItWorks.title}</h2>
+          <h2 className="text-2xl font-semibold">{c.landing.howItWorks.title}</h2>
           <ol className="mt-6 grid gap-6 sm:grid-cols-3">
             {c.landing.howItWorks.steps.map((s, i) => (
               <li key={i}>
@@ -278,7 +286,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
       {/* what you get — concrete section preview */}
       <section className="mx-auto max-w-3xl px-6 py-14">
-        <h2 className="text-xl font-semibold">{c.landing.whatYouGet.title}</h2>
+        <h2 className="text-2xl font-semibold">{c.landing.whatYouGet.title}</h2>
         <p className="mt-2 max-w-2xl text-ink-soft">{c.landing.whatYouGet.intro}</p>
         <ul className="mt-6 grid gap-x-8 gap-y-2 sm:grid-cols-2">
           {REPORT_SECTION_KEYS.map((k, i) => (
@@ -288,7 +296,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             </li>
           ))}
         </ul>
-        <p className="mt-5 text-sm text-ink-soft">{c.landing.whatYouGet.sectionPreviewNote}</p>
+        <p className="mt-5 max-w-[35rem] text-sm text-ink-soft">{c.landing.whatYouGet.sectionPreviewNote}</p>
         <a href={`/${L}/sample`} className="mt-4 inline-block text-sm text-pine hover:underline">
           {c.sample.landingLinkLabel} →
         </a>
@@ -297,7 +305,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       {/* founder strip */}
       <section className="border-t border-line bg-mist/30">
         <div className="mx-auto max-w-3xl px-6 py-14">
-          <h2 className="text-xl font-semibold">{c.landing.founder.title}</h2>
+          <h2 className="text-2xl font-semibold">{c.landing.founder.title}</h2>
           <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-start">
             <FounderAvatar className="h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-line" />
             <div>
@@ -326,7 +334,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
       {/* offers — flagship services shown directly on the homepage */}
       <section className="mx-auto max-w-3xl px-6 py-14">
-        <h2 className="text-xl font-semibold">{c.landing.offersTeaser.title}</h2>
+        <h2 className="text-2xl font-semibold">{c.landing.offersTeaser.title}</h2>
         <p className="mt-2 max-w-2xl text-ink-soft">{c.landing.offersTeaser.intro}</p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -345,11 +353,15 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           })}
         </div>
 
-        <p className="mt-6 max-w-2xl text-sm text-ink-soft">{c.paidOffers.bookingNote}</p>
+        {/* max-w-2xl (672px) is the right measure for 16px prose — 42 zh
+            characters. On 14px text the same box runs 48 characters a line, so
+            the SMALLEST type on the page had the LONGEST lines. 35rem = 560px =
+            40 zh characters at 14px, the ceiling for these two. */}
+        <p className="mt-6 max-w-[35rem] text-sm text-ink-soft">{c.paidOffers.bookingNote}</p>
         <a href={`/${L}/services`} className="mt-4 inline-block text-sm text-pine hover:underline">
           {c.landing.offersTeaser.allServicesCta} →
         </a>
-        <p className="mt-6 max-w-2xl text-sm text-ink-soft">{c.landing.offersTeaser.honestUrgency}</p>
+        <p className="mt-6 max-w-[35rem] text-sm text-ink-soft">{c.landing.offersTeaser.honestUrgency}</p>
       </section>
 
       {/* final cta */}
@@ -379,27 +391,19 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
       <LatestContent locale={L} />
 
-      <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-3xl flex-col gap-2 px-6 py-8 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
-          <span>{c.landing.footer.rightsLine}</span>
-          <div className="flex items-center gap-4">
-            {process.env.NEXT_PUBLIC_BLOG_URL && (
-              <a
-                href={process.env.NEXT_PUBLIC_BLOG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-pine"
-              >
-                {c.landing.footer.blogLink}
-              </a>
-            )}
-            <a href={`/${L}/privacy`} className="hover:text-pine">
-              {c.landing.footer.privacyLink}
-            </a>
-          </div>
-        </div>
-        <p className="mx-auto max-w-3xl px-6 pb-8 text-xs text-ink-soft">{c.landing.footer.deleteLine}</p>
-      </footer>
+      {/*
+        The page-local <footer> that used to sit here is gone. SiteFooter (in the
+        locale layout) already carries all four of its payloads, so the home page
+        was showing every visitor two footers in a row:
+          · privacy link  → SiteFooter's 站內索引 group ships /privacy
+          · delete promise → SiteFooter reads the same landing.footer.deleteLine
+          · blog link      → LatestContent's 「看更多文章」 sits directly above,
+                             and the blog is zh-only content anyway
+          · rights line    → the wordmark; belongs in the site chrome, not on one
+                             page (handed to agent-components for SiteFooter)
+        Nothing here is orphaned: /privacy and the blog both still have a live
+        in-page entry above this point.
+      */}
     </main>
   );
 }

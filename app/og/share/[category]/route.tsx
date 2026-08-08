@@ -3,6 +3,7 @@ import { getContent } from '@/content';
 import { isLocale } from '@/content/locales';
 import { RESULT_CATEGORIES, type Locale, type ResultCategory } from '@/lib/constants';
 import { TYPE_STYLE, BAND_COLORS, cardLineOf } from '@/lib/shareCardStyle';
+import { loadNotoSansTC, OG_FONT_FAMILY, assertGlyphs } from '@/lib/ogFonts';
 
 /**
  * Generated shareable result card (1080×1080 PNG) — the "MBTI card" people post.
@@ -33,13 +34,10 @@ export async function GET(
   const bandLabels = isZh ? '潛力 · 成形 · 到位' : 'Emerging · Developing · Strong';
   const hook = isZh ? '你是哪一型？來測 →' : 'Which type are you? →';
 
-  // Fonts are served from /public over HTTP (same origin) — works in Turbopack dev
-  // and on Vercel, unlike fetch(file://) which Turbopack doesn't implement.
-  const origin = new URL(req.url).origin;
-  const [f400, f700] = await Promise.all([
-    fetch(`${origin}/fonts/NotoSansTC-400.ttf`).then((r) => r.arrayBuffer()),
-    fetch(`${origin}/fonts/NotoSansTC-700.ttf`).then((r) => r.arrayBuffer()),
-  ]);
+  const fonts = await loadNotoSansTC(new URL(req.url).origin);
+  // The bundled fonts are subsets: reword a shareLine in content/ and a character
+  // can fall outside them, which satori renders as tofu without complaining.
+  assertGlyphs(`share card ${cat} (${locale})`, `${eyebrow}${type.label}${cardLine}${bandLabels}${hook}`, fonts);
 
   return new ImageResponse(
     (
@@ -50,7 +48,7 @@ export async function GET(
           display: 'flex',
           flexDirection: 'column',
           background: '#f6f6f1',
-          fontFamily: '"Noto Sans TC"',
+          fontFamily: OG_FONT_FAMILY,
         }}
       >
         {/* accent edge — thumbnail-recognisable signature */}
@@ -145,10 +143,7 @@ export async function GET(
     {
       width: 1080,
       height: 1080,
-      fonts: [
-        { name: 'Noto Sans TC', data: f400, weight: 400, style: 'normal' },
-        { name: 'Noto Sans TC', data: f700, weight: 700, style: 'normal' },
-      ],
+      fonts,
       emoji: 'noto',
     },
   );

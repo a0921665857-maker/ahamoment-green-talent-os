@@ -11,7 +11,7 @@ export function MarketPulseCard({ locale, utmContent }: { locale: Locale; utmCon
   return (
     <aside className="mt-10 rounded-xl border border-line bg-mist/30 px-5 py-5">
       <p className="text-xs font-semibold uppercase tracking-eyebrow text-pine">{t.eyebrow}</p>
-      <p className="mt-2 text-sm text-ink-soft">{t.intro}</p>
+      <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{t.intro}</p>
       <ul className="mt-3 space-y-2.5">
         {marketPulse.items.map((item) => (
           <li key={item.url} className="text-[15px] leading-relaxed">
@@ -30,8 +30,8 @@ export function MarketPulseCard({ locale, utmContent }: { locale: Locale; utmCon
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-sm">{t.reading}</p>
-      <p className="mt-2 text-xs text-ink-soft">
+      <p className="mt-3 max-w-[35rem] text-sm">{t.reading}</p>
+      <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">
         {t.sourceNote}
         {locale === 'zh-TW'
           ? `更新於 ${marketPulse.updatedAt},每週日更新。`

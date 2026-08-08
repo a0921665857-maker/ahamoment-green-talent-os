@@ -72,7 +72,7 @@ export async function LatestContent({ locale }: { locale: Locale }) {
       <div className="mx-auto grid max-w-3xl gap-10 px-6 py-12 sm:grid-cols-2">
         {posts.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold">{t.readTitle}</h2>
+            <h2 className="text-2xl font-semibold">{t.readTitle}</h2>
             <ul className="mt-5 space-y-3">
               {posts.map((p) => (
                 <li key={p.link}>
@@ -101,7 +101,7 @@ export async function LatestContent({ locale }: { locale: Locale }) {
         )}
         {embed && (
           <div>
-            <h2 className="text-xl font-semibold">{t.listenTitle}</h2>
+            <h2 className="text-2xl font-semibold">{t.listenTitle}</h2>
             <iframe
               title="Podcast"
               src={embed}

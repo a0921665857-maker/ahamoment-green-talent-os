@@ -106,7 +106,7 @@ export default async function ResultPage({
       <ScrollDepth surface="report" extra={{ category: report.category, locale: L }} />
       <main id="main" className="mx-auto max-w-2xl px-6 pb-28 pt-6 sm:pb-24">
         {report.degraded && (
-          <p className="mb-6 rounded border border-line bg-mist px-4 py-3 text-sm text-ink-soft">
+          <p className="mb-6 max-w-[37rem] rounded-xl border border-line bg-mist px-4 py-3 text-sm text-ink-soft">
             {c.errors.reportDegraded}
           </p>
         )}
@@ -171,7 +171,7 @@ export default async function ResultPage({
                 <p className="text-sm font-medium">
                   {L === 'zh-TW' ? '賽道有了，接下來是價格。' : 'You have the lane. Now put a price on it.'}
                 </p>
-                <p className="mt-1 text-sm text-ink-soft">
+                <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">
                   {L === 'zh-TW'
                     ? '用真實的市場數據，看你的組合在台灣與新加坡各值多少，以及跨過去之後實際剩多少。'
                     : 'See what your combination pays in Taiwan versus Singapore, and what actually survives the move.'}
@@ -202,7 +202,7 @@ export default async function ResultPage({
                   </>
                 )}
               </p>
-              <p className="mt-2 text-xs text-ink-soft">
+              <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">
                 {L === 'zh-TW'
                   ? '這是市場的帶寬，不是你的定價；你的位置由證據決定。推估區間、資料截至 2026 年 7 月，以來源原始頁為準。'
                   : 'This is the market band, not your price; your position is set by your evidence. Estimated ranges, data as of July 2026 — the source pages govern.'}
@@ -238,7 +238,7 @@ export default async function ResultPage({
           context="report_end"
         />
         {/* Twin teaser — the paid perk that turns a one-off report into a file. */}
-        <p className="mt-8 text-sm text-ink-soft">
+        <p className="mt-8 max-w-[35rem] text-sm text-ink-soft">
           {c.twin.resultLink.prompt}{' '}
           <a href={`/${L}/twin`} className="font-medium text-pine underline-offset-2 hover:underline">
             {c.twin.resultLink.cta} →

@@ -34,7 +34,7 @@ export function TwinRequestForm(props: { locale: Locale; content: TwinContent['r
   }
 
   if (state === 'sent') {
-    return <p className="mt-6 max-w-xl rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">{t.sentNote}</p>;
+    return <p className="mt-6 max-w-[37rem] rounded-lg border border-line bg-mist/40 px-4 py-3 text-sm text-ink">{t.sentNote}</p>;
   }
 
   return (
@@ -42,7 +42,7 @@ export function TwinRequestForm(props: { locale: Locale; content: TwinContent['r
     // first, so a reader typing a bad address got Chrome's English bubble and
     // the site's bilingual error line below never rendered — including the
     // contrast fix on it. Our own check (above) is the stricter of the two.
-    <form onSubmit={submit} noValidate className="mt-6 max-w-xl">
+    <form onSubmit={submit} noValidate className="mt-6 max-w-[35rem]">
       <label htmlFor="twin-email" className="block text-sm font-medium">
         {t.emailLabel}
       </label>

@@ -47,7 +47,7 @@ export default async function LevelupPage({
         <p className="text-xs uppercase tracking-eyebrow text-pine">{r.eyebrow}</p>
         <h1 className="mt-3 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{r.title}</h1>
         <p className="mt-5 text-lg text-ink-soft">{r.lede}</p>
-        <p className="mt-6 border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
+        <p className="mt-6 max-w-[30rem] border-t border-line pt-4 text-xs text-ink-soft">{r.byline}</p>
 
         {/* Cross-link to the judgement module (/[locale]/judgment): 26 competency
             nodes + 12 reps. It sits before the verdict because a reader here has
@@ -61,7 +61,11 @@ export default async function LevelupPage({
         >
           <p className="text-xs uppercase tracking-eyebrow text-pine">{r.judgmentCard.eyebrow}</p>
           <p className="mt-2 text-lg font-semibold leading-snug">{r.judgmentCard.title}</p>
-          <p className="mt-2 text-sm leading-relaxed text-ink-soft">{r.judgmentCard.body}</p>
+          {/* max-w-[35rem] = 560px = 40 zh characters at 14px. Card bodies used
+              to run the full 672px card interior, i.e. 48 characters a line —
+              the smallest type on the page had the longest lines, which is
+              backwards. Same cap on every 14px block below. */}
+          <p className="mt-2 max-w-[35rem] text-sm leading-relaxed text-ink-soft">{r.judgmentCard.body}</p>
           <p className="mt-3 text-sm font-medium text-pine">{r.judgmentCard.cta}</p>
         </a>
 
@@ -102,11 +106,11 @@ export default async function LevelupPage({
                 </span>
               </div>
               {rung.width ? (
-                <div className="mt-2 h-6 overflow-hidden rounded-md border border-line bg-mist/40">
-                  <div className="h-full rounded-md bg-band-emerging/80" style={{ width: `${rung.width}%` }} />
+                <div className="mt-2 h-6 overflow-hidden rounded-sm border border-line bg-mist/40">
+                  <div className="h-full rounded-sm bg-band-emerging/80" style={{ width: `${rung.width}%` }} />
                 </div>
               ) : (
-                <div className="mt-2 flex h-6 items-center rounded-md border border-dashed border-band-emerging/60 bg-mist/30 px-3">
+                <div className="mt-2 flex h-6 items-center rounded-sm border border-dashed border-band-emerging/60 bg-mist/30 px-3">
                   <span className="text-xs text-ink-soft">{rung.flag}</span>
                 </div>
               )}
@@ -118,8 +122,8 @@ export default async function LevelupPage({
         {/* why empty */}
         <div className="mt-10 rounded-xl border border-line bg-paper p-6">
           <h3 className="font-semibold">{r.whyTitle}</h3>
-          <p className="mt-2 text-sm text-ink-soft">{r.whyBody1}</p>
-          <p className="mt-3 text-sm text-ink-soft">{r.whyBody2}</p>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{r.whyBody1}</p>
+          <p className="mt-3 max-w-[35rem] text-sm text-ink-soft">{r.whyBody2}</p>
         </div>
 
         {/* 02 direction */}
@@ -169,8 +173,8 @@ export default async function LevelupPage({
         </div>
         <div className="mt-6 rounded-xl border border-band-emerging/50 bg-mist/50 p-6">
           <h3 className="font-semibold">{r.certBoxTitle}</h3>
-          <p className="mt-2 text-sm">{r.certBoxBody1}</p>
-          <p className="mt-3 text-sm text-ink-soft">{r.certBoxBody2}</p>
+          <p className="mt-2 max-w-[35rem] text-sm">{r.certBoxBody1}</p>
+          <p className="mt-3 max-w-[35rem] text-sm text-ink-soft">{r.certBoxBody2}</p>
         </div>
 
         {/* 04 paths */}
@@ -180,7 +184,7 @@ export default async function LevelupPage({
             <div key={i} className="rounded-r-xl border border-l-2 border-line border-l-pine bg-paper p-6">
               <p className="text-xs font-semibold uppercase tracking-eyebrow text-pine">{p.who}</p>
               <h3 className="mt-2 text-lg font-semibold leading-snug">{p.head}</h3>
-              <p className="mt-2 text-sm text-ink-soft">{p.body}</p>
+              <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{p.body}</p>
             </div>
           ))}
         </div>
@@ -191,14 +195,18 @@ export default async function LevelupPage({
         <div className="mt-6 grid gap-3">
           {r.proofs.map((p, i) => (
             <div key={i} className="rounded-xl border border-line bg-paper p-5">
-              <div className="flex items-start gap-3 text-sm text-ink-soft">
-                <span className="mt-0.5 shrink-0 rounded bg-mist px-2 py-0.5 text-xs font-semibold">
+              {/* The cap goes on the flex row, not on the text span: gap-3 and
+                  items-start are what keep the badge column aligned, so bounding
+                  the row keeps both proof lines to one measure. Both rows carry
+                  it so the struck-out "no" never runs wider than the "yes". */}
+              <div className="flex max-w-[35rem] items-start gap-3 text-sm text-ink-soft">
+                <span className="mt-0.5 shrink-0 rounded-sm bg-mist px-2 py-0.5 text-xs font-semibold">
                   {r.proofNoLabel}
                 </span>
                 <span className="line-through decoration-line">{p.no}</span>
               </div>
-              <div className="mt-2.5 flex items-start gap-3 text-sm font-medium">
-                <span className="mt-0.5 shrink-0 rounded bg-sage-soft px-2 py-0.5 text-xs font-semibold text-pine-deep">
+              <div className="mt-2.5 flex max-w-[35rem] items-start gap-3 text-sm font-medium">
+                <span className="mt-0.5 shrink-0 rounded-sm bg-sage-soft px-2 py-0.5 text-xs font-semibold text-pine-deep">
                   {r.proofYesLabel}
                 </span>
                 <span>{p.yes}</span>
@@ -208,7 +216,7 @@ export default async function LevelupPage({
         </div>
 
         {/* CTA to free MRI */}
-        <section className="mt-16 rounded-2xl bg-pine px-7 py-9 text-paper">
+        <section className="mt-16 rounded-xl bg-pine px-7 py-9 text-paper">
           <p className="text-xs uppercase tracking-eyebrow text-paper/70">{r.ctaEyebrow}</p>
           <h2 className="mt-2 text-2xl font-semibold leading-snug">{r.ctaTitle}</h2>
           <p className="mt-3 max-w-xl text-paper/90">{r.ctaBody}</p>
@@ -239,8 +247,8 @@ export default async function LevelupPage({
           <summary className="inline-flex min-h-[44px] cursor-pointer items-center text-xs uppercase tracking-eyebrow text-pine">
             {r.sourcesLabel}
           </summary>
-          <p className="mt-4 text-sm text-ink-soft">{r.method}</p>
-          <p className="mt-3 rounded-lg border border-dashed border-band-emerging/60 bg-mist/40 px-4 py-3 text-sm text-ink-soft">
+          <p className="mt-4 max-w-[35rem] text-sm text-ink-soft">{r.method}</p>
+          <p className="mt-3 max-w-[37rem] rounded-xl border border-dashed border-band-emerging/60 bg-mist/40 px-4 py-3 text-sm text-ink-soft">
             {r.verify}
           </p>
           <div className="mt-4 overflow-x-auto rounded-xl border border-line">
@@ -258,7 +266,7 @@ export default async function LevelupPage({
           </div>
         </details>
 
-        <p className="mt-10 border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
+        <p className="mt-10 max-w-[30rem] border-t border-line pt-6 text-xs text-ink-soft">{r.footer}</p>
       </main>
     </div>
   );

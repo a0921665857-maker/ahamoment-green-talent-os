@@ -49,7 +49,7 @@ function SourceLine({
 }) {
   const fresh = isSgOfficialFresh(source.fetchedAt, now);
   return (
-    <p className="mt-2 text-xs leading-relaxed text-ink-soft">
+    <p className="mt-2 max-w-[30rem] text-xs leading-relaxed text-ink-soft">
       {t.sourceLinePrefix}
       <a
         href={source.datasetUrl}
@@ -108,7 +108,7 @@ export function SgOfficialDataSection({ locale }: { locale: Locale }) {
   );
 
   return (
-    <section className="mt-14 rounded-2xl border border-pine/30 px-5 py-7 sm:px-7">
+    <section className="mt-14 rounded-xl border border-pine/30 px-5 py-7 sm:px-7">
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-pine px-2.5 py-1 text-[11px] font-semibold uppercase tracking-eyebrow text-paper">
           {t.badgeOfficial}
@@ -159,7 +159,7 @@ export function SgOfficialDataSection({ locale }: { locale: Locale }) {
         </summary>
         <ol>{rest.map((town, i) => row(town, i + 1 + RENT_ROWS_VISIBLE))}</ol>
       </details>
-      <p className="mt-3 border-t border-line pt-3 text-xs text-ink-soft">{f(t.rentCaption)}</p>
+      <p className="mt-3 max-w-[30rem] border-t border-line pt-3 text-xs text-ink-soft">{f(t.rentCaption)}</p>
       <SourceLine source={rent.source} locale={locale} t={t} now={now} />
 
       <p className="mt-6 text-ink-soft">
@@ -182,7 +182,7 @@ export function SgOfficialDataSection({ locale }: { locale: Locale }) {
               <p className="mt-1 text-xs text-ink-soft">
                 {sgOfficialPeriodLabel(source.latestPeriod, locale)} · {source.agency}
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-ink-soft">{f(s.reading)}</p>
+              <p className="mt-3 max-w-[35rem] text-sm leading-relaxed text-ink-soft">{f(s.reading)}</p>
               <SourceLine source={source} locale={locale} t={t} now={now} />
               {s.key === 'income' && (
                 <a
@@ -198,7 +198,7 @@ export function SgOfficialDataSection({ locale }: { locale: Locale }) {
       </div>
 
       {/* Licence attribution and non-affiliation. Required by the licence: never collapse or remove. */}
-      <p className="mt-6 border-t border-line pt-4 text-xs leading-relaxed text-ink-soft">
+      <p className="mt-6 max-w-[30rem] border-t border-line pt-4 text-xs leading-relaxed text-ink-soft">
         {f(t.licenceNote)}
       </p>
     </section>

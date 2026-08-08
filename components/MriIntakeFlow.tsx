@@ -46,6 +46,29 @@ function mapQuick(a: Record<string, string>): ResultCategory {
 /** Tab display order — lowest-friction paste first; CV-PDF (biggest drop-off) last. */
 const TAB_ORDER: InputType[] = ['notes_paste', 'linkedin_paste', 'cv_pdf', 'voice_transcript'];
 
+/**
+ * Quick-read wayfinding strings: how far along you are, and the way out.
+ *
+ * These live here rather than in `content/` only because `FlowContent.quick`
+ * has no keys for them yet; they are chrome, not claims, and none of them
+ * touches a number, a promise or a price. Move them into the schema the next
+ * time the content contract is opened.
+ */
+const QUICK_UI: Record<Locale, { progress: string; back: string; edit: string; needMore: string }> = {
+  'zh-TW': {
+    progress: '已完成 {done}／{total} 題',
+    back: '回上一步',
+    edit: '回上一步改答案',
+    needMore: '還有 {left} 題沒選，{total} 題都選完就能拿速讀卡。',
+  },
+  en: {
+    progress: '{done} of {total} answered',
+    back: 'Back',
+    edit: 'Back to change an answer',
+    needMore: '{left} of {total} still to answer before your card unlocks.',
+  },
+};
+
 interface QView {
   id: QuestionId;
   label: string;
@@ -64,6 +87,19 @@ export interface IntakeFlowProps {
   privacyHref: string;
   sampleHref: string;
   sampleLabel: string;
+}
+
+/**
+ * The input step's error lives beside the submit button, two screens below the
+ * fold. That is the right home for it (the copy points at the consent box from
+ * there), but a request that fails mid-extraction drops you back at the top of
+ * a long page with the explanation out of sight. The timeout lets React commit
+ * the phase change before we look for the node.
+ */
+function revealInputError() {
+  setTimeout(() => {
+    document.getElementById('input-error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 0);
 }
 
 function track(name: string, session_token: string | null, props: Record<string, string | number | boolean> = {}) {
@@ -195,6 +231,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
         const body = await res.json().catch(() => ({}));
         setError(body.detail ?? errors.extractionFailed);
         setPhase('input');
+        revealInputError();
         return;
       }
       const data = (await res.json()) as { session_token: string; profile: ExtractedProfile };
@@ -214,6 +251,7 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
     } catch {
       setError(errors.generic);
       setPhase('input');
+      revealInputError();
     } finally {
       setBusy(false);
     }
@@ -334,14 +372,30 @@ export function MriIntakeFlow(props: IntakeFlowProps) {
           phCapture('quick_to_full_clicked', { locale });
           setPhase('input');
         }}
+        // Wayfinding only — no tracking, no reset. `quickAnswers` lives up here
+        // and is never cleared, so leaving the quick read and coming back (or
+        // stepping off the result to change one tap) keeps every answer.
+        onBack={() => setPhase('input')}
+        onEditAnswers={() => setPhase('quick')}
       />
     );
 
   return (
     <div>
       <StepIndicator flow={flow} phase={phase} />
-      {error && (
-        <p className="mt-4 rounded border border-line bg-mist px-4 py-3 text-sm text-ink">{error}</p>
+      {/* The same error string used to render twice on the input step — here and
+          again beside the submit button, roughly 2,050px apart. Worse, the copy
+          is written from the button's vantage point ("tick the processing
+          consent ABOVE"), which is true down there and backwards up here, where
+          the consent box is two screens BELOW. The input step owns its own error
+          slot; this banner now only covers confirm/questions, which have none. */}
+      {error && phase !== 'input' && (
+        <p
+          role="alert"
+          className="mt-4 max-w-[37rem] rounded-xl border border-line bg-mist px-4 py-3 text-sm text-ink"
+        >
+          {error}
+        </p>
       )}
 
       {phase === 'input' && (
@@ -479,7 +533,7 @@ function InputStep(p: {
     <div className="mt-8">
       <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{p.flow.intro.title}</h1>
       <p className="mt-2 text-ink-soft">{p.flow.intro.body}</p>
-      <p className="mt-3 text-sm text-ink-soft">{p.flow.intro.reassure}</p>
+      <p className="mt-3 max-w-[35rem] text-sm text-ink-soft">{p.flow.intro.reassure}</p>
       <a
         href={p.sampleHref}
         target="_blank"
@@ -494,7 +548,7 @@ function InputStep(p: {
           wall so the "wrong moment" majority gets an action inside screen one. */}
       <div className="mt-6 rounded-xl border border-sage bg-sage-soft/30 px-5 py-4">
         <p className="font-medium">{p.flow.quick.entryTitle}</p>
-        <p className="mt-1 text-sm text-ink-soft">{p.flow.quick.entryBody}</p>
+        <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">{p.flow.quick.entryBody}</p>
         <button
           type="button"
           onClick={p.onQuick}
@@ -521,10 +575,10 @@ function InputStep(p: {
         ))}
       </div>
 
-      <p className="mt-3 text-sm text-ink-soft">{tab.hint}</p>
+      <p className="mt-3 max-w-[35rem] text-sm text-ink-soft">{tab.hint}</p>
 
       {p.inputType === 'cv_pdf' ? (
-        <div className="mt-4 rounded-lg border border-dashed border-line bg-mist/40 px-5 py-8 text-center">
+        <div className="mt-4 rounded-xl border border-dashed border-line bg-mist/40 px-5 py-8 text-center">
           {p.file ? (
             <div className="flex items-center justify-center gap-3 text-sm">
               <span>
@@ -591,9 +645,9 @@ function InputStep(p: {
       <SaveForLater locale={p.locale} copy={p.flow.saveLater} />
 
       {/* consent — inline, required before submit */}
-      <div id="consent-box" className="mt-6 rounded-lg border border-line bg-mist/30 px-5 py-4">
-        <p className="text-sm text-ink-soft">{p.consent.redactHint}</p>
-        <p className="mt-1 text-sm text-ink-soft">
+      <div id="consent-box" className="mt-6 rounded-xl border border-line bg-mist/30 px-5 py-4">
+        <p className="max-w-[35rem] text-sm text-ink-soft">{p.consent.redactHint}</p>
+        <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">
           {p.consent.retentionSummary}{' '}
           <a href={p.privacyHref} className="text-pine hover:underline">
             {p.consent.privacyLinkLabel}
@@ -611,7 +665,7 @@ function InputStep(p: {
           />
           <span>{p.consent.processing.label}</span>
         </label>
-        <p className="ml-7 mt-1 text-xs text-ink-soft">{p.consent.processing.detail}</p>
+        <p className="ml-7 mt-1 max-w-[30rem] text-xs text-ink-soft">{p.consent.processing.detail}</p>
         <label className="mt-3 flex items-start gap-3 text-sm leading-relaxed">
           <input
             type="checkbox"
@@ -621,14 +675,18 @@ function InputStep(p: {
           />
           <span>{p.consent.aggregate.label}</span>
         </label>
-        <p className="ml-7 mt-2 text-xs text-ink-soft">{p.consent.whoSeesIt}</p>
-        <p className="ml-7 mt-2 text-xs text-ink-soft">{p.consent.noAccessNote}</p>
+        <p className="ml-7 mt-2 max-w-[30rem] text-xs text-ink-soft">{p.consent.whoSeesIt}</p>
+        <p className="ml-7 mt-2 max-w-[30rem] text-xs text-ink-soft">{p.consent.noAccessNote}</p>
       </div>
 
       {/* The blocker, named at the point of action — the top-of-page error is two
           screens away from this button (walkthrough F3). */}
       {p.error && (
-        <p role="alert" className="mt-6 rounded border border-line bg-mist px-4 py-3 text-sm text-ink">
+        <p
+          id="input-error"
+          role="alert"
+          className="mt-6 max-w-[37rem] rounded-xl border border-line bg-mist px-4 py-3 text-sm text-ink"
+        >
           {p.error}
         </p>
       )}
@@ -828,7 +886,7 @@ function QuestionsStep(p: {
       </a>
 
       {/* email gate — framed as report delivery (binding O1 copy) */}
-      <div className="mt-3 rounded-lg border border-line bg-mist/30 px-5 py-5">
+      <div className="mt-3 rounded-xl border border-line bg-mist/30 px-5 py-5">
         <h2 className="text-lg font-semibold">{p.questions.emailGate.title}</h2>
         <p className="mt-1 text-sm text-ink-soft">{p.questions.emailGate.body}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -877,8 +935,11 @@ function QuickRead(p: {
   showResult: boolean;
   onShowResult: () => void;
   onFull: () => void;
+  onBack: () => void;
+  onEditAnswers: () => void;
 }) {
   const q = p.flow.quick;
+  const ui = QUICK_UI[p.locale];
   const qs = [
     { id: 'q1', ...q.q1 },
     { id: 'q2', ...q.q2 },
@@ -886,7 +947,8 @@ function QuickRead(p: {
     { id: 'q4', ...q.q4 },
     { id: 'q5', ...q.q5 },
   ];
-  const allAnswered = qs.every((x) => p.answers[x.id]);
+  const answered = qs.filter((x) => p.answers[x.id]).length; // derived, not state
+  const allAnswered = answered === qs.length;
 
   if (p.showResult) {
     const category = mapQuick(p.answers);
@@ -898,7 +960,7 @@ function QuickRead(p: {
         {/* Screenshot-worthy mini report card — the quick read's actual value.
             Every claim echoes results.ts; every number comes from the
             drift-guarded salary dataset. No LLM, fully deterministic. */}
-        <div className="rounded-2xl border-2 border-pine bg-paper p-6 sm:p-7">
+        <div className="rounded-xl border-2 border-pine bg-paper p-6 sm:p-7">
           <p className="text-xs uppercase tracking-eyebrow text-pine">{q.resultEyebrow}</p>
           <h1 className="mt-2 text-3xl font-semibold">{type.label}</h1>
 
@@ -924,7 +986,7 @@ function QuickRead(p: {
           </div>
 
           {qb && (
-            <div className="mt-5 rounded-lg bg-mist/40 px-4 py-3.5">
+            <div className="mt-5 rounded-xl bg-mist/40 px-4 py-3.5">
               <p className="text-xs uppercase tracking-eyebrow text-ink-soft">
                 {q.card.salaryLabel}
               </p>
@@ -947,7 +1009,7 @@ function QuickRead(p: {
           <p className="mt-5 text-right text-xs text-ink-soft">{q.card.brandFooter}</p>
         </div>
 
-        <p className="mt-5 rounded-lg border border-line bg-mist/30 px-5 py-4 text-sm text-ink-soft">
+        <p className="mt-5 max-w-[37rem] rounded-xl border border-line bg-mist/30 px-5 py-4 text-sm text-ink-soft">
           {q.resultNote}
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -964,6 +1026,15 @@ function QuickRead(p: {
           >
             {q.typeDetailCta} →
           </a>
+          {/* The card is a read of five taps, so mistyping one used to mean
+              reloading the page. The answers are still in state; go change one. */}
+          <button
+            type="button"
+            onClick={p.onEditAnswers}
+            className="text-sm text-ink-soft underline-offset-2 hover:text-pine hover:underline"
+          >
+            ← {ui.edit}
+          </button>
         </div>
         {/* email unlock — capture the quick-read taker as a reachable lead */}
         <SaveForLater locale={p.locale} copy={p.flow.saveLater} />
@@ -986,7 +1057,30 @@ function QuickRead(p: {
 
   return (
     <div className="mt-8">
-      <h1 className="text-3xl font-semibold leading-tight text-balance sm:text-4xl">{q.title}</h1>
+      {/* The quick read used to be a one-way door with no odometer: five
+          questions, no sense of how far along you were, and no way back out to
+          the full MRI once you had tapped in. Both are pure reads of the
+          answers already in state. */}
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <button
+          type="button"
+          onClick={p.onBack}
+          className="-ml-2 inline-flex min-h-[44px] items-center rounded-lg px-2 text-sm text-ink-soft underline-offset-2 hover:text-pine hover:underline"
+        >
+          ← {ui.back}
+        </button>
+        <p aria-live="polite" className="text-sm text-ink-soft">
+          {ui.progress.replace('{done}', String(answered)).replace('{total}', String(qs.length))}
+        </p>
+      </div>
+      <div className="mt-2 h-1 w-full overflow-hidden rounded-lg bg-mist" aria-hidden="true">
+        <div
+          className="h-full rounded-lg bg-pine transition-[width] duration-300"
+          style={{ width: `${(answered / qs.length) * 100}%` }}
+        />
+      </div>
+
+      <h1 className="mt-6 text-3xl font-semibold leading-tight text-balance sm:text-4xl">{q.title}</h1>
       <p className="mt-2 text-ink-soft">{q.intro}</p>
       <div className="mt-6 space-y-6">
         {qs.map((x) => (
@@ -1027,6 +1121,16 @@ function QuickRead(p: {
       >
         {q.showResult}
       </button>
+      {/* Same fix the full material step already carries (`flow.submitHint`): a
+          dimmed button that says nothing is the rageclick pattern. Name the
+          blocker under the button. */}
+      {!allAnswered && (
+        <p className="mt-2 text-xs text-ink-soft">
+          {ui.needMore
+            .replace('{left}', String(qs.length - answered))
+            .replace('{total}', String(qs.length))}
+        </p>
+      )}
     </div>
   );
 }

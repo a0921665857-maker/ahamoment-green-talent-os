@@ -7,10 +7,10 @@ export const landing: LandingContent = {
     credibilityLine:
       '由 INSEAD MBA × 四大 ESG 顧問打造，專為綠色職涯與 MBA 定位設計。',
     subtitle:
-      '綠色職涯 MRI 直接讀你既有的資料：CV、LinkedIn、職涯筆記，甚至你和 AI 的對話，5 分鐘給你一份誠實、針對你個人的診斷：你現在被怎麼看、被低估的優勢、故事裡最擋路的那一個缺口，以及一個具體可行的下一步。',
+      '綠色職涯 MRI 直接讀你既有的資料：CV、LinkedIn、職涯筆記，甚至你和 AI 的對話，從開始到拿到報告約 5 分鐘，給你一份誠實、針對你個人的診斷：你現在被怎麼看、被低估的優勢、故事裡最擋路的那一個缺口，以及一個具體可行的下一步。',
     cta: '開始免費 MRI',
     secondaryCta: '先看一份完整範例',
-    timePromise: '約 5 分鐘 · 免費 · 不需註冊 · 看完範例再決定',
+    timePromise: '全程約 5 分鐘 · 免費 · 不需註冊 · 看完範例再決定',
     privacyLine:
       '你的資料僅用於產生這份報告；原始上傳內容 90 天後自動刪除，絕不用於訓練 AI 模型。你可以隨時要求刪除全部資料。',
     viewExistingReport: '查看你先前的報告',

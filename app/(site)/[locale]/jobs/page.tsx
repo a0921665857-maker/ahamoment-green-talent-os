@@ -17,7 +17,7 @@ const REGION_FLAG: Record<MarketKey, string> = { SG: '🇸🇬', TW: '🇹🇼',
 
 function PickCard({ p, L, t }: { p: WeeklyPick; L: Locale; t: GreenJobsCopy }) {
   return (
-    <li className="rounded-2xl border border-line bg-paper p-6 shadow-sm sm:p-7">
+    <li className="rounded-xl border border-line bg-paper p-6 shadow-sm sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-mist px-3 py-1 text-xs font-medium text-pine">
           <span aria-hidden>{REGION_FLAG[p.market]}</span>
@@ -137,7 +137,7 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
             </span>
           </div>
           {greenJobs.weeklyPicks.length === 0 ? (
-            <div className="mt-6 rounded-2xl border border-dashed border-line bg-mist/30 px-5 py-6 text-sm text-ink-soft">
+            <div className="mt-6 rounded-xl border border-dashed border-line bg-mist/30 px-5 py-6 text-sm text-ink-soft">
               {t.weeklyEmpty}
             </div>
           ) : (
@@ -172,7 +172,7 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
         {/* markets */}
         <section className="mt-12 grid gap-5">
           {greenJobs.markets.map((m) => (
-            <div key={m.key} className="rounded-2xl border border-line bg-paper p-6">
+            <div key={m.key} className="rounded-xl border border-line bg-paper p-6">
               <h3 className="text-lg font-semibold">{t.marketNames[m.key]}</h3>
 
               <p className="mt-4 text-xs uppercase tracking-eyebrow text-ink-soft">{t.boardsLabel}</p>
@@ -196,7 +196,7 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
         <p className="mt-6 text-xs text-ink-soft">{t.sourceNote}</p>
 
         {/* CTA to free MRI */}
-        <section className="mt-14 rounded-2xl bg-pine px-7 py-9 text-paper">
+        <section className="mt-14 rounded-xl bg-pine px-7 py-9 text-paper">
           <h2 className="text-2xl font-semibold leading-snug">{t.ctaTitle}</h2>
           <p className="mt-3 max-w-xl text-paper/90">{t.ctaBody}</p>
           <a

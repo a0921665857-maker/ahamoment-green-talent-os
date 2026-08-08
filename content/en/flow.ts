@@ -5,7 +5,7 @@ export const flow: FlowContent = {
   intro: {
     title: 'Start with what you already have',
     body: 'Pick whichever is easiest. The MRI works from your real materials — the more substance, the sharper the read.',
-    reassure: 'About 3 minutes · Free · No signup. Your raw input is deleted after 90 days and never used to train AI.',
+    reassure: 'About 3 minutes to fill in · Free · No signup. Your raw input is deleted after 90 days and never used to train AI.',
     sampleCta: 'Not sure yet? See a full sample first →',
   },
   inputTabs: {
@@ -140,7 +140,7 @@ export const flow: FlowContent = {
     resultEyebrow: 'Green career quick-read card',
     resultNote:
       'This is a zero-typing rough read. The full version reads your real background and returns a 12-section personal diagnosis: strengths, gaps, a salary band calibrated to your actual years and track, and next moves.',
-    fullCta: 'Do the full version (about 3 minutes)',
+    fullCta: 'Do the full version (about 3 minutes to fill in)',
     typeDetailCta: 'Read more about this type',
     card: {
       misreadLabel: 'The market most often misreads you as',

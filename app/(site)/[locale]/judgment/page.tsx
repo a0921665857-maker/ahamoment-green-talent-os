@@ -74,7 +74,7 @@ export default async function JudgmentPage({
         {/* Bilingual parity, not translation (rule 10): the module is written in
             zh-TW, so the en route says so rather than shipping a machine version. */}
         {t.zhOnlyNotice && (
-          <div className="mt-6 rounded-xl border border-pine bg-sage-soft/40 px-5 py-4">
+          <div className="mt-6 max-w-[37rem] rounded-xl border border-pine bg-sage-soft/40 px-5 py-4">
             <p className="text-sm leading-relaxed">{t.zhOnlyNotice.body}</p>
             <Link
               href="/zh-TW/judgment"
@@ -86,7 +86,7 @@ export default async function JudgmentPage({
         )}
 
         <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-2 rounded-xl border border-line bg-mist/50 px-5 py-4 text-sm">
-          <span className="rounded bg-pine px-2 py-0.5 text-xs font-semibold uppercase tracking-eyebrow text-paper">
+          <span className="rounded-sm bg-pine px-2 py-0.5 text-xs font-semibold uppercase tracking-eyebrow text-paper">
             {t.beta.tag}
           </span>
           <span className="flex-1 leading-relaxed text-ink-soft">{t.beta.body}</span>
@@ -153,8 +153,9 @@ export default async function JudgmentPage({
         {/* a plain div, not <footer>: SiteFooter already provides the page's one
             contentinfo landmark, and a second one made the site index ambiguous. */}
         <div className="mt-12 border-t border-line pt-6">
-          <p className="text-xs text-ink-soft">{t.footer.origin}</p>
-          <p className="mt-2 text-xs text-ink-soft">{t.footer.disclaimer}</p>
+          {/* 12px copy caps at a 480px column, not 560 — max-w-[30rem]. */}
+          <p className="max-w-[30rem] text-xs text-ink-soft">{t.footer.origin}</p>
+          <p className="mt-2 max-w-[30rem] text-xs text-ink-soft">{t.footer.disclaimer}</p>
         </div>
       </main>
     </div>

@@ -54,7 +54,7 @@ export function InlineCtaCard(props: {
 
   return (
     <aside className="my-2 rounded-xl border border-line bg-sage-soft/20 px-5 py-4">
-      <p className="text-sm text-ink">{t.line}</p>
+      <p className="max-w-[35rem] text-sm text-ink">{t.line}</p>
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
         <a
           href={mailto}

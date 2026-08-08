@@ -5,7 +5,7 @@ export const flow: FlowContent = {
   intro: {
     title: '從你已經有的東西開始',
     body: '選最省力的一種就好。MRI 直接讀你的真實資料，你給的內容越有料，判讀就越精準。',
-    reassure: '約 3 分鐘 · 免費 · 免註冊。原始內容 90 天後自動刪除，絕不拿去訓練 AI。',
+    reassure: '填答約 3 分鐘 · 免費 · 免註冊。原始內容 90 天後自動刪除，絕不拿去訓練 AI。',
     sampleCta: '還沒把握？先看一份完整範例 →',
   },
   inputTabs: {
@@ -139,7 +139,7 @@ export const flow: FlowContent = {
     showResult: '拿我的速讀卡',
     resultEyebrow: '綠色職涯速讀卡',
     resultNote: '這是零打字的粗判。完整版會讀你的真實經歷，給 12 段個人化判讀：你的優勢、缺口、按真實年資與賽道校準的身價、下一步怎麼走。',
-    fullCta: '做完整版（約 3 分鐘）',
+    fullCta: '做完整版（填答約 3 分鐘）',
     typeDetailCta: '看這一型的完整說明',
     card: {
       misreadLabel: '市場最常把你誤讀成',

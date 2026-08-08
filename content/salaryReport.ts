@@ -199,7 +199,7 @@ const zhTW: SalaryReport = {
   ctaBody:
     '你的位置要看你的技能組合、資歷和目標市場，這正是綠領 MRI 免費在做的事：把你放進上面那些薪資帶，告訴你缺哪一塊、下一步該補什麼。',
   ctaButton: '做一次綠領 MRI（免費）→',
-  ctaSub: '大約 5 分鐘 · 免費 · 免註冊',
+  ctaSub: '全程約 5 分鐘 · 免費 · 免註冊',
   sourcesLabel: '方法論與來源附錄',
   method:
     '2026 年 7 月，以公開網路來源交叉查證。每個數字都保留原始區間，不做假精確；單一來源、自報樣本、模型推估都會標註；查不到可靠數據的地方（台灣 4 到 8 年中段、日本保險業 ESG 職、多數城市的氣候新創薪資帶），我就直接說樣本不足。日本節在 2026 年 7 月以獵頭指南、專業轉職站、現役求人票、官方統計四層來源交叉查證，信心標記見該節。匯率用 1 SGD ≈ 25 TWD，1 USD ≈ 1.35 SGD ≈ 33.75 TWD；日圓數字保留原幣別，不做二次換算，避免堆疊誤差。開場那個場景是我根據薪資數據拼出來的典型情境，不是特定某個人。',
@@ -372,7 +372,7 @@ const en: SalaryReport = {
   ctaBody:
     'Where you sit depends on your skill combination, seniority and target market, which is exactly what the free green-collar MRI does: it places you into the bands above and tells you what’s missing and what to build next.',
   ctaButton: 'Take the green-collar MRI (free) →',
-  ctaSub: 'About 5 min · Free · No signup',
+  ctaSub: 'About 5 min end to end · Free · No signup',
   sourcesLabel: 'Methodology & sources',
   method:
     'Cross-checked against public online sources in July 2026. Every figure keeps its original range with no false precision; single-source, self-reported and model-estimated numbers are flagged; where the data simply isn’t reliable (Taiwan’s 4–8-year mid-band, Japan’s insurance-sector ESG roles, most cities’ climate-tech startup bands) I say so directly. The Japan section was cross-checked in July 2026 across four source layers — headhunter guides, specialist job sites, live postings, official statistics — see that section for confidence flags. FX: 1 SGD ≈ 25 TWD, 1 USD ≈ 1.35 SGD ≈ 33.75 TWD; yen figures keep their original currency, no secondary conversion, to avoid stacking errors. The opening scene is a composite I built from salary data, not a specific person.',

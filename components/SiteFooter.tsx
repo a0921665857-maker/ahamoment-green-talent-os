@@ -2,7 +2,31 @@
 import { useState } from 'react';
 import { LINE_OA_URL, type Locale } from '@/lib/constants';
 import { LINE_OA_ID, navCopy } from '@/content/nav';
+import { landing as landingEn } from '@/content/en/landing';
+import { landing as landingZhTW } from '@/content/zh-TW/landing';
 import { phCapture } from '@/components/PostHogProvider';
+
+/**
+ * The strongest trust sentence on the site used to live only in the home page's
+ * own footer, which meant the one page that actually asks for your CV — /mri —
+ * never showed it. Read straight off `landing.footer.deleteLine` rather than
+ * copied, so the promise cannot drift between the two places it appears.
+ */
+const deleteLine: Record<Locale, string> = {
+  en: landingEn.footer.deleteLine,
+  'zh-TW': landingZhTW.footer.deleteLine,
+};
+
+/**
+ * Rights/attribution line. It used to live only in the home page's own footer;
+ * when that page-local footer was removed the site lost its byline entirely on
+ * every page. Read off `landing.footer.rightsLine` for the same reason as
+ * `deleteLine` above — one source, no copied strings to drift.
+ */
+const rightsLine: Record<Locale, string> = {
+  en: landingEn.footer.rightsLine,
+  'zh-TW': landingZhTW.footer.rightsLine,
+};
 
 /**
  * Footer sitemap — the second half of the fix for a site with no road network.
@@ -79,12 +103,12 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
 
           {/* Desktop path: the deep link above is inert on a laptop. */}
-          <div className="mt-6 rounded-lg border border-line bg-paper px-5 py-4">
+          <div className="mt-6 rounded-xl border border-line bg-paper px-5 py-4">
             <p className="text-sm font-medium">{n.lineDesktopTitle}</p>
-            <p className="mt-1 max-w-xl text-sm text-ink-soft">{n.lineDesktopBody}</p>
+            <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">{n.lineDesktopBody}</p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <span className="text-xs uppercase tracking-eyebrow text-ink-soft">{n.lineIdLabel}</span>
-              <code className="rounded bg-mist px-2 py-1 text-sm font-medium text-ink">{LINE_OA_ID}</code>
+              <code className="rounded-lg bg-mist px-2 py-1 text-sm font-medium text-ink">{LINE_OA_ID}</code>
               <button
                 type="button"
                 onClick={copyId}
@@ -100,11 +124,14 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 alt={`${n.lineIdLabel} QR`}
                 width={144}
                 height={144}
-                className="mt-4 h-36 w-36 rounded border border-line bg-paper"
+                className="mt-4 h-36 w-36 rounded-lg border border-line bg-paper"
               />
             )}
           </div>
         </div>
+
+        <p className="mt-10 border-t border-line pt-6 text-sm text-ink-soft">{deleteLine[locale]}</p>
+        <p className="mt-3 text-sm text-ink-soft">{rightsLine[locale]}</p>
       </div>
     </footer>
   );

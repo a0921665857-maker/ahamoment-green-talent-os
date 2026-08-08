@@ -170,7 +170,7 @@ export function MbaRoiCalculator({
   return (
     <div className="grid gap-6">
       {/* ---------- inputs ---------- */}
-      <section className="rounded-2xl border border-line bg-paper p-6 shadow-sm sm:p-7">
+      <section className="rounded-xl border border-line bg-paper p-6 shadow-sm sm:p-7">
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <h2 className="text-xl font-semibold">{t.formTitle}</h2>
           <button
@@ -191,7 +191,7 @@ export function MbaRoiCalculator({
             {MBA_CURRENCIES.map((c) => (
               <label
                 key={c}
-                className={`cursor-pointer rounded-md px-4 py-1.5 text-sm tabular-nums transition focus-within:ring-2 focus-within:ring-pine/30 ${
+                className={`cursor-pointer rounded-lg px-4 py-1.5 text-sm tabular-nums transition focus-within:ring-2 focus-within:ring-pine/30 ${
                   c === currency ? 'bg-pine font-medium text-paper' : 'text-ink-soft hover:text-pine'
                 }`}
               >
@@ -221,7 +221,7 @@ export function MbaRoiCalculator({
               {YEAR_OPTIONS.map((y) => (
                 <label
                   key={y}
-                  className={`cursor-pointer rounded-md px-5 py-2 text-sm tabular-nums transition focus-within:ring-2 focus-within:ring-pine/30 ${
+                  className={`cursor-pointer rounded-lg px-5 py-2 text-sm tabular-nums transition focus-within:ring-2 focus-within:ring-pine/30 ${
                     y === years ? 'bg-pine font-medium text-paper' : 'text-ink-soft hover:text-pine'
                   }`}
                 >
@@ -259,7 +259,7 @@ export function MbaRoiCalculator({
         <h2 className="sr-only">{t.resultsTitle}</h2>
 
         {/* the answer */}
-        <div className="rounded-2xl bg-pine px-6 py-7 text-paper sm:px-7">
+        <div className="rounded-xl bg-pine px-6 py-7 text-paper sm:px-7">
           <p className="text-xs uppercase tracking-eyebrow text-paper/70">{t.results.payback.label}</p>
           <p
             className={`mt-2 font-semibold tabular-nums ${

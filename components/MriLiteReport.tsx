@@ -88,7 +88,7 @@ export function MriLiteReport(props: {
         })}
       </div>
 
-      <footer className="mt-10 border-t border-line pt-6 text-sm text-ink-soft">
+      <footer className="mt-10 max-w-[35rem] border-t border-line pt-6 text-sm text-ink-soft">
         <p>{t.footer.returnNote}</p>
         <p className="mt-2">{t.footer.confidentiality}</p>
         <p className="mt-2">{t.footer.deleteLine}</p>

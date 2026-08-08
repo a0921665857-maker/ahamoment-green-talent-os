@@ -63,7 +63,7 @@ export function NewsletterSignup({
   if (!NEWSLETTER_ENABLED) return null;
 
   return (
-    <div className="rounded-2xl border border-line bg-mist/40 px-6 py-6">
+    <div className="rounded-xl border border-line bg-mist/40 px-6 py-6">
       <p className="text-xs uppercase tracking-eyebrow text-pine">{copy.eyebrow}</p>
       <p className="mt-2 max-w-xl text-base font-medium">{copy.title}</p>
 

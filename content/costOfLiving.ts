@@ -125,7 +125,7 @@ const zhTW: CostOfLiving = {
   ctaBody:
     '這頁給的是成本的帳。你自己的那一半，要看你的技能組合、資歷和目標市場，這正是綠領 MRI 免費在做的事：把你放進真實的薪資帶，告訴你缺哪一塊、什麼時候跳才划算。',
   ctaButton: '做一次綠領 MRI（免費）→',
-  ctaSub: '大約 5 分鐘 · 免費 · 免註冊',
+  ctaSub: '全程約 5 分鐘 · 免費 · 免註冊',
   sourcesLabel: '來源與方法',
   method:
     '2026 年 7 月以公開來源交叉查證。所有數字一律給區間，不做假精確。匯率用 1 SGD ≈ 25 TWD（與本站薪資報告一致）。薪資帶取自本站的《2026 亞太綠領薪資報告》。可支配倍數是我用上面的開銷與粗估稅負算出來的，屬於推估，換一種生活方式數字就會變。2026 年 8 月另補上 data.gov.sg 的官方數據（HDB、SingStat、MOM）。官方一手數字與二手估計在頁面上分區呈現，沒有混合計算，也沒有互相取代；官方數字全部是新加坡幣原值，沒有換算成新台幣。',
@@ -217,7 +217,7 @@ const en: CostOfLiving = {
   ctaBody:
     'This page gives you the cost side. Your half depends on your skill combination, seniority and target market, which is exactly what the free green-collar MRI does: it places you into the real bands and tells you what’s missing and when moving actually pays.',
   ctaButton: 'Take the green-collar MRI (free) →',
-  ctaSub: 'About 5 min · Free · No signup',
+  ctaSub: 'About 5 min end to end · Free · No signup',
   sourcesLabel: 'Sources & method',
   method:
     'Cross-checked against public sources in July 2026. Every figure is a range, with no false precision. FX: 1 SGD ≈ 25 TWD (consistent with the salary report on this site). Salary bands come from the 2026 APAC Green-Collar Salary Report here. The disposable multiples are my own estimate from the costs above plus a rough tax assumption; change how you live and the numbers move. In August 2026 I added official data from data.gov.sg (HDB, SingStat, MOM). Official first-hand figures and second-hand estimates are presented in separate sections; they are never merged into one calculation and never substituted for one another, and the official figures stay in SGD with no conversion to TWD.',

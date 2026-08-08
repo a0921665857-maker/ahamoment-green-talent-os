@@ -69,7 +69,7 @@ export default async function PaymentSuccessPage({
           </div>
         </section>
 
-        <p className="mt-6 text-xs text-ink-soft">{p.receiptNote}</p>
+        <p className="mt-6 max-w-[30rem] text-xs text-ink-soft">{p.receiptNote}</p>
 
         <a href={`/${L}`} className="mt-10 inline-block text-sm text-pine underline-offset-2 hover:underline">
           {p.homeCta} →

@@ -76,7 +76,7 @@ export default async function SalaryIndexPage({
                 salaryIndexMeta.excludedDuplicate,
             },
           ].map((s) => (
-            <div key={s.k} className="rounded-lg border border-line bg-paper px-4 py-3">
+            <div key={s.k} className="rounded-xl border border-line bg-paper px-4 py-3">
               <dd className="text-2xl font-semibold tabular-nums">{s.v}</dd>
               <dt className="mt-1 text-xs text-ink-soft">{s.k}</dt>
             </div>
@@ -88,8 +88,19 @@ export default async function SalaryIndexPage({
         </p>
 
         <section className="mt-12">
-          <h2 className="text-xl font-semibold">{t.methodTitle}</h2>
-          <ol className="mt-4 space-y-3">
+          {/* All seven of this page's section headings are siblings of each
+              other — same DOM level, same job: they open a top-level block of
+              the page. They shipped at three different sizes (20 / 18 / 16px),
+              which made the reader guess at a hierarchy that does not exist,
+              and the last one was the same size as body copy. They are now all
+              at the house section size, 24px (cost-of-living, levelup,
+              salary-report and jobs already ship it). The h1 above stays 36px,
+              so the page still has a clear top. */}
+          <h2 className="text-2xl font-semibold">{t.methodTitle}</h2>
+          {/* Same 35rem ruler the prose on this page already uses. Unconstrained,
+              these numbered items ran the full 720px column — 32 zh characters a
+              line against the 20-ish the paragraphs beside them were holding. */}
+          <ol className="mt-4 max-w-[35rem] space-y-3">
             {t.method.map((m, i) => (
               <li key={m} className="flex gap-3 text-sm">
                 <span className="shrink-0 font-medium text-pine tabular-nums">{i + 1}.</span>
@@ -97,14 +108,14 @@ export default async function SalaryIndexPage({
               </li>
             ))}
           </ol>
-          <p className="mt-5 max-w-2xl border-l-2 border-pine pl-4 text-sm text-ink-soft">
+          <p className="mt-5 max-w-[35rem] border-l-2 border-pine pl-4 text-sm text-ink-soft">
             {t.methodExtra}
           </p>
         </section>
 
         <section className="mt-12">
-          <h2 className="text-xl font-semibold">{t.tableTitle}</h2>
-          <p className="mt-2 text-sm text-ink-soft">{t.tableNote}</p>
+          <h2 className="text-2xl font-semibold">{t.tableTitle}</h2>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{t.tableNote}</p>
 
           {markets.map((m) => {
             const rows = salaryCells.filter((c) => c.market === m);
@@ -117,7 +128,7 @@ export default async function SalaryIndexPage({
                     n={salaryIndexMeta.byMarket[m]}
                   </span>
                 </h3>
-                <div className="mt-3 overflow-x-auto rounded-lg border border-line">
+                <div className="mt-3 overflow-x-auto rounded-xl border border-line">
                   <table className="w-full min-w-[520px] text-sm">
                     <thead>
                       <tr className="bg-mist/40 text-left text-xs uppercase tracking-eyebrow text-ink-soft">
@@ -165,19 +176,19 @@ export default async function SalaryIndexPage({
           })}
         </section>
 
-        <section className="mt-12 rounded-lg border border-line bg-mist/20 px-5 py-5">
-          <h2 className="text-lg font-semibold">{t.coverageTitle}</h2>
-          <p className="mt-2 text-sm text-ink-soft">{t.coverageBody}</p>
+        <section className="mt-12 rounded-xl border border-line bg-mist/20 px-5 py-5">
+          <h2 className="text-2xl font-semibold">{t.coverageTitle}</h2>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{t.coverageBody}</p>
         </section>
 
-        <section className="mt-6 rounded-lg border border-line bg-mist/20 px-5 py-5">
-          <h2 className="text-lg font-semibold">{t.gapTitle}</h2>
-          <p className="mt-2 text-sm text-ink-soft">{t.gapBody}</p>
+        <section className="mt-6 rounded-xl border border-line bg-mist/20 px-5 py-5">
+          <h2 className="text-2xl font-semibold">{t.gapTitle}</h2>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{t.gapBody}</p>
         </section>
 
         <section className="mt-12 rounded-xl border-2 border-pine bg-sage-soft/30 p-6">
-          <h2 className="text-lg font-semibold">{t.contributeTitle}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-ink">{t.contributeBody}</p>
+          <h2 className="text-2xl font-semibold">{t.contributeTitle}</h2>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink">{t.contributeBody}</p>
           <a
             href={LINE_OA_URL}
             target="_blank"
@@ -189,8 +200,8 @@ export default async function SalaryIndexPage({
         </section>
 
         <section className="mt-12 border-t border-line pt-8">
-          <h2 className="text-lg font-semibold">{t.taiwanTitle}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-ink-soft">{t.taiwanBody}</p>
+          <h2 className="text-2xl font-semibold">{t.taiwanTitle}</h2>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{t.taiwanBody}</p>
           <a
             href={`/${L}/mri?utm_source=salary_index&utm_medium=footer`}
             className="mt-4 inline-flex min-h-[44px] items-center rounded-lg bg-pine px-5 py-2.5 text-sm text-paper"
@@ -199,9 +210,9 @@ export default async function SalaryIndexPage({
           </a>
         </section>
 
-        <section className="mt-10 rounded-lg border border-line px-5 py-5">
-          <h2 className="text-base font-semibold">{t.nextTitle}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-ink-soft">{t.nextBody}</p>
+        <section className="mt-10 rounded-xl border border-line px-5 py-5">
+          <h2 className="text-2xl font-semibold">{t.nextTitle}</h2>
+          <p className="mt-2 max-w-[35rem] text-sm text-ink-soft">{t.nextBody}</p>
           <a
             href={`/${L}/services?utm_source=salary_index&utm_medium=offer_read`}
             className="mt-3 inline-block text-sm font-medium text-pine underline-offset-2 hover:underline"

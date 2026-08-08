@@ -4,6 +4,10 @@ import { ADMIN_COOKIE_NAME, verifyAdminCookie } from '@/lib/adminAuth';
 
 const LOCALE_COOKIE = 'gtos_locale';
 
+/** Generated app-icon routes (app/icon.tsx, app/apple-icon.tsx), with or without
+ *  a generateImageMetadata id segment. Anchored so /iconography stays a page. */
+const ICON_ROUTE = /^\/(icon|apple-icon)(\/.*)?$/;
+
 function pickLocale(req: NextRequest): Locale {
   const cookie = req.cookies.get(LOCALE_COOKIE)?.value;
   if (cookie && (LOCALES as readonly string[]).includes(cookie)) return cookie as Locale;
@@ -37,6 +41,10 @@ export async function proxy(req: NextRequest) {
     pathname.startsWith('/api') ||
     pathname.startsWith('/og') ||
     pathname.startsWith('/_next') ||
+    // app/icon.tsx and app/apple-icon.tsx are root-level, extensionless and
+    // locale-free. Without this they get redirected to /<locale>/icon, which
+    // does not exist, so every browser tab and iOS home screen 404s.
+    ICON_ROUTE.test(pathname) ||
     pathname.includes('.')
   ) {
     return NextResponse.next();

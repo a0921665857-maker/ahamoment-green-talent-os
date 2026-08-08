@@ -7,10 +7,10 @@ export const landing: LandingContent = {
     credibilityLine:
       'Built by an INSEAD MBA and Big-4 ESG advisor, purpose-made for green-career and MBA positioning.',
     subtitle:
-      'The Green Career MRI reads your actual materials — CV, LinkedIn, notes, even an AI-chat transcript — and in 5 minutes returns an honest, personal diagnosis: how you’re read now, your underrated strengths, the one fatal gap in your story, and a single doable next move.',
+      'The Green Career MRI reads your actual materials — CV, LinkedIn, notes, even an AI-chat transcript — and returns an honest, personal diagnosis in about 5 minutes end to end: how you’re read now, your underrated strengths, the one fatal gap in your story, and a single doable next move.',
     cta: 'Run your free MRI',
     secondaryCta: 'See a full sample first',
-    timePromise: 'About 5 minutes · Free · No account · See a sample before you start',
+    timePromise: 'About 5 minutes end to end · Free · No account · See a sample before you start',
     privacyLine:
       'Your materials are used only to generate your report, auto-deleted from raw storage after 90 days, and never used to train AI models. Delete everything anytime.',
     viewExistingReport: 'View your previous report',

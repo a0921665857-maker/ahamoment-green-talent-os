@@ -45,7 +45,7 @@ export function SaveForLater(p: { locale: Locale; copy: FlowContent['saveLater']
   return (
     <div className="mt-4 rounded-lg border border-line bg-mist/30 px-5 py-4">
       <p className="text-sm font-medium">{p.copy.title}</p>
-      <p className="mt-1 text-sm text-ink-soft">{p.copy.body}</p>
+      <p className="mt-1 max-w-[35rem] text-sm text-ink-soft">{p.copy.body}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         <input
           type="email"

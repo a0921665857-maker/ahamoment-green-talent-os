@@ -87,19 +87,16 @@ export default async function TypePage({
 
       <main id="main" className="mx-auto max-w-2xl px-6 pb-24 pt-6">
         {/* the type card (static mirror of the shareable card / OG image) */}
-        <div className="mx-auto max-w-md overflow-hidden rounded-2xl border border-line bg-paper shadow-sm">
+        <div className="mx-auto max-w-md overflow-hidden rounded-xl border border-line bg-paper shadow-sm">
           <div style={{ height: 10, background: style.accent }} />
           <div className="px-7 py-9 text-center">
             <p className="text-xs uppercase tracking-eyebrow text-pine">{c.share.heading}</p>
-            <div
-              className="mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-3xl"
-              style={{ background: style.tint }}
-            >
-              {/* decorative motif — kept out of the heading's accessible name */}
-              <span aria-hidden="true" style={{ fontSize: 44, lineHeight: 1 }}>
-                {style.emoji}
-              </span>
-            </div>
+            {/* No emoji motif here. The gallery dropped its cartoon tiles for
+                being the loudest thing on a paper-and-pine page; keeping one on
+                the detail page would leave the same cast wearing two different
+                faces. The accent bar above carries the identity on-site, and
+                the emoji still lives on the OG/share image where a thumbnail
+                needs a glyph to be recognisable. */}
             <h1 className="mt-5 text-2xl font-bold leading-tight" style={{ color: style.accent }}>
               {type.label}
             </h1>

@@ -222,7 +222,7 @@ const zhTW: LevelupReport = {
   ctaBody:
     '你該押哪張證照、補哪個技能，要看你現在的組合、資歷和目標市場。這正是免費綠領 MRI 在做的事：把你放進上面這張地圖，指出你缺哪一塊、下一步押哪裡最划算。',
   ctaButton: '做一次綠領 MRI（免費）→',
-  ctaSub: '約 5 分鐘 · 免費 · 免註冊',
+  ctaSub: '全程約 5 分鐘 · 免費 · 免註冊',
   prequelLine: '還沒看過第一話？先看你值多少：',
   prequelCta: '《2026 亞太綠領薪資報告》→',
   sourcesLabel: '方法論與來源',
@@ -413,7 +413,7 @@ const en: LevelupReport = {
   ctaBody:
     'Which certificate to bet on and which skill to close depends on your current combination, experience and target market. That is exactly what the free green-career MRI does: it places you on the map above and names the one gap most worth closing next.',
   ctaButton: 'Run the free green-career MRI →',
-  ctaSub: 'About 5 minutes · free · no sign-up',
+  ctaSub: 'About 5 minutes end to end · free · no sign-up',
   prequelLine: 'New here? Part one covers what you are worth today:',
   prequelCta: '2026 APAC Green-Collar Salary Report →',
   sourcesLabel: 'Method and sources',

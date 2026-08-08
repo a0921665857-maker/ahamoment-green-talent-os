@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { LOCALES, type Locale } from '@/lib/constants';
 import { localeRegistry, isLocale } from '@/content/locales';
@@ -11,6 +11,13 @@ import '@/app/globals.css';
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
+
+/** Paper, not pine. Mobile browsers tint their own chrome with theme-color, and
+ *  this is a light site: a deep-green address bar sitting above a #f6f6f1 page
+ *  reads as a second surface fighting the first. Byte-identical to
+ *  --color-paper in app/globals.css. Lives on the `viewport` export, not in
+ *  metadata — Next moved themeColor there and warns at build time otherwise. */
+export const viewport: Viewport = { themeColor: '#f6f6f1' };
 
 export async function generateMetadata({
   params,

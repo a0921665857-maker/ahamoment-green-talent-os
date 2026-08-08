@@ -53,9 +53,9 @@ export default async function MbaRoiPage({ params }: { params: Promise<{ locale:
         </div>
 
         {/* the honest caveats — part of the product, not the small print */}
-        <section className="mt-12 rounded-2xl border border-line bg-mist/40 p-6 sm:p-7">
+        <section className="mt-12 rounded-xl border border-line bg-mist/40 p-6 sm:p-7">
           <h2 className="text-lg font-semibold">{t.caveatsTitle}</h2>
-          <ul className="mt-4 grid gap-3">
+          <ul className="mt-4 grid max-w-[35rem] gap-3">
             {t.caveats.map((line, i) => (
               <li key={i} className="flex gap-3 text-sm leading-relaxed text-ink-soft">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-pine" aria-hidden />
@@ -63,13 +63,13 @@ export default async function MbaRoiPage({ params }: { params: Promise<{ locale:
               </li>
             ))}
           </ul>
-          <p className="mt-5 border-t border-line pt-4 text-sm font-medium text-ink">
+          <p className="mt-5 max-w-[35rem] border-t border-line pt-4 text-sm font-medium text-ink">
             {t.caveatsClose}
           </p>
         </section>
 
         {/* green-collar anchor — send them to real salary bands, then back here */}
-        <section className="mt-10 rounded-2xl border border-line bg-paper p-6 shadow-sm sm:p-7">
+        <section className="mt-10 rounded-xl border border-line bg-paper p-6 shadow-sm sm:p-7">
           <h2 className="text-lg font-semibold">{t.greenTitle}</h2>
           <p className="mt-3 leading-relaxed text-ink-soft">{t.greenBody}</p>
           <a
@@ -81,7 +81,7 @@ export default async function MbaRoiPage({ params }: { params: Promise<{ locale:
         </section>
 
         {/* CTA to the free MRI */}
-        <section className="mt-12 rounded-2xl bg-pine px-7 py-9 text-paper">
+        <section className="mt-12 rounded-xl bg-pine px-7 py-9 text-paper">
           <p className="text-xs uppercase tracking-eyebrow text-paper/70">{t.ctaEyebrow}</p>
           <h2 className="mt-2 text-2xl font-semibold leading-snug">{t.ctaTitle}</h2>
           <p className="mt-3 max-w-xl text-paper/90">{t.ctaBody}</p>

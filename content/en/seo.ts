@@ -9,8 +9,8 @@ export const seo: SeoContent = {
     result: 'Your Green Career MRI report',
   },
   descriptions: {
-    home: 'Moving into ESG, sustainability, or climate finance — or clarifying your positioning before an MBA? The Green Career MRI is a free AI diagnostic for APAC green-economy professionals: upload your CV or notes and in 5 minutes see your strengths, story gaps, and next move. English or Traditional Chinese, no signup.',
-    mri: 'Stuck on an ESG, sustainability, or climate-finance career move? Upload a CV, LinkedIn, notes, or a transcript and get a personal green-career and MBA positioning read in about 5 minutes. Free, no signup.',
+    home: 'Moving into ESG, sustainability, or climate finance — or clarifying your positioning before an MBA? The Green Career MRI is a free AI diagnostic for APAC green-economy professionals: upload your CV or notes and in about 5 minutes end to end see your strengths, story gaps, and next move. English or Traditional Chinese, no signup.',
+    mri: 'Stuck on an ESG, sustainability, or climate-finance career move? Upload a CV, LinkedIn, notes, or a transcript and get a personal green-career and MBA positioning read in about 5 minutes end to end. Free, no signup.',
     privacy: 'What we collect, how long we keep it, and what we never do with your data.',
   },
   ogLocale: 'en_US',
