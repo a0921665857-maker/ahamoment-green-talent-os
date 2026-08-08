@@ -49,25 +49,25 @@ describe('posted-salary index integrity', () => {
     expect(salaryCells.every((c) => c.n > 0)).toBe(true);
   });
 
-  it('matches the reconciled ledger snapshot of 2026-07-30', () => {
-    expect(salaryIndexMeta.totalObservations).toBe(98);
-    expect(salaryIndexMeta.postedObservations).toBe(97);
-    expect(salaryIndexMeta.excludedUnknownSeniority).toBe(26);
+  it('matches the reconciled ledger snapshot of 2026-08-08', () => {
+    expect(salaryIndexMeta.totalObservations).toBe(113);
+    expect(salaryIndexMeta.postedObservations).toBe(112);
+    expect(salaryIndexMeta.excludedUnknownSeniority).toBe(27);
     expect(salaryIndexMeta.excludedInternship).toBe(1);
     expect(salaryIndexMeta.excludedDuplicate).toBe(12);
-    expect(salaryIndexMeta.postingsInCells).toBe(59);
+    expect(salaryIndexMeta.postingsInCells).toBe(73);
     // The number the pre-Gate-8 docs got wrong: three cells clear n≥5, not five.
     expect(salaryCells.filter(publishable).length).toBe(3);
   });
 
   it('accounts for every posted row with readable seniority', () => {
-    // 72 posted rows had readable seniority; 1 intern and 12 duplicates were
-    // removed, leaving 59 distinct postings. Nothing is dropped silently.
+    // 86 posted rows had readable seniority; 1 intern and 12 duplicates were
+    // removed, leaving 73 distinct postings. Nothing is dropped silently.
     expect(
       salaryIndexMeta.postingsInCells +
         salaryIndexMeta.excludedInternship +
         salaryIndexMeta.excludedDuplicate,
-    ).toBe(72);
+    ).toBe(86);
     expect(salaryCells.reduce((a, c) => a + c.n, 0)).toBe(salaryIndexMeta.postingsInCells);
   });
 
@@ -91,7 +91,7 @@ describe('posted-salary index integrity', () => {
   });
 
   it('reconciles back to the ledger total', () => {
-    // 98 = 59 in cells + 1 intern + 12 duplicates + 26 unreadable seniority.
+    // 113 = 73 in cells + 1 intern + 12 duplicates + 27 unreadable seniority.
     // (The single `estimated` row is one of the 26.)
     expect(
       salaryIndexMeta.postingsInCells +
