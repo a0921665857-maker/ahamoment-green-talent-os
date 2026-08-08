@@ -72,6 +72,12 @@ export function MriLiteReport(props: {
                 {props.typeSummary.fact}
               </p>
             )}
+            {/* The one thing no automated report can say. Confirmed as fact by
+                Michael on 2026-08-09; the same claim already goes out in the d0
+                email but had never appeared on the report itself. */}
+            <p className="mt-3 border-t border-pine/25 pt-3 max-w-[35rem] text-sm text-ink-soft">
+              {t.readByFounder}
+            </p>
           </div>
         )}
         {props.limitedData && (

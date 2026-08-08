@@ -5,6 +5,7 @@ export const reportTemplates: ReportTemplatesContent = {
   reportSubtitle: 'A personal read on your positioning, evidence, and next move.',
   preparedFor: 'Prepared for {name}',
   generatedOn: 'Generated {date}',
+  readByFounder: 'I read this one myself. If any part feels off, reply and tell me.',
   limitedDataNote:
     'Based on the material provided, this is a partial scan: some sections carry less signal than usual. The diagnosis is honest about that rather than pretending to certainty.',
   bandLabels: { emerging: 'Emerging', developing: 'Developing', strong: 'Strong' },

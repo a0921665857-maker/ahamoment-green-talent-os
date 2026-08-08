@@ -176,6 +176,10 @@ export interface ReportTemplatesContent {
   reportSubtitle: string;
   preparedFor: string; // "{name}" optional interpolation
   generatedOn: string; // date label
+  /** Michael 2026-08-09 確認為事實：每一份報告他本人都讀過。
+   *  這是全站唯一「不是匿名服務」的證據，在此之前一個字都沒寫在報告上。
+   *  措辭只能講「讀過」，不可延伸成「他親手寫的」——判讀是機器產出、他過目。 */
+  readByFounder: string;
   limitedDataNote: string;
   bandLabels: Record<Band, string>;
   notEnoughSignal: string;

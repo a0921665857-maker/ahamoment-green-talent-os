@@ -5,6 +5,7 @@ export const reportTemplates: ReportTemplatesContent = {
   reportSubtitle: '一份針對你個人的判讀：定位、證據，與下一步。',
   preparedFor: '為 {name} 而寫',
   generatedOn: '產生於 {date}',
+  readByFounder: '這份判讀我本人看過。哪一段你覺得不準，回信直接告訴我。',
   limitedDataNote:
     '依據你目前提供的資料，這是一次局部掃描：部分段落的訊號比平常少。這份診斷選擇誠實面對，而不是假裝篤定。',
   bandLabels: { emerging: '萌芽', developing: '發展中', strong: '紮實' },
