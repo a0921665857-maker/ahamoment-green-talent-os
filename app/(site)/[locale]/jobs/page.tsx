@@ -5,6 +5,7 @@ import { isLocale } from '@/content/locales';
 import {
   greenJobs,
   greenJobsCopy,
+  isJobsSweepOnSchedule,
   type MarketKey,
   type WeeklyPick,
   type GreenJobsCopy,
@@ -12,6 +13,13 @@ import {
 import { newsletterCopy } from '@/content/newsletter';
 import { NewsletterSignup } from '@/components/NewsletterSignup';
 import { alternatesFor } from '@/lib/seoAlternates';
+
+/**
+ * 每小時重生。這頁的鮮度判斷用的是「現在」,而純靜態頁的「現在」是上次 build 的
+ * 時間——偏偏掃描線壞掉時就不會有新的 push、也就不會有新的 build,那道保險會跟著
+ * 一起凍住。ISR 讓它自己會過期。
+ */
+export const revalidate = 3600;
 
 const REGION_FLAG: Record<MarketKey, string> = { SG: '🇸🇬', TW: '🇹🇼', HK: '🇭🇰', UK: '🇬🇧' };
 
@@ -134,6 +142,7 @@ export default async function JobsPage({ params }: { params: Promise<{ locale: s
             <h2 className="text-2xl font-semibold tracking-tight">{t.weeklyTitle}</h2>
             <span className="whitespace-nowrap text-xs text-ink-soft">
               {t.updatedPrefix} {greenJobs.updatedAt}
+              {isJobsSweepOnSchedule(greenJobs.updatedAt) && <> · {t.nextUpdate}</>}
             </span>
           </div>
           {greenJobs.weeklyPicks.length === 0 ? (

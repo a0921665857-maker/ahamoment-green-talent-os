@@ -4,7 +4,12 @@ import { describe, expect, it } from 'vitest';
 import { copySurfaces } from '@/scripts/constitution/surfaces';
 import { getContent } from '@/content';
 import { costOfLiving } from '@/content/costOfLiving';
-import { greenJobs, greenJobsCopy } from '@/content/greenJobs';
+import {
+  greenJobs,
+  greenJobsCopy,
+  isJobsSweepOnSchedule,
+  JOBS_SWEEP_TOLERANCE_DAYS,
+} from '@/content/greenJobs';
 import { LEVELUP_EDITION, levelupName, levelupReports } from '@/content/levelup';
 import { navCopy } from '@/content/nav';
 import { newsletterCopy } from '@/content/newsletter';
@@ -98,10 +103,16 @@ describe('an update cadence is only promised where the page can prove it', () =>
     }
   });
 
-  /** The jobs radar states a date instead: `updatedAt`, printed beside the picks. */
-  it('the jobs radar copy promises no refresh cadence, and the page prints the date it does have', () => {
+  /**
+   * The jobs radar prints a date, and — since 2026-08-09 — a cadence beside it.
+   * `nextUpdate` is the one string on the site allowed to name a cadence, and only
+   * because `isJobsSweepOnSchedule()` withdraws it the moment the sweep stops
+   * delivering. Every other string here stays under the ban.
+   */
+  it('the jobs radar promises a cadence in exactly one string, and prints the date it has', () => {
     for (const locale of LOCALES) {
       for (const [path, value] of stringsUnder(greenJobsCopy[locale], `greenJobsCopy.${locale}`)) {
+        if (path.endsWith('.nextUpdate')) continue;
         expect(value, `${path} promises a refresh cadence the page cannot evidence`).not.toMatch(
           CADENCE,
         );
@@ -109,6 +120,34 @@ describe('an update cadence is only promised where the page can prove it', () =>
     }
     expect(jobsPage).toContain('greenJobs.updatedAt');
     expect(greenJobs.updatedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+
+  it('the cadence promise is rendered behind the freshness gate, never on its own', () => {
+    const line = jobsPage.split(/\r?\n/).find((l) => l.includes('t.nextUpdate'));
+    expect(line, 'the jobs page stopped printing a next-update line at all').toBeDefined();
+    expect(line, 'the cadence line renders unconditionally — it will outlive the sweep').toContain(
+      'isJobsSweepOnSchedule(greenJobs.updatedAt) &&',
+    );
+    // Static rendering would freeze that gate at build time, and a broken sweep
+    // is precisely the case where no new build happens.
+    expect(jobsPage, 'the jobs page is static again, so the gate cannot expire').toMatch(
+      /export const revalidate = \d+/,
+    );
+  });
+
+  it('the sweep is on schedule for a day, and off it after the tolerance window', () => {
+    const day = 86_400_000;
+    const swept = new Date('2026-08-09T00:00:00+08:00').getTime();
+    expect(isJobsSweepOnSchedule('2026-08-09', new Date(swept + 12 * 3_600_000))).toBe(true);
+    expect(
+      isJobsSweepOnSchedule('2026-08-09', new Date(swept + JOBS_SWEEP_TOLERANCE_DAYS * day)),
+    ).toBe(true);
+    expect(
+      isJobsSweepOnSchedule('2026-08-09', new Date(swept + (JOBS_SWEEP_TOLERANCE_DAYS + 1) * day)),
+    ).toBe(false);
+    // The 07-28 batch that sat on the page for 11 days must not have qualified.
+    expect(isJobsSweepOnSchedule('2026-07-28', new Date('2026-08-08T09:00:00+08:00'))).toBe(false);
+    expect(isJobsSweepOnSchedule('not-a-date')).toBe(false);
   });
 
   /**

@@ -16,6 +16,25 @@ import type { Locale } from '@/lib/constants';
  * The field name is left alone on purpose: renaming it would touch the scheduled
  * pipeline that writes this file, for no reader-visible gain.
  */
+/**
+ * 「更新於」單獨存在時,讀者只知道它有多舊,不知道還要不要再回來(2026-08-09,
+ * 鐵律 5 要求兩者都給)。所以現在也印下次更新——但只在管線真的在跑的時候。
+ *
+ * 掃描線是每日 10:40 的 green-jobs-daily。給到 3 天是因為它自己就會因為工作區
+ * 不乾淨而中止,連兩天不動屬正常;連三天不動就是壞了。壞掉的時候頁面**不改口
+ * 也不報警,單純不再承諾**——只留日期,讓讀者自己判斷。承諾一個沒在跑的節奏,
+ * 比什麼都不承諾更傷:那正是 07-28 那批在頁面上寫著「本週精選」躺了 11 天的事故。
+ */
+export const JOBS_SWEEP_TOLERANCE_DAYS = 3;
+
+/** 掃描線是否仍在節奏上;false 時 `nextUpdate` 那句不得渲染。 */
+export function isJobsSweepOnSchedule(updatedAt: string, now: Date = new Date()): boolean {
+  const updated = new Date(`${updatedAt}T00:00:00+08:00`).getTime();
+  if (Number.isNaN(updated)) return false;
+  const ageDays = (now.getTime() - updated) / 86_400_000;
+  return ageDays >= 0 && ageDays <= JOBS_SWEEP_TOLERANCE_DAYS;
+}
+
 export type MarketKey = 'SG' | 'TW' | 'HK' | 'UK';
 
 export interface JobLink {
@@ -311,6 +330,8 @@ export interface GreenJobsCopy {
   title: string;
   intro: string;
   updatedPrefix: string;
+  /** 只在 `isJobsSweepOnSchedule()` 為真時渲染,見上方註解。 */
+  nextUpdate: string;
   weeklyTitle: string;
   weeklyEmpty: string;
   mbaTitle: string;
@@ -331,6 +352,7 @@ export const greenJobsCopy: Record<Locale, GreenJobsCopy> = {
     intro:
       '我們不轉存、也不販售職缺。這頁把最值得盯的雇主和求職平台整理好，連結一律導向官方原始頁面。精選由排程掃描後更新，最後一次更新的日期就標在下面。',
     updatedPrefix: '最後更新於',
+    nextUpdate: '每天掃描一次',
     weeklyTitle: '精選職缺',
     weeklyEmpty: '精選整理中。留個 email 給《綠領情報》，下一批出來的時候我寄給你。',
     mbaTitle: 'MBA / 策略職',
@@ -349,6 +371,7 @@ export const greenJobsCopy: Record<Locale, GreenJobsCopy> = {
     intro:
       'We don’t re-host or resell listings — this page curates the employers and job boards worth watching, and every link points to the original source. Picks are refreshed by a scheduled sweep; the date of the last refresh is printed below.',
     updatedPrefix: 'Last updated',
+    nextUpdate: 'swept daily',
     weeklyTitle: 'Curated picks',
     weeklyEmpty: 'Picks are being curated. Leave an email for Green-Collar Intel and I’ll send the next batch when it goes out.',
     mbaTitle: 'MBA / strategy track',
