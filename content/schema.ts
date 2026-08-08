@@ -211,7 +211,6 @@ export interface PaidOffersContent {
   bookingNote: string; // "every booking starts with a free 30-min chat" framing
   confidentiality: string;
   bookCta: string;
-  payCta?: string; // direct-payment CTA label, used when a Stripe payment link is configured for an offer
   /** Scope-boundary heading on the services page ("this consultation does not…"). */
   notIncludedLabel: string;
   /** Heading above the decision-moment line on a service card. */
@@ -229,7 +228,7 @@ export interface PaidOffersContent {
   replyEmail: string; // founder email for the one-line reply mailto
   // Compact CTA card shown INSIDE the report (after the second section) — 30 days of
   // data showed zero booking clicks on the bottom-of-page CTA, so placement is on trial.
-  inlineCta: { line: string; bookCta: string; replyCta: string; lineCta: string };
+  inlineCta: { line: string; bookCta: string; replyCta: string };
   offers: Record<OfferId, OfferCopy>;
 }
 

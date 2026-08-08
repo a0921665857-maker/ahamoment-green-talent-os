@@ -11,7 +11,6 @@ export const paidOffers: PaidOffersContent = {
   bookingNote: '兩個服務都從一次 30 分鐘定位對談開始：我先問你三個問題，確認你面對的決策是什麼、我能不能真的幫上忙。適合，我會當場說要多少錢；不適合，我也會直接說。',
   confidentiality: '對談內容完全保密。未經你書面同意，你的資料絕不會被用作公開案例或見證。',
   bookCta: '約 30 分鐘定位對談',
-  payCta: '直接付款',
   notIncludedLabel: '這個服務不做什麼',
   decisionMomentLabel: '你現在站在哪一個決策前面',
   stickyCall: '免費 30 分鐘解讀',
@@ -31,7 +30,6 @@ export const paidOffers: PaidOffersContent = {
     line: '讀到這裡，如果有哪一段讓你想反駁、或想追問「所以我該怎麼做」，直接問我，我親手回，不是機器人。',
     bookCta: '免費 30 分鐘，我唸給你聽',
     replyCta: '回信問一個問題',
-    lineCta: '先加 LINE 保存報告',
   },
   offers: {
     intro_call_free: {

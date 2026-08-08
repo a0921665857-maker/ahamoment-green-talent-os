@@ -14,7 +14,6 @@ export const paidOffers: PaidOffersContent = {
   confidentiality:
     'Calls are private. Your materials are never used as public examples or testimonials without your explicit written permission.',
   bookCta: 'Book the 30-minute call',
-  payCta: 'Pay now',
   notIncludedLabel: 'What this does not do',
   decisionMomentLabel: 'The decision you are standing in front of',
   stickyCall: 'Free 30-min read',
@@ -34,7 +33,6 @@ export const paidOffers: PaidOffersContent = {
     line: 'If anything so far made you want to push back — or ask “so what do I actually do” — ask me directly. I answer personally, not a bot.',
     bookCta: 'Free 30 min — I’ll walk you through it',
     replyCta: 'Reply with one question',
-    lineCta: 'Save the report via LINE first',
   },
   offers: {
     intro_call_free: {
