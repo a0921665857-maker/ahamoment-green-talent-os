@@ -86,9 +86,13 @@ export function SiteHeader({
 
               display:contents at lg (not flex) so the doors are flex items of the
               row above rather than of a nested box — that is what puts them in the
-              same wrap context as the switcher. The element stays a real <nav> so
-              the landmark and its name survive; display:contents keeps ARIA
-              semantics in every browser this site supports. */}
+              same wrap context as the switcher. The element stays a real <nav>,
+              and the landmark survives the box being removed — verified in
+              Chrome's accessibility tree, which still reports
+              navigation "站內索引" with all six links under it. Browsers used to
+              drop implicit roles for display:contents; that was fixed years ago,
+              but if a target browser ever regressed it the failure mode is a lost
+              landmark, not a lost link. */}
           <nav aria-label={n.footerTitle} className="hidden lg:contents">
             {n.doors.map((d) => (
               <a
