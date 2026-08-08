@@ -18,6 +18,15 @@ import type { Locale } from '@/lib/constants';
 export interface NotFoundCopy {
   eyebrow: string;
   title: string;
+  /**
+   * The tab / history / bookmark / share title. Separate from `title` because a
+   * heading can rely on the page around it and a tab label cannot: out of
+   * context "這一頁不在這裡" could be any page on any site, so this one carries
+   * the site name. It is set by rendering a <title> element in the page's own
+   * JSX rather than by a metadata export — see app/not-found.tsx for why the
+   * export does nothing here.
+   */
+  metaTitle: string;
   body: string;
   homeCta: string;
   mriCta: string;
@@ -28,6 +37,7 @@ export const notFoundCopy: Record<Locale, NotFoundCopy> = {
   'zh-TW': {
     eyebrow: '404',
     title: '這一頁不在這裡',
+    metaTitle: '這一頁不在這裡 · AhaMoment 綠色職涯 MRI',
     body: '你打開的網址後面沒有頁面。可能是連結少了一段，也可能這一頁搬過位置。下面兩個出口都還通。',
     homeCta: '回首頁',
     mriCta: '做一次綠領 MRI（免費）→',
@@ -36,6 +46,7 @@ export const notFoundCopy: Record<Locale, NotFoundCopy> = {
   en: {
     eyebrow: '404',
     title: 'This page is not here',
+    metaTitle: 'This page is not here · AhaMoment Green Career MRI',
     body: 'The URL you opened has no page behind it. Either the link lost a piece on the way, or the page moved. Both exits below still work.',
     homeCta: 'Back to home',
     mriCta: 'Run the free green-career MRI →',

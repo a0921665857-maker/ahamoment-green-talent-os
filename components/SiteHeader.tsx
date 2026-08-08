@@ -55,25 +55,41 @@ export function SiteHeader({
           {siteName}
         </a>
 
-        {/* One rail, not two. The door list is the only part that changes with
-            width, so it is the only part that gets a breakpoint; the report link,
-            the language switcher and the menu button are mounted once and shared
-            by both layouts. They used to be written twice — once inside the
-            desktop nav, once beside the mobile toggle — which put two live
-            LanguageSwitcher instances in every page's DOM with one hidden by CSS,
-            and shipped a duplicate set of nav controls to assistive tech. */}
-        <div className="flex min-w-0 items-center gap-3 lg:gap-5">
+        {/* One rail, not two. The report link, the language switcher and the menu
+            button are mounted once and shared by both layouts. They used to be
+            written twice — once inside the desktop nav, once beside the mobile
+            toggle — which put two live LanguageSwitcher instances in every page's
+            DOM with one hidden by CSS, and shipped a duplicate set of nav controls
+            to assistive tech.
+
+            This row is the single wrap context, and that is load-bearing. The rail
+            is 812px wide from 1024px up (max-w-5xl caps it); the zh-TW doors plus
+            服務與定價 need 757px and the language switcher another 113px, so one of
+            them has to fall to a second line. The only acceptable one is the
+            switcher. Deduplicating the switcher by lifting it OUT of the nav and
+            into its own flex row made the nav a 679px box instead: the doors
+            filled it and 服務與定價 — the site's only paid-service entry — got
+            pushed alone onto row two, growing the zh-TW header 99px → 113px at
+            every desktop width. Keeping every wrappable item in one wrap context
+            restores the old line-breaking with only one switcher in the DOM.
+
+            Wrapping is lg-only. Below lg the row holds just the switcher and the
+            menu toggle, and at 375px they are ~6px wider than the space left over
+            from the site name — with wrap on, the switcher dropped to a second
+            line and the mobile header grew 77px → 105px. nowrap lets the site
+            name give up the pixels instead, which is what it did before. */}
+        <div className="flex min-w-0 flex-nowrap items-center justify-end gap-x-3 gap-y-2 lg:flex-wrap lg:gap-x-5">
           {/* Four doors plus the services button no longer fit between the site
               name and the language switcher at 768px, so the full rail waits for
               lg and the disclosure below covers md. Cramming them was the other
-              option and it produced two-line labels in a 44px-tall header. */}
-          {/* flex-wrap because the rail is 976px at 1024px exactly once a returning
-              reader's report link appears — one character more anywhere and it
-              would overflow. Wrapping to a second line is the graceful failure. */}
-          <nav
-            aria-label={n.footerTitle}
-            className="hidden min-w-0 flex-wrap items-center justify-end gap-x-5 gap-y-2 lg:flex"
-          >
+              option and it produced two-line labels in a 44px-tall header.
+
+              display:contents at lg (not flex) so the doors are flex items of the
+              row above rather than of a nested box — that is what puts them in the
+              same wrap context as the switcher. The element stays a real <nav> so
+              the landmark and its name survive; display:contents keeps ARIA
+              semantics in every browser this site supports. */}
+          <nav aria-label={n.footerTitle} className="hidden lg:contents">
             {n.doors.map((d) => (
               <a
                 key={d.href}
